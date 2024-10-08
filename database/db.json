@@ -1,0 +1,244 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Laptop Gaming XYZ",
+      "price": "30000000",
+      "description": "Laptop hiệu suất cao cho game thủ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://cellphones.com.vn/sforum/wp-content/uploads/2020/12/Lenovo-L340-6.jpg",
+      "brand": "XYZ",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA GTX 1650"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Laptop Văn Phòng ABC",
+      "price": "15000000",
+      "description": "Laptop nhẹ, bền bỉ, dành cho công việc văn phòng",
+      "category": "laptop-office",
+      "thumbnail": "https://file.hstatic.net/200000553329/article/z4481964623223_912c2fa851f857916d7dcc2f4af6a334_c111d738a1c846a8ada708c6f82a3d5b.jpg",
+      "brand": "ABC",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "256GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 3,
+      "name": "Laptop Like New 123",
+      "price": "20000000",
+      "description": "Laptop cũ, như mới, giá tốt",
+      "category": "laptop-like-new",
+      "thumbnail": "https://cdn.tgdd.vn/Files/2022/07/07/1445532/laptop-like-new-99-la-gi-co-tot-khong-co-nen-5.jpg",
+      "brand": "123",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "1TB HDD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 4,
+      "name": "Laptop Khuyến mãi 789",
+      "price": "10000000",
+      "description": "Laptop giá rẻ trong đợt khuyến mãi",
+      "category": "promotion",
+      "thumbnail": "https://cdn.tgdd.vn/Files/2022/07/07/1445532/laptop-like-new-99-la-gi-co-tot-khong-co-nen-5.jpg",
+      "brand": "789",
+      "specifications": {
+        "cpu": "Intel i3",
+        "ram": "4GB",
+        "storage": "128GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Laptop Gaming Super Z",
+      "price": "40000000",
+      "description": "Laptop cao cấp cho game thủ chuyên nghiệp",
+      "category": "laptop-gaming",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/322269/asus-tuf-gaming-a15-fa506nf-r5-hn012w-glr-3-750x500.jpg",
+      "brand": "Super Z",
+      "specifications": {
+        "cpu": "Intel i9",
+        "ram": "32GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3060"
+      }
+    },
+    {
+      "id": 6,
+      "name": "Laptop Học Sinh DEF",
+      "price": "7000000",
+      "description": "Laptop dành cho học sinh, giá phải chăng",
+      "category": "laptop-student",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/326830/hp-pavilion-x360-14-ek2024tu-core-5-9z2v6pa-thumb-new-600x600.jpg",
+      "brand": "DEF",
+      "specifications": {
+        "cpu": "Intel Pentium",
+        "ram": "4GB",
+        "storage": "128GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 7,
+      "name": "Laptop Văn Phòng Plus GHI",
+      "price": "22000000",
+      "description": "Laptop văn phòng với cấu hình mạnh mẽ hơn",
+      "category": "laptop-office",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/325699/acer-aspire-a515-58gm-53pz-i5-nxkq4sv008-thumb-1-600x600.jpg",
+      "brand": "GHI",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "Intel Iris Plus"
+      }
+    },
+    {
+      "id": 8,
+      "name": "Laptop Doanh Nhân JKL",
+      "price": "35000000",
+      "description": "Laptop sang trọng dành cho doanh nhân",
+      "category": "laptop-business",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/322612/macbook-air-13-inch-m3-2024-050324-020626-600x600.jpg",
+      "brand": "JKL",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 9,
+      "name": "Laptop Khuyến Mãi Max MNO",
+      "price": "12000000",
+      "description": "Laptop giảm giá trong chương trình khuyến mãi",
+      "category": "promotion",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/322269/asus-tuf-gaming-a15-fa506nf-r5-hn012w-glr-3-750x500.jpg",
+      "brand": "MNO",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "256GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 10,
+      "name": "Laptop Đồ Họa PQR",
+      "price": "27000000",
+      "description": "Laptop cấu hình mạnh mẽ cho công việc đồ họa",
+      "category": "laptop-graphics",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/282827/apple-macbook-air-m2-2022-xanh-600x600.jpg",
+      "brand": "PQR",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA Quadro"
+      }
+    },
+    {
+      "id": 11,
+      "name": "Laptop Chuyên Gia S",
+      "price": "45000000",
+      "description": "Laptop chuyên dụng cho công việc kỹ thuật",
+      "category": "laptop-professional",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/312414/asus-vivobook-15-x1504za-i3-nj102w-thumb-600x600.jpg",
+      "brand": "S",
+      "specifications": {
+        "cpu": "Intel i9",
+        "ram": "32GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3080"
+      }
+    },
+    {
+      "id": 12,
+      "name": "Laptop Xách Tay TUV",
+      "price": "15000000",
+      "description": "Laptop nhỏ gọn, dễ dàng mang theo",
+      "category": "laptop-portable",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/326194/dell-vostro-3520-i5-71030559-thumb-600x600.jpg",
+      "brand": "TUV",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "256GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 13,
+      "name": "Laptop Gaming Mini WXY",
+      "price": "25000000",
+      "description": "Laptop gaming nhỏ gọn nhưng mạnh mẽ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/317712/asus-vivobook-x1404za-i3-nk246w-thumb-600x600.jpg",
+      "brand": "WXY",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA GTX 1660"
+      }
+    },
+    {
+      "id": 14,
+      "name": "Laptop Đồ Họa ZAB",
+      "price": "32000000",
+      "description": "Laptop cao cấp cho công việc thiết kế đồ họa",
+      "category": "laptop-graphics",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/329337/acer-nitro-an515-58-773y-i7-12700h-nhqfksv00116g-260824-111846-600x600.jpg",
+      "brand": "ZAB",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3060"
+      }
+    },
+    {
+      "id": 15,
+      "name": "Laptop Like New CDX",
+      "price": "18000000",
+      "description": "Laptop cũ chất lượng cao với giá hợp lý",
+      "category": "laptop-like-new",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/322222/acer-aspire-3-a314-42p-r3b3-r7-nxksfsv001-thumb-600x600.jpg",
+      "brand": "CDX",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "1TB HDD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 16,
+      "name": "Laptop Học Sinh EFG",
+      "price": "8000000",
+      "description": "Laptop giá rẻ cho học sinh, sinh viên",
+      "category": "laptop-student",
+      "thumbnail": "https://cdn.tgdd.vn/Products/Images/44/311176/hp-pavilion-15-eg3093tu-i5-8c5l4pa-glr-thumb-600x600.jpg",
+      "brand": "EFG",
+      "specifications": {
+        "cpu": "Intel Celeron",
+        "ram": "4GB",
+        "storage": "128GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    }
+  ]
+}
