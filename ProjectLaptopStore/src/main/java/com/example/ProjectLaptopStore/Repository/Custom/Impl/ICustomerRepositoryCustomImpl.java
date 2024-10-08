@@ -63,6 +63,6 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
                 "FROM Customers c " +
                 "JOIN Users u ON u.UserID = c.UserID " +
                 "JOIN Orders o ON o.CustomerID = c.CustomerID " +
-                "ORDER BY o.OrderDate DESC";
+                "ORDER BY o.OrderDate DESC";wwwwwwwwwwwwwwwwwwwwww
     }
 }
