@@ -9,6 +9,22 @@
 body {
   font-family: Arial, sans-serif;
 }
+/* header */
+/* Logo */
+/* Định dạng chung cho layout với Bootstrap */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px; /* Thêm padding để nội dung không bị chèn vào cạnh */
+}
+
+/* Header */
+.header-custom {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  flex-wrap: wrap; /* Để cho các phần tử có thể xuống dòng khi không đủ không gian */
+}
 
 /* Logo */
 .logo img {
@@ -22,6 +38,7 @@ body {
   flex-grow: 5;
   max-width: 500px;
   margin-left: 20px;
+  flex-basis: 100%; /* Thay đổi để chiếm toàn bộ chiều rộng trên màn hình nhỏ */
 }
 
 #stext {
@@ -50,7 +67,6 @@ body {
 }
 
 /* Tài khoản người dùng */
-/* Phong cách cho biểu tượng người dùng */
 .user-account {
   position: relative;
   display: flex;
@@ -68,7 +84,7 @@ body {
   color: #007bff; /* Đổi màu biểu tượng khi hover */
 }
 
-/* Phong cách cho menu user */
+/* Menu user */
 .box-user {
   position: absolute;
   top: 60px;
@@ -99,7 +115,6 @@ body {
   color: #007bff;
 }
 
-/* Đăng nhập */
 #loginLink {
   color: #007bff;
   font-weight: bold;
@@ -110,28 +125,10 @@ body {
   text-decoration: underline;
 }
 
-/* Phong cách khi menu hiện ra */
 .user-account:focus-within .box-user,
 .user-account:hover .box-user {
   display: block;
 }
-
-/* Responsive chỉnh sửa cho mobile */
-@media (max-width: 768px) {
-  .box-user {
-    right: auto;
-    left: 0;
-    width: 100%;
-  }
-
-  .box-user li {
-    text-align: left;
-    padding: 8px 20px;
-  }
-}
-
-
-/* Tài khoản người dùng */
 
 /* Box Hotline */
 .box-hotline {
@@ -151,7 +148,6 @@ body {
   color: #000; /* Màu của số điện thoại */
 }
 
-
 /* Giỏ hàng */
 .cart {
   margin-left: 20px;
@@ -167,17 +163,41 @@ body {
 .cart:hover i {
   color: #007bff;
 }
-.header-custom{
-  display: flex;
-  width: 100%;
-  align-items: center;
+
+/* Responsive chỉnh sửa cho mobile */
+@media (max-width: 768px) {
+  .header-custom {
+    flex-direction: column; /* Để các phần tử xếp chồng lên nhau */
+    align-items: flex-start; /* Căn lề trái cho tất cả các phần tử */
+  }
+
+  .seach-form {
+    margin-left: 0; /* Bỏ margin trái trên màn hình nhỏ */
+    flex-basis: 100%; /* Cho phép form tìm kiếm chiếm toàn bộ chiều rộng */
+  }
+
+  .user-account,
+  .box-hotline,
+  .cart {
+    margin-left: 0; /* Bỏ margin trái trên màn hình nhỏ */
+    width: 100%; /* Đảm bảo chiếm toàn bộ chiều rộng */
+    text-align: center; /* Căn giữa cho tất cả các phần tử */
+  }
+
+  .box-user {
+    right: auto;
+    left: 0;
+    width: 100%; /* Đảm bảo menu user chiếm toàn bộ chiều rộng */
+  }
+
+  .box-user li {
+    text-align: left;
+    padding: 8px 20px; /* Tăng padding cho dễ nhấn trên màn hình nhỏ */
+  }
 }
-/* Định dạng chung cho layout với Bootstrap */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1px;
-}
+
+/* header */
+
 /* Banner */
 .container-large {
   display: flex;
@@ -229,11 +249,12 @@ body {
     display: flex;
     flex-wrap: wrap; /* Để các sản phẩm xuống dòng nếu quá nhiều */
     gap: 30px; /* Khoảng cách giữa các sản phẩm */
-    justify-content: center; /* Căn giữa các sản phẩm */
+    justify-content: flex-start; /* Căn trái các sản phẩm */
 }
 
 #featured-products .product-item {
-    flex: 1 1 300px; /* Đặt kích thước tối thiểu cho sản phẩm */
+    flex: 0 0 calc(25% - 30px); /* Đặt kích thước cố định cho sản phẩm: 25% trừ khoảng cách */
+    max-width: calc(25% - 30px); /* Giới hạn kích thước tối đa */
     border: 1px solid #ccc;
     border-radius: 10px; /* Bo góc cho sản phẩm */
     padding: 10px;
@@ -273,6 +294,29 @@ body {
     font-size: 16px; /* Kích thước chữ cho giá */
 }
 
+/* Responsive */
+
+@media (max-width: 1200px) {
+    #featured-products .product-item {
+        flex: 0 0 calc(33.33% - 30px); /* 3 sản phẩm trên một hàng */
+        max-width: calc(33.33% - 30px);
+    }
+}
+
+@media (max-width: 992px) {
+    #featured-products .product-item {
+        flex: 0 0 calc(50% - 30px); /* 2 sản phẩm trên một hàng */
+        max-width: calc(50% - 30px);
+    }
+}
+
+@media (max-width: 768px) {
+    #featured-products .product-item {
+        flex: 0 0 calc(100% - 30px); /* 1 sản phẩm trên một hàng */
+        max-width: calc(100% - 30px);
+    }
+}
+
 /* sanpham */
 
 
@@ -280,41 +324,49 @@ body {
 /* Style cho menu chính */
 .menu {
   background-color: #508dc9;
- 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
 }
 
-.menu-list {
-
-  justify-content: space-around;
-  align-items: center;
-
+/* Danh sách menu - căn chỉnh theo chiều ngang */
+.sub_list-attr {
+  display: flex;
 }
 
+/* Style cho các mục item trong menu */
 .item {
   position: relative;
   padding: 10px 20px;
-  border: 1px solid;
+  border: 1px solid transparent;
+  width: 100%;
+  transition: background-color 0.3s ease;
+  display: flex;
 }
 
+/* Khi hover vào item, thay đổi màu nền */
+.item:hover {
+  background-color: #44bed7;
+  width: 100%;
+}
 
+/* Giữ nguyên style của các link con */
 .item a {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
-  color: #333;
+  color: #110f10;
   padding-left: 10px;
+  transition: color 0.3s ease;
 }
 
-
-
+/* Style cho icon trong menu */
 .fa-laptop {
   margin-right: 8px;
 }
 
-/* Style cho sub_nav */
+/* Style cho sub_nav (menu con) */
 .sub_nav {
-  display: none;
+  display: none; /* Ẩn menu con ban đầu */
   position: absolute;
   top: 100%;
   left: 0;
@@ -322,26 +374,14 @@ body {
   background-color: #fff;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   z-index: 1;
-}
-
-.item:hover .sub_nav {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.sub_filter {
-  padding: 1px;
-  width: 100%;
-  
-}
-
-
-.sub_list-attr {
   padding: 10px;
-  display: flex;
-  list-style: none;
-
+  transition: opacity 0.3s ease;
   
+}
+
+/* Khi hover vào item, hiển thị menu con */
+.item:hover .sub_nav {
+ display: block;
 }
 
 /* Style cho các danh mục */
@@ -350,6 +390,7 @@ body {
   margin-bottom: 10px;
 }
 
+/* Tiêu đề của danh mục cấp 2 */
 .title-danhmuc-2 {
   font-weight: bold;
   font-size: 14px;
@@ -358,6 +399,7 @@ body {
   margin-bottom: 5px;
 }
 
+/* Các mục cấp 3 bên trong danh mục */
 .danhmuc-3 a {
   font-size: 13px;
   color: #007bff;
@@ -365,32 +407,18 @@ body {
   margin-bottom: 5px;
 }
 
+/* Khi hover vào link con, thay đổi màu chữ */
 .danhmuc-3 a:hover {
   color: #0056b3;
 }
 
-/* Đặt flex-wrap cho việc hiển thị nhiều cột */
-.danhmuc-3 {
-  width: 100%;
-}
-
-/* Đảm bảo tính responsive */
-@media (min-width: 768px) {
-  .menu-list {
-    justify-content: flex-start;
-  }
-
-  .item {
-    padding: 10px 40px;
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
   .menu-list {
     flex-direction: column;
     align-items: flex-start;
   }
-
+  
   .item {
     padding: 10px;
   }

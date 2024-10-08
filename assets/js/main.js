@@ -13,14 +13,14 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(error => console.error('Error fetching products:', error));
 
   // Chức năng lọc theo danh mục
-  const categoryLinks = document.querySelectorAll('.category-item a');
+  const categoryLinks = document.querySelectorAll('.item');
 
   // Gắn sự kiện click vào mỗi link trong danh mục
   categoryLinks.forEach(link => {
     link.addEventListener('click', function (event) {
       event.preventDefault(); // Ngăn việc trang tải lại khi nhấp vào link
 
-      const category = this.getAttribute('data-category');
+      const category = link.querySelector('a').getAttribute('data-category');
       fetchProductsByCategory(category); // Gọi hàm fetch API để lọc sản phẩm theo danh mục
     });
   });
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
   updateMenu();
 });
 
-document.querySelectorAll('.item js-hover-menu a').forEach(item => {
+document.querySelectorAll('.item').forEach(item => {
   item.addEventListener('click', function(e) {
     e.preventDefault(); // Ngăn chặn hành vi mặc định của liên kết
 

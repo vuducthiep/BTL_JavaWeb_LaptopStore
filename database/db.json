@@ -239,6 +239,307 @@
         "storage": "128GB SSD",
         "gpu": "Intel UHD Graphics"
       }
+    },
+
+    {
+      "id": 17,
+      "name": "Laptop Dell Inspiron 15",
+      "price": "23000000",
+      "description": "Laptop Dell với hiệu năng ổn định cho văn phòng và giải trí",
+      "category": "laptop-office",
+      "thumbnail": "https://laptopaz.vn/media/product/3201_dell_precision_7680.jpg",
+      "brand": "Dell",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA MX250"
+      }
+    },
+    {
+      "id": 18,
+      "name": "Laptop HP Pavilion x360",
+      "price": "25000000",
+      "description": "Laptop 2-in-1 linh hoạt với màn hình cảm ứng và hiệu năng mạnh mẽ",
+      "category": "laptop-convertible",
+      "thumbnail": "https://laptopaz.vn/media/product/120_2799_",
+      "brand": "HP",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Intel Iris Xe"
+      }
+    },
+    {
+      "id": 19,
+      "name": "Laptop Asus ROG Strix G17",
+      "price": "32000000",
+      "description": "Laptop gaming hiệu năng cao với thiết kế đẹp mắt và bền bỉ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3169_rog_flow_x13.jpg",
+      "brand": "Asus",
+      "specifications": {
+        "cpu": "AMD Ryzen 7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA GeForce RTX 3060"
+      }
+    },
+    {
+      "id": 20,
+      "name": "Laptop MacBook Air M2",
+      "price": "28000000",
+      "description": "MacBook Air với chip M2 cho hiệu năng vượt trội và thời lượng pin lâu",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3276_3239_lenovo_thinkbook_16_g7_2024.jpg",
+      "brand": "Apple",
+      "specifications": {
+        "cpu": "Apple M2",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "Apple GPU"
+      }
+    },
+    {
+      "id": 21,
+      "name": "Laptop Lenovo ThinkPad X1 Carbon",
+      "price": "34000000",
+      "description": "Laptop doanh nhân cao cấp, mỏng nhẹ và bền bỉ",
+      "category": "laptop-business",
+      "thumbnail": "https://cdn2.fptshop.com.vn/unsafe/150x0/filters:quality(100)/2024_6_25_638549195854522277_lenovo-yoga-book-9-13imu9-83ff001svn-thumb.png",
+      "brand": "Lenovo",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 22,
+      "name": "Laptop Acer Nitro 5",
+      "price": "28000000",
+      "description": "Laptop gaming mạnh mẽ với giá cả phải chăng",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3271_",
+      "brand": "Acer",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA GeForce RTX 3050"
+      }
+    },
+    {
+      "id": 23,
+      "name": "Laptop MSI GF63 Thin",
+      "price": "25000000",
+      "description": "Laptop gaming giá rẻ với thiết kế mỏng nhẹ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3306_",
+      "brand": "MSI",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA GTX 1650"
+      }
+    },
+    {
+      "id": 24,
+      "name": "Laptop Huawei MateBook D 14",
+      "price": "18000000",
+      "description": "Laptop mỏng nhẹ với hiệu năng mạnh mẽ từ Huawei",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3235_",
+      "brand": "Huawei",
+      "specifications": {
+        "cpu": "AMD Ryzen 5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "AMD Radeon Vega 8"
+      }
+    },
+    {
+      "id": 25,
+      "name": "Laptop Dell XPS 13",
+      "price": "34000000",
+      "description": "Laptop cao cấp với màn hình 4K và hiệu năng mạnh mẽ",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3235_",
+      "brand": "Dell",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Intel Iris Xe"
+      }
+    },
+    {
+      "id": 26,
+      "name": "Laptop Asus ZenBook 14",
+      "price": "26000000",
+      "description": "Laptop siêu mỏng nhẹ với màn hình viền siêu mỏng và hiệu năng cao",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3235_",
+      "brand": "Asus",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "Intel Iris Xe"
+      }
+    },
+    {
+      "id": 27,
+      "name": "Laptop HP Omen 15",
+      "price": "35000000",
+      "description": "Laptop gaming mạnh mẽ với khả năng làm mát tối ưu",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3416_3355_6e82gmmd_1503_lenovo_legion_5_r7000_ryzen_7_7845h_16gb_512gb_rtx_4060_8gb_15_6_fhd_144hz_new.jpg",
+      "brand": "HP",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3070"
+      }
+    },
+    {
+      "id": 28,
+      "name": "Laptop LG Gram 17",
+      "price": "40000000",
+      "description": "Laptop siêu nhẹ với màn hình lớn và thời lượng pin cực tốt",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3345_",
+      "brand": "LG",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Intel Iris Xe"
+      }
+    },
+    {
+      "id": 29,
+      "name": "Laptop Dell G3 15",
+      "price": "27000000",
+      "description": "Laptop gaming giá tốt với hiệu năng ổn định",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3174_",
+      "brand": "Dell",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "NVIDIA GTX 1650"
+      }
+    },
+    {
+      "id": 30,
+      "name": "Laptop Apple MacBook Pro 16",
+      "price": "60000000",
+      "description": "MacBook Pro với màn hình lớn và hiệu suất đỉnh cao",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/2868_g5_mf_02_f2e29c3baf5c4ffa8a7c6f0c07878471_master.png",
+      "brand": "Apple",
+      "specifications": {
+        "cpu": "Apple M1 Pro",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "Apple GPU"
+      }
+    },
+    {
+      "id": 31,
+      "name": "Laptop Razer Blade 15",
+      "price": "45000000",
+      "description": "Laptop gaming cao cấp với thiết kế mỏng nhẹ và hiệu năng mạnh mẽ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3389_",
+      "brand": "Razer",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3060"
+      }
+    },
+    {
+      "id": 32,
+      "name": "Laptop Microsoft Surface Laptop 4",
+      "price": "30000000",
+      "description": "Laptop với thiết kế cao cấp và màn hình cảm ứng siêu nét",
+      "category": "laptop-ultrabook",
+      "thumbnail": "https://laptopaz.vn/media/product/3366_asus_gaming_vivobook_k3605.jpg",
+      "brand": "Microsoft",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "Intel Iris Xe"
+      }
+    },
+    {
+      "id": 33,
+      "name": "Laptop Asus TUF Gaming A15",
+      "price": "32000000",
+      "description": "Laptop gaming bền bỉ với hiệu năng mạnh mẽ dành cho game thủ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3366_asus_gaming_vivobook_k3605.jpg",
+      "brand": "Asus",
+      "specifications": {
+        "cpu": "AMD Ryzen 7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3050"
+      }
+    },
+    {
+      "id": 34,
+      "name": "Laptop Acer Swift 3",
+      "price": "18000000",
+      "description": "Laptop mỏng nhẹ với giá thành hợp lý, phù hợp cho học tập và văn phòng",
+      "category": "laptop-office",
+      "thumbnail": "https://laptopaz.vn/media/product/3389_",
+      "brand": "Acer",
+      "specifications": {
+        "cpu": "Intel i5",
+        "ram": "8GB",
+        "storage": "512GB SSD",
+        "gpu": "Intel UHD Graphics"
+      }
+    },
+    {
+      "id": 35,
+      "name": "Laptop Lenovo Legion 5 Pro",
+      "price": "37000000",
+      "description": "Laptop gaming cao cấp với màn hình 165Hz và hiệu suất mạnh mẽ",
+      "category": "laptop-gaming",
+      "thumbnail": "https://laptopaz.vn/media/product/3366_asus_gaming_vivobook_k3605.jpg",
+      "brand": "Lenovo",
+      "specifications": {
+        "cpu": "AMD Ryzen 7",
+        "ram": "16GB",
+        "storage": "1TB SSD",
+        "gpu": "NVIDIA RTX 3060"
+      }
+    },
+    {
+      "id": 36,
+      "name": "Laptop Dell Latitude 7420",
+      "price": "38000000",
+      "description": "Laptop doanh nhân với bảo mật cao và thiết kế mỏng nhẹ",
+      "category": "laptop-business",
+      "thumbnail": "https://laptopaz.vn/media/product/2868_g5_mf_02_f2e29c3baf5c4ffa8a7c6f0c07878471_master.png",
+      "brand": "Dell",
+      "specifications": {
+        "cpu": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "gpu": "Intel Iris Xe"
+      }
     }
   ]
 }
