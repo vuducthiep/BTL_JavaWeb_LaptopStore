@@ -115,7 +115,7 @@ CREATE TABLE ProductDescription (
 	MaximumHardDriveUpgradeCapacity INT,  -- Dung lượng ổ cứng nâng cấp tối đa (TB)
 	SSDType VARCHAR(255),  -- Loại SSD (ví dụ: NVMe, SATA)
 	Capacity INT,  -- Dung lượng ổ cứng (GB)
-	ScreenSize VARCHAR(255),  -- Kích thước màn hình (inch)
+	ScreenSize VARCHAR(250),  -- Kích thước màn hình (inch)
 	DisplayTechnology VARCHAR(255),  -- Công nghệ màn hình (ví dụ: IPS, TN, VA)
 	Resolution VARCHAR(255),  -- Độ phân giải màn hình (ví dụ: 1920x1080)
 	ScreenType VARCHAR(255),  -- Loại màn hình (ví dụ: Màn hình LCD, Màn hình cảm ứng)
