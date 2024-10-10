@@ -71,6 +71,9 @@ public class AdminController {
         Integer result = customerService.countCustomers(params);
         return result;
     }
+
+
+
     //API lấy top sản phẩm
     @GetMapping(value = "/admin/topproduct/")
     public List<Product_FindTopPurchasedProductsDTO> TopProduct(){
