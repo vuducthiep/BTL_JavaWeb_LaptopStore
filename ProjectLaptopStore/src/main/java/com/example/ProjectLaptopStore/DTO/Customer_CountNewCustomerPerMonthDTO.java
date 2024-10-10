@@ -1,19 +1,21 @@
 package com.example.ProjectLaptopStore.DTO;
 
+import java.math.BigInteger;
+
 public class Customer_CountNewCustomerPerMonthDTO {
-    private Integer month;
+    private Long month;
     private Long customerCount;
 
-    public Customer_CountNewCustomerPerMonthDTO(Integer month, Long customerCount) {
+    public Customer_CountNewCustomerPerMonthDTO(Long month, Long customerCount) {
         this.month = month;
         this.customerCount = customerCount;
     }
 
-    public Integer getMonth() {
+    public Long getMonth() {
         return month;
     }
 
-    public void setMonth(Integer month) {
+    public void setMonth(Long month) {
         this.month = month;
     }
 

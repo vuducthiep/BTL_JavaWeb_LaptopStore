@@ -19,6 +19,13 @@ public class CustomerServiceImpl implements ICustomerService {
     private ICustomerRepository customerRepository;
     @Autowired
     private Customer_CountNewCustomerConverter customerCountNewCustomerConverter;
+
+    @Override
+    public List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth() {
+        List<Customer_CountNewCustomerPerMonthDTO> result = customerRepository.listNewCustomerPerMonth();
+        return result;
+    }
+
 //    @Override
 //    public Integer countCustomers(Map<String, Object> params) {
 //        CustomerSearchBuilder customerSearchBuilder = customerCountNewCustomerConverter.toCustomerSearchBuilder(params);

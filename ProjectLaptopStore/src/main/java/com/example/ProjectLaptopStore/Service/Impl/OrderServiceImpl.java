@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConverter;
+import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import com.example.ProjectLaptopStore.DTO.Order_TotalAmountInMonthDTO;
@@ -47,4 +48,12 @@ public class OrderServiceImpl implements IOrderService {
         List<Order_InvoiceDetailDTO> result = orderRepository.listInvoiceDetail();
         return result;
     }
+
+    @Override
+    public List<Order_CountTotalAmountDTO> listCountTotalAmountAtService() {
+        List<Order_CountTotalAmountDTO> result = orderRepository.listCountTotalAmount();
+        return result;
+    }
+
+
 }

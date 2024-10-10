@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Service;
 
+import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import com.example.ProjectLaptopStore.DTO.Order_TotalAmountInMonthDTO;
@@ -11,4 +12,5 @@ public interface IOrderService {
     Integer TotalCustomerInMonthAtService();
     List<Order_ListBillDTO> ListBillAtService();
     List<Order_InvoiceDetailDTO> ListInvoiceDetailAtService();
+    List<Order_CountTotalAmountDTO> listCountTotalAmountAtService();
 }

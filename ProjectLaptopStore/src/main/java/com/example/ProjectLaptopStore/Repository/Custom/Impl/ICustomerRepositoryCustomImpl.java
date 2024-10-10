@@ -11,6 +11,8 @@ import jakarta.persistence.Query;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,16 +61,20 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 
     @Override
     public List<Customer_CountNewCustomerPerMonthDTO> listNewCustomerPerMonth() {
-        String query = "SELECT MONTH(RegistrationDate) AS month, COUNT(DISTINCT CustomerID) AS customerCount "
-                + "FROM Customers "
-                + "WHERE YEAR(RegistrationDate) = YEAR(CURDATE()) "
-                + "GROUP BY MONTH(RegistrationDate)";
+        String query = "SELECT " +
+                "MONTH(RegistrationDate) AS month, " +
+                "COUNT(DISTINCT CustomerID) AS NewCustomerCount " +
+                "FROM " +
+                "Customers " +
+                "WHERE YEAR(RegistrationDate) = YEAR(CURDATE()) " +
+                "GROUP BY Month " +
+                "ORDER BY Month ";
         Query nativeQuery = entityManager.createNativeQuery(query) ;
-        List<Object[]> result = nativeQuery.getResultList();
+        List<Object[]> resultQuery = nativeQuery.getResultList();
         List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomer = new ArrayList<>();
-        for(Object[] rowOfResult : result) {
+        for(Object[] rowOfResult : resultQuery) {
             Customer_CountNewCustomerPerMonthDTO dto = new Customer_CountNewCustomerPerMonthDTO(
-                    (Integer) rowOfResult[0],
+                    (Long) rowOfResult[0],
                     (Long) rowOfResult[1]
             );
             listCountNewCustomer.add(dto);
@@ -76,8 +82,8 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         return listCountNewCustomer;
     }
 
-    @Override
-    public List<Customer_FindTopCustomer> findTopCustomer() {
+//    @Override
+//    public List<Customer_FindTopCustomer> findTopCustomer() {
 //        String query = "SELECT " +
 //                "o.OrderDate, " +
 //                "u.FullName, " +
@@ -85,6 +91,6 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 //                "JOIN Users u ON u.UserID = c.UserID " +
 //                "JOIN Orders o ON o.CustomerID = c.CustomerID " +
 //                "ORDER BY o.OrderDate DESC";
-        return null;
-    }
+//        return null;
+//    }
 }
