@@ -7,5 +7,5 @@ import java.util.Map;
 
 public interface ICustomerService {
 //    Integer countCustomers(Map<String, Object> params);
-//    List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth();
+    List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth();
 }

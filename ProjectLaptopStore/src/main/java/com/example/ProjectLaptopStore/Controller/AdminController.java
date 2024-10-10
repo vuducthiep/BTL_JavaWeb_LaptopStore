@@ -1,10 +1,7 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
-import com.example.ProjectLaptopStore.Service.ICustomerService;
-import com.example.ProjectLaptopStore.Service.IOrderService;
-import com.example.ProjectLaptopStore.Service.IProductService;
-import com.example.ProjectLaptopStore.Service.ISuppliersService;
+import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +28,8 @@ public class AdminController {
     @Autowired
     private ISuppliersService suppliersService;
 
+    @Autowired
+    private IOrderDetailService orderDetailService;
     //test
     @GetMapping(value = "/api/product/")
     public List<ProductDTO> ShowProduct(){
@@ -66,13 +65,34 @@ public class AdminController {
     }
 
     //API lấy số khách hàng mới trong thời điểm nhất định
+//    @GetMapping(value = "/admin/countcustomer/")
+//    public Integer CountNewCustomer(@RequestParam Map<String,Object> params){
+//        Integer result = customerService.countCustomers(params);
+//        return result;
+//    }
+
+
+   //API lấy số khách mới mỗi tháng cho biểu đồ
     @GetMapping(value = "/admin/countcustomer/")
-    public Integer CountNewCustomer(@RequestParam Map<String,Object> params){
-        Integer result = customerService.countCustomers(params);
+    public List<Customer_CountNewCustomerPerMonthDTO> CountCustomerInMonth(){
+        List<Customer_CountNewCustomerPerMonthDTO> result = customerService.listCountNewCustomerPerMonth();
         return result;
     }
 
 
+    //API lấy số sp bán được trong các tháng cho biểu đồ
+    @GetMapping(value = "/admin/quantitysell/")
+    public List<OrderDetail_CountQuantityProductPerMonthDTO> QuantitySellProduct(){
+        List<OrderDetail_CountQuantityProductPerMonthDTO> result = orderDetailService.listCountQuantityProductPerMonth();
+        return result;
+    }
+
+    //API lấy doanh thu trong các tháng
+    @GetMapping(value = "/admin/totalamount/")
+    public List<Order_CountTotalAmountDTO> TotalAmount(){
+        List<Order_CountTotalAmountDTO> result = orderService.listCountTotalAmountAtService();
+        return result;
+    }
 
     //API lấy top sản phẩm
     @GetMapping(value = "/admin/topproduct/")
@@ -101,5 +121,7 @@ public class AdminController {
         List<Order_InvoiceDetailDTO> result = orderService.ListInvoiceDetailAtService();
         return result;
     }
+
+
 
 }

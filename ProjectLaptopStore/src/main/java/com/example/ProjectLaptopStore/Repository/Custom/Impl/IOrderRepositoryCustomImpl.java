@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
+import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.OrderStatus_Enum;
@@ -92,7 +93,25 @@ public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
                     OrderStatus_Enum.valueOf((String) item[16]) // orderStatus
             );
         }
-
         return listInvoiceDTO;
+    }
+
+    @Override
+    public List<Order_CountTotalAmountDTO> listCountTotalAmount() {
+        String query ="SELECT MONTH(OrderDate) AS month, SUM(TotalAmount) AS totalRevenue " +
+                "FROM Orders WHERE YEAR(OrderDate) = YEAR(CURDATE()) " +
+                "GROUP BY MONTH(OrderDate) " +
+                "Order By MONTH(OrderDate) ";
+        Query queryNative = entityManager.createNativeQuery(query);
+        List<Object[]> result = queryNative.getResultList();
+        List<Order_CountTotalAmountDTO> listCountTotalAmountDTO = new ArrayList<>();
+        for (Object[] rowOfResult : result) {
+            Order_CountTotalAmountDTO dto = new Order_CountTotalAmountDTO(
+                    (Integer) rowOfResult[0],
+                    (BigDecimal) rowOfResult[1]
+            );
+            listCountTotalAmountDTO.add(dto);
+        }
+        return listCountTotalAmountDTO;
     }
 }

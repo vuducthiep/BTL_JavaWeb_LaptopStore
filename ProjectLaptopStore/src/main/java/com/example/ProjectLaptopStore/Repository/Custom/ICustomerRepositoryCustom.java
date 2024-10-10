@@ -11,6 +11,6 @@ import java.util.List;
 public interface ICustomerRepositoryCustom {
     List<Customer_CountNewCustomerPerMonthDTO> listNewCustomerPerMonth();
 //    Integer countNewCustomer(CustomerSearchBuilder customerSearchBuilder); //đếm số người dùng mới
-    List<Customer_FindTopCustomer> findTopCustomer(); //tìm danh sách khách mua nhiều nhất
+//    List<Customer_FindTopCustomer> findTopCustomer(); //tìm danh sách khách mua nhiều nhất
 }
 
