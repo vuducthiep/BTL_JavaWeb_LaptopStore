@@ -1,10 +1,15 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
+import com.example.ProjectLaptopStore.DTO.Product_CreateProductDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_UpdateProductDTO;
+import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.IProductRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import java.util.List;
 
 //sử dụng JDBC để lấy dữ liệu
 @Repository
+@Transactional
 public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
@@ -57,4 +63,41 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
 
 
     }
+
+    @Override
+    public void createProduct(Product_CreateProductDTO createProductDTO) {
+        ProductsEntity productsEntity = new ProductsEntity();
+        SuppliersEntity suppliersEntity = new SuppliersEntity();
+        suppliersEntity.setSupplierID(createProductDTO.getSupplierId());
+        productsEntity.setSupplier(suppliersEntity);
+        productsEntity.setProductName(createProductDTO.getProductName());
+        productsEntity.setBrand(createProductDTO.getProductBrand());
+        productsEntity.setModel(createProductDTO.getModel());
+        productsEntity.setPrice(createProductDTO.getPrice());
+        productsEntity.setStockQuantity(createProductDTO.getStockQuantity());
+        productsEntity.setDescription(createProductDTO.getDescription());
+        productsEntity.setWarrantyPeriod(createProductDTO.getWarrantyPeriod());
+        productsEntity.setReleaseDate(createProductDTO.getReleaseDate());
+        productsEntity.setImageURL(createProductDTO.getImageUrl());
+        entityManager.persist(productsEntity);
+    }
+
+    @Override
+    public ProductsEntity updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEntity productsEntityById) {
+        SuppliersEntity suppliersEntity = new SuppliersEntity();
+        suppliersEntity.setSupplierID(updateProductDTO.getSupplierId());
+        productsEntityById.setSupplier(suppliersEntity);
+        productsEntityById.setProductName(updateProductDTO.getProductName());
+        productsEntityById.setBrand(updateProductDTO.getProductBrand());
+        productsEntityById.setModel(updateProductDTO.getModel());
+        productsEntityById.setPrice(updateProductDTO.getPrice());
+        productsEntityById.setStockQuantity(updateProductDTO.getStockQuantity());
+        productsEntityById.setDescription(updateProductDTO.getDescription());
+        productsEntityById.setWarrantyPeriod(updateProductDTO.getWarrantyPeriod());
+        productsEntityById.setReleaseDate(updateProductDTO.getReleaseDate());
+        productsEntityById.setImageURL(updateProductDTO.getImageUrl());
+        return productsEntityById;
+    }
+
+
 }

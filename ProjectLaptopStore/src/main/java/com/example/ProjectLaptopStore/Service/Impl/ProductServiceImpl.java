@@ -3,9 +3,7 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.Convert.ProductAndSupplierDTOConverter;
 import com.example.ProjectLaptopStore.Convert.ProductDTOConverter;
 import com.example.ProjectLaptopStore.Convert.ProductSearchBuilderConverter;
-import com.example.ProjectLaptopStore.DTO.ProductAndSupplierDTO;
-import com.example.ProjectLaptopStore.DTO.ProductDTO;
-import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Repository.IProductRepository;
 import com.example.ProjectLaptopStore.Service.IProductService;
@@ -68,6 +66,18 @@ public class ProductServiceImpl implements IProductService {
     public List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService() {
         List<Product_FindTopPurchasedProductsDTO> result = productRepository.findAllProductsWithTotalQuantityOrdered();
         return result;
+    }
+
+    @Override
+    public void createNewProduct(Product_CreateProductDTO createProductDTO) {
+        productRepository.createProduct(createProductDTO);
+    }
+
+    @Override
+    public void updateProduct(Product_UpdateProductDTO updateProductDTO) {
+        ProductsEntity productsEntity = productRepository.findById(updateProductDTO.getProductId()).get();
+        ProductsEntity result = productRepository.updateProduct(updateProductDTO, productsEntity);
+        productRepository.save(result);
     }
 
 

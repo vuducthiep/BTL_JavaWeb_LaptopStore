@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.SuppliersConverter;
+import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.SuppliersDTO;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.ISuppliersRepository;
@@ -26,5 +27,10 @@ public class SuppliersServiceImpl implements ISuppliersService {
             result.add(suppliersDTO);
         }
         return result;
+    }
+
+    @Override
+    public void createSupplier(Supplier_CreateSupplierDTO creatSuppliers) {
+        suppliersRepository.createSupplier(creatSuppliers);
     }
 }

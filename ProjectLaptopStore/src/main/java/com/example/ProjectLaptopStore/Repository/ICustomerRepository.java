@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface ICustomerRepository extends JpaRepository<CustomerEntity,Integer>, ICustomerRepositoryCustom {
-
+    List<CustomerEntity> findAllByCustomerIDIn(Long[] ids);
 }

@@ -19,7 +19,7 @@ public class CustomerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer CustomerID;
+    private Integer customerID;
     @Column(name = "Address")
     private String address;
     @Column(name = "City")
