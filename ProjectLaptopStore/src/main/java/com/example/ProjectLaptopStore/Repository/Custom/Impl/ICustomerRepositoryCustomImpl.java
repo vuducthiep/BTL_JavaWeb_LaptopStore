@@ -3,6 +3,8 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomer;
+import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
 import com.example.ProjectLaptopStore.Repository.Custom.ICustomerRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.NoResultException;
@@ -81,6 +83,17 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         }
         return listCountNewCustomer;
     }
+
+    @Override
+    public void deleteCustomer(List<CustomerEntity> listCustomerDelete) {
+        for(CustomerEntity cusOfListDel : listCustomerDelete) {
+            cusOfListDel.setStatus(Customer_Enum.suspended);
+            entityManager.merge(cusOfListDel);
+        }
+        entityManager.flush();
+    }
+
+
 
 //    @Override
 //    public List<Customer_FindTopCustomer> findTopCustomer() {

@@ -3,10 +3,7 @@ package com.example.ProjectLaptopStore.Controller;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -106,6 +103,28 @@ public class AdminController {
     public List<SuppliersDTO> TopSuppliers(){
         List<SuppliersDTO> result = suppliersService.listTopSupplier();
         return result;
+    }
+    //API tạo sản phẩm
+    @PostMapping("/admin/createproduct/")
+    public void createProduct(@RequestBody Product_CreateProductDTO createProductDTO){
+        productService.createNewProduct(createProductDTO);
+    }
+    //API tạo nhà cung cấp
+    @PostMapping("/admin/createsupplier/")
+    public void createSupplier(@RequestBody Supplier_CreateSupplierDTO createSupplierDTO){
+        suppliersService.createSupplier(createSupplierDTO);
+    }
+
+    //API cập nhật  sản phẩm (trả về cho repo product chứa id)
+    @PutMapping("/admin/updateproduct/")
+    public void updateProduct(@RequestBody Product_UpdateProductDTO updateProductDTO){
+        productService.updateProduct(updateProductDTO);
+    }
+
+    //API xóa khách hàng ( thay đổi status)
+    @DeleteMapping("/admin/deletecustomer/{ids}")
+    public void deleteCustomer(@PathVariable Long[] ids){
+        customerService.deleteCustomerAtService(ids);
     }
 
     //API lấy danh sách bill

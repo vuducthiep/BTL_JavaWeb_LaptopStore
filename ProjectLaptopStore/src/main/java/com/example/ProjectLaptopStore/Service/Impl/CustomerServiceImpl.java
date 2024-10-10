@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.Convert.Customer_CountNewCustomerConverter;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
+import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Repository.ICustomerRepository;
 import com.example.ProjectLaptopStore.Service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,13 @@ public class CustomerServiceImpl implements ICustomerService {
     public List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth() {
         List<Customer_CountNewCustomerPerMonthDTO> result = customerRepository.listNewCustomerPerMonth();
         return result;
+    }
+
+    @Override
+    public void deleteCustomerAtService(Long[] ids) {
+        List<CustomerEntity> listCustomerDeleteById = customerRepository.findAllByCustomerIDIn(ids);
+        customerRepository.deleteCustomer(listCustomerDeleteById);
+
     }
 
 //    @Override
