@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
+import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomer;
 import com.example.ProjectLaptopStore.Repository.Custom.ICustomerRepositoryCustom;
 import jakarta.persistence.EntityManager;
@@ -10,6 +11,7 @@ import jakarta.persistence.Query;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -30,39 +32,59 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         }
     }
 
-    @Override
-    public Integer countNewCustomer(CustomerSearchBuilder customerSearchBuilder) {
-        StringBuilder sql = new StringBuilder("select count(distinct c.CustomerID) from customers c ");
-        StringBuilder where = new StringBuilder(" where 1=1 ");
-        queryNomal(customerSearchBuilder, where);
-        sql.append(where);
-        // Hiển thị câu lệnh trong console (nếu cần kiểm tra)
-        System.out.println(sql.toString());
+//    @Override
+//    public Integer countNewCustomer(CustomerSearchBuilder customerSearchBuilder) {
+//        StringBuilder sql = new StringBuilder("select count(distinct c.CustomerID) from customers c ");
+//        StringBuilder where = new StringBuilder(" where 1=1 ");
+//        queryNomal(customerSearchBuilder, where);
+//        sql.append(where);
+//        // Hiển thị câu lệnh trong console (nếu cần kiểm tra)
+//        System.out.println(sql.toString());
+//
+//        Query query = entityManager.createNativeQuery(sql.toString());
+//        // Set các tham số cho câu truy vấn
+//        if (customerSearchBuilder.getDateRegisterFrom() != null) {
+//            query.setParameter("dateRegisterFrom", customerSearchBuilder.getDateRegisterFrom());
+//        }
+//        if (customerSearchBuilder.getDateRegisterTo() != null) {
+//            query.setParameter("dateRegisterTo", customerSearchBuilder.getDateRegisterTo());
+//        }
+//        // Trả về kết quả duy nhất
+//        try {
+//            return ((Number) query.getSingleResult()).intValue();
+//        } catch (NoResultException e) {
+//            return 0;
+//        }
+//    }
 
-        Query query = entityManager.createNativeQuery(sql.toString());
-        // Set các tham số cho câu truy vấn
-        if (customerSearchBuilder.getDateRegisterFrom() != null) {
-            query.setParameter("dateRegisterFrom", customerSearchBuilder.getDateRegisterFrom());
+    @Override
+    public List<Customer_CountNewCustomerPerMonthDTO> listNewCustomerPerMonth() {
+        String query = "SELECT MONTH(RegistrationDate) AS month, COUNT(DISTINCT CustomerID) AS customerCount "
+                + "FROM Customers "
+                + "WHERE YEAR(RegistrationDate) = YEAR(CURDATE()) "
+                + "GROUP BY MONTH(RegistrationDate)";
+        Query nativeQuery = entityManager.createNativeQuery(query) ;
+        List<Object[]> result = nativeQuery.getResultList();
+        List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomer = new ArrayList<>();
+        for(Object[] rowOfResult : result) {
+            Customer_CountNewCustomerPerMonthDTO dto = new Customer_CountNewCustomerPerMonthDTO(
+                    (Integer) rowOfResult[0],
+                    (Long) rowOfResult[1]
+            );
+            listCountNewCustomer.add(dto);
         }
-        if (customerSearchBuilder.getDateRegisterTo() != null) {
-            query.setParameter("dateRegisterTo", customerSearchBuilder.getDateRegisterTo());
-        }
-        // Trả về kết quả duy nhất
-        try {
-            return ((Number) query.getSingleResult()).intValue();
-        } catch (NoResultException e) {
-            return 0;
-        }
+        return listCountNewCustomer;
     }
 
     @Override
     public List<Customer_FindTopCustomer> findTopCustomer() {
-        String query = "SELECT " +
-                "o.OrderDate, " +
-                "u.FullName, " +
-                "FROM Customers c " +
-                "JOIN Users u ON u.UserID = c.UserID " +
-                "JOIN Orders o ON o.CustomerID = c.CustomerID " +
-                "ORDER BY o.OrderDate DESC";wwwwwwwwwwwwwwwwwwwwww
+//        String query = "SELECT " +
+//                "o.OrderDate, " +
+//                "u.FullName, " +
+//                "FROM Customers c " +
+//                "JOIN Users u ON u.UserID = c.UserID " +
+//                "JOIN Orders o ON o.CustomerID = c.CustomerID " +
+//                "ORDER BY o.OrderDate DESC";
+        return null;
     }
 }
