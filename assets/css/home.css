@@ -245,54 +245,7 @@ body {
 /* Banner */
 
   /* sanpham */
-  #featured-products {
-    display: flex;
-    flex-wrap: wrap; /* Để các sản phẩm xuống dòng nếu quá nhiều */
-    gap: 30px; /* Khoảng cách giữa các sản phẩm */
-    justify-content: flex-start; /* Căn trái các sản phẩm */
-}
-
-#featured-products .product-item {
-    flex: 0 0 calc(25% - 30px); /* Đặt kích thước cố định cho sản phẩm: 25% trừ khoảng cách */
-    max-width: calc(25% - 30px); /* Giới hạn kích thước tối đa */
-    border: 1px solid #ccc;
-    border-radius: 10px; /* Bo góc cho sản phẩm */
-    padding: 10px;
-    text-align: center;
-    transition: transform 0.3s; /* Hiệu ứng chuyển động khi hover */
-    background-color: #f9f9f9; /* Màu nền cho sản phẩm */
-}
-
-#featured-products .product-item:hover {
-    transform: scale(1.05); /* Phóng to sản phẩm khi hover */
-}
-
-.product-link {
-    text-decoration: none; /* Bỏ gạch chân cho link */
-    color: inherit; /* Giữ nguyên màu chữ của link */
-}
-
-.product-image img {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Giữ tỷ lệ hình ảnh */
-    border-radius: 10px; /* Bo góc cho hình ảnh */
-}
-
-.product-info {
-    margin-top: 10px; /* Khoảng cách giữa hình ảnh và thông tin */
-}
-
-.product-title {
-    font-size: 18px; /* Kích thước chữ tiêu đề */
-    font-weight: bold; /* Chữ đậm cho tiêu đề */
-    margin: 10px 0; /* Khoảng cách giữa tiêu đề và giá */
-}
-
-.product-price {
-    color: #ff5722; /* Màu cho giá */
-    font-size: 16px; /* Kích thước chữ cho giá */
-}
+ 
 
 /* Responsive */
 
@@ -319,6 +272,97 @@ body {
 
 /* sanpham */
 
+/* Phần hiển thị sản phẩm */
+/* Danh sách sản phẩm nổi bật */
+#featured-products-list {
+  display: flex;
+  flex-wrap: wrap; /* Để các sản phẩm tự động xuống dòng */
+  gap: 20px; /* Khoảng cách giữa các sản phẩm */
+  justify-content: space-around; /* Căn đều các sản phẩm */
+  padding: 20px 0;
+}
+
+/* Danh sách sản phẩm thường */
+#regular-products-list {
+  display: flex; /* Sử dụng flexbox */
+  flex-wrap: wrap; /* Cho phép các sản phẩm xuống hàng */
+  gap: 20px; 
+  padding: 20px 0; /* Khoảng cách trên và dưới */
+}
+
+/* Sản phẩm thường */
+.product-item {
+  flex: 0 0 calc(33.33% - 20px); /* Mỗi sản phẩm chiếm 1/3 chiều rộng của hàng */
+  margin-bottom: 20px; /* Khoảng cách dưới mỗi sản phẩm */
+}
+
+/* Sản phẩm nổi bật */
+.featured-item {
+  flex: 0 0 calc(25% - 20px); /* Mỗi sản phẩm chiếm 25% chiều rộng, trừ đi khoảng cách */
+  max-width: calc(25% - 20px);
+}
+
+/* Các thuộc tính chung cho sản phẩm */
+.product-item, .featured-item {
+  border: 1px solid #ddd; /* Đường viền nhạt bao quanh sản phẩm */
+  border-radius: 10px; /* Bo góc cho sản phẩm */
+  background-color: #fff; /* Nền trắng */
+  transition: transform 0.3s, box-shadow 0.3s; /* Hiệu ứng chuyển động khi hover */
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ */
+}
+
+.product-item:hover, .featured-item:hover {
+  transform: scale(1.05); /* Phóng to sản phẩm khi hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Đổ bóng mạnh hơn khi hover */
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit; /* Giữ nguyên màu chữ của link */
+}
+
+.product-image img {
+  width: 100%; /* Hình ảnh chiếm toàn bộ chiều rộng của khung */
+  height: 200px; /* Chiều cao cố định */
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  border-radius: 10px; /* Bo góc cho hình ảnh */
+}
+
+.product-info {
+  margin-top: 10px;
+}
+
+.product-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.product-price {
+  color: #ff5722; /* Màu đỏ cam cho giá */
+  font-size: 16px;
+}
+
+/* Nút "Xem thêm" */
+#load-more-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#load-more-btn:hover {
+  background-color: #0056b3;
+}
+
+
+/* san pham */
 
 /* Danh mục */
 /* Style cho menu chính */
@@ -427,6 +471,64 @@ body {
 
 /* Danh mục */
 
+/* danh mục mới */
+.carousel-item {
+  padding: 5px;
+ 
+  justify-content: center; /* Căn giữa các phần tử */
+  gap: 20px; /* Tạo khoảng cách giữa các phần tử */
+}
+.carousel-item .col-3 {
+  border: 1px solid black; /* Border cho phần tử */
+  border-radius: 10px; /* Border-radius */
+  padding: 10px; /* Khoảng cách bên trong */
+  text-align: center; /* Căn giữa nội dung */
+ 
+  /* Thiết lập chiều rộng tối đa cho phần tử */
+  flex: 0 0 auto; /* Giúp phần tử không dãn ra hết chiều rộng */
+}
+
+
+.carousel-item > div {
+  
+  box-sizing: border-box;
+  text-align: center; /* Căn giữa nội dung */
+ 
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px; /* Kích thước nhỏ cho nút */
+    height: 40px; /* Kích thước nhỏ cho nút */
+    background-color: transparent; /* Màu nền ban đầu */
+    border: none; /* Bỏ viền */
+    transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    background-color: black; /* Màu nền khi hover */
+    border-radius: 50%; /* Bo tròn nút */
+}
+
+/*  */
+/*grid  */
+.custom-grid-item {
+  /* width: 60%; Đặt chiều rộng bạn muốn cho phần tử */
+  border: 1px solid black; /* Border cho phần tử */
+  border-radius: 10px; /* Border-radius */
+  padding: 10px; /* Khoảng cách bên trong */
+  text-align: center; /* Căn giữa nội dung */
+ 
+  /* Thiết lập chiều rộng tối đa cho phần tử */
+  flex: 0 0 auto;
+  max-width: 270px;
+  height: 65px; /* Bạn có thể đặt chiều rộng tối đa nếu cần */
+  flex-basis: auto; /* Đảm bảo không bị giới hạn chiều rộng */
+}
+
+
+/* grid */
 /* Banner */
 
 /* Định dạng cho slideshow */
@@ -678,3 +780,104 @@ footer .container {
   }
 }
 /* footer */
+
+/* Bộ lọc */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 20px;
+}
+
+.filter-container {
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Thêm hiệu ứng cho container */
+}
+
+.filter-container:hover {
+  transform: translateY(-2px); /* Hiệu ứng nhấc lên khi hover */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Tăng bóng khi hover */
+}
+
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.filter-group {
+  margin-bottom: 15px;
+}
+
+.filter-group h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #000000; /* Màu cho tiêu đề */
+  cursor: pointer;
+  font-size: 15px;
+  border: 1px solid #007bff; /* Sử dụng màu sắc chính cho viền */
+  border-radius: 5px;
+  padding: 10px; /* Thêm padding cho tiêu đề */
+  background-color: #f1f8ff; /* Nền nhẹ cho tiêu đề */
+  transition: background-color 0.2s ease; /* Thêm hiệu ứng chuyển màu nền */
+}
+
+.filter-group h4:hover {
+  background-color: #d1e7fd; /* Màu nền khi hover */
+}
+
+.filter-items {
+  margin-top: 10px;
+  padding-left: 20px;
+  transition: max-height 0.2s ease; /* Thêm hiệu ứng chuyển động */
+ 
+}
+
+.filter-group.active .filter-items {
+  max-height: 300px; /* Chiều cao tối đa khi mở */
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #007bff; /* Màu cho nút */
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.toggle-btn:hover {
+  color: #0056b3; /* Màu khi hover */
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Màu khi hover */
+}
+
+
+/* Bộ lọc */
