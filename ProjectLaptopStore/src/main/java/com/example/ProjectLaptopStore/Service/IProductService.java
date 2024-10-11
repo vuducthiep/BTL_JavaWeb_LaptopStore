@@ -12,4 +12,5 @@ public interface IProductService {
     List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService();
     void createNewProduct(Product_CreateProductDTO createProductDTO);
     void updateProduct(Product_UpdateProductDTO updateProductDTO);
+    void deleteProduct(Long[] ids);
 }

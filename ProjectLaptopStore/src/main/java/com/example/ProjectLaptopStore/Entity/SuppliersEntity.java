@@ -14,7 +14,7 @@ public class SuppliersEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int SupplierID;
+    private int supplierID;
     @Column(name = "SupplierName",nullable = false)
     private String supplierName;
     @Column(name = "Address")
@@ -39,11 +39,11 @@ public class SuppliersEntity implements Serializable {
     private List<ProductsEntity> products = new ArrayList<>();
 
     public int getSupplierID() {
-        return SupplierID;
+        return supplierID;
     }
 
     public void setSupplierID(int supplierID) {
-        SupplierID = supplierID;
+        supplierID = supplierID;
     }
 
     public String getSupplierName() {

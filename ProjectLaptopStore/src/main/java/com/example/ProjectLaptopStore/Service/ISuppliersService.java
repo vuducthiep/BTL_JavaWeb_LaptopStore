@@ -8,4 +8,5 @@ import java.util.List;
 public interface ISuppliersService {
     List<SuppliersDTO> listTopSupplier();
     void createSupplier(Supplier_CreateSupplierDTO creatSuppliers);
+    void deleteSupplier(Long[] ids);
 }

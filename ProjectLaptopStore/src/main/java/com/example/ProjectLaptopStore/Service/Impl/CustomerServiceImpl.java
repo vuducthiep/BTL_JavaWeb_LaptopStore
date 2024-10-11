@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.Convert.Customer_CountNewCustomerConverter;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
+import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Repository.ICustomerRepository;
 import com.example.ProjectLaptopStore.Service.ICustomerService;
@@ -32,6 +33,11 @@ public class CustomerServiceImpl implements ICustomerService {
         List<CustomerEntity> listCustomerDeleteById = customerRepository.findAllByCustomerIDIn(ids);
         customerRepository.deleteCustomer(listCustomerDeleteById);
 
+    }
+
+    @Override
+    public void createCustomerAtService(Customer_CreateCustomerDTO customerCreate) {
+        customerRepository.createCustomer(customerCreate);
     }
 
 //    @Override

@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface ISuppliersRepository extends JpaRepository<SuppliersEntity,Integer> , ISuppliersRepositoryCustom {
     List<SuppliersEntity> findAll();
+    void deleteBySupplierIDIn(Long[] ids);
 }
