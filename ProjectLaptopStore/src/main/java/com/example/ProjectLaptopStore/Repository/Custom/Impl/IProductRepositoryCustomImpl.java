@@ -75,7 +75,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
         productsEntity.setModel(createProductDTO.getModel());
         productsEntity.setPrice(createProductDTO.getPrice());
         productsEntity.setStockQuantity(createProductDTO.getStockQuantity());
-        productsEntity.setDescription(createProductDTO.getDescription());
+//        productsEntity.setDescription(createProductDTO.getDescription());
         productsEntity.setWarrantyPeriod(createProductDTO.getWarrantyPeriod());
         productsEntity.setReleaseDate(createProductDTO.getReleaseDate());
         productsEntity.setImageURL(createProductDTO.getImageUrl());
@@ -92,7 +92,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
         productsEntityById.setModel(updateProductDTO.getModel());
         productsEntityById.setPrice(updateProductDTO.getPrice());
         productsEntityById.setStockQuantity(updateProductDTO.getStockQuantity());
-        productsEntityById.setDescription(updateProductDTO.getDescription());
+   //     productsEntityById.setDescription(updateProductDTO.getDescription());
         productsEntityById.setWarrantyPeriod(updateProductDTO.getWarrantyPeriod());
         productsEntityById.setReleaseDate(updateProductDTO.getReleaseDate());
         productsEntityById.setImageURL(updateProductDTO.getImageUrl());

@@ -12,14 +12,14 @@ public class ProductDTOConverter {
     private ModelMapper modelMapper;
     public ForTest_ProductDTO toProductDTO(ProductsEntity productsEntity) {
         ForTest_ProductDTO productDTO = modelMapper.map(productsEntity, ForTest_ProductDTO.class);
-        productDTO.setProductName(productsEntity.getProductName());
-        productDTO.setBrand(productsEntity.getBrand());
-        productDTO.setPrice(productsEntity.getPrice());
-        productDTO.setStockQuantity(productsEntity.getStockQuantity());
-        productDTO.setDescription(productsEntity.getDescription());
-        productDTO.setReleaseDate(productsEntity.getReleaseDate());
-        productDTO.setWarrantyPeriod(productsEntity.getWarrantyPeriod());
-        productDTO.setImageURL(productsEntity.getImageURL());
+//        productDTO.setProductName(productsEntity.getProductName());
+//        productDTO.setBrand(productsEntity.getBrand());
+//        productDTO.setPrice(productsEntity.getPrice());
+//        productDTO.setStockQuantity(productsEntity.getStockQuantity());
+//        productDTO.setDescription(productsEntity.getDescription());
+//        productDTO.setReleaseDate(productsEntity.getReleaseDate());
+//        productDTO.setWarrantyPeriod(productsEntity.getWarrantyPeriod());
+//        productDTO.setImageURL(productsEntity.getImageURL());
         return productDTO;
     }
 }
