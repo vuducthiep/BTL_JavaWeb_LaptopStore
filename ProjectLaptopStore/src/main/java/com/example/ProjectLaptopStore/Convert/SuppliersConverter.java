@@ -1,6 +1,6 @@
 package com.example.ProjectLaptopStore.Convert;
 
-import com.example.ProjectLaptopStore.DTO.SuppliersDTO;
+import com.example.ProjectLaptopStore.DTO.ForTest_SuppliersDTO;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class SuppliersConverter {
     @Autowired
     private ModelMapper modelMapper;
-    public SuppliersDTO toSuppliersDTO(SuppliersEntity suppliersEntity) {
-        SuppliersDTO suppliersDTO = modelMapper.map(suppliersEntity, SuppliersDTO.class);
+    public ForTest_SuppliersDTO toSuppliersDTO(SuppliersEntity suppliersEntity) {
+        ForTest_SuppliersDTO suppliersDTO = modelMapper.map(suppliersEntity, ForTest_SuppliersDTO.class);
         suppliersDTO.setSupplierName(suppliersEntity.getSupplierName());
         suppliersDTO.setAddress(suppliersEntity.getAddress());
         suppliersDTO.setPhoneNumber(suppliersEntity.getPhoneNumber());

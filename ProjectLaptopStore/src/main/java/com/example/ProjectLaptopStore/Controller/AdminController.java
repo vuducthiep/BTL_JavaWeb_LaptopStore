@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class AdminController {
@@ -29,20 +28,20 @@ public class AdminController {
     private IOrderDetailService orderDetailService;
     //test
     @GetMapping(value = "/api/product/")
-    public List<ProductDTO> ShowProduct(){
-        List<ProductDTO> result = productService.findAllProducts();
+    public List<ForTest_ProductDTO> ShowProduct(){
+        List<ForTest_ProductDTO> result = productService.findAllProducts();
         return result;
     }
     //test
     @GetMapping(value = "/api/product/{productName}/{brand}")
-    public List<ProductDTO> SearchProductByNameAndBrand(@PathVariable String productName, @PathVariable String brand){
-        List<ProductDTO> result = productService.findByNameContainingAndBrandContainingAtService(productName,brand);
+    public List<ForTest_ProductDTO> SearchProductByNameAndBrand(@PathVariable String productName, @PathVariable String brand){
+        List<ForTest_ProductDTO> result = productService.findByNameContainingAndBrandContainingAtService(productName,brand);
         return result;
     }
     //test
     @GetMapping(value = "/api/search/{productName}/{supplierName}")
-    public List<ProductAndSupplierDTO> SearchProductByNameProductAndNameSupplier(@PathVariable String productName, @PathVariable String supplierName){
-        List<ProductAndSupplierDTO> result = productService.findByProductNameAndSupplier_SupplierNameAtService(productName,supplierName);
+    public List<ForTest_ProductAndSupplierDTO> SearchProductByNameProductAndNameSupplier(@PathVariable String productName, @PathVariable String supplierName){
+        List<ForTest_ProductAndSupplierDTO> result = productService.findByProductNameAndSupplier_SupplierNameAtService(productName,supplierName);
         return result;
     }
 
@@ -100,8 +99,8 @@ public class AdminController {
 
     //API lấy top nhà cung cấp
     @GetMapping(value = "/admin/topsuppliers/")
-    public List<SuppliersDTO> TopSuppliers(){
-        List<SuppliersDTO> result = suppliersService.listTopSupplier();
+    public List<ForTest_SuppliersDTO> TopSuppliers(){
+        List<ForTest_SuppliersDTO> result = suppliersService.listTopSupplier();
         return result;
     }
 
@@ -127,6 +126,18 @@ public class AdminController {
     public void updateProduct(@RequestBody Product_UpdateProductDTO updateProductDTO){
         productService.updateProduct(updateProductDTO);
     }
+
+    //API cập nhật người dùng
+    @PutMapping("/admin/updatecustomer/")
+    public void updateCustomer(@RequestBody Customer_UpdateCustomerDTO customerUpdateDTO){
+        customerService.updateCustomerAtService(customerUpdateDTO);
+    }
+    //API cập nhật nhà cung cấp
+    @PutMapping("/admin/updatesupplier/")
+    public void updateSupplier(@RequestBody Supplier_UpdateSupplierDTO supplierUpdateDTO){
+        suppliersService.updateSupplier(supplierUpdateDTO);
+    }
+
 
     // cách chạy test api xóa trên postman là đẩy id sản phẩm về thanh param (dạng check box)
     // http://localhost:8080/admin/deleteproduct/5,6,2

@@ -2,7 +2,8 @@ package com.example.ProjectLaptopStore.DTO;
 
 import java.util.Date;
 
-public class Customer_CreateCustomerDTO {
+public class Customer_UpdateCustomerDTO {
+    private Integer customerId;
     private String fullName;
     private String email;
     private String address;
@@ -14,7 +15,8 @@ public class Customer_CreateCustomerDTO {
     private String passWord;
     private String phoneNumber;
 
-    public Customer_CreateCustomerDTO(String fullName, String email, String address, String city, String district, String ward, String streetAddress, Date registrationDate, String passWord, String phoneNumber) {
+    public Customer_UpdateCustomerDTO(Integer customerId, String fullName, String email, String address, String city, String district, String ward, String streetAddress, Date registrationDate, String passWord, String phoneNumber) {
+        this.customerId = customerId;
         this.fullName = fullName;
         this.email = email;
         this.address = address;
@@ -25,6 +27,14 @@ public class Customer_CreateCustomerDTO {
         this.registrationDate = registrationDate;
         this.passWord = passWord;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
     }
 
     public String getFullName() {

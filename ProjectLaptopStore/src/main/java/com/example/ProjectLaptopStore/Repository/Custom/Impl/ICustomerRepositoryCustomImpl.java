@@ -4,6 +4,7 @@ import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomer;
+import com.example.ProjectLaptopStore.DTO.Customer_UpdateCustomerDTO;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
@@ -100,7 +101,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
     public void createCustomer(Customer_CreateCustomerDTO customerCreate) {
         CustomerEntity customerEntity = new CustomerEntity();
         UserEntity userEntity = new UserEntity();
-        userEntity.setFullName(customerCreate.getFullname());
+        userEntity.setFullName(customerCreate.getFullName());
         userEntity.setEmail(customerCreate.getEmail());
         userEntity.setPassword(customerCreate.getPassWord());
         userEntity.setPhoneNumber(customerCreate.getPhoneNumber());
@@ -116,6 +117,27 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         customerEntity.setStatus(Customer_Enum.active);
         entityManager.persist(userEntity);
         entityManager.persist(customerEntity);
+    }
+
+    @Override
+    public void updateCustomer(Customer_UpdateCustomerDTO customerUpdate, CustomerEntity customerEntity, UserEntity userEntity) {
+        userEntity.setFullName(customerUpdate.getFullName());
+        userEntity.setEmail(customerUpdate.getEmail());
+        userEntity.setPassword(customerUpdate.getPassWord());
+        userEntity.setPhoneNumber(customerUpdate.getPhoneNumber());
+        userEntity.setUserType(User_Enum.customer);
+        userEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
+        customerEntity.setUser(userEntity);
+        customerEntity.setAddress(customerUpdate.getAddress());
+        customerEntity.setCity(customerUpdate.getCity());
+        customerEntity.setDistrict(customerUpdate.getDistrict());
+        customerEntity.setWard(customerUpdate.getWard());
+        customerEntity.setStreetAddress(customerUpdate.getStreetAddress());
+        customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
+        customerEntity.setStatus(Customer_Enum.active);
+        entityManager.merge(userEntity);
+        entityManager.merge(customerEntity);
+        entityManager.flush();
     }
 
 

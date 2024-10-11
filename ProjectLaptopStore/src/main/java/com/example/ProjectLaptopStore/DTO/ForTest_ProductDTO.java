@@ -1,16 +1,16 @@
 package com.example.ProjectLaptopStore.DTO;
 
 import java.util.Date;
-//lớp DTO hiện thị thông tin product kết hợp supplier
-public class ProductAndSupplierDTO {
+
+public class ForTest_ProductDTO {
     private String productName;
     private String brand;
     private String model;
     private Float price;
-//    private Integer stockQuantity;
+    private Integer stockQuantity;
     private String description;
-//    private Date releaseDate;
-//    private Integer warrantyPeriod;
+    private Date releaseDate;
+    private Integer warrantyPeriod;
     private String imageURL;
 
     public String getProductName() {
@@ -45,12 +45,36 @@ public class ProductAndSupplierDTO {
         this.price = price;
     }
 
+    public Integer getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(Integer stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Date getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public Integer getWarrantyPeriod() {
+        return warrantyPeriod;
+    }
+
+    public void setWarrantyPeriod(Integer warrantyPeriod) {
+        this.warrantyPeriod = warrantyPeriod;
     }
 
     public String getImageURL() {
@@ -60,6 +84,4 @@ public class ProductAndSupplierDTO {
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
     }
-
-
 }
