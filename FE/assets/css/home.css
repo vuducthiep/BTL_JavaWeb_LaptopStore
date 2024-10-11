@@ -50,7 +50,7 @@ body {
 }
 
 #sbutton {
-  background-color: #007bff;
+  background-color: #050606;
   border: none;
   padding: 10px;
   border-radius: 0 4px 4px 0;
@@ -853,18 +853,18 @@ input[type="checkbox"] {
 .toggle-btn {
   background: none;
   border: none;
-  color: #007bff; /* Màu cho nút */
+  color: #f02d2d; /* Màu cho nút */
   font-size: 16px;
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .toggle-btn:hover {
-  color: #0056b3; /* Màu khi hover */
+  color: #f02d2d; /* Màu khi hover */
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #f02d2d;
   color: #ffffff;
   border: none;
   padding: 10px 15px;
@@ -876,7 +876,7 @@ input[type="checkbox"] {
 }
 
 .btn-primary:hover {
-  background-color: #0056b3; /* Màu khi hover */
+  background-color: #db1010; 
 }
 
 
