@@ -15,7 +15,7 @@ public class ProductsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ProductID;
+    private Integer productID;
 //    @Column(name = "SupplierID") khóa ngoài
 //    private Integer suppierId;
     @Column(name = "ProductName", nullable = false)
@@ -28,8 +28,10 @@ public class ProductsEntity implements Serializable {
     private Float price;
     @Column(name = "StockQuantity",nullable = false)
     private Integer stockQuantity;
-    @Column(name = "Description")
-    private String description;
+
+    @OneToOne(mappedBy = "product")
+    private  ProductDescriptionEntity productDescription;
+
     @Column(name = "ReleaseDate")
     private Date releaseDate;
     @Column(name = "WarrantyPeriod")
@@ -83,11 +85,11 @@ public class ProductsEntity implements Serializable {
     }
 
     public Integer getProductID() {
-        return ProductID;
+        return productID;
     }
 
     public void setProductID(Integer productID) {
-        ProductID = productID;
+        productID = productID;
     }
 
 
@@ -131,12 +133,12 @@ public class ProductsEntity implements Serializable {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getDescription() {
-        return description;
+    public ProductDescriptionEntity getProductDescription() {
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductDescription(ProductDescriptionEntity productDescription) {
+        this.productDescription = productDescription;
     }
 
     public Date getReleaseDate() {

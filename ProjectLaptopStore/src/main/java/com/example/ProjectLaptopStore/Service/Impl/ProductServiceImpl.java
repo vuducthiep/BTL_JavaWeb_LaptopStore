@@ -29,34 +29,34 @@ public class ProductServiceImpl implements IProductService {
     private ProductAndSupplierDTOConverter productAndSupplierDTOConverter;
 
     @Override
-    public List<ProductDTO> findAllProducts() {
+    public List<ForTest_ProductDTO> findAllProducts() {
 //        ProductSearchBuilder productSearchBuilder = productSearchBuilderConverter.toProductSearchBuilder(params);
         List<ProductsEntity> productsEntities = productRepository.findAll();
-        List<ProductDTO> result = new ArrayList<>();
+        List<ForTest_ProductDTO> result = new ArrayList<>();
         for (ProductsEntity productsEntity : productsEntities) {
-            ProductDTO productDTO = productDTOConverter.toProductDTO(productsEntity);
+            ForTest_ProductDTO productDTO = productDTOConverter.toProductDTO(productsEntity);
             result.add(productDTO);
         }
         return result;
     }
 
     @Override
-    public List<ProductDTO> findByNameContainingAndBrandContainingAtService(String productName, String brand) {
+    public List<ForTest_ProductDTO> findByNameContainingAndBrandContainingAtService(String productName, String brand) {
         List<ProductsEntity> productsEntities = productRepository.findByProductNameContainingAndBrandContaining(productName, brand);
-        List<ProductDTO> result = new ArrayList<>();
+        List<ForTest_ProductDTO> result = new ArrayList<>();
         for (ProductsEntity productsEntity : productsEntities) {
-            ProductDTO productDTO = productDTOConverter.toProductDTO(productsEntity);
+            ForTest_ProductDTO productDTO = productDTOConverter.toProductDTO(productsEntity);
             result.add(productDTO);
         }
         return result;
     }
 
     @Override
-    public List<ProductAndSupplierDTO> findByProductNameAndSupplier_SupplierNameAtService(String productName, String supplierName) {
+    public List<ForTest_ProductAndSupplierDTO> findByProductNameAndSupplier_SupplierNameAtService(String productName, String supplierName) {
         List<ProductsEntity> productsEntities = productRepository.findByProductNameContainingAndSupplier_SupplierNameContaining(productName, supplierName);
-        List<ProductAndSupplierDTO> result = new ArrayList<>();
+        List<ForTest_ProductAndSupplierDTO> result = new ArrayList<>();
         for (ProductsEntity productsEntity : productsEntities) {
-            ProductAndSupplierDTO productAndSupplierDTO = productAndSupplierDTOConverter.toProductAndSupplierDTO(productsEntity);
+            ForTest_ProductAndSupplierDTO productAndSupplierDTO = productAndSupplierDTOConverter.toProductAndSupplierDTO(productsEntity);
             result.add(productAndSupplierDTO);
         }
         return result;
@@ -78,6 +78,11 @@ public class ProductServiceImpl implements IProductService {
         ProductsEntity productsEntity = productRepository.findById(updateProductDTO.getProductId()).get();
         ProductsEntity result = productRepository.updateProduct(updateProductDTO, productsEntity);
         productRepository.save(result);
+    }
+
+    @Override
+    public void deleteProduct(Long[] ids) {
+        productRepository.deleteByProductIDIn(ids);
     }
 
 

@@ -2,20 +2,23 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
-import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomer;
+import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
+import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomerInMonthDTO;
+import com.example.ProjectLaptopStore.DTO.Customer_UpdateCustomerDTO;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
+import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.ICustomerRepositoryCustom;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.NoResultException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -93,6 +96,104 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         entityManager.flush();
     }
 
+    @Override
+    public void createCustomer(Customer_CreateCustomerDTO customerCreate) {
+        CustomerEntity customerEntity = new CustomerEntity();
+        UserEntity userEntity = new UserEntity();
+        userEntity.setFullName(customerCreate.getFullName());
+        userEntity.setEmail(customerCreate.getEmail());
+        userEntity.setPassword(customerCreate.getPassWord());
+        userEntity.setPhoneNumber(customerCreate.getPhoneNumber());
+        userEntity.setUserType(User_Enum.customer);
+        userEntity.setRegistrationDate(customerCreate.getRegistrationDate());
+        customerEntity.setUser(userEntity);
+        customerEntity.setAddress(customerCreate.getAddress());
+        customerEntity.setCity(customerCreate.getCity());
+        customerEntity.setDistrict(customerCreate.getDistrict());
+        customerEntity.setWard(customerCreate.getWard());
+        customerEntity.setStreetAddress(customerCreate.getStreetAddress());
+        customerEntity.setRegistrationDate(customerCreate.getRegistrationDate());
+        customerEntity.setStatus(Customer_Enum.active);
+        entityManager.persist(userEntity);
+        entityManager.persist(customerEntity);
+    }
+
+    @Override
+    public void updateCustomer(Customer_UpdateCustomerDTO customerUpdate, CustomerEntity customerEntity, UserEntity userEntity) {
+        userEntity.setFullName(customerUpdate.getFullName());
+        userEntity.setEmail(customerUpdate.getEmail());
+        userEntity.setPassword(customerUpdate.getPassWord());
+        userEntity.setPhoneNumber(customerUpdate.getPhoneNumber());
+        userEntity.setUserType(User_Enum.customer);
+        userEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
+        customerEntity.setUser(userEntity);
+        customerEntity.setAddress(customerUpdate.getAddress());
+        customerEntity.setCity(customerUpdate.getCity());
+        customerEntity.setDistrict(customerUpdate.getDistrict());
+        customerEntity.setWard(customerUpdate.getWard());
+        customerEntity.setStreetAddress(customerUpdate.getStreetAddress());
+        customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
+        customerEntity.setStatus(Customer_Enum.active);
+        entityManager.merge(userEntity);
+        entityManager.merge(customerEntity);
+        entityManager.flush();
+    }
+
+    @Override
+    public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
+        String query =
+                "SELECT " +
+                        "u.FullName, " +
+                        "u.Email, " +
+                        "u.PhoneNumber, " +
+                        "u.RegistrationDate, " +
+                        "c.Address, " +
+                        "c.City, " +
+                        "c.District, " +
+                        "c.Ward, " +
+                        "c.StreetAddress, " +
+                        "SUM(o.TotalAmount) AS totalamount " +
+                        "FROM " +
+                        "Customers c " +
+                        "JOIN " +
+                        "Users u ON u.UserID = c.UserID " +
+                        "JOIN " +
+                        "Orders o ON c.CustomerID = o.CustomerID " +
+                        "WHERE " +
+                        "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
+                        "AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
+                        "GROUP BY " +
+                        "u.FullName, " +
+                        "u.Email, " +
+                        "u.PhoneNumber, " +
+                        "u.RegistrationDate, " +
+                        "c.Address, " +
+                        "c.City, " +
+                        "c.District, " +
+                        "c.Ward, " +
+                        "c.StreetAddress " +
+                        "ORDER BY " +
+                        "totalamount DESC  ";
+        Query queryNative = entityManager.createNativeQuery(query);
+        List<Object[]> resultQuery = queryNative.getResultList();
+        List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = new ArrayList<>();
+        for(Object[] rowOfResult : resultQuery) {
+            Customer_FindTopCustomerInMonthDTO dto = new Customer_FindTopCustomerInMonthDTO(
+                    (String) rowOfResult[0],
+                    (String) rowOfResult[1],
+                    (String) rowOfResult[2],
+                    (Date) rowOfResult[3],
+                    (String) rowOfResult[4],
+                    (String) rowOfResult[5],
+                    (String) rowOfResult[6],
+                    (String) rowOfResult[7],
+                    (String) rowOfResult[8],
+                    (BigDecimal) rowOfResult[9]
+            );
+            listTopCustomerInMonth.add(dto);
+        }
+        return listTopCustomerInMonth;
+    }
 
 
 //    @Override
@@ -107,3 +208,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 //        return null;
 //    }
 }
+
+
+//sadasdasdaasdasdqw
+//ádasdasdasd121314234
