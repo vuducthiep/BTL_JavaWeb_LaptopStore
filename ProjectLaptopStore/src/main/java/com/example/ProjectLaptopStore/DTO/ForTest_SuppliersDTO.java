@@ -1,6 +1,6 @@
 package com.example.ProjectLaptopStore.DTO;
 
-public class SuppliersDTO {
+public class ForTest_SuppliersDTO {
     private String supplierName;
     private String address;
     private String phoneNumber;

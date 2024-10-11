@@ -2,7 +2,8 @@ package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.SuppliersConverter;
 import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
-import com.example.ProjectLaptopStore.DTO.SuppliersDTO;
+import com.example.ProjectLaptopStore.DTO.ForTest_SuppliersDTO;
+import com.example.ProjectLaptopStore.DTO.Supplier_UpdateSupplierDTO;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.ISuppliersRepository;
 import com.example.ProjectLaptopStore.Service.ISuppliersService;
@@ -20,12 +21,12 @@ public class SuppliersServiceImpl implements ISuppliersService {
     @Autowired
     private SuppliersConverter suppliersConverter;
     @Override
-    public List<SuppliersDTO> listTopSupplier() {
+    public List<ForTest_SuppliersDTO> listTopSupplier() {
 
         List<SuppliersEntity> suppliersEntities = suppliersRepository.findAll();
-        List<SuppliersDTO> result = new ArrayList<>();
+        List<ForTest_SuppliersDTO> result = new ArrayList<>();
         for (SuppliersEntity item : suppliersEntities) {
-            SuppliersDTO suppliersDTO = suppliersConverter.toSuppliersDTO(item);
+            ForTest_SuppliersDTO suppliersDTO = suppliersConverter.toSuppliersDTO(item);
             result.add(suppliersDTO);
         }
         return result;
@@ -39,5 +40,11 @@ public class SuppliersServiceImpl implements ISuppliersService {
     @Override
     public void deleteSupplier(Long[] ids) {
         suppliersRepository.deleteBySupplierIDIn(ids);
+    }
+
+    @Override
+    public void updateSupplier(Supplier_UpdateSupplierDTO updateSuppliers) {
+        SuppliersEntity suppliersEntity = suppliersRepository.findById(updateSuppliers.getSupplierId()).get();
+        suppliersRepository.updateSupplier(updateSuppliers, suppliersEntity);
     }
 }
