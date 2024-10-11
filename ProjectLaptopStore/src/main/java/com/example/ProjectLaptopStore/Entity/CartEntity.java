@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Entity;
 
+import com.example.ProjectLaptopStore.Entity.Enum.CardStatus_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -22,7 +23,7 @@ public class CartEntity implements Serializable {
     private Integer CartID;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
-    private Status_Enum status = Status_Enum.active;
+    private CardStatus_Enum status = CardStatus_Enum.ACTIVE;
     @Column(name = "CreatedDate", nullable = false)
     private Date createdDate;
     @Column(name = "TotalPrice",precision = 10,scale = 2)
