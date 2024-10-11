@@ -1,38 +1,39 @@
 package com.example.ProjectLaptopStore.DTO;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
-public class Customer_FindTopCustomer {
-    private String customerName;
+public class Customer_FindTopCustomerInMonthDTO {
+    private String userName;
     private String email;
     private String phoneNumber;
+    private Date registrationDate;
     private String address;
     private String city;
     private String district;
     private String ward;
-    private String street;
-    private String quantityOrder; // đếm orderid theo cusId
-    private BigDecimal totalPrice;
+    private String streetAddress;
+    private BigDecimal totalAmount;
 
-    public Customer_FindTopCustomer(String customerName, String email, String phoneNumber, String address, String city, String district, String ward, String street, String quantityOrder, BigDecimal totalPrice) {
-        this.customerName = customerName;
+    public Customer_FindTopCustomerInMonthDTO(String userName, String email, String phoneNumber, Date registrationDate, String address, String city, String district, String ward, String streetAddress, BigDecimal totalAmount) {
+        this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.registrationDate = registrationDate;
         this.address = address;
         this.city = city;
         this.district = district;
         this.ward = ward;
-        this.street = street;
-        this.quantityOrder = quantityOrder;
-        this.totalPrice = totalPrice;
+        this.streetAddress = streetAddress;
+        this.totalAmount = totalAmount;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getEmail() {
@@ -49,6 +50,14 @@ public class Customer_FindTopCustomer {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Date getRegistrationDate() {
+        return registrationDate;
+    }
+
+    public void setRegistrationDate(Date registrationDate) {
+        this.registrationDate = registrationDate;
     }
 
     public String getAddress() {
@@ -83,27 +92,19 @@ public class Customer_FindTopCustomer {
         this.ward = ward;
     }
 
-    public String getStreet() {
-        return street;
+    public String getStreetAddress() {
+        return streetAddress;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setStreetAddress(String streetAddress) {
+        this.streetAddress = streetAddress;
     }
 
-    public String getQuantityOrder() {
-        return quantityOrder;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setQuantityOrder(String quantityOrder) {
-        this.quantityOrder = quantityOrder;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 }

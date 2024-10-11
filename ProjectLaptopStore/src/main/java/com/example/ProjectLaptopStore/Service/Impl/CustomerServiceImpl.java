@@ -4,6 +4,7 @@ import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.Convert.Customer_CountNewCustomerConverter;
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
+import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomerInMonthDTO;
 import com.example.ProjectLaptopStore.DTO.Customer_UpdateCustomerDTO;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
@@ -50,6 +51,12 @@ public class CustomerServiceImpl implements ICustomerService {
         CustomerEntity customerEntity = customerRepository.findById(customerUpdate.getCustomerId()).get();
         UserEntity userEntity = userRepository.findById(customerEntity.getUser().getUserID()).get();
         customerRepository.updateCustomer(customerUpdate,customerEntity,userEntity);
+    }
+
+    @Override
+    public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
+        List<Customer_FindTopCustomerInMonthDTO> result = customerRepository.listTopCustomerInMonth();
+        return result;
     }
 
 //    @Override
