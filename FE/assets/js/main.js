@@ -1,96 +1,4 @@
-// document.addEventListener('DOMContentLoaded', function () {
-//   const productList = document.getElementById('featured-products');
-
-//   // Gọi API để hiển thị tất cả sản phẩm khi load trang
-//   fetch('http://localhost:3000/products')
-//     .then(response => response.json())
-//     .then(data => {
-//       console.log(data); // Kiểm tra cấu trúc dữ liệu trả về từ API
-
-//       // Giả sử API trả về một mảng sản phẩm
-//       displayProducts(data); // Hiển thị tất cả sản phẩm
-//     })
-//     .catch(error => console.error('Error fetching products:', error));
-
-//   // Chức năng lọc theo danh mục
-//   const categoryLinks = document.querySelectorAll('.item');
-
-//   // Gắn sự kiện click vào mỗi link trong danh mục
-//   categoryLinks.forEach(link => {
-//     link.addEventListener('click', function (event) {
-//       event.preventDefault(); // Ngăn việc trang tải lại khi nhấp vào link
-
-//       const category = link.querySelector('a').getAttribute('data-category');
-//       fetchProductsByCategory(category); // Gọi hàm fetch API để lọc sản phẩm theo danh mục
-//     });
-//   });
-
-//   // Hàm gọi API và hiển thị sản phẩm theo danh mục
-//   function fetchProductsByCategory(category) {
-//     fetch(`http://localhost:3000/products?category=${category}`) // Thay bằng API của bạn
-//       .then(response => response.json())
-//       .then(data => {
-//         displayProducts(data); // Hiển thị sản phẩm theo danh mục
-//       })
-//       .catch(error => {
-//         console.error('Error fetching products:', error);
-//       });
-//   }
-
-//   // Hàm hiển thị sản phẩm lên giao diện
-//   function displayProducts(products) {
-//     productList.innerHTML = ''; // Xóa sản phẩm cũ
-
-//     if (products.length === 0) {
-//       productList.innerHTML = '<p>Không có sản phẩm nào.</p>';
-//       return;
-//     }
-
-//     products.forEach(product => {
-//       const productDiv = document.createElement('div');
-//       productDiv.classList.add('product-item');
-//       productDiv.innerHTML = `
-//         <a class="product-link" href="product-details.html?id=${product.id}">
-//           <div class="product-image">
-//             <img src="${product.thumbnail}" alt="${product.name}">
-//           </div>
-//           <div class="product-info">
-//             <h3 class="product-title">${product.name}</h3>
-//             <p class="product-price">Giá: ${product.price} VND</p>
-//             <p>${product.description}</p>
-//           </div>
-//         </a>
-//       `;
-//       productList.appendChild(productDiv);
-//     });
-//   }
-
-//   // Hàm hiển thị 4 sản phẩm nổi bật lên giao diện
-//   function displayFeaturedProducts(products) {
-//     const featuredProducts = products.slice(0, 4); // Lấy 4 sản phẩm đầu tiên (có thể thay đổi logic chọn sản phẩm)
-
-//     featuredList.innerHTML = ''; // Xóa sản phẩm nổi bật cũ
-
-//     featuredProducts.forEach(product => {
-//       const productDiv = document.createElement('div');
-//       productDiv.classList.add('featured-item');
-//       productDiv.innerHTML = `
-//         <a class="product-link" href="product-details.html?id=${product.id}">
-//           <div class="product-image">
-//             <img src="${product.thumbnail}" alt="${product.name}">
-//           </div>
-//           <div class="product-info">
-//             <h3 class="product-title">${product.name}</h3>
-//             <p class="product-price">Giá: ${product.price} VND</p>
-//             <p>${product.description}</p>
-//           </div>
-//         </a>
-//       `;
-//       featuredList.appendChild(productDiv);
-//     });
-//   }
-// });
-
+// Load sản phẩm nổi bật,và sản phẩm khác
 document.addEventListener('DOMContentLoaded', function () {
   const featuredList = document.getElementById('featured-products-list');
   const regularList = document.getElementById('regular-products-list');
@@ -169,12 +77,12 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch(error => console.error('Error fetching products:', error));
   });
 });
+// Load sản phẩm nổi bật,và sản phẩm khác
 
 
 
 
-
-
+// slider banner
 let currentSlide = 0;
 
 // Hiện slide đầu tiên khi tải trang
@@ -206,8 +114,10 @@ function changeSlide(n) {
 
 // Tự động chuyển slide sau 5 giây
 setInterval(() => changeSlide(1), 5000);
+// slider banner
 
 
+// ẩn hiện box khi đăng nhập,đăng xuất
 document.addEventListener("DOMContentLoaded", function () {
   var userAccount = document.getElementById("userAccount");
   var userMenu = document.getElementById("userMenu");
@@ -269,7 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Gọi hàm để cập nhật giao diện ngay khi trang load
   updateMenu();
 });
-
+// ẩn hiện box khi đăng nhập,đăng xuất
 
 
 document.querySelectorAll('.item').forEach(item => {
@@ -294,3 +204,30 @@ function toggleFilter(filterId) {
   }
 }
 
+//Lọc sản phẩm theo hãng khi chọn từ nav slider
+const boxes = document.querySelectorAll('.custom-grid-item');
+    
+    // Duyệt qua từng box
+    boxes.forEach(box => {
+        box.addEventListener('click', function() {
+            // Bỏ class 'selected' khỏi tất cả các box khác
+            boxes.forEach(item => item.classList.remove('selected'));
+            
+            // Thêm class 'selected' vào box được click
+            this.classList.add('selected');
+            
+            // Lấy hãng từ span (giả sử tên hãng nằm trong thẻ span)
+            const brand = this.querySelector('span').textContent;
+            
+            // Gọi hàm lọc sản phẩm theo hãng
+            filterProductsByBrand(brand);
+        });
+    });
+    
+    // Hàm lọc sản phẩm theo hãng
+    function filterProductsByBrand(brand) {
+        // Giả sử bạn đã có danh sách sản phẩm và lọc chúng ở đây
+        console.log(`Lọc các sản phẩm của hãng: ${brand}`);
+        // Thực hiện việc lọc sản phẩm và hiển thị chúng trên giao diện
+    }
+//Lọc sản phẩm theo hãng khi chọn từ nav slider
