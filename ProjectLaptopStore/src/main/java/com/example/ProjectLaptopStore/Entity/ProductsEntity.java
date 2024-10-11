@@ -15,7 +15,7 @@ public class ProductsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ProductID;
+    private Integer productID;
 //    @Column(name = "SupplierID") khóa ngoài
 //    private Integer suppierId;
     @Column(name = "ProductName", nullable = false)
@@ -83,11 +83,11 @@ public class ProductsEntity implements Serializable {
     }
 
     public Integer getProductID() {
-        return ProductID;
+        return productID;
     }
 
     public void setProductID(Integer productID) {
-        ProductID = productID;
+        productID = productID;
     }
 
 

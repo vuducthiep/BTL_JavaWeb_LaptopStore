@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
+import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
 
 import java.util.List;
 import java.util.Map;
@@ -9,4 +10,5 @@ public interface ICustomerService {
 //    Integer countCustomers(Map<String, Object> params);
     List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth();
     void deleteCustomerAtService(Long[] ids);
+    void createCustomerAtService(Customer_CreateCustomerDTO customerPerMonthDTO);
 }

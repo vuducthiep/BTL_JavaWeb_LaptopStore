@@ -19,7 +19,7 @@ public interface IProductRepository extends JpaRepository<ProductsEntity,Integer
     List<ProductsEntity> findAll();
     List<ProductsEntity> findByProductNameContainingAndBrandContaining(String productName, String brand);
     List<ProductsEntity> findByProductNameContainingAndSupplier_SupplierNameContaining(String productName, String supplierName);
-
+    void deleteByProductIDIn(Long[] ids);
     //Lấy top sản phẩm bán chạy
     //jpql
 

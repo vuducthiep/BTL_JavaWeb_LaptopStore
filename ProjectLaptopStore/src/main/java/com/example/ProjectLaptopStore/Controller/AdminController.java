@@ -104,10 +104,17 @@ public class AdminController {
         List<SuppliersDTO> result = suppliersService.listTopSupplier();
         return result;
     }
+
     //API tạo sản phẩm
     @PostMapping("/admin/createproduct/")
     public void createProduct(@RequestBody Product_CreateProductDTO createProductDTO){
         productService.createNewProduct(createProductDTO);
+    }
+
+    //API tạo khách hàng
+    @PostMapping("/admin/createcustomer/")
+    public void createCustomer(@RequestBody Customer_CreateCustomerDTO createCustomerDTO){
+        customerService.createCustomerAtService(createCustomerDTO);
     }
     //API tạo nhà cung cấp
     @PostMapping("/admin/createsupplier/")
@@ -121,10 +128,22 @@ public class AdminController {
         productService.updateProduct(updateProductDTO);
     }
 
+    // cách chạy test api xóa trên postman là đẩy id sản phẩm về thanh param (dạng check box)
+    // http://localhost:8080/admin/deleteproduct/5,6,2
+    //API xóa sản phẩm
+    @DeleteMapping("/admin/deleteproduct/{ids}")
+    public void deleteProduct(@PathVariable Long[] ids){
+        productService.deleteProduct(ids);
+    }
     //API xóa khách hàng ( thay đổi status)
     @DeleteMapping("/admin/deletecustomer/{ids}")
     public void deleteCustomer(@PathVariable Long[] ids){
         customerService.deleteCustomerAtService(ids);
+    }
+    //API xóa nhà cung cấp
+    @DeleteMapping("/admin/deletesuppliers/{ids}")
+    public void deleteSupplier(@PathVariable Long[] ids){
+        suppliersService.deleteSupplier(ids);
     }
 
     //API lấy danh sách bill
@@ -140,7 +159,5 @@ public class AdminController {
         List<Order_InvoiceDetailDTO> result = orderService.ListInvoiceDetailAtService();
         return result;
     }
-
-//ádasdasdqƯDAWDADSASD
 
 }
