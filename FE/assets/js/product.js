@@ -1,41 +1,3 @@
-// document.addEventListener('DOMContentLoaded', function() {
-//   fetch('https://dummyjson.com/products')
-//     .then(response => response.json())
-//     .then(data => {
-//       const productList = document.getElementById('product-list');
-//       if (!productList) {
-//         console.error('Product list element not found');
-//         return;
-//       }
-
-//       data.products.forEach(product => {
-//         const productElement = document.createElement('div');
-//         productElement.innerHTML = `
-//           <a href="product-details.html?id=${product.id}">
-//             <img src="${product.thumbnail}" alt="${product.title}">
-//             <h3>${product.title}</h3>
-//             <p>${product.price}</p>
-//           </a>
-//         `;
-//         productList.appendChild(productElement);
-//       });
-//     })
-//     .catch(error => console.error('Error fetching products:', error));
-// });
-// // Lấy chi tiết sản phẩm từ URL (dùng cho trang product-details.html)
-// const urlParams = new URLSearchParams(window.location.search);
-// const productId = urlParams.get('id');
-
-// if (productId) {
-//   fetch(`https://dummyjson.com/products/${productId}`) // Bỏ dấu `/` ở đầu URL
-//     .then(response => response.json())
-//     .then(product => {
-//       document.getElementById('product-name').innerText = product.title; // Đổi `name` thành `title`
-//       document.getElementById('product-image').src = product.thumbnail; // Sửa `image` thành `thumbnail`
-//       document.getElementById('product-description').innerText = product.description;
-//       document.getElementById('product-price').innerText = `Giá: ${product.price}`;
-//     });
-// }
 
 document.addEventListener('DOMContentLoaded', function () {
   // Lấy ID sản phẩm từ URL
@@ -55,13 +17,54 @@ document.addEventListener('DOMContentLoaded', function () {
     console.error('Product ID not found in URL');
   }
 
-  // Hàm hiển thị thông tin chi tiết sản phẩm
   function displayProductDetails(product) {
     document.getElementById('product-name').textContent = product.name;
+    document.getElementById('product-name-breadcrumb').textContent = product.name; // Thêm đoạn này để hiển thị tên trong breadcrumb
     document.getElementById('product-image').src = product.thumbnail;
-    document.getElementById('product-image').alt = product.name;
+    document.getElementById('product-status').textContent = "Tình Trạng: Còn hàng"; // Sửa lại id ở đây
     document.getElementById('product-description').textContent = product.description;
     document.getElementById('product-price').textContent = `Giá: ${product.price} VND`;
-  }
+}
 });
+
+document.getElementById('highlight-btn').addEventListener('click', function () {
+  document.getElementById('highlight-specs').classList.remove('hidden');
+  document.getElementById('all-specs').classList.add('hidden');
+});
+
+document.getElementById('all-spec-btn').addEventListener('click', function () {
+  document.getElementById('all-specs').classList.remove('hidden');
+  document.getElementById('highlight-specs').classList.add('hidden');
+});
+
+// Lắng nghe sự kiện click trên các mục tiêu lớn
+document.querySelectorAll('.section-title').forEach(item => {
+  item.addEventListener('click', () => {
+    const toggleClass = item.getAttribute('data-toggle');
+    
+    // Tìm các hàng liên quan và chuyển đổi hiển thị
+    const items = document.querySelectorAll(`.${toggleClass}`);
+    items.forEach(row => {
+      row.classList.toggle('hidden'); // Ẩn/hiện hàng thông số
+    });
+
+    // Thay đổi mũi tên
+    const arrow = item.querySelector('.arrow');
+    if (items[0].classList.contains('hidden')) {
+      arrow.classList.remove('up'); // Hiện mũi tên xuống
+      arrow.innerHTML = '▼';
+    } else {
+      arrow.classList.add('up'); // Hiện mũi tên lên
+      arrow.innerHTML = '▲';
+    }
+  });
+});
+
+// Mặc định hiển thị thông số nổi bật
+document.addEventListener('DOMContentLoaded', () => {
+  const highlightSpecs = document.getElementById('highlight-specs');
+  highlightSpecs.classList.remove('hidden');
+});
+
+
 
