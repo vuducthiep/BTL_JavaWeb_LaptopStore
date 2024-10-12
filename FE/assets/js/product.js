@@ -27,44 +27,58 @@ document.addEventListener('DOMContentLoaded', function () {
 }
 });
 
-document.getElementById('highlight-btn').addEventListener('click', function () {
+// Hàm để hiển thị thông số nổi bật
+function showHighlightSpecs() {
   document.getElementById('highlight-specs').classList.remove('hidden');
   document.getElementById('all-specs').classList.add('hidden');
-});
+  
+  // Thêm class active cho nút "Thông số nổi bật"
+  document.getElementById('highlight-btn').classList.add('active');
+  document.getElementById('all-spec-btn').classList.remove('active');
+}
 
-document.getElementById('all-spec-btn').addEventListener('click', function () {
+// Hàm để hiển thị tất cả thông số
+function showAllSpecs() {
   document.getElementById('all-specs').classList.remove('hidden');
   document.getElementById('highlight-specs').classList.add('hidden');
-});
+  
+  // Thêm class active cho nút "Tất cả thông số"
+  document.getElementById('all-spec-btn').classList.add('active');
+  document.getElementById('highlight-btn').classList.remove('active');
+}
+
+// Thêm sự kiện click cho các nút hiển thị
+document.getElementById('highlight-btn').addEventListener('click', showHighlightSpecs);
+document.getElementById('all-spec-btn').addEventListener('click', showAllSpecs);
 
 // Lắng nghe sự kiện click trên các mục tiêu lớn
 document.querySelectorAll('.section-title').forEach(item => {
   item.addEventListener('click', () => {
-    const toggleClass = item.getAttribute('data-toggle');
-    
-    // Tìm các hàng liên quan và chuyển đổi hiển thị
-    const items = document.querySelectorAll(`.${toggleClass}`);
-    items.forEach(row => {
-      row.classList.toggle('hidden'); // Ẩn/hiện hàng thông số
-    });
+      const toggleClass = item.getAttribute('data-toggle');
+      
+      // Tìm các hàng liên quan và chuyển đổi hiển thị
+      const items = document.querySelectorAll(`.${toggleClass}`);
+      items.forEach(row => {
+          row.classList.toggle('hidden'); // Ẩn/hiện hàng thông số
+      });
 
-    // Thay đổi mũi tên
-    const arrow = item.querySelector('.arrow');
-    if (items[0].classList.contains('hidden')) {
-      arrow.classList.remove('up'); // Hiện mũi tên xuống
-      arrow.innerHTML = '▼';
-    } else {
-      arrow.classList.add('up'); // Hiện mũi tên lên
-      arrow.innerHTML = '▲';
-    }
+      // Thay đổi mũi tên
+      const arrow = item.querySelector('.arrow');
+      if (items[0].classList.contains('hidden')) {
+          arrow.classList.remove('up'); // Hiện mũi tên xuống
+          arrow.innerHTML = '▼';
+      } else {
+          arrow.classList.add('up'); // Hiện mũi tên lên
+          arrow.innerHTML = '▲';
+      }
   });
 });
 
-// Mặc định hiển thị thông số nổi bật
+// Mặc định hiển thị thông số nổi bật khi tải trang
 document.addEventListener('DOMContentLoaded', () => {
-  const highlightSpecs = document.getElementById('highlight-specs');
-  highlightSpecs.classList.remove('hidden');
+  showHighlightSpecs(); // Gọi hàm để hiển thị thông số nổi bật
 });
+
 
 
 
