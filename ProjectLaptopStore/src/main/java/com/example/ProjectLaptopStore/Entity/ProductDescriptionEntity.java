@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,13 +12,13 @@ import java.util.Date;
 @Setter
 @Entity
 @Table(name = "ProductDescription")
-public class ProductDescriptionEntity {
+public class ProductDescriptionEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ProductDescriptionID;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "ProductID")
     private ProductsEntity product;
 
@@ -194,6 +195,5 @@ public class ProductDescriptionEntity {
 
     @Column(name = "Color")
     private String color;
-
 
 }

@@ -33,7 +33,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
 //        return nativeQuery.getResultList();
 
         //set tay cho toàn bộ trường của lớp DTO vì gặp lỗi 500, ko map dữ liệu được
-        String query = "SELECT p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, p.Description, " +
+        String query = "SELECT p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
                 "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered " +
                 "FROM Products p " +
                 "LEFT JOIN OrderDetails od ON p.ProductID = od.ProductID " +
@@ -51,10 +51,9 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                     (String) result[2],  // model
                     (Float) result[3],   // price
                     (Integer) result[4], // stockQuantity
-                    (String) result[5],  // description
-                    (Integer) result[6], // warrantyPeriod
-                    (String) result[7],  // imageURL
-                    ((Number) result[8]).longValue()  // quantityOrdered (SUM result)
+                    (Integer) result[5], // warrantyPeriod
+                    (String) result[6],  // imageURL
+                    ((Number) result[7]).longValue()  // quantityOrdered (SUM result)
             );
             dtoList.add(dto);
         }

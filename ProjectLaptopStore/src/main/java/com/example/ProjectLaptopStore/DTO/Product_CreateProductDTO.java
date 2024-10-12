@@ -9,19 +9,18 @@ public class Product_CreateProductDTO {
     private String model;
     private Float price;
     private Integer stockQuantity;
-    private String description;
+//    private String description;
     private Date releaseDate;
     private Integer warrantyPeriod;
     private String imageUrl;
 
-    public Product_CreateProductDTO(Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, String description, Date releaseDate, Integer warrantyPeriod, String imageUrl) {
+    public Product_CreateProductDTO(Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, Date releaseDate, Integer warrantyPeriod, String imageUrl) {
         this.supplierId = supplierId;
         this.productName = productName;
         this.productBrand = productBrand;
         this.model = model;
         this.price = price;
         this.stockQuantity = stockQuantity;
-        this.description = description;
         this.releaseDate = releaseDate;
         this.warrantyPeriod = warrantyPeriod;
         this.imageUrl = imageUrl;
@@ -73,14 +72,6 @@ public class Product_CreateProductDTO {
 
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public Date getReleaseDate() {

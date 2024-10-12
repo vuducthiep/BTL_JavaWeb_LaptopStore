@@ -28,10 +28,6 @@ public class ProductsEntity implements Serializable {
     private Float price;
     @Column(name = "StockQuantity",nullable = false)
     private Integer stockQuantity;
-
-    @OneToOne(mappedBy = "product")
-    private  ProductDescriptionEntity productDescription;
-
     @Column(name = "ReleaseDate")
     private Date releaseDate;
     @Column(name = "WarrantyPeriod")
@@ -52,46 +48,19 @@ public class ProductsEntity implements Serializable {
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<ProductReviewsEntity> productReviews = new ArrayList<>();
 
-    public List<ProductReviewsEntity> getProductReviews() {
-        return productReviews;
-    }
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ProductDescriptionEntity> productDescriptions = new ArrayList<>();
+//    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    private  ProductDescriptionEntity productDescription;
 
-    public void setProductReviews(List<ProductReviewsEntity> productReviews) {
-        this.productReviews = productReviews;
-    }
-
-    public List<CartDetailsEntity> getCartDetails() {
-        return cartDetails;
-    }
-
-    public void setCartDetails(List<CartDetailsEntity> cartDetails) {
-        this.cartDetails = cartDetails;
-    }
-
-    public List<OrderDetailEntity> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetailEntity> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public SuppliersEntity getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(SuppliersEntity supplier) {
-        this.supplier = supplier;
-    }
 
     public Integer getProductID() {
         return productID;
     }
 
     public void setProductID(Integer productID) {
-        productID = productID;
+        this.productID = productID;
     }
-
 
     public String getProductName() {
         return productName;
@@ -133,14 +102,6 @@ public class ProductsEntity implements Serializable {
         this.stockQuantity = stockQuantity;
     }
 
-    public ProductDescriptionEntity getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(ProductDescriptionEntity productDescription) {
-        this.productDescription = productDescription;
-    }
-
     public Date getReleaseDate() {
         return releaseDate;
     }
@@ -163,5 +124,45 @@ public class ProductsEntity implements Serializable {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
+    }
+
+    public SuppliersEntity getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(SuppliersEntity supplier) {
+        this.supplier = supplier;
+    }
+
+    public List<OrderDetailEntity> getOrderDetails() {
+        return orderDetails;
+    }
+
+    public void setOrderDetails(List<OrderDetailEntity> orderDetails) {
+        this.orderDetails = orderDetails;
+    }
+
+    public List<CartDetailsEntity> getCartDetails() {
+        return cartDetails;
+    }
+
+    public void setCartDetails(List<CartDetailsEntity> cartDetails) {
+        this.cartDetails = cartDetails;
+    }
+
+    public List<ProductReviewsEntity> getProductReviews() {
+        return productReviews;
+    }
+
+    public void setProductReviews(List<ProductReviewsEntity> productReviews) {
+        this.productReviews = productReviews;
+    }
+
+    public List<ProductDescriptionEntity> getProductDescriptions() {
+        return productDescriptions;
+    }
+
+    public void setProductDescriptions(List<ProductDescriptionEntity> productDescriptions) {
+        this.productDescriptions = productDescriptions;
     }
 }
