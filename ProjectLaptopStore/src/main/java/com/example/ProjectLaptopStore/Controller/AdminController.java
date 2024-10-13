@@ -81,11 +81,11 @@ public class AdminController {
     }
 
     //API lấy top nhà cung cấp
-//    @GetMapping(value = "/admin/topsuppliers/")
-//    public List<ForTest_SuppliersDTO> TopSuppliers(){
-//        List<ForTest_SuppliersDTO> result = suppliersService.listTopSupplier();
-//        return result;
-//    }
+    @GetMapping(value = "/admin/topsuppliers/")
+    public List<Supplier_FindTopSupplierDTO> TopSuppliers(){
+        List<Supplier_FindTopSupplierDTO> result = suppliersService.listTopSupplier();
+        return result;
+    }
 
     //API tạo sản phẩm
     @PostMapping("/admin/createproduct/")
