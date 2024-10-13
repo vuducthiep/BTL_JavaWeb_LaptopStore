@@ -71,7 +71,6 @@ public class Product_CreateProductDTO {
     private String material;
     private String pn;
     private String origin;
-    //    private Date releaseDate;
     private long warrantyPeriodMonths;
     private String storageInstructions;
     private String userManual;
