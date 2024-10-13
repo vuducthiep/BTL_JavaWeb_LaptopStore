@@ -36,6 +36,13 @@ document.addEventListener('DOMContentLoaded', function () {
             <p>${product.description}</p>
           </div>
         </a>
+        <button class="compare-btn" onclick="addToCompare(${product.id})">
+  <div class="icon-circle">
+    <i class="fas fa-plus"></i>
+  </div>
+  So sánh
+</button>
+
       `;
       featuredList.appendChild(productDiv);
     });
@@ -57,6 +64,13 @@ document.addEventListener('DOMContentLoaded', function () {
             <p>${product.description}</p>
           </div>
         </a>
+        <button class="compare-btn" onclick="addToCompare(${product.id})">
+  <div class="icon-circle">
+    <i class="fas fa-plus"></i>
+  </div>
+  So sánh
+</button>
+
       `;
       regularList.appendChild(productDiv);
     });
@@ -231,3 +245,92 @@ const boxes = document.querySelectorAll('.custom-grid-item');
         // Thực hiện việc lọc sản phẩm và hiển thị chúng trên giao diện
     }
 //Lọc sản phẩm theo hãng khi chọn từ nav slider
+
+
+// So sánh
+// Biến để lưu trữ sản phẩm được so sánh
+let comparedProducts = [];
+
+// Hàm thêm sản phẩm vào danh sách so sánh
+function addToCompare(productId) {
+  // Kiểm tra xem sản phẩm đã được thêm chưa
+  if (!comparedProducts.includes(productId)) {
+    comparedProducts.push(productId);
+    
+    // Cập nhật giao diện
+    updateCompareProducts();
+    
+    // Hiện nút so sánh và xóa tất cả nếu có sản phẩm
+    if (comparedProducts.length > 0) {
+      document.getElementById('compare-btn-product').style.display = 'block';
+      document.getElementById('clear-all-btn').style.display = 'block';
+    }
+  } else {
+    alert('Sản phẩm đã được thêm vào danh sách so sánh!');
+  }
+}
+
+// Hàm cập nhật danh sách sản phẩm so sánh trên navbar
+function updateCompareProducts() {
+  const compareProductsDiv = document.querySelector('.compare-products');
+  compareProductsDiv.innerHTML = ''; // Xóa nội dung cũ
+
+  if (comparedProducts.length === 0) {
+    // Ẩn nav so sánh khi không có sản phẩm nào
+    document.querySelector('.navbar').style.display = 'none';
+  } else {
+    // Hiện nav so sánh khi có sản phẩm
+    document.querySelector('.navbar').style.display = 'flex';
+
+    comparedProducts.forEach(productId => {
+      // Tìm sản phẩm trong dữ liệu đã tải
+      fetch(`http://localhost:3000/products/${productId}`)
+        .then(response => response.json())
+        .then(product => {
+          const productItem = document.createElement('div');
+          productItem.classList.add('compare-item');
+          productItem.innerHTML = `
+            <div class="compare-product-image">
+              <img src="${product.thumbnail}" alt="${product.name}">
+            </div>
+            <div class="compare-product-info">
+              <span>${product.name}</span>
+              <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
+            </div>
+          `;
+          compareProductsDiv.appendChild(productItem);
+        });
+    });
+  }
+}
+
+// Hàm xóa sản phẩm khỏi danh sách so sánh
+function removeFromCompare(productId) {
+  comparedProducts = comparedProducts.filter(id => id !== productId);
+  updateCompareProducts();
+
+  // Ẩn nút so sánh và xóa tất cả nếu không còn sản phẩm nào
+  if (comparedProducts.length === 0) {
+    document.getElementById('compare-btn-product').style.display = 'none';
+    document.getElementById('clear-all-btn').style.display = 'none';
+  }
+}
+
+// Hàm xóa tất cả sản phẩm trong danh sách so sánh
+function clearAllCompare() {
+  comparedProducts = [];
+  updateCompareProducts();
+  document.getElementById('compare-btn-product').style.display = 'none';
+  document.getElementById('clear-all-btn').style.display = 'none';
+}
+
+// Hàm so sánh sản phẩm (bạn có thể cập nhật logic bên trong)
+function compareProducts() {
+  if (comparedProducts.length < 2) {
+    alert('Bạn cần ít nhất 2 sản phẩm để so sánh!');
+    return;
+  }
+  // Thực hiện so sánh sản phẩm ở đây
+}
+
+// So sánh
