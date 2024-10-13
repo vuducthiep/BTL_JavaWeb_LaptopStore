@@ -1,7 +1,9 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
+import com.example.ProjectLaptopStore.Service.ISuppliersService;
 import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class UserAPI {
     @Autowired
-    private ProductDescriptionServiceImpl productDescriptionService;
+    private IProductDescriptionService productDescriptionService;
+
+    @Autowired
+    private ISuppliersService suppliersService;
+
 
     @Autowired
     private IProductService productService;
@@ -41,6 +48,12 @@ public class UserAPI {
     @GetMapping(value = "/user/home/")
     public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
+        return result;
+    }
+    //API lấy dl cho checkbox
+    @GetMapping(value = "/user/checkboxsuppliers/")
+    public Map<Integer,String> getSuppliersCheckbox(){
+        Map<Integer,String> result = suppliersService.getSupplierForCheckbox();
         return result;
     }
 }
