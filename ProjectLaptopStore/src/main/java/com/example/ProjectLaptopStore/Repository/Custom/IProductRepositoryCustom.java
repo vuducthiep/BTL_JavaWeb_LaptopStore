@@ -1,6 +1,8 @@
 package com.example.ProjectLaptopStore.Repository.Custom;
 
+import com.example.ProjectLaptopStore.DTO.Product_CreateProductDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_UpdateProductDTO;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 
 import java.util.List;
