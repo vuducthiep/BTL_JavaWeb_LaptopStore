@@ -200,7 +200,7 @@
   }
 }
 
-/* header */
+
   /* Header */
   
   nav ul {
@@ -221,27 +221,80 @@
   nav ul li a:hover {
     text-decoration: underline;
   }
-
+/* Image product */
   .product-Image{
-    background-color: red;
+    /* background-color: red; */
   }
   #product-image{
     width: 570px;
     border-radius: 20px;
    
   }
+/* Image product */
+/* Thông tin sản phẩm  */
+.product-infor {
+  
+  padding:  20px 0; 
+  margin-left: 20px;
+  max-width: 500px; 
+  
+  font-family: Arial, sans-serif; 
+}
 
-  .product-infor{
-    background-color: #0056b3;
-    
-  }
+#product-name {
+  font-size: 24px; 
+  color: #333; 
+  margin-bottom: 10px; 
+}
+
+#product-description {
+  font-size: 16px; 
+  color: #555; 
+  margin-bottom: 15px; 
+}
+
+#product-price {
+  font-size: 20px;
+  color: #2ecc71; 
+  font-weight: bold; 
+  margin-bottom: 15px; 
+}
+
+#product-status {
+  font-size: 16px; 
+  color: #e74c3c; 
+  margin-bottom: 20px; 
+}
+/* thêm giỏ hàng */
+#add-to-cart {
+  display: flex; 
+  align-items: center; 
+  background-color: #de2d12;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#add-to-cart i {
+  margin-right: 5px; /* Khoảng cách giữa biểu tượng và văn bản */
+}
+
+#add-to-cart:hover {
+  background-color: #912a2a;
+}
+
+  /* Thông tin sản phẩm  */
 
   /* Thông số */
  /* Đảm bảo bảng hiển thị đúng */
 .specs-content {
-  width: 100%; /* Chiếm toàn bộ chiều ngang */
-  border-collapse: collapse; /* Loại bỏ khoảng cách giữa các ô */
-  table-layout: fixed; /* Đảm bảo chiều rộng cột đều nhau */
+  width: 100%;
+  border-collapse: collapse; 
+  table-layout: fixed; 
   margin-top: 15px;
 }
 
@@ -249,7 +302,7 @@
   padding: 10px;
   border: 1px solid #ddd;
   text-align: left;
-  word-wrap: break-word; /* Đảm bảo nội dung dài không làm cột dài ra */
+  word-wrap: break-word; 
 }
 
 .specs-content th {
@@ -264,22 +317,126 @@
 
 /* Canh chỉnh hai nút "Thông số nổi bật" và "Tất cả thông số" */
 .specs-toggle {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
+margin-top: 20px;
+margin-bottom: 0;
 }
 
 .toggle-section {
   cursor: pointer;
   font-weight: bold;
+  font-size: large;
+  font-family: inherit;
   padding: 10px;
-  background-color: #f0f0f0;
-  border: 1px solid #ccc;
-  width: 48%;
+  
+  width: 20%;
   text-align: center;
+  border-bottom: none; /* Không có đường viền đáy mặc định */
+}
+
+.toggle-section.active {
+  border-bottom: 3px solid #ee2c2c; /* Đường viền đáy khi được kích hoạt */
 }
  
   /* Thông số */
+
+  /* Bộ lọc */
+
+/* footer */
+/* Định dạng chung cho footer */
+footer {
+  
+  color: #050404;
+  padding: 40px 0;
+  font-size: 14px;
+}
+
+footer .container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #080807;
+}
+
+.footer-section p, .footer-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: #050101;
+  text-decoration: none;
+}
+
+.footer-section ul li a:hover {
+  color: #ffcc00;
+}
+
+.footer-section p i {
+  margin-right: 10px;
+}
+
+/* Định dạng các biểu tượng mạng xã hội */
+.social-links {
+  display: flex;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+.social-links li {
+  list-style: none;
+}
+
+.social-links li a {
+  font-size: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.social-links li a:hover {
+  color: #ffcc00;
+}
+
+/* Định dạng phần cuối của footer */
+.footer-bottom {
+  background-color: #1f1f1f;
+  padding: 20px;
+  text-align: center;
+  font-size: 13px;
+  border-top: 1px solid #444;
+}
+
+.footer-bottom p {
+  margin: 0;
+  color: #ffffff;
+}
+
+.footer-bottom p::before {
+  content: "© ";
+}
+
+@media (max-width: 768px) {
+  footer .container {
+      flex-direction: column;
+  }
+}
+/* footer */
   
   
   
