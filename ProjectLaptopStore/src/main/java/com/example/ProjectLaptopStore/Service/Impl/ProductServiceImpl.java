@@ -42,5 +42,11 @@ public class ProductServiceImpl implements IProductService {
         productRepository.deleteByProductIDIn(ids);
     }
 
+    @Override
+    public List<Product_SearchProductByKeyDTO> listSearchProductByKey(Object key) {
+        List<Product_SearchProductByKeyDTO> result = productRepository.findAllProductsByKey(key);
+        return result;
+    }
+
 
 }
