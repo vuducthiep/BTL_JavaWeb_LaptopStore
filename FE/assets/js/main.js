@@ -1,4 +1,3 @@
-// Load sản phẩm nổi bật,và sản phẩm khác
 document.addEventListener('DOMContentLoaded', function () {
   const featuredList = document.getElementById('featured-products-list');
   const regularList = document.getElementById('regular-products-list');
@@ -26,23 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('featured-item'); 
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.id}">
+        <a class="product-link" href="product-details.html?id=${product.ProductID}">
           <div class="product-image">
-            <img src="${product.thumbnail}" alt="${product.name}">
+            <img src="${product.ImageURL}" alt="${product.ProductName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.name}</h3>
-            <p class="product-price">Giá: ${product.price} VND</p>
-            <p>${product.description}</p>
+            <h3 class="product-title">${product.ProductName}</h3>
+            <p class="product-price">Giá: ${product.Price} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.id})">
-  <div class="icon-circle">
-    <i class="fas fa-plus"></i>
-  </div>
-  So sánh
-</button>
-
+        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+          <div class="icon-circle">
+            <i class="fas fa-plus"></i>
+          </div>
+          So sánh
+        </button>
       `;
       featuredList.appendChild(productDiv);
     });
@@ -54,23 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('product-item'); 
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.id}">
+        <a class="product-link" href="product-details.html?id=${product.ProductID}">
           <div class="product-image">
-            <img src="${product.thumbnail}" alt="${product.name}">
+            <img src="${product.ImageURL}" alt="${product.ProductName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.name}</h3>
-            <p class="product-price">Giá: ${product.price} VND</p>
-            <p>${product.description}</p>
+            <h3 class="product-title">${product.ProductName}</h3>
+            <p class="product-price">Giá: ${product.Price} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.id})">
-  <div class="icon-circle">
-    <i class="fas fa-plus"></i>
-  </div>
-  So sánh
-</button>
-
+        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+          <div class="icon-circle">
+            <i class="fas fa-plus"></i>
+          </div>
+          So sánh
+        </button>
       `;
       regularList.appendChild(productDiv);
     });
@@ -91,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch(error => console.error('Error fetching products:', error));
   });
 });
-// Load sản phẩm nổi bật,và sản phẩm khác
+
 
 
 
@@ -282,25 +277,30 @@ function updateCompareProducts() {
     // Hiện nav so sánh khi có sản phẩm
     document.querySelector('.navbar').style.display = 'flex';
 
-    comparedProducts.forEach(productId => {
-      // Tìm sản phẩm trong dữ liệu đã tải
-      fetch(`http://localhost:3000/products/${productId}`)
-        .then(response => response.json())
-        .then(product => {
-          const productItem = document.createElement('div');
-          productItem.classList.add('compare-item');
-          productItem.innerHTML = `
-            <div class="compare-product-image">
-              <img src="${product.thumbnail}" alt="${product.name}">
-            </div>
-            <div class="compare-product-info">
-              <span>${product.name}</span>
-              <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
-            </div>
-          `;
-          compareProductsDiv.appendChild(productItem);
+    // Lấy toàn bộ sản phẩm từ API
+    fetch('http://localhost:3000/products')
+      .then(response => response.json())
+      .then(products => {
+        comparedProducts.forEach(productId => {
+          // Tìm sản phẩm theo ProductID
+          const product = products.find(item => item.ProductID === productId);
+          if (product) {
+            const productItem = document.createElement('div');
+            productItem.classList.add('compare-item');
+            productItem.innerHTML = `
+              <div class="compare-product-image">
+                <img src="${product.ImageURL}" alt="${product.ProductName}">
+              </div>
+              <div class="compare-product-info">
+                <span>${product.ProductName}</span>
+                <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
+              </div>
+            `;
+            compareProductsDiv.appendChild(productItem);
+          }
         });
-    });
+      })
+      .catch(error => console.error('Error fetching products:', error));
   }
 }
 

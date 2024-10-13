@@ -311,9 +311,9 @@
   text-align: center;
 }
 
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
 
 /* Canh chỉnh hai nút "Thông số nổi bật" và "Tất cả thông số" */
 .specs-toggle {
