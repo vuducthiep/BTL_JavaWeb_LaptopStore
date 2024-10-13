@@ -1,11 +1,8 @@
 package com.example.ProjectLaptopStore.Repository;
 
-import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.IProductRepositoryCustom;
-import jakarta.persistence.NamedNativeQuery;
-import jakarta.persistence.SqlResultSetMapping;
-import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +17,8 @@ public interface IProductRepository extends JpaRepository<ProductsEntity,Integer
     List<ProductsEntity> findByProductNameContainingAndBrandContaining(String productName, String brand);
     List<ProductsEntity> findByProductNameContainingAndSupplier_SupplierNameContaining(String productName, String supplierName);
     void deleteByProductIDIn(Long[] ids);
+    List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
+
     //Lấy top sản phẩm bán chạy
     //jpql
 

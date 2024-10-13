@@ -2,7 +2,7 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
 import com.example.ProjectLaptopStore.DTO.Product_CreateProductDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
-import com.example.ProjectLaptopStore.DTO.Product_SearchProductByKeyDTO;
+import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.DTO.Product_UpdateProductDTO;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
@@ -290,8 +290,13 @@ public void updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEnt
 //        return productsEntityByNativeQuery;
 //    }
 
+
+
+    //CẦN CẢI TIẾN LOGIC VÀ TỐI ƯU HÓA CODE, GIẢM LƯỢNG CODE TRONG TƯƠNG LAI
+    //không đảm bảo khách hàng sẽ tìm kiếm theo các key chuẩn bị sẵn
+//Hàm tìm kiếm sản phẩm bằng key trên searchbar
 @Override
-public List<Product_SearchProductByKeyDTO> findAllProductsByKey(Object key) {
+public List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key) {
     // Chuyển đổi key thành chuỗi và tách giá trị cuối cùng
     String[] parts = key.toString().trim().split(" ");
     String columnValue = parts[parts.length - 1]; // Giá trị là phần cuối cùng
@@ -403,9 +408,9 @@ public List<Product_SearchProductByKeyDTO> findAllProductsByKey(Object key) {
     Query queryNative = entityManager.createNativeQuery(query);
     queryNative.setParameter("value", columnValue);
     List<Object[]> resultQuery = queryNative.getResultList();
-    List<Product_SearchProductByKeyDTO> productsEntityByNativeQuery = new ArrayList<>();
+    List<Product_DisplayForHomePageDTO> productsEntityByNativeQuery = new ArrayList<>();
     for (Object[] rowOfResult : resultQuery) {
-        Product_SearchProductByKeyDTO dto = new Product_SearchProductByKeyDTO(
+        Product_DisplayForHomePageDTO dto = new Product_DisplayForHomePageDTO(
                 (String) rowOfResult[0],
                 (Float) rowOfResult[1],
                 (String) rowOfResult[2]

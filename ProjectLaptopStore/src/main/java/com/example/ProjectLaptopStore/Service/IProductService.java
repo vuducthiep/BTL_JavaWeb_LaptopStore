@@ -9,5 +9,6 @@ public interface IProductService {
     void createNewProduct(Product_CreateProductDTO createProductDTO);
     void updateProduct(Product_UpdateProductDTO updateProductDTO);
     void deleteProduct(Long[] ids);
-    List<Product_SearchProductByKeyDTO> listSearchProductByKey(Object key);
+    List<Product_DisplayForHomePageDTO> listSearchProductByKey(Object key);
+    List<Product_DisplayForHomePageDTO> listProductForHomePage();
 }
