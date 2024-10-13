@@ -27,23 +27,6 @@ public class AdminController {
     @Autowired
     private IOrderDetailService orderDetailService;
     //test
-    @GetMapping(value = "/api/product/")
-    public List<ForTest_ProductDTO> ShowProduct(){
-        List<ForTest_ProductDTO> result = productService.findAllProducts();
-        return result;
-    }
-    //test
-    @GetMapping(value = "/api/product/{productName}/{brand}")
-    public List<ForTest_ProductDTO> SearchProductByNameAndBrand(@PathVariable String productName, @PathVariable String brand){
-        List<ForTest_ProductDTO> result = productService.findByNameContainingAndBrandContainingAtService(productName,brand);
-        return result;
-    }
-    //test
-    @GetMapping(value = "/api/search/{productName}/{supplierName}")
-    public List<ForTest_ProductAndSupplierDTO> SearchProductByNameProductAndNameSupplier(@PathVariable String productName, @PathVariable String supplierName){
-        List<ForTest_ProductAndSupplierDTO> result = productService.findByProductNameAndSupplier_SupplierNameAtService(productName,supplierName);
-        return result;
-    }
 
     //API lấy tổng tiền trong tháng hiện tại
     @GetMapping(value = "/admin/totalmount/")
@@ -98,11 +81,11 @@ public class AdminController {
     }
 
     //API lấy top nhà cung cấp
-    @GetMapping(value = "/admin/topsuppliers/")
-    public List<ForTest_SuppliersDTO> TopSuppliers(){
-        List<ForTest_SuppliersDTO> result = suppliersService.listTopSupplier();
-        return result;
-    }
+//    @GetMapping(value = "/admin/topsuppliers/")
+//    public List<ForTest_SuppliersDTO> TopSuppliers(){
+//        List<ForTest_SuppliersDTO> result = suppliersService.listTopSupplier();
+//        return result;
+//    }
 
     //API tạo sản phẩm
     @PostMapping("/admin/createproduct/")

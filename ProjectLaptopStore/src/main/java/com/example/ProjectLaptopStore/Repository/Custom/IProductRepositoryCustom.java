@@ -10,5 +10,5 @@ import java.util.List;
 public interface IProductRepositoryCustom {
     List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered();
     void createProduct(Product_CreateProductDTO createProductDTO);
-    ProductsEntity updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEntity productsEntityById);
+    void updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEntity productsEntityById);
 }

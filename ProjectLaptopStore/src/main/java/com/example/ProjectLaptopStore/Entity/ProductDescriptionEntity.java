@@ -181,8 +181,8 @@ public class ProductDescriptionEntity implements Serializable {
     @Column(name = "Origin")
     private String origin;
 
-    @Column(name = "ReleaseDate")
-    private Date releaseDate;
+//    @Column(name = "ReleaseDate")
+//    private Date releaseDate;
 
     @Column(name = "WarrantyPeriodMonths")
     private long warrantyPeriodMonths;
