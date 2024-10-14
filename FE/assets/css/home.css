@@ -799,83 +799,40 @@ input[type="checkbox"] {
 }
 
 /* Nút thêm so sánh */
-
-/* Nav so sánh */
 /* CSS cho thanh điều hướng */
 .navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100px; /* Chiều cao của navbar */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #343a40; /* Màu nền tối */
-  color: #000000; /* Màu chữ sáng */
-  position: fixed;
-  bottom: 0;
-  width: 100%;
+  background-color: #343a40; /* Màu nền */
+  color: #fff;
   z-index: 1000;
+  transition: bottom 0.3s; /* Hiệu ứng trượt khi ẩn/hiện */
 }
 
-/* Tên thương hiệu */
-.navbar .navbar-brand {
-  font-size: 1.5em;
-  font-weight: bold;
+/* Nút mũi tên cố định ở góc dưới bên phải */
+#toggle-arrow {
+  position: fixed;
+  bottom: 5px; /* Cố định ở góc dưới */
+  right: 20px; /* Cách mép phải */
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #343a40; /* Màu nền đen */
+  color: #fff; /* Màu chữ */
+  padding: 10px;
+  border-radius: 50%; /* Bo tròn nút */
+  display: none; /* Mặc định ẩn, chỉ hiện khi có sản phẩm */
+  z-index: 1001;
 }
 
-/* Các nút trong nav */
-.navbar .btn {
-  margin-left: 10px; /* Khoảng cách giữa các nút */
-}
-
-/* CSS cho sản phẩm trong danh sách so sánh */
-.compare-products {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  width: 70%;
-}
-
-.compare-item {
-  display: flex;
-  align-items: center;
-  margin: 5px; /* Khoảng cách giữa các sản phẩm */
-  background-color: #fff; /* Màu nền cho sản phẩm */
-  border: 1px solid #ccc; /* Đường viền cho sản phẩm */
-  border-radius: 10px; /* Bo tròn các góc */
-  padding: 10px; /* Padding bên trong sản phẩm */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Đổ bóng cho sản phẩm */
-  width: 40%;
-}
-
-/* Ảnh sản phẩm */
-.compare-product-image img {
-  width: 90px; /* Chiều rộng của ảnh sản phẩm */
-  height: auto; /* Chiều cao tự động */
-  margin-right: 10px; /* Khoảng cách giữa ảnh và tên sản phẩm */
-  border-radius: 5px;
-}
-
-/* Thông tin sản phẩm */
-.compare-product-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-grow: 1; /* Cho phép chiếm không gian còn lại */
-}
-
-/* Nút xóa sản phẩm */
-.remove-btn {
-  background-color: transparent; /* Nền trong suốt */
-  border: none; /* Không có viền */
-  color: #dc3545; /* Màu đỏ cho nút xóa */
-  cursor: pointer; /* Con trỏ chuột khi hover */
-  font-size: 1.2em; /* Kích thước chữ */
-}
-
-/* Nút xóa khi hover */
-.remove-btn:hover {
-  color: #c82333; /* Màu đỏ đậm hơn khi hover */
-}
-#compare-btn-product{
+/* Nút "So sánh sản phẩm" */
+#compare-btn-product {
   background-color: rgb(85, 231, 85);
   width: 9%;
   color: rgb(246, 244, 244);
@@ -884,26 +841,75 @@ input[type="checkbox"] {
   padding: 10px 15px;
   margin: 5px;
   cursor: pointer; 
-  transition: background-color 0.3s; 
+  transition: background-color 0.3s;
 }
+
+#compare-btn-product:hover {
+  background-color: rgb(4, 152, 16); /* Màu nền khi hover */
+}
+
+/* Nút "Xóa tất cả" */
 #clear-all-btn {
   background-color: rgb(235, 36, 25);
   width: 9%;
-  color: rgb(235, 235, 235);
+  color: rgb(246, 244, 244);
   border: none; 
-  border-radius: 5px; 
+  border-radius: 5px;
   padding: 10px 15px;
   margin: 5px;
-  cursor: pointer; 
-  transition: background-color 0.3s; 
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* Thay đổi màu nền khi hover */
-#compare-btn-product:hover{
-  background-color: rgb(4, 152, 16);
-}
 #clear-all-btn:hover {
-  background-color: rgb(213, 69, 69); /* Màu nền tối hơn khi hover */
+  background-color: rgb(213, 69, 69); /* Màu nền khi hover */
+}
+
+/* Phần chứa các sản phẩm so sánh */
+.compare-products {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 70%;
+  justify-content: center;
+}
+
+/* Sản phẩm trong thanh điều hướng so sánh */
+.compare-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  color: #000;
+  padding: 5px;
+  border-radius: 5px;
+  width: 30%;
+}
+
+.compare-product-image img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.compare-product-info {
+  display: flex;
+  justify-content: space-around;
+  margin-left: 10px;
+  margin-right: 20px;
+  width: 70%;
+}
+
+.remove-btn {
+  margin-left: 45px;
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 35px;
+  width: 35px;
 }
 
 /* Nav so sánh */

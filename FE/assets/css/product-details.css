@@ -222,9 +222,7 @@
     text-decoration: underline;
   }
 /* Image product */
-  .product-Image{
-    /* background-color: red; */
-  }
+  
   #product-image{
     width: 570px;
     border-radius: 20px;
