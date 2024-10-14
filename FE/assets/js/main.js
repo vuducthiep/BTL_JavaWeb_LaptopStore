@@ -268,12 +268,14 @@ function addToCompare(productId) {
 // Hàm cập nhật danh sách sản phẩm so sánh trên navbar
 function updateCompareProducts() {
   const compareProductsDiv = document.querySelector('.compare-products');
+  const navbar = document.querySelector('.navbar');
   compareProductsDiv.innerHTML = ''; // Xóa nội dung cũ
 
-  if (comparedProducts.length === 0) {
-    document.querySelector('.navbar').style.display = 'none';
-    document.getElementById('toggle-arrow').style.display = 'none'; // Ẩn nút mũi tên khi không có sản phẩm
-  } else {
+  // Kiểm tra nếu có sản phẩm trong danh sách so sánh
+  if (comparedProducts.length > 0) {
+    navbar.style.display = 'flex'; // Hiện thanh navbar
+    document.getElementById('toggle-arrow').style.display = 'inline'; // Hiện mũi tên
+
     // Lấy toàn bộ sản phẩm từ API
     fetch('http://localhost:3000/products')
       .then(response => response.json())
@@ -295,25 +297,11 @@ function updateCompareProducts() {
             compareProductsDiv.appendChild(productItem);
           }
         });
-
-        // Hiện mũi tên khi có sản phẩm
-        document.getElementById('toggle-arrow').style.display = 'block';
       })
       .catch(error => console.error('Error fetching products:', error));
-  }
-}
-
-// Hàm ẩn/hiện thanh điều hướng với mũi tên
-function toggleNavbar() {
-  const navbar = document.querySelector('.navbar');
-  const arrow = document.getElementById('toggle-arrow');
-  
-  if (navbar.style.bottom === '0px') {
-    navbar.style.bottom = '-100px'; // Ẩn nav (di chuyển xuống ngoài màn hình)
-    arrow.textContent = '▲'; // Mũi tên lên
   } else {
-    navbar.style.bottom = '0px'; // Hiện nav
-    arrow.textContent = '▼'; // Mũi tên xuống
+    navbar.style.display = 'none'; // Ẩn thanh navbar nếu không có sản phẩm
+    document.getElementById('toggle-arrow').style.display = 'none'; // Ẩn mũi tên
   }
 }
 
@@ -328,5 +316,21 @@ function clearAllCompare() {
   comparedProducts = [];
   updateCompareProducts();
 }
+
+// Hàm để toggle navbar
+function toggleNavbar() {
+  const navbar = document.querySelector('.navbar');
+  const arrow = document.getElementById('toggle-arrow');
+
+  // Kiểm tra nếu navbar đang hiển thị
+  if (navbar.style.display === 'flex') {
+    navbar.style.display = 'none'; // Ẩn navbar
+    arrow.textContent = '▲'; // Mũi tên lên
+  } else {
+    navbar.style.display = 'flex'; // Hiện navbar
+    arrow.textContent = '▼'; // Mũi tên xuống
+  }
+}
+
 
 // So sánh
