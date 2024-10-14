@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
@@ -50,7 +51,7 @@ public class UserAPI {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
         return result;
     }
-    //API lấy dl cho checkbox
+    //API lấy nhà cung cấp cho checkbox(cả checkbox và btn)
     @GetMapping(value = "/user/checkboxsuppliers/")
     public Map<Integer,String> getSuppliersCheckbox(){
         Map<Integer,String> result = suppliersService.getSupplierForCheckbox();
@@ -86,6 +87,13 @@ public class UserAPI {
     @GetMapping(value = "/user/checkboxscreensize/")
     public Map<String,String> getScreenSizeForCheckbox(){
         Map<String,String> result = productDescriptionService.getScreensizeForCheckbox();
+        return result;
+    }
+
+    //API lấy nhu cầu của khách hàng(cả checkbox và btn)
+    @GetMapping(value = "/user/checkboxuserdemand/")
+    public Map<String,String> getUserDemandForCheckbox(){
+        Map<String,String> result = ProDescription_FindByUserDemand_Enum.typeUserDemand();
         return result;
     }
 }
