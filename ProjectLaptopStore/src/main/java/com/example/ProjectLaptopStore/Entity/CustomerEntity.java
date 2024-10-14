@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,7 @@ public class CustomerEntity implements Serializable {
     @Column(name = "StreetAddress")
     private String streetAddress;
     @Column(name = "RegistrationDate",nullable = false)
+//    private Date registrationDate;
     private Date registrationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")

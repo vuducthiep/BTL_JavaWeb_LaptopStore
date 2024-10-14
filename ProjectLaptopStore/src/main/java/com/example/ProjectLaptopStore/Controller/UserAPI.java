@@ -1,15 +1,20 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.DTO.User_RegisterDTO;
 import com.example.ProjectLaptopStore.Service.IProductService;
+import com.example.ProjectLaptopStore.Service.IUserService;
 import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 public class UserAPI {
     @Autowired
@@ -17,6 +22,7 @@ public class UserAPI {
 
     @Autowired
     private IProductService productService;
+    IUserService  userService;
 
 //    @GetMapping(value = "/product/productdescription/")
 //    public List<ProductDescriptionDTO> ProductDescription(){
@@ -42,5 +48,21 @@ public class UserAPI {
     public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
         return result;
+    }
+
+    @GetMapping(value = "/users/")
+    public List<User_RegisterDTO> listUserLogin() {
+        List<User_RegisterDTO> users = userService.getAllUsers();
+        return users;
+    }
+
+    @PostMapping(value = "/register")
+    public void createUser(@RequestBody User_RegisterDTO user) {
+        userService.createUser(user);
+    }
+
+    @DeleteMapping(value = "/user-delete/{phoneNumber}")
+    public void deleteUser(@PathVariable String phoneNumber) {
+        userService.deleteUser(phoneNumber);
     }
 }
