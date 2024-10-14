@@ -244,6 +244,23 @@ const boxes = document.querySelectorAll('.custom-grid-item');
 
 // So sánh
 // Biến để lưu trữ sản phẩm được so sánh
+function compareProducts() {
+  // Lấy danh sách các sản phẩm đang được thêm vào thanh so sánh (nav)
+  if (comparedProducts.length === 2) {
+    const product1ID = comparedProducts[0]; 
+    const product2ID = comparedProducts[1];
+
+    // Tạo URL để chuyển đến trang product-compare.html và truyền các ID sản phẩm
+    const compareURL = `product-compare.html?product1=${product1ID}&product2=${product2ID}`;
+
+    // Chuyển hướng đến trang so sánh
+    window.location.href = compareURL;
+  } else {
+    alert("Bạn cần chọn 2 sản phẩm để so sánh!");
+  }
+}
+
+
 let comparedProducts = [];
 
 // Hàm thêm sản phẩm vào danh sách so sánh
@@ -288,9 +305,10 @@ function updateCompareProducts() {
             productItem.innerHTML = `
               <div class="compare-product-image">
                 <img src="${product.ImageURL}" alt="${product.ProductName}">
+                 <span>${product.ProductName}</span>
               </div>
               <div class="compare-product-info">
-                <span>${product.ProductName}</span>
+               
                 <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
               </div>
             `;

@@ -826,9 +826,9 @@ input[type="checkbox"] {
 /* Nút mũi tên cố định ở góc dưới bên phải */
 #toggle-arrow {
   position: fixed;
-  bottom: 5px; /* Cố định ở góc dưới */
+  bottom: 55px; /* Cố định ở góc dưới */
   right: 20px; /* Cách mép phải */
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   background-color: #343a40; /* Màu nền đen */
   color: #fff; /* Màu chữ */
@@ -890,7 +890,7 @@ input[type="checkbox"] {
   color: #000;
   padding: 5px;
   border-radius: 5px;
-  width: 50%;
+  width: 35%;
 }
 
 .compare-product-image img {
@@ -899,17 +899,19 @@ input[type="checkbox"] {
   object-fit: cover;
   border-radius: 5px;
 }
-
+.compare-product-image{
+  width: 90%;
+  padding: 5px;
+  
+}
 .compare-product-info {
-  display: flex;
-  justify-content: space-around;
   margin-left: 10px;
   margin-right: 20px;
-  width: 70%;
+  width: 10%;
 }
 
 .remove-btn {
-  margin-left: 45px;
+ 
   background-color: red;
   color: white;
   border: none;

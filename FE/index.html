@@ -382,24 +382,24 @@
       
     </main>
     
-    <div class="navbar navbar-expand-sm bg-gradient navbar-dark fixed-bottom hidden"> <!-- Ban đầu ẩn với class hidden -->
+    <div class="navbar navbar-expand-sm bg-gradient navbar-dark fixed-bottom hidden"> 
+      <!-- Ban đầu ẩn với class hidden -->
       <div class="container-fluid">
           <a class="navbar-brand" href="#">So Sánh Sản Phẩm</a>
-          <div class="compare-products"></div>
+          <div class="compare-products">
+              <!-- Sản phẩm so sánh sẽ được thêm ở đây -->
+              <span class="product-to-compare" data-product-id="1">Sản phẩm 1</span>
+              <span class="product-to-compare" data-product-id="2">Sản phẩm 2</span>
+          </div>
           <div class="" style="width: 30%; display: flex;justify-content: center;">
-            <button id="compare-btn-product" onclick="compareProducts()">So sánh</button>
-            <button id="clear-all-btn" onclick="clearAllCompare()">Xóa Tất Cả</button>
+              <button id="compare-btn-product" onclick="compareProducts()">So sánh</button>
+              <button id="clear-all-btn" onclick="clearAllCompare()">Xóa Tất Cả</button>
           </div>
       </div>
   </div>
   <span id="toggle-arrow" onclick="toggleNavbar()" style="display:none;">▲</span> <!-- Mũi tên -->
   
-    
-    
-    
-    
-    
-    
+  
     <footer>
       <div class="container">
         <div class="footer-section">
