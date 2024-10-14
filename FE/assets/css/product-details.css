@@ -291,6 +291,7 @@
 
   /* Thông số */
  /* Đảm bảo bảng hiển thị đúng */
+ 
 .specs-content {
   width: 100%;
   border-collapse: collapse; 
@@ -311,9 +312,9 @@
   text-align: center;
 }
 
-/* .hidden {
+.hidden {
   display: none;
-} */
+}
 
 /* Canh chỉnh hai nút "Thông số nổi bật" và "Tất cả thông số" */
 .specs-toggle {
