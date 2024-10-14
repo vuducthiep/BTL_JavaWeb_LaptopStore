@@ -15,5 +15,7 @@ public interface IProductDescriptionRepository extends JpaRepository<ProductDesc
 
     @Query(value = "SELECT * FROM ProductDescription pd WHERE pd.ProductID = :productId", nativeQuery = true)
     ProductDescriptionEntity findAllByProductId(@Param("productId") Long productId);
+
+
 }
 

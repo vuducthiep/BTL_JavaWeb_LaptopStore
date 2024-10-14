@@ -1,10 +1,10 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
 import com.example.ProjectLaptopStore.Service.ISuppliersService;
-import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,6 +54,38 @@ public class UserAPI {
     @GetMapping(value = "/user/checkboxsuppliers/")
     public Map<Integer,String> getSuppliersCheckbox(){
         Map<Integer,String> result = suppliersService.getSupplierForCheckbox();
+        return result;
+    }
+
+    //API hiện mức giá cho checkbox
+    @GetMapping(value = "/user/checkboxprice/")
+    public Map<List<Integer>,String> getPricesCheckbox(){
+        Map<List<Integer>,String> result = Product_FindProductsByPriceRange_Enum.getPriceRanges();
+        return result;
+    }
+
+    //API lấy công nghệ CPU cho checkbox
+    @GetMapping(value = "/user/checkboxcpu/")
+    public Map<String,String> getCpuTechnologyCheckbox(){
+        Map<String,String> result = productDescriptionService.getCPUTechnologyForCheckbox();
+        return result;
+    }
+    //API lấy dung lượng Ram cho checkbox
+    @GetMapping(value = "/user/checkboxram/")
+    public Map<Long,Long> getRamCapacityCheckbox(){
+        Map<Long,Long> result = productDescriptionService.getRamCapacityForCheckbox();
+        return result;
+    }
+    //API lấy loại ổ cứng cho checkbox
+    @GetMapping(value = "/user/checkboxharddrive/")
+    public Map<String,String> getHardDriveCheckbox(){
+        Map<String,String> result = productDescriptionService.getHardDriveForCheckbox();
+        return result;
+    }
+    //API lấy kích thước màn hình cho checkbox
+    @GetMapping(value = "/user/checkboxscreensize/")
+    public Map<String,String> getScreenSizeForCheckbox(){
+        Map<String,String> result = productDescriptionService.getScreensizeForCheckbox();
         return result;
     }
 }

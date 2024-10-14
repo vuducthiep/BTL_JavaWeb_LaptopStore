@@ -12,7 +12,9 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductDescriptionServiceImpl implements IProductDescriptionService {
@@ -41,6 +43,48 @@ public class ProductDescriptionServiceImpl implements IProductDescriptionService
         return result;
     }
 
+    //API lấy công nghệ CPU cho checkbox
+    @Override
+    public Map<String, String> getCPUTechnologyForCheckbox() {
+        Map<String, String> result = new HashMap<>();
+        List<ProductDescriptionEntity> productDescriptionEntityList = productDescriptionRepository.findAll();
+        for (ProductDescriptionEntity item : productDescriptionEntityList) {
+            result.put(item.getCpuTechnology(),item.getCpuTechnology());
+
+        }
+        return result;
+    }
+
+    @Override
+    public Map<Long, Long> getRamCapacityForCheckbox() {
+        Map<Long, Long> result = new HashMap<>();
+        List<ProductDescriptionEntity> productDescriptionEntityList = productDescriptionRepository.findAll();
+        for (ProductDescriptionEntity item : productDescriptionEntityList) {
+            result.put(item.getRamCapacity(),item.getRamCapacity());
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, String> getHardDriveForCheckbox() {
+        Map<String, String> result = new HashMap<>();
+        List<ProductDescriptionEntity> productDescriptionEntityList = productDescriptionRepository.findAll();
+        for (ProductDescriptionEntity item : productDescriptionEntityList) {
+            result.put(item.getHardDriveType(),item.getHardDriveType());
+        }
+        return result;
+    }
+
+    @Override
+    public Map<String, String> getScreensizeForCheckbox() {
+        Map<String, String> result = new HashMap<>();
+        List<ProductDescriptionEntity> productDescriptionEntityList = productDescriptionRepository.findAll();
+        for (ProductDescriptionEntity item : productDescriptionEntityList) {
+            result.put(item.getScreenSize(),item.getScreenSize());
+
+        }
+        return result;
+    }
 
 
 }
