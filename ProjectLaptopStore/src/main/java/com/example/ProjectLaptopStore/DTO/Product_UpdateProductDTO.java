@@ -43,7 +43,7 @@ public class Product_UpdateProductDTO {
     private long maximumHardDriveUpgradeCapacity;
     private String ssdType;
     private long capacity;
-    private BigDecimal screenSize;
+    private String screenSize;
     private String displayTechnology;
     private String resolution;
     private String screenType;
@@ -78,7 +78,7 @@ public class Product_UpdateProductDTO {
     private String userManual;
     private String color;
 
-    public Product_UpdateProductDTO(Integer productId, Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, Date releaseDate, Integer warrantyPeriod, String imageUrl, String cpuCompany, String cpuTechnology, String cpuType, String minimumCPUspeed, BigDecimal maximunSpeed, long multiplier, String processorCache, String brandCardOboard, String modelCardOboard, String fullNameCardOboard, String vgaBrand, String vgaFullName, long ramCapacity, String ramType, String ramSpeed, long numberOfRemovableSlots, long numberOfOnboardRAM, long maximumRAMSupport, String hardDriveType, long totalSSDHDDSlots, long numberOfSSDHDDSlotsRemaining, long maximumHardDriveUpgradeCapacity, String ssdType, long capacity, BigDecimal screenSize, String displayTechnology, String resolution, String screenType, BigDecimal scanningFrequency, String basePlate, long brightness, String colorCoverage, BigDecimal screenRatio, String communicationPort, String wifi, String bluetooth, String webcam, String os, String version, String security, String keyboardType, boolean numericKeypad, String keyboardLight, String touchPad, String batteryType, long batteryCapacity, String powerSupply, String accessoriesInTheBox, String size, BigDecimal productWeight, String material, String pn, String origin, long warrantyPeriodMonths, String storageInstructions, String userManual, String color) {
+    public Product_UpdateProductDTO(Integer productId, Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, Date releaseDate, Integer warrantyPeriod, String imageUrl, String cpuCompany, String cpuTechnology, String cpuType, String minimumCPUspeed, BigDecimal maximunSpeed, long multiplier, String processorCache, String brandCardOboard, String modelCardOboard, String fullNameCardOboard, String vgaBrand, String vgaFullName, long ramCapacity, String ramType, String ramSpeed, long numberOfRemovableSlots, long numberOfOnboardRAM, long maximumRAMSupport, String hardDriveType, long totalSSDHDDSlots, long numberOfSSDHDDSlotsRemaining, long maximumHardDriveUpgradeCapacity, String ssdType, long capacity, String screenSize, String displayTechnology, String resolution, String screenType, BigDecimal scanningFrequency, String basePlate, long brightness, String colorCoverage, BigDecimal screenRatio, String communicationPort, String wifi, String bluetooth, String webcam, String os, String version, String security, String keyboardType, boolean numericKeypad, String keyboardLight, String touchPad, String batteryType, long batteryCapacity, String powerSupply, String accessoriesInTheBox, String size, BigDecimal productWeight, String material, String pn, String origin, long warrantyPeriodMonths, String storageInstructions, String userManual, String color) {
         this.productId = productId;
         this.supplierId = supplierId;
         this.productName = productName;

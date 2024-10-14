@@ -16,7 +16,7 @@ public class ProductDescriptionEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ProductDescriptionID;
+    private Integer ProductDescriptionID;
 
     @ManyToOne
     @JoinColumn(name = "ProductID")
@@ -38,7 +38,7 @@ public class ProductDescriptionEntity implements Serializable {
     private BigDecimal maximunSpeed;
 
     @Column(name = "Multiplier")
-    private long multiplier;
+    private Long multiplier;
 
     @Column(name = "ProcessorCache")
     private String processorCache;
@@ -59,7 +59,7 @@ public class ProductDescriptionEntity implements Serializable {
     private String vgaFullName;
 
     @Column(name = "RAMcapacity")
-    private long ramCapacity;
+    private Long ramCapacity;
 
     @Column(name = "RAMType")
     private String ramType;
@@ -68,34 +68,34 @@ public class ProductDescriptionEntity implements Serializable {
     private String ramSpeed;
 
     @Column(name = "NumberOfRemovableSlots")
-    private long numberOfRemovableSlots;
+    private Long numberOfRemovableSlots;
 
     @Column(name = "NumberOfOnboardRAM")
-    private long numberOfOnboardRAM;
+    private Long numberOfOnboardRAM;
 
     @Column(name = "MaximumRAMSupport")
-    private long maximumRAMSupport;
+    private Long maximumRAMSupport;
 
     @Column(name = "HardDriveType")
     private String hardDriveType;
 
     @Column(name = "TotalSSDHDDSlots")
-    private long totalSSDHDDSlots;
+    private Long totalSSDHDDSlots;
 
     @Column(name = "NumberOfSSDHDDSlotsRemaining")
-    private long numberOfSSDHDDSlotsRemaining;
+    private Long numberOfSSDHDDSlotsRemaining;
 
     @Column(name = "MaximumHardDriveUpgradeCapacity")
-    private long maximumHardDriveUpgradeCapacity;
+    private Long maximumHardDriveUpgradeCapacity;
 
     @Column(name = "SSDType")
     private String ssdType;
 
     @Column(name = "Capacity")
-    private long capacity;
+    private Long capacity;
 
     @Column(name = "ScreenSize",precision = 4, scale = 2)
-    private BigDecimal screenSize;
+    private String screenSize;
 
     @Column(name = "DisplayTechnology")
     private String displayTechnology;
@@ -113,7 +113,7 @@ public class ProductDescriptionEntity implements Serializable {
     private String basePlate;
 
     @Column(name = "Brightness")
-    private long brightness;
+    private Long brightness;
 
     @Column(name = "ColorCoverage")
     private String colorCoverage;
@@ -158,7 +158,7 @@ public class ProductDescriptionEntity implements Serializable {
     private String batteryType;
 
     @Column(name = "BatteryCapacity")
-    private long batteryCapacity;
+    private Long batteryCapacity;
 
     @Column(name = "PowerSupply")
     private String powerSupply;
@@ -185,7 +185,7 @@ public class ProductDescriptionEntity implements Serializable {
 //    private Date releaseDate;
 
     @Column(name = "WarrantyPeriodMonths")
-    private long warrantyPeriodMonths;
+    private Long warrantyPeriodMonths;
 
     @Column(name = "StorageInstructions")
     private String storageInstructions;
