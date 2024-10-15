@@ -3,11 +3,13 @@ package com.example.ProjectLaptopStore.Controller;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.IUserService;
 import com.example.ProjectLaptopStore.Service.Impl.UserServiceImpl;
+import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -37,10 +39,8 @@ public class Authentication {
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
 //    @PostMapping(value = "/token-valid")
-//    public boolean login(@RequestBody IntrospecTokenDTO token) {
-//        return TokenValidDTO.builder()
-//                .valid(userService.validateToken(token))
-//                .token();
+//    public boolean login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
+//
 //    }
 //    @PostMapping(value = "/token-valid")
 //    public boolean login(@RequestBody IntrospecTokenDTO token) {
