@@ -20,7 +20,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
-public class UserController {
+public class UserAPI {
     @Autowired
     private IProductDescriptionService productDescriptionService;
 

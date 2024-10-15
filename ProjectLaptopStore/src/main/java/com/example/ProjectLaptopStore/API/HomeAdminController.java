@@ -1,4 +1,4 @@
-package com.example.ProjectLaptopStore.Controller;
+package com.example.ProjectLaptopStore.API;
 
 import org.springframework.stereotype.Controller;
 
