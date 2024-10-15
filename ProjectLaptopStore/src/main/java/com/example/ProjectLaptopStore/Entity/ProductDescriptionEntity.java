@@ -94,7 +94,7 @@ public class ProductDescriptionEntity implements Serializable {
     @Column(name = "Capacity")
     private Long capacity;
 
-    @Column(name = "ScreenSize",precision = 4, scale = 2)
+    @Column(name = "ScreenSize")
     private String screenSize;
 
     @Column(name = "DisplayTechnology")
