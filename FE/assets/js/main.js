@@ -1,4 +1,3 @@
-// Load sản phẩm nổi bật,và sản phẩm khác
 document.addEventListener('DOMContentLoaded', function () {
   const featuredList = document.getElementById('featured-products-list');
   const regularList = document.getElementById('regular-products-list');
@@ -26,23 +25,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('featured-item'); 
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.id}">
+        <a class="product-link" href="product-details.html?id=${product.ProductID}">
           <div class="product-image">
-            <img src="${product.thumbnail}" alt="${product.name}">
+            <img src="${product.ImageURL}" alt="${product.ProductName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.name}</h3>
-            <p class="product-price">Giá: ${product.price} VND</p>
-            <p>${product.description}</p>
+            <h3 class="product-title">${product.ProductName}</h3>
+            <p class="product-price">Giá: ${product.Price} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.id})">
-  <div class="icon-circle">
-    <i class="fas fa-plus"></i>
-  </div>
-  So sánh
-</button>
-
+        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+          <div class="icon-circle">
+            <i class="fas fa-plus"></i>
+          </div>
+          So sánh
+        </button>
       `;
       featuredList.appendChild(productDiv);
     });
@@ -54,23 +51,21 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('product-item'); 
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.id}">
+        <a class="product-link" href="product-details.html?id=${product.ProductID}">
           <div class="product-image">
-            <img src="${product.thumbnail}" alt="${product.name}">
+            <img src="${product.ImageURL}" alt="${product.ProductName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.name}</h3>
-            <p class="product-price">Giá: ${product.price} VND</p>
-            <p>${product.description}</p>
+            <h3 class="product-title">${product.ProductName}</h3>
+            <p class="product-price">Giá: ${product.Price} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.id})">
-  <div class="icon-circle">
-    <i class="fas fa-plus"></i>
-  </div>
-  So sánh
-</button>
-
+        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+          <div class="icon-circle">
+            <i class="fas fa-plus"></i>
+          </div>
+          So sánh
+        </button>
       `;
       regularList.appendChild(productDiv);
     });
@@ -91,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .catch(error => console.error('Error fetching products:', error));
   });
 });
-// Load sản phẩm nổi bật,và sản phẩm khác
+
 
 
 
@@ -249,22 +244,39 @@ const boxes = document.querySelectorAll('.custom-grid-item');
 
 // So sánh
 // Biến để lưu trữ sản phẩm được so sánh
+function compareProducts() {
+  // Lấy danh sách các sản phẩm đang được thêm vào thanh so sánh (nav)
+  if (comparedProducts.length === 2) {
+    const product1ID = comparedProducts[0]; 
+    const product2ID = comparedProducts[1];
+
+    // Tạo URL để chuyển đến trang product-compare.html và truyền các ID sản phẩm
+    const compareURL = `product-compare.html?product1=${product1ID}&product2=${product2ID}`;
+
+    // Chuyển hướng đến trang so sánh
+    window.location.href = compareURL;
+  } else {
+    alert("Bạn cần chọn 2 sản phẩm để so sánh!");
+  }
+}
+
+
 let comparedProducts = [];
 
 // Hàm thêm sản phẩm vào danh sách so sánh
 function addToCompare(productId) {
+  if (comparedProducts.length >= 2) {
+    alert('Bạn chỉ có thể so sánh tối đa 2 sản phẩm!');
+    return;
+  }
+  
   // Kiểm tra xem sản phẩm đã được thêm chưa
   if (!comparedProducts.includes(productId)) {
     comparedProducts.push(productId);
-    
-    // Cập nhật giao diện
     updateCompareProducts();
-    
-    // Hiện nút so sánh và xóa tất cả nếu có sản phẩm
-    if (comparedProducts.length > 0) {
-      document.getElementById('compare-btn-product').style.display = 'block';
-      document.getElementById('clear-all-btn').style.display = 'block';
-    }
+
+    // Hiện thanh điều hướng nếu có sản phẩm
+    document.querySelector('.navbar').style.display = 'flex';
   } else {
     alert('Sản phẩm đã được thêm vào danh sách so sánh!');
   }
@@ -273,34 +285,41 @@ function addToCompare(productId) {
 // Hàm cập nhật danh sách sản phẩm so sánh trên navbar
 function updateCompareProducts() {
   const compareProductsDiv = document.querySelector('.compare-products');
+  const navbar = document.querySelector('.navbar');
   compareProductsDiv.innerHTML = ''; // Xóa nội dung cũ
 
-  if (comparedProducts.length === 0) {
-    // Ẩn nav so sánh khi không có sản phẩm nào
-    document.querySelector('.navbar').style.display = 'none';
-  } else {
-    // Hiện nav so sánh khi có sản phẩm
-    document.querySelector('.navbar').style.display = 'flex';
+  // Kiểm tra nếu có sản phẩm trong danh sách so sánh
+  if (comparedProducts.length > 0) {
+    navbar.style.display = 'flex'; // Hiện thanh navbar
+    document.getElementById('toggle-arrow').style.display = 'inline'; // Hiện mũi tên
 
-    comparedProducts.forEach(productId => {
-      // Tìm sản phẩm trong dữ liệu đã tải
-      fetch(`http://localhost:3000/products/${productId}`)
-        .then(response => response.json())
-        .then(product => {
-          const productItem = document.createElement('div');
-          productItem.classList.add('compare-item');
-          productItem.innerHTML = `
-            <div class="compare-product-image">
-              <img src="${product.thumbnail}" alt="${product.name}">
-            </div>
-            <div class="compare-product-info">
-              <span>${product.name}</span>
-              <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
-            </div>
-          `;
-          compareProductsDiv.appendChild(productItem);
+    // Lấy toàn bộ sản phẩm từ API
+    fetch('http://localhost:3000/products')
+      .then(response => response.json())
+      .then(products => {
+        comparedProducts.forEach(productId => {
+          const product = products.find(item => item.ProductID === productId);
+          if (product) {
+            const productItem = document.createElement('div');
+            productItem.classList.add('compare-item');
+            productItem.innerHTML = `
+              <div class="compare-product-image">
+                <img src="${product.ImageURL}" alt="${product.ProductName}">
+                 <span>${product.ProductName}</span>
+              </div>
+              <div class="compare-product-info">
+               
+                <button class="remove-btn" onclick="removeFromCompare(${productId})">X</button>
+              </div>
+            `;
+            compareProductsDiv.appendChild(productItem);
+          }
         });
-    });
+      })
+      .catch(error => console.error('Error fetching products:', error));
+  } else {
+    navbar.style.display = 'none'; // Ẩn thanh navbar nếu không có sản phẩm
+    document.getElementById('toggle-arrow').style.display = 'none'; // Ẩn mũi tên
   }
 }
 
@@ -308,29 +327,28 @@ function updateCompareProducts() {
 function removeFromCompare(productId) {
   comparedProducts = comparedProducts.filter(id => id !== productId);
   updateCompareProducts();
-
-  // Ẩn nút so sánh và xóa tất cả nếu không còn sản phẩm nào
-  if (comparedProducts.length === 0) {
-    document.getElementById('compare-btn-product').style.display = 'none';
-    document.getElementById('clear-all-btn').style.display = 'none';
-  }
 }
 
 // Hàm xóa tất cả sản phẩm trong danh sách so sánh
 function clearAllCompare() {
   comparedProducts = [];
   updateCompareProducts();
-  document.getElementById('compare-btn-product').style.display = 'none';
-  document.getElementById('clear-all-btn').style.display = 'none';
 }
 
-// Hàm so sánh sản phẩm (bạn có thể cập nhật logic bên trong)
-function compareProducts() {
-  if (comparedProducts.length < 2) {
-    alert('Bạn cần ít nhất 2 sản phẩm để so sánh!');
-    return;
+// Hàm để toggle navbar
+function toggleNavbar() {
+  const navbar = document.querySelector('.navbar');
+  const arrow = document.getElementById('toggle-arrow');
+
+  // Kiểm tra nếu navbar đang hiển thị
+  if (navbar.style.display === 'flex') {
+    navbar.style.display = 'none'; // Ẩn navbar
+    arrow.textContent = '▲'; // Mũi tên lên
+  } else {
+    navbar.style.display = 'flex'; // Hiện navbar
+    arrow.textContent = '▼'; // Mũi tên xuống
   }
-  // Thực hiện so sánh sản phẩm ở đây
 }
+
 
 // So sánh

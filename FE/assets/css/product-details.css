@@ -222,9 +222,7 @@
     text-decoration: underline;
   }
 /* Image product */
-  .product-Image{
-    /* background-color: red; */
-  }
+  
   #product-image{
     width: 570px;
     border-radius: 20px;
@@ -291,6 +289,7 @@
 
   /* Thông số */
  /* Đảm bảo bảng hiển thị đúng */
+ 
 .specs-content {
   width: 100%;
   border-collapse: collapse; 

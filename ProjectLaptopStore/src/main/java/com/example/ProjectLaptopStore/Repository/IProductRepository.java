@@ -19,6 +19,7 @@ public interface IProductRepository extends JpaRepository<ProductsEntity,Integer
     void deleteByProductIDIn(Long[] ids);
     List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
 
+
     //Lấy top sản phẩm bán chạy
     //jpql
 
