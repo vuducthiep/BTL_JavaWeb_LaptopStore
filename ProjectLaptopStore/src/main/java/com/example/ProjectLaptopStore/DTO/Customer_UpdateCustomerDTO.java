@@ -1,7 +1,13 @@
 package com.example.ProjectLaptopStore.DTO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
+@Setter
+@Getter
 public class Customer_UpdateCustomerDTO {
     private Integer customerId;
     private String fullName;

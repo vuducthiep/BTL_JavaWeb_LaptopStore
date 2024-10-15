@@ -5,15 +5,20 @@ import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDeman
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
+import com.example.ProjectLaptopStore.Service.IUserService;
+import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
 import com.example.ProjectLaptopStore.Service.ISuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 public class UserAPI {
     @Autowired
@@ -25,6 +30,7 @@ public class UserAPI {
 
     @Autowired
     private IProductService productService;
+    IUserService  userService;
 
 //    @GetMapping(value = "/product/productdescription/")
 //    public List<ProductDescriptionDTO> ProductDescription(){
@@ -51,6 +57,7 @@ public class UserAPI {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
         return result;
     }
+
     //API lấy nhà cung cấp cho checkbox(cả checkbox và btn)
     @GetMapping(value = "/user/checkboxsuppliers/")
     public Map<Integer,String> getSuppliersCheckbox(){
