@@ -6,8 +6,8 @@ import java.util.Map;
 public enum ProDescription_FindByUserDemand_Enum {
     GAMING_DOHOA("Gaming-Đồ họa"), //card nvidia
     SINHVIEN_VANPHONG("Sinh viên-Văn Phòng"), //giá <30tr
-    MONGNHE("Mỏng nhẹ"), //dưới 1.5kg
-    DOANHNHAN("Doanh nhân"); //dưới 2cm hoặc 20mm
+    MONGNHE("Mỏng nhẹ"), //dưới 1.5kg ,dưới 2cm hoặc 20mm
+    DOANHNHAN("Doanh nhân"); // >30tr
 
     private String typeDemand;
 
