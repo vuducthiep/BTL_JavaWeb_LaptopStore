@@ -35,5 +35,9 @@ public class Authentication {
     public boolean login(@RequestBody User_RegisterDTO user) {
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
+//    @PostMapping(value = "/token-valid")
+//    public boolean login(@RequestBody IntrospecTokenDTO token) {
+//        return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
+//    }
 
 }
