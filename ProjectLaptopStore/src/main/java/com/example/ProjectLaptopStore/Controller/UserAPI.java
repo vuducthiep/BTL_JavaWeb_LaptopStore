@@ -5,15 +5,12 @@ import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDeman
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
-<<<<<<< HEAD
 import com.example.ProjectLaptopStore.Service.IUserService;
 import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-=======
 import com.example.ProjectLaptopStore.Service.ISuppliersService;
->>>>>>> Develop
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,10 +57,7 @@ public class UserAPI {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
         return result;
     }
-<<<<<<< HEAD
 
-
-=======
     //API lấy nhà cung cấp cho checkbox(cả checkbox và btn)
     @GetMapping(value = "/user/checkboxsuppliers/")
     public Map<Integer,String> getSuppliersCheckbox(){
@@ -109,5 +103,4 @@ public class UserAPI {
         Map<String,String> result = ProDescription_FindByUserDemand_Enum.typeUserDemand();
         return result;
     }
->>>>>>> Develop
 }
