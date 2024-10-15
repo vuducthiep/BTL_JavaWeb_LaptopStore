@@ -1,7 +1,5 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.Controller.Authentication;
-import com.example.ProjectLaptopStore.Controller.UserAPI;
 import com.example.ProjectLaptopStore.DTO.IntrospecTokenDTO;
 import com.example.ProjectLaptopStore.DTO.TokenValidDTO;
 import com.example.ProjectLaptopStore.DTO.User_AuthenticationResponseDTO;
@@ -15,7 +13,6 @@ import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import lombok.AccessLevel;
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.experimental.NonFinal;
@@ -29,7 +26,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.ZoneId;

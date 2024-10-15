@@ -1,4 +1,4 @@
-package com.example.ProjectLaptopStore.Controller;
+package com.example.ProjectLaptopStore.API;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;

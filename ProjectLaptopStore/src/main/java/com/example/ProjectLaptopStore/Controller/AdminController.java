@@ -1,4 +1,4 @@
-package com.example.ProjectLaptopStore.API;
+package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.*;

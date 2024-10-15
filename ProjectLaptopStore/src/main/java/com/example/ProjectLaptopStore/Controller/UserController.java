@@ -1,4 +1,4 @@
-package com.example.ProjectLaptopStore.API;
+package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
@@ -6,7 +6,6 @@ import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRan
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
 import com.example.ProjectLaptopStore.Service.IUserService;
-import com.example.ProjectLaptopStore.Service.Impl.ProductDescriptionServiceImpl;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+//@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 public class UserController {
     @Autowired
@@ -30,7 +29,7 @@ public class UserController {
 
     @Autowired
     private IProductService productService;
-    IUserService  userService;
+
 
 //    @GetMapping(value = "/product/productdescription/")
 //    public List<ProductDescriptionDTO> ProductDescription(){

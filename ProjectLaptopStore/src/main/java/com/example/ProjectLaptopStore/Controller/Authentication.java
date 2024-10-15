@@ -14,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+//phân quyền
 public class Authentication {
     @Autowired
     IUserService userService;
