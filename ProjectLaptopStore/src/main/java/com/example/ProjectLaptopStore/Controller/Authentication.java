@@ -1,9 +1,6 @@
 package com.example.ProjectLaptopStore.Controller;
 
-import com.example.ProjectLaptopStore.DTO.IntrospecTokenDTO;
-import com.example.ProjectLaptopStore.DTO.User_AuthenticationResponseDTO;
-import com.example.ProjectLaptopStore.DTO.User_LoginDTO;
-import com.example.ProjectLaptopStore.DTO.User_RegisterDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.IUserService;
 import com.example.ProjectLaptopStore.Service.Impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -39,10 +36,12 @@ public class Authentication {
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
-    @PostMapping(value = "/token-valid")
-    public boolean login(@RequestBody IntrospecTokenDTO token) {
-        return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
-    }
+//    @PostMapping(value = "/token-valid")
+//    public boolean login(@RequestBody IntrospecTokenDTO token) {
+//        return TokenValidDTO.builder()
+//                .valid(userService.validateToken(token))
+//                .token();
+//    }
 //    @PostMapping(value = "/token-valid")
 //    public boolean login(@RequestBody IntrospecTokenDTO token) {
 //        return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
