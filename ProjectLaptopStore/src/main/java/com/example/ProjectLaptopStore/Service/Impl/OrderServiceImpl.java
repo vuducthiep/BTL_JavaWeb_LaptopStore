@@ -4,7 +4,6 @@ import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConvert
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
-import com.example.ProjectLaptopStore.DTO.Order_TotalAmountInMonthDTO;
 import com.example.ProjectLaptopStore.Repository.IOrderRepository;
 import com.example.ProjectLaptopStore.Service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +22,11 @@ public class OrderServiceImpl implements IOrderService {
     @Autowired
     private Order_TotalAmountInMonthDTOConverter order_TotalAmountInMonthDTOConverter;
     @Override
-    public Order_TotalAmountInMonthDTO getTotalAmountInMountAtService() {
-        BigDecimal totalAmountInMountDTOS = orderRepository.findTotalAmount();
+    public BigDecimal getTotalAmountInMountAtService() {
+        BigDecimal res = orderRepository.findTotalAmount();
 //        BigDecimal totalAmount = order_TotalAmountInMonthDTOConverter.TotalAmount(totalAmountInMountDTOS);
-        Order_TotalAmountInMonthDTO res = new Order_TotalAmountInMonthDTO();
-        res.setTotalAmount(totalAmountInMountDTOS);
+//        Order_TotalAmountInMonthDTO res = new Order_TotalAmountInMonthDTO();
+//        res.setTotalAmount(totalAmountInMountDTOS);
         return res;
     }
 
