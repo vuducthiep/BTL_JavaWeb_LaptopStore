@@ -39,10 +39,10 @@ public class Authentication {
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
-//    @PostMapping(value = "/token-valid")
-//    public boolean login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
-//
-//    }
+    @PostMapping(value = "/token-valid")
+    public TokenValidDTO login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
+            return userService.validateToken(token);
+    }
 //    @PostMapping(value = "/token-valid")
 //    public boolean login(@RequestBody IntrospecTokenDTO token) {
 //        return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
