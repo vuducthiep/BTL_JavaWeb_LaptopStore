@@ -24,4 +24,5 @@ public interface IOrderRepository extends JpaRepository<OrdersEntity, Integer> ,
             "WHERE pm.CreatedDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
             "AND pm.CreatedDate <= CURDATE()", nativeQuery = true )
     Integer countCustomersForCurrentMonth();
+
 }
