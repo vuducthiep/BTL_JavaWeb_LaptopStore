@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -182,9 +183,10 @@ public class AdminController {
     //========================================== API chính của admin =====================================================
 
     //API cho trang dashboard
+    //chưa tối ưu
     @GetMapping(value = "/admin/dashboard/")
-    public Admin_DashBoardDTO adminDashBoard(){
-        Admin_DashBoardDTO adminInfo = new Admin_DashBoardDTO();
+    public Admin_DashBoardResponseDTO adminDashBoard(){
+        Admin_DashBoardResponseDTO adminInfo = new Admin_DashBoardResponseDTO();
         Integer productSellInMonth = orderDetailService.getQuantityProductCurrentMonthAtService();
         Integer totalCustomerInMonth = orderService.TotalCustomerInMonthAtService();
         Integer totalNewCustomerInMonth = customerService.getNewCustomerCurrentMonth();
@@ -205,6 +207,7 @@ public class AdminController {
         adminInfo.setTopCustomerInMonth(listTopCustomer);
         return adminInfo;
     }
+
 
 
 

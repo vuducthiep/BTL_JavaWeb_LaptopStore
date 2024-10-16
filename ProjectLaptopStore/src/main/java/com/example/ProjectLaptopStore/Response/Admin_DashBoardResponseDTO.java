@@ -1,5 +1,6 @@
-package com.example.ProjectLaptopStore.DTO;
+package com.example.ProjectLaptopStore.Response;
 
+import com.example.ProjectLaptopStore.DTO.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 @Getter
 @Setter
-public class Admin_DashBoardDTO {
+public class Admin_DashBoardResponseDTO {
     private Integer quantitySellProductCurrentMonth;
     private Integer totalCustomerInCurrentMonth;
     private Integer totalNewCustomerInCurrentMonth;
@@ -18,10 +19,10 @@ public class Admin_DashBoardDTO {
     private List<Product_FindTopPurchasedProductsDTO> topPurchasedProductInMonth;
     private List<Customer_FindTopCustomerInMonthDTO> topCustomerInMonth;
 
-    public Admin_DashBoardDTO() {
+    public Admin_DashBoardResponseDTO() {
     }
 
-    public Admin_DashBoardDTO(Integer quantitySellProductCurrentMonth, Integer totalCustomerInCurrentMonth, Integer totalNewCustomerInCurrentMonth, BigDecimal totalAmountInCurrentMonth, List<Customer_CountNewCustomerPerMonthDTO> newCustomerPerMonthMap, List<Order_CountTotalAmountDTO> totalAmountPerMonthMap, List<OrderDetail_CountQuantityProductPerMonthDTO> totalQuantitySellProductPerMonthMap, List<Product_FindTopPurchasedProductsDTO> topPurchasedProductInMonth, List<Customer_FindTopCustomerInMonthDTO> topCustomerInMonth) {
+    public Admin_DashBoardResponseDTO(Integer quantitySellProductCurrentMonth, Integer totalCustomerInCurrentMonth, Integer totalNewCustomerInCurrentMonth, BigDecimal totalAmountInCurrentMonth, List<Customer_CountNewCustomerPerMonthDTO> newCustomerPerMonthMap, List<Order_CountTotalAmountDTO> totalAmountPerMonthMap, List<OrderDetail_CountQuantityProductPerMonthDTO> totalQuantitySellProductPerMonthMap, List<Product_FindTopPurchasedProductsDTO> topPurchasedProductInMonth, List<Customer_FindTopCustomerInMonthDTO> topCustomerInMonth) {
         this.quantitySellProductCurrentMonth = quantitySellProductCurrentMonth;
         this.totalCustomerInCurrentMonth = totalCustomerInCurrentMonth;
         this.totalNewCustomerInCurrentMonth = totalNewCustomerInCurrentMonth;

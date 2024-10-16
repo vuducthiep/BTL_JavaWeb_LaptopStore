@@ -2,10 +2,8 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.IUserService;
-import com.example.ProjectLaptopStore.Service.Impl.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,7 +11,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 //phân quyền
-public class Authentication {
+public class AuthenticationController {
     @Autowired
     IUserService userService;
 
