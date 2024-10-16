@@ -5,9 +5,11 @@ import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class AdminController {
 //    @PersistenceContext
 //    private EntityManager entityManager;
@@ -26,12 +28,20 @@ public class AdminController {
 
     @Autowired
     private IOrderDetailService orderDetailService;
-    //test
 
+
+    //============================================= API test từng thành phần =========================================
+
+    //API lấy số sản phẩm bán trong tháng
+    @GetMapping(value = "/admin/sellproduct/")
+    public Integer getQuantityProductCurrentMonth(){
+        Integer result = orderDetailService.getQuantityProductCurrentMonthAtService();
+        return result;
+    }
     //API lấy tổng tiền trong tháng hiện tại
     @GetMapping(value = "/admin/totalmount/")
-    public Order_TotalAmountInMonthDTO TotalAmountInMount(){
-        Order_TotalAmountInMonthDTO res = orderService.getTotalAmountInMountAtService();
+    public BigDecimal TotalAmountInMount(){
+        BigDecimal res = orderService.getTotalAmountInMountAtService();
         return res;
     }
 
@@ -49,6 +59,13 @@ public class AdminController {
 //        Integer result = customerService.countCustomers(params);
 //        return result;
 //    }
+
+    //API lấy số khách mới trong tháng
+    @GetMapping(value = "/admin/newcustomer/")
+    public Integer NewCustomerInMonth(){
+        Integer result = customerService.getNewCustomerCurrentMonth();
+        return result;
+    }
 
 
    //API lấy số khách mới mỗi tháng cho biểu đồ
@@ -159,6 +176,34 @@ public class AdminController {
     public List<Order_InvoiceDetailDTO> ListInvoice(){
         List<Order_InvoiceDetailDTO> result = orderService.ListInvoiceDetailAtService();
         return result;
+    }
+
+
+    //========================================== API chính của admin =====================================================
+
+    //API cho trang dashboard
+    @GetMapping(value = "/admin/dashboard/")
+    public Admin_DashBoardDTO adminDashBoard(){
+        Admin_DashBoardDTO adminInfo = new Admin_DashBoardDTO();
+        Integer productSellInMonth = orderDetailService.getQuantityProductCurrentMonthAtService();
+        Integer totalCustomerInMonth = orderService.TotalCustomerInMonthAtService();
+        Integer totalNewCustomerInMonth = customerService.getNewCustomerCurrentMonth();
+        BigDecimal totalAmountInMonth = orderService.getTotalAmountInMountAtService();
+        List<Customer_CountNewCustomerPerMonthDTO> newCustomerForChart = customerService.listCountNewCustomerPerMonth();
+        List<Order_CountTotalAmountDTO> totalAmountForChart = orderService.listCountTotalAmountAtService();
+        List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart = orderDetailService.listCountQuantityProductPerMonth();
+        List<Product_FindTopPurchasedProductsDTO> listTopProductSell = productService.findTopPurchasedProductAtService();
+        List<Customer_FindTopCustomerInMonthDTO> listTopCustomer = customerService.listTopCustomerInMonth();
+        adminInfo.setQuantitySellProductCurrentMonth(productSellInMonth);
+        adminInfo.setTotalCustomerInCurrentMonth(totalCustomerInMonth);
+        adminInfo.setTotalNewCustomerInCurrentMonth(totalNewCustomerInMonth);
+        adminInfo.setTotalAmountInCurrentMonth(totalAmountInMonth);
+        adminInfo.setNewCustomerPerMonthMap(newCustomerForChart);
+        adminInfo.setTotalAmountPerMonthMap(totalAmountForChart);
+        adminInfo.setTotalQuantitySellProductPerMonthMap(quantityProductForChart);
+        adminInfo.setTopPurchasedProductInMonth(listTopProductSell);
+        adminInfo.setTopCustomerInMonth(listTopCustomer);
+        return adminInfo;
     }
 
 

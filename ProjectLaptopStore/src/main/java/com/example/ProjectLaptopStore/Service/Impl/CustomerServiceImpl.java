@@ -59,6 +59,12 @@ public class CustomerServiceImpl implements ICustomerService {
         return result;
     }
 
+    @Override
+    public Integer getNewCustomerCurrentMonth() {
+        Integer result = customerRepository.getNewCustomerCurrentMonth();
+        return result;
+    }
+
 //    @Override
 //    public Integer countCustomers(Map<String, Object> params) {
 //        CustomerSearchBuilder customerSearchBuilder = customerCountNewCustomerConverter.toCustomerSearchBuilder(params);

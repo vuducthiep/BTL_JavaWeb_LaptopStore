@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IOrderDetailService {
     List<OrderDetail_CountQuantityProductPerMonthDTO> listCountQuantityProductPerMonth();
+    Integer getQuantityProductCurrentMonthAtService();
 }

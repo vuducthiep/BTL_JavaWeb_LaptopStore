@@ -20,6 +20,7 @@
 //                request.requestMatchers(HttpMethod.GET, "/users/").hasAnyRole("Admin")
 //                        .requestMatchers(HttpMethod.POST, "/register","login","/token-valid").permitAll()
 //
+//                        .requestMatchers(HttpMethod.POST, "/register","login").permitAll()
 //                        .anyRequest().authenticated()
 //        );
 //

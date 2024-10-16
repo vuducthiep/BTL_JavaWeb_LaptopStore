@@ -19,4 +19,10 @@ public class OrderDetailServiceImpl implements IOrderDetailService {
         List<OrderDetail_CountQuantityProductPerMonthDTO> result = orderDetailRepository.listCountQuantityProductPerMonth();
         return result;
     }
+
+    @Override
+    public Integer getQuantityProductCurrentMonthAtService() {
+        Integer result = orderDetailRepository.getTotalQuantityProductCurrentMonth();
+        return result;
+    }
 }

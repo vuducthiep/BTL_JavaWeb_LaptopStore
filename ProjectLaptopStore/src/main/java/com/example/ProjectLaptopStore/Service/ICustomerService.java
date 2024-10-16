@@ -15,4 +15,5 @@ public interface ICustomerService {
     void createCustomerAtService(Customer_CreateCustomerDTO customerCreate);
     void updateCustomerAtService(Customer_UpdateCustomerDTO customerUpdate);
     List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth();
+    Integer getNewCustomerCurrentMonth();
 }
