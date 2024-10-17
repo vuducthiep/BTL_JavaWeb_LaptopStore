@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('product-name-breadcrumb').textContent = product.ProductName; // Hiển thị tên trong breadcrumb
     document.getElementById('product-image').src = product.ImageURL;
     document.getElementById('product-status').textContent = "Tình Trạng: Còn hàng"; // Sửa lại id ở đây
-    document.getElementById('product-price').textContent = `Giá: ${product.Price} VND`;
+    document.getElementById('product-price').textContent = `Giá: ${(product.Price *1000000).toLocaleString('vi-VN')} VND`;
   }
 
   function displayProductDescriptions(productDescription) {
