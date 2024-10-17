@@ -29,6 +29,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/register","login","/token-valid").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register","login").permitAll()
                         .requestMatchers(HttpMethod.GET,"/users/").hasAnyAuthority("SCOPE_admin")
+                        .requestMatchers(HttpMethod.GET,"/admin/*").hasAnyAuthority("SCOPE_admin")
+                        .requestMatchers(HttpMethod.POST,"/admin/*").hasAnyAuthority("SCOPE_admin")
+                        .requestMatchers(HttpMethod.DELETE,"/admin/*").hasAnyAuthority("SCOPE_admin")
+                        .requestMatchers(HttpMethod.PUT,"/admin/*").hasAnyAuthority("SCOPE_admin")
                         .anyRequest().authenticated()
         );
 

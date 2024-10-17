@@ -6,6 +6,8 @@ import com.example.ProjectLaptopStore.DTO.User_AuthenticationResponseDTO;
 import com.example.ProjectLaptopStore.DTO.User_RegisterDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
+import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
+import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
 import com.example.ProjectLaptopStore.Repository.IUserRepository;
 import com.example.ProjectLaptopStore.Service.IUserService;
 import com.nimbusds.jose.*;
@@ -67,7 +69,7 @@ public class UserServiceImpl implements IUserService {
     public void createUser(User_RegisterDTO user) {
         if(userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             try {
-                throw new Exception("Phone number already exists");
+                throw new UserAlreadyExistsException("User already exists");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -90,7 +92,7 @@ public class UserServiceImpl implements IUserService {
             userEntity = modelMapper.map(user,UserEntity.class);
             userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         }
-        else throw new RuntimeException("So dien thoai khong ton tai");
+        else throw new UserNotFoundException("User not found");
     }
 
     @Transactional
@@ -116,7 +118,7 @@ public class UserServiceImpl implements IUserService {
                     .token(token)
                     .build();
         }
-        else throw new RuntimeException("So dien thoai khong ton tai");
+        else throw new UserNotFoundException("User not found");
 
     }
 
