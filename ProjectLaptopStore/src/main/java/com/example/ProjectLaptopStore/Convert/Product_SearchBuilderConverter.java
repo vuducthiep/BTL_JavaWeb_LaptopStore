@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 import java.util.Map;
 @Component
-public class ProductSearchBuilderConverter {
+public class Product_SearchBuilderConverter {
     public ProductSearchBuilder toProductSearchBuilder(Map<String, Object> params){
         ProductSearchBuilder productSearchBuilder = new ProductSearchBuilder.Builder()
                 .setProductName(MapUtil.getObject(params,"productName", String.class))

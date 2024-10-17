@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Controller;
 
+import com.example.ProjectLaptopStore.ControllerLogic.AdminDashBoardLogic;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
@@ -30,6 +31,8 @@ public class AdminController {
     @Autowired
     private IOrderDetailService orderDetailService;
 
+    @Autowired
+    private AdminDashBoardLogic adminDashBoardLogic;
 
     //============================================= API test từng thành phần =========================================
 
@@ -186,26 +189,8 @@ public class AdminController {
     //chưa tối ưu
     @GetMapping(value = "/admin/dashboard/")
     public Admin_DashBoardResponseDTO adminDashBoard(){
-        Admin_DashBoardResponseDTO adminInfo = new Admin_DashBoardResponseDTO();
-        Integer productSellInMonth = orderDetailService.getQuantityProductCurrentMonthAtService();
-        Integer totalCustomerInMonth = orderService.TotalCustomerInMonthAtService();
-        Integer totalNewCustomerInMonth = customerService.getNewCustomerCurrentMonth();
-        BigDecimal totalAmountInMonth = orderService.getTotalAmountInMountAtService();
-        List<Customer_CountNewCustomerPerMonthDTO> newCustomerForChart = customerService.listCountNewCustomerPerMonth();
-        List<Order_CountTotalAmountDTO> totalAmountForChart = orderService.listCountTotalAmountAtService();
-        List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart = orderDetailService.listCountQuantityProductPerMonth();
-        List<Product_FindTopPurchasedProductsDTO> listTopProductSell = productService.findTopPurchasedProductAtService();
-        List<Customer_FindTopCustomerInMonthDTO> listTopCustomer = customerService.listTopCustomerInMonth();
-        adminInfo.setQuantitySellProductCurrentMonth(productSellInMonth);
-        adminInfo.setTotalCustomerInCurrentMonth(totalCustomerInMonth);
-        adminInfo.setTotalNewCustomerInCurrentMonth(totalNewCustomerInMonth);
-        adminInfo.setTotalAmountInCurrentMonth(totalAmountInMonth);
-        adminInfo.setNewCustomerPerMonthMap(newCustomerForChart);
-        adminInfo.setTotalAmountPerMonthMap(totalAmountForChart);
-        adminInfo.setTotalQuantitySellProductPerMonthMap(quantityProductForChart);
-        adminInfo.setTopPurchasedProductInMonth(listTopProductSell);
-        adminInfo.setTopCustomerInMonth(listTopCustomer);
-        return adminInfo;
+        Admin_DashBoardResponseDTO result = adminDashBoardLogic.setValueForDashBoard();
+        return result;
     }
 
 

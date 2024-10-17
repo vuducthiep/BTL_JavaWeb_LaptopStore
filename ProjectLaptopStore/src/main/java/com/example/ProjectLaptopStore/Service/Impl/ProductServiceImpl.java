@@ -1,12 +1,11 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.Convert.ProductDisplayForHomePageConverter;
-import com.example.ProjectLaptopStore.Convert.ProductSearchBuilderConverter;
+import com.example.ProjectLaptopStore.Convert.Product_DisplayForHomePageConverter;
+import com.example.ProjectLaptopStore.Convert.Product_SearchBuilderConverter;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Repository.IProductRepository;
 import com.example.ProjectLaptopStore.Service.IProductService;
-import org.hibernate.annotations.Array;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,10 +20,10 @@ public class ProductServiceImpl implements IProductService {
     private IProductRepository productRepository;
 
     @Autowired
-    private ProductSearchBuilderConverter productSearchBuilderConverter;
+    private Product_SearchBuilderConverter productSearchBuilderConverter;
 
     @Autowired
-    private ProductDisplayForHomePageConverter productDisplayForHomePageConverter;
+    private Product_DisplayForHomePageConverter productDisplayForHomePageConverter;
     @Override
     public List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService() {
         List<Product_FindTopPurchasedProductsDTO> result = productRepository.findAllProductsWithTotalQuantityOrdered();
