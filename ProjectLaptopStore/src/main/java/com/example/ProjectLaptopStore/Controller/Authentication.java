@@ -5,8 +5,11 @@ import com.example.ProjectLaptopStore.Service.IUserService;
 import com.example.ProjectLaptopStore.Service.Impl.UserServiceImpl;
 import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -16,17 +19,22 @@ import java.util.List;
 @RequiredArgsConstructor
 //phân quyền
 public class Authentication {
+    private static final Logger log = LoggerFactory.getLogger(Authentication.class);
     @Autowired
     IUserService userService;
 
     @GetMapping(value = "/users/")
     public List<User_RegisterDTO> listUserLogin() {
+        var authen = SecurityContextHolder.getContext().getAuthentication();
+        log.info("user name: {}", authen.getName());
+        log.info("Role: {}", authen.getAuthorities());
         List<User_RegisterDTO> users = userService.getAllUsers();
         return users;
     }
 
     @PostMapping(value = "/register")
     public void createUser(@RequestBody User_RegisterDTO user) {
+
         userService.createUser(user);
     }
 
@@ -37,6 +45,8 @@ public class Authentication {
 
     @PostMapping(value = "/login")
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
+
+        List<User_RegisterDTO> users = userService.getAllUsers();
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
     @PostMapping(value = "/token-valid")

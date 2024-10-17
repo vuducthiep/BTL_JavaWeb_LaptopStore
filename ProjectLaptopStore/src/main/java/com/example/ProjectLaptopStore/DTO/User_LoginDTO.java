@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.DTO;
 
+import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import lombok.Getter;
 import lombok.Setter;
 

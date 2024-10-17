@@ -17,6 +17,6 @@ public class User_RegisterDTO {
     private String email;
     private String password;
     private String phoneNumber;
-    private User_Enum userType;
+    private String role;
     private LocalDateTime registerDate = LocalDateTime.now();
 }

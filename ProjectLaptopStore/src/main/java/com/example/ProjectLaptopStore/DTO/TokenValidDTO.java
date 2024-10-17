@@ -9,5 +9,6 @@ import lombok.*;
 @Builder
 public class TokenValidDTO {
     boolean valid;
+    String message;
     String token;
 }

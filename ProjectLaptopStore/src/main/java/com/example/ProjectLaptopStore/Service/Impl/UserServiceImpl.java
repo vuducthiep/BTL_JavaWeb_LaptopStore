@@ -4,6 +4,7 @@ import com.example.ProjectLaptopStore.DTO.IntrospecTokenDTO;
 import com.example.ProjectLaptopStore.DTO.TokenValidDTO;
 import com.example.ProjectLaptopStore.DTO.User_AuthenticationResponseDTO;
 import com.example.ProjectLaptopStore.DTO.User_RegisterDTO;
+import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Repository.IUserRepository;
 import com.example.ProjectLaptopStore.Service.IUserService;
@@ -77,6 +78,7 @@ public class UserServiceImpl implements IUserService {
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setRegistrationDate(date);
+        userEntity.setUserType(User_Enum.customer);
         userRepository.save(userEntity);
     }
 
@@ -104,19 +106,21 @@ public class UserServiceImpl implements IUserService {
     public User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password) {
         UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
         if(userEntity != null) {
             boolean status =  passwordEncoder.matches(password, userEntity.getPassword());
+            var token = generateToken(userEntity);
+            if(!status)
+                token = null;
+            return User_AuthenticationResponseDTO.builder()
+                    .status(status)
+                    .token(token)
+                    .build();
         }
         else throw new RuntimeException("So dien thoai khong ton tai");
-        var token = generateToken(phoneNumber);
-        return User_AuthenticationResponseDTO.builder()
-                .status(true)
-                .token(token)
-                .build();
+
     }
 
-
+    // kiem tra token co hop le khong
     @Override
     public TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException {
         var tk = token.getToken();
@@ -124,19 +128,36 @@ public class UserServiceImpl implements IUserService {
         SignedJWT signedJWT = SignedJWT.parse(tk);
         Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
         var verified = signedJWT.verify(verifier);
+        boolean ms = verified && expirationTime.after(new Date());
+        String message;
+        if (ms == true){
+            message = "Login Success";
+        }
+        else {
+            message = "Invalid Token";
+        }
         return TokenValidDTO.builder()
                 .token(tk)
-                .valid(verified && expirationTime.after(new Date()))
+                .valid(ms)
+                .message(message)
                 .build();
     }
 
     // tao token
-    private String generateToken(String phonenumber){
+    private String generateToken(UserEntity user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
+        String role;
+        if(user.getUserType().equals(User_Enum.customer)) {
+            role = "customer";
+        }
+        else {
+            role = "admin";
+        }
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(phonenumber)
+                .subject(user.getPhoneNumber())
                 .issuer("laptopabc.com")
                 .issueTime(new Date())
+                .claim("scope",role)
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
