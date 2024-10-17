@@ -2,13 +2,11 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Service.IUserService;
-import com.example.ProjectLaptopStore.Service.Impl.UserServiceImpl;
 import com.nimbusds.jose.JOSEException;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +16,8 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 //phân quyền
-public class Authentication {
-    private static final Logger log = LoggerFactory.getLogger(Authentication.class);
+public class AuthenticationController {
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationController.class);
     @Autowired
     IUserService userService;
 
