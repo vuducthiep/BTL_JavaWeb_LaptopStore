@@ -1,14 +1,11 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.Convert.ProductDescriptionDTOConverter;
+import com.example.ProjectLaptopStore.Convert.Product_DescriptionDTOConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDescriptionDTO;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
-import com.example.ProjectLaptopStore.Entity.ProductsEntity;
-import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.IProductDescriptionRepository;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ public class ProductDescriptionServiceImpl implements IProductDescriptionService
     private IProductDescriptionRepository productDescriptionRepository;
 
     @Autowired
-    private ProductDescriptionDTOConverter productDescriptionDTOConverter;
+    private Product_DescriptionDTOConverter productDescriptionDTOConverter;
 
     @Override
     public List<ProductDescriptionDTO> finAllProductDescription() {

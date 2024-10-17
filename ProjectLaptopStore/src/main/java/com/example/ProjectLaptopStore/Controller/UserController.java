@@ -1,8 +1,10 @@
 package com.example.ProjectLaptopStore.Controller;
 
+import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
+import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.IProductService;
 import com.example.ProjectLaptopStore.Service.IUserService;
@@ -30,6 +32,10 @@ public class UserController {
     @Autowired
     private IProductService productService;
 
+    @Autowired
+    private UserHomePageLogic userHomePageLogic;
+
+    //=========================================== API test =====================================================
 
 //    @GetMapping(value = "/product/productdescription/")
 //    public List<ProductDescriptionDTO> ProductDescription(){
@@ -51,7 +57,7 @@ public class UserController {
 
     }
 
-    @GetMapping(value = "/user/home/")
+    @GetMapping(value = "/user/hometest/")
     public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
         List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
         return result;
@@ -102,4 +108,17 @@ public class UserController {
         Map<String,String> result = ProDescription_FindByUserDemand_Enum.typeUserDemand();
         return result;
     }
+
+    //============================================= API chính của User ==============================================
+
+    //API lấy thông tin cho homepage
+    //chưa tối ưu
+    @GetMapping(value = "/user/home/")
+    public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
+        User_HomeResponseDTO result = userHomePageLogic.setValueForHomePage(keyword);
+        return result;
+
+    }
+
+
 }

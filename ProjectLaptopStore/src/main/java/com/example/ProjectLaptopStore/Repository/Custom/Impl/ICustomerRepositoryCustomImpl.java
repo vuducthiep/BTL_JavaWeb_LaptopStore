@@ -143,6 +143,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
     public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
         String query =
                 "SELECT " +
+                        "c.CustomerID, "+
                         "u.FullName, " +
                         "u.Email, " +
                         "u.PhoneNumber, " +
@@ -163,6 +164,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
                         "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
                         "AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
                         "GROUP BY " +
+                        "c.CustomerID, "+
                         "u.FullName, " +
                         "u.Email, " +
                         "u.PhoneNumber, " +
@@ -179,16 +181,17 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
             Customer_FindTopCustomerInMonthDTO dto = new Customer_FindTopCustomerInMonthDTO(
-                    (String) rowOfResult[0],
+                    (Integer) rowOfResult[0],
                     (String) rowOfResult[1],
                     (String) rowOfResult[2],
-                    (Date) rowOfResult[3],
-                    (String) rowOfResult[4],
+                    (String) rowOfResult[3],
+                    (Date) rowOfResult[4],
                     (String) rowOfResult[5],
                     (String) rowOfResult[6],
                     (String) rowOfResult[7],
                     (String) rowOfResult[8],
-                    (BigDecimal) rowOfResult[9]
+                    (String) rowOfResult[9],
+                    (BigDecimal) rowOfResult[10]
             );
             listTopCustomerInMonth.add(dto);
         }
@@ -208,7 +211,3 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 //        return null;
 //    }
 }
-
-
-//sadasdasdaasdasdqw
-//ádasdasdasd121314234

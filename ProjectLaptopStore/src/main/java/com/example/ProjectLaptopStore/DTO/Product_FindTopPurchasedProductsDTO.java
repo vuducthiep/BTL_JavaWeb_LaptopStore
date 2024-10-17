@@ -1,6 +1,12 @@
 package com.example.ProjectLaptopStore.DTO;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Product_FindTopPurchasedProductsDTO {
+    private Integer productId;
     private String productName;
     private String brand;
     private String model;
@@ -10,7 +16,8 @@ public class Product_FindTopPurchasedProductsDTO {
     private String imageURL;
     private Long quantityOrdered;
 
-    public Product_FindTopPurchasedProductsDTO(String productName, String brand, String model, Float price, Integer stockQuantity, Integer warrantyPeriod, String imageURL, Long quantityOrdered) {
+    public Product_FindTopPurchasedProductsDTO(Integer productId, String productName, String brand, String model, Float price, Integer stockQuantity, Integer warrantyPeriod, String imageURL, Long quantityOrdered) {
+        this.productId = productId;
         this.productName = productName;
         this.brand = brand;
         this.model = model;
@@ -18,70 +25,6 @@ public class Product_FindTopPurchasedProductsDTO {
         this.stockQuantity = stockQuantity;
         this.warrantyPeriod = warrantyPeriod;
         this.imageURL = imageURL;
-        this.quantityOrdered = quantityOrdered;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
-    public Integer getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public Integer getWarrantyPeriod() {
-        return warrantyPeriod;
-    }
-
-    public void setWarrantyPeriod(Integer warrantyPeriod) {
-        this.warrantyPeriod = warrantyPeriod;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public Long getQuantityOrdered() {
-        return quantityOrdered;
-    }
-
-    public void setQuantityOrdered(Long quantityOrdered) {
         this.quantityOrdered = quantityOrdered;
     }
 }

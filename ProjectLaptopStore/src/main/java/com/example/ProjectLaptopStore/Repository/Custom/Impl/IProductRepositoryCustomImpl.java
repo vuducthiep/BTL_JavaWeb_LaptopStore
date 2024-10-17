@@ -27,17 +27,8 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     private EntityManager entityManager;
     @Override
     public List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered() {
-//        String query = "SELECT p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, p.Description, " +
-//                "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered " +
-//                "FROM Products p " +
-//                "LEFT JOIN OrderDetails od ON p.ProductID = od.ProductID " +
-//                "GROUP BY p.ProductID " +
-//                "ORDER BY quantityOrdered DESC";
-//                Query nativeQuery = entityManager.createNativeQuery(query, Product_FindTopPurchasedProductsDTO.class);
-//        return nativeQuery.getResultList();
-
         //set tay cho toàn bộ trường của lớp DTO vì gặp lỗi 500, ko map dữ liệu được
-        String query = "SELECT p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
+        String query = "SELECT p.ProductID ,p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
                 "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered " +
                 "FROM Products p " +
                 "LEFT JOIN OrderDetails od ON p.ProductID = od.ProductID " +
@@ -50,14 +41,15 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
         List<Product_FindTopPurchasedProductsDTO> dtoList = new ArrayList<>();
         for (Object[] result : results) {
             Product_FindTopPurchasedProductsDTO dto = new Product_FindTopPurchasedProductsDTO(
-                    (String) result[0],  // productName
-                    (String) result[1],  // brand
-                    (String) result[2],  // model
-                    (Float) result[3],   // price
-                    (Integer) result[4], // stockQuantity
-                    (Integer) result[5], // warrantyPeriod
-                    (String) result[6],  // imageURL
-                    ((Number) result[7]).longValue()  // quantityOrdered (SUM result)
+                    (Integer) result[0],
+                    (String) result[1],  // productName
+                    (String) result[2],  // brand
+                    (String) result[3],  // model
+                    (Float) result[4],   // price
+                    (Integer) result[5], // stockQuantity
+                    (Integer) result[6], // warrantyPeriod
+                    (String) result[7],  // imageURL
+                    ((Number) result[8]).longValue()  // quantityOrdered (SUM result)
             );
             dtoList.add(dto);
         }
@@ -176,10 +168,8 @@ public void updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEnt
     productsEntityById.setWarrantyPeriod(updateProductDTO.getWarrantyPeriod());
     productsEntityById.setReleaseDate(updateProductDTO.getReleaseDate());
     productsEntityById.setImageURL(updateProductDTO.getImageUrl());
-
     // Cập nhật thông tin mô tả sản phẩm
     ProductDescriptionEntity productDescriptionEntity = entityManager.find(ProductDescriptionEntity.class, productsEntityById.getProductID());
-
     if (productDescriptionEntity == null) {
         // Nếu không tìm thấy, tạo mới ProductDescriptionEntity
         productDescriptionEntity = new ProductDescriptionEntity();
@@ -252,45 +242,6 @@ public void updateProduct(Product_UpdateProductDTO updateProductDTO, ProductsEnt
     entityManager.flush();
 }
 
-//    @Override
-//    public List<Product_SearchProductByKeyDTO> findAllProductsByKey(Object key) {
-//        String query =
-//                "SELECT p.ProductName, p.Price , p.ImageURL " +
-//                "FROM Products p " +
-//                "JOIN ProductDescription pd ON p.ProductID = pd.ProductID " +
-//                "JOIN Suppliers s ON p.SupplierID = s.SupplierID " +
-//                "WHERE " +
-//                "LOWER(p.ProductName) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(p.Brand) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(p.Model) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(s.SupplierName) LIKE LOWER(CONCAT('%', '"+ key+ "', '%')) OR " +
-//                "LOWER(pd.CPUcompany) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.CPUtechnology) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.CPUtype) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.ProcessorCache) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.VGAFullName) LIKE LOWER(CONCAT('%', '"+ key +"', '%'))  OR " +
-//                "LOWER(pd.RAMcapacity) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.HardDriveType) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.DisplayTechnology) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.ScreenSize) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.Resolution) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.OS) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) OR " +
-//                "LOWER(pd.BatteryType) LIKE LOWER(CONCAT('%', '"+ key +"', '%')) " ;
-//        Query queryNative = entityManager.createNativeQuery(query);
-//        List<Object[]> resultQuery = queryNative.getResultList();
-//        List<Product_SearchProductByKeyDTO> productsEntityByNativeQuery = new ArrayList<>();
-//        for(Object[] rowOfResult : resultQuery) {
-//            Product_SearchProductByKeyDTO dto = new Product_SearchProductByKeyDTO(
-//                    (String) rowOfResult[0],
-//                    (Float) rowOfResult[1],
-//                    (String) rowOfResult[2]
-//            );
-//            productsEntityByNativeQuery.add(dto);
-//        }
-//        return productsEntityByNativeQuery;
-//    }
-
-
 
     //CẦN CẢI TIẾN LOGIC VÀ TỐI ƯU HÓA CODE, GIẢM LƯỢNG CODE TRONG TƯƠNG LAI
     //không đảm bảo khách hàng sẽ tìm kiếm theo các key chuẩn bị sẵn
@@ -302,7 +253,7 @@ public List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key) {
     String columnValue = parts[parts.length - 1]; // Giá trị là phần cuối cùng
     String columnName = String.join(" ", Arrays.copyOf(parts, parts.length - 1)).toLowerCase(); // Phần còn lại là tên cột
     // Xây dựng truy vấn
-    String query = "SELECT p.ProductName, p.Price, p.ImageURL " +
+    String query = "SELECT p.ProductID , p.ProductName, p.Price, p.ImageURL " +
             "FROM Products p " +
             "JOIN ProductDescription pd ON p.ProductID = pd.ProductID " +
             "JOIN Suppliers s ON p.SupplierID = s.SupplierID " +
@@ -411,9 +362,10 @@ public List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key) {
     List<Product_DisplayForHomePageDTO> productsEntityByNativeQuery = new ArrayList<>();
     for (Object[] rowOfResult : resultQuery) {
         Product_DisplayForHomePageDTO dto = new Product_DisplayForHomePageDTO(
-                (String) rowOfResult[0],
-                (Float) rowOfResult[1],
-                (String) rowOfResult[2]
+                (Integer) rowOfResult[0],
+                (String) rowOfResult[1],
+                (Float) rowOfResult[2],
+                (String) rowOfResult[3]
         );
         productsEntityByNativeQuery.add(dto);
     }
