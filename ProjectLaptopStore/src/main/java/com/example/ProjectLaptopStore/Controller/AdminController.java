@@ -36,6 +36,7 @@ public class AdminController {
 
     //============================================= API test từng thành phần =========================================
 
+
     //API lấy số sản phẩm bán trong tháng
     @GetMapping(value = "/admin/sellproduct/")
     public Integer getQuantityProductCurrentMonth(){
@@ -108,6 +109,7 @@ public class AdminController {
         return result;
     }
 
+
     //API tạo sản phẩm
     @PostMapping("/admin/createproduct/")
     public void createProduct(@RequestBody Product_CreateProductDTO createProductDTO){
@@ -124,6 +126,7 @@ public class AdminController {
     public void createSupplier(@RequestBody Supplier_CreateSupplierDTO createSupplierDTO){
         suppliersService.createSupplier(createSupplierDTO);
     }
+
 
     //API cập nhật  sản phẩm (trả về cho repo product chứa id)
     @PutMapping("/admin/updateproduct/")

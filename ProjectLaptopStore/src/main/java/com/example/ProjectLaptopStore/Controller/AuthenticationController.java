@@ -22,7 +22,7 @@ public class AuthenticationController {
     @Autowired
     IUserService userService;
 
-    @GetMapping(value = "/users/")
+    @GetMapping(value = "/admin/users")
     public List<User_RegisterDTO> listUserLogin() {
         var authen = SecurityContextHolder.getContext().getAuthentication();
         log.info("user name: {}", authen.getName());
@@ -31,7 +31,7 @@ public class AuthenticationController {
         return users;
     }
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/user/register")
     public void createUser(@RequestBody User_RegisterDTO user) {
 
         userService.createUser(user);
@@ -42,13 +42,13 @@ public class AuthenticationController {
         userService.deleteUser(phoneNumber);
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/user/login")
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
 
         List<User_RegisterDTO> users = userService.getAllUsers();
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
-    @PostMapping(value = "/token-valid")
+    @PostMapping(value = "/user/token-valid")
     public TokenValidDTO login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
             return userService.validateToken(token);
     }
