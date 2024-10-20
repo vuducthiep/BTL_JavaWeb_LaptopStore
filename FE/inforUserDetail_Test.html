@@ -16,7 +16,7 @@
           crossorigin="anonymous"
         />
         <link rel="stylesheet" href="assets/css/home.css" />
-        <link rel="stylesheet" href="assets/css/inforUserDetail.css">
+        <link rel="stylesheet" href="assets/css/inforUserDetail_Test.css">
       </head>
 <body>
     <header class="" style="background-color:rgba(241, 18, 18, 0.884);">
@@ -114,27 +114,49 @@
         </div>
 
         <!-- Khối tóm tắt thông tin khách hàng -->
-        <div class="row">
-             <div class="summerize-infor-user col-3 bg-white">
-                <i class="fa-solid fa-circle-user"
-                style="font-size: 220%;"></i>
-                <div class="inner-user-box">
-                    <div class="inner-user-name">
-                        Le Minh Quang
+        <div class="summerize-infor-user col-3 bg-white">
+                <div class="infor-box">
+                    <i class="fa-solid fa-circle-user"
+                    style="font-size: 220%;"></i>
+                    <div class="inner-user-box">
+                        <div class="inner-user-name">
+                            Le Minh Quang
+                        </div>
+                        <div class="inner-user-phoneNumber">
+                            012345678
+                        </div>
                     </div>
-                    <div class="inner-user-phoneNumber">
-                        012345678
-                    </div>
+                    <a href="inforUserDetail.html" style="text-decoration: none;">Xem hồ sơ</a>
                 </div>
 
-                <a href="inforUserDetail.html" style="text-decoration: none;">Xem hồ sơ</a>
-             </div>
+              <!-- Khối điều hướng màn hình -->
+                <div class="box-main  bg-white ">
+                    <div class="box-item">
+                        <i class="fa-solid fa-box"
+                        style="font-size: 150%;"></i>
+                        <a href="">Đơn hàng của tôi</a>
+                    </div>
 
-             <!-- Khối quản lý thông tin cá nhân -->
-             <div class="box-content col-9 ">
+                    <div class="box-item">
+                        <i class="fa-solid fa-location-dot"
+                        style="font-size: 150%;"></i>
+                        <a href="">Địa chỉ nhận hàng</a>
+                    </div>
+
+                    <div class="box-item">
+                        <i class="fa-solid fa-circle-xmark"
+                        style="font-size: 150% ;
+                        margin-left: -8%;"></i>
+                        <a href="">Đăng xuất</a>
+                    </div>
+                </div>
+        </div>
+
+        <!-- Khối quản lý thông tin cá nhân -->
+        <div class="box-content col-9 bg-white">
                 <h3>Thông tin cá nhân</h3>
                 
-                <div class="box-content-main bg-white border border-warning">
+                <div class="box-content-main">
                     <i class="fa-solid fa-circle-user"
                     style="font-size: 450%;"></i>
 
@@ -163,30 +185,9 @@
                     </button>
                 </div>
                 
-            </div>
         </div>
 
-        <!-- Khối điều hướng màn hình -->
-        <div class="box-main  bg-white col-3 ">
-            <div class="box-item">
-                <i class="fa-solid fa-box"
-                style="font-size: 200%;"></i>
-                <a href="">Đơn hàng của tôi</a>
-            </div>
-
-            <div class="box-item">
-                <i class="fa-solid fa-location-dot"
-                style="font-size: 200%;"></i>
-                <a href="">Địa chỉ nhận hàng</a>
-            </div>
-
-            <div class="box-item">
-                <i class="fa-solid fa-circle-xmark"
-                style="font-size: 200%;
-                margin-left: -8%;"></i>
-                <a href="">Đăng xuất</a>
-            </div>
-        </div>
+        
 
       </div>
 </body>

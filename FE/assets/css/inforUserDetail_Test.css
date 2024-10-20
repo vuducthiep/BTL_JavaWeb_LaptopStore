@@ -1,5 +1,5 @@
 :root {
-    --color-background : #eee
+    --color-background : #eee ;
     --color-main : rgba(241, 18, 18, 0.884) ;
 }
 
@@ -11,7 +11,7 @@ body{
 ul.breadcrumb {
     padding: 10px 16px;
     list-style: none;
-    background-color: #eee;
+    background-color: var(--color-background);
   }
   ul.breadcrumb li {
     display: inline;
@@ -35,13 +35,19 @@ ul.breadcrumb {
 
 /* Khối tóm tắt thông tin khách hàng */
 .summerize-infor-user {
-    display: flex;
+    /* display: flex; */
     align-items: center;
-    border: var(--color-background);
+    border: var(--color-main);
     border-radius: 4%;
     justify-content: space-around;
     padding: 1%;
     float: left;
+}
+
+.summerize-infor-user .infor-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .summerize-infor-user .inner-user-box {
@@ -53,7 +59,7 @@ ul.breadcrumb {
 
 /* Khối điều hướng màn hình */
 .box-main {
-    margin-top: -26%;
+    /* margin-top: -26%; */
 }
 
 .box-item {
@@ -78,7 +84,8 @@ ul.breadcrumb {
 /* Khối quản lý thông tin cá nhân */
 .box-content{
     margin-left: 28%;
-    margin-top: -7%;
+    /* margin-top: -7%;  */
+    border-radius: 3%;
 }
 
 .box-content .box-content-main {
@@ -95,5 +102,7 @@ ul.breadcrumb {
 .box-content .box-content-item p {
     margin-right: 25%;
 }
+
+
 /* End khối quản lý thông tin cá nhân */
 
