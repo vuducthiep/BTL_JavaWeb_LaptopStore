@@ -22,6 +22,12 @@ async function login(event) {
         // Lưu trạng thái đăng nhập vào localStorage
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("userRole", user.role); // Lưu thông tin vai trò
+        
+        // Nếu đăng nhập thành công , Button infor User cần chuyển CSS của các div từ display none thành block để 
+        // đảm bảo khả năng truy cập vào các chức năng sau khi đã đăng nhập --Le Quang Update
+        // document.getElementById('userInfo').style.display = 'block' ; 
+        // document.getElementById('orders').style.display = 'block' ;
+        // document.getElementById('logout').style.display = 'block' ;
 
         // Chuyển hướng đến trang tương ứng
         if (user.role === 'admin') {
