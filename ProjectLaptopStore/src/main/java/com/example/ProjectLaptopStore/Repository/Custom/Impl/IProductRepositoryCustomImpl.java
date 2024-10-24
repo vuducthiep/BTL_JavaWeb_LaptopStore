@@ -8,11 +8,19 @@ import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.IProductRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.IProductRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -373,6 +381,19 @@ public List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key) {
 }
 
 
+// phan trang product
+//    @Override
+//    public Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize) {
+//        Pageable pageable = PageRequest.of(pageNo,pageSize);
+//        List<ProductsEntity> productsEntities = productRepository.getAllProducts(pageable);
+//        List<Product_DisplayForHomePageDTO> rs = new ArrayList<>();
+//        for (ProductsEntity productsEntity : productsEntities) {
+//            Product_DisplayForHomePageDTO dto = modelMapper.map(productsEntity, Product_DisplayForHomePageDTO.class);
+//            rs.add(dto);
+//        }
+//        Page<Product_DisplayForHomePageDTO> page = new PageImpl<>(rs);
+//        return page;
+//    }
 
 
 }
