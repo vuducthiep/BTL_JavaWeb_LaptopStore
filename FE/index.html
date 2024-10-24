@@ -15,12 +15,16 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+
+    <!-- Link CSS -->
     <link rel="stylesheet" href="assets/css/home.css" />
   </head>
   <body>
     <header class="" style="background-color:rgba(241, 18, 18, 0.884);">
       <div class="container ">
         <div class="row header-custom">
+
+          <!-- Button Logo -->
           <div class="col-2">
             <a class="logo" href="">
               <img
@@ -29,6 +33,8 @@
               />
             </a>
           </div>
+
+          <!-- Button thanh tìm kiếm -->
           <div class="col-5">
             <div class="seach-form">
               <form id="frm-seach" name="seach" action="/tim">
@@ -46,6 +52,8 @@
               </form>
             </div>
           </div>
+
+          <!-- Button infor User -->
           <div class="col-2">
             <div class="user-account" id="userAccount" tabindex="0">
               <i
@@ -56,8 +64,8 @@
                 <li><a href="#" id="loginLink">Đăng nhập</a></li>
                 <li>
                   <a href="#" id="userInfo" style="display: none"
-                    >Thông tin cá nhân</a
-                  >
+                    >Thông tin cá nhân
+                  </a>
                 </li>
                 <li>
                   <a href="#" id="orders" style="display: none">Đơn hàng</a>
@@ -69,6 +77,7 @@
             </div>
           </div>
 
+          <!-- Button liên hệ -->
           <div class="col">
             <div class="box-hotline">
               <p class="hotline-text">
@@ -79,6 +88,7 @@
             </div>
           </div>
 
+          <!-- Button giỏ hàng -->
           <div class="col">
             <div class="cart">
               <a href="cart.html" id="cartLink">
@@ -259,8 +269,13 @@
                         <button type="button" class="toggle-btn" onclick="toggleFilter('cpu-filter')">▼</button>
                       </h4>
                       <div class="filter-items" id="cpu-filter" style="display: none;">
-                        <label><input type="checkbox" name="cpu" value="intel"> Intel</label><br>
-                        <label><input type="checkbox" name="cpu" value="amd"> AMD</label><br>
+                        <label><input type="checkbox" name="cpu" value="intel celeron"> Intel Celeron</label><br>
+                        <label><input type="checkbox" name="cpu" value="intel core ultra"> Intel Core Ultra</label><br>
+                        <label><input type="checkbox" name="cpu" value="intel core i5"> Intel Core i5</label><br>
+                        <label><input type="checkbox" name="cpu" value="intel core i7"> Intel Core i7</label><br>
+                        <label><input type="checkbox" name="cpu" value="intel core i3"> Intel Core i3</label><br>
+                        <label><input type="checkbox" name="cpu" value="amd ryzen 7"> AMD Ryzen 7</label><br>
+                        <label><input type="checkbox" name="cpu" value="amd ryzen 5"> AMD Ryzen 5</label><br>
                       </div>
                     </div>
             
@@ -281,10 +296,10 @@
                         <button type="button" class="toggle-btn" onclick="toggleFilter('ram-filter')">▼</button>
                       </h4>
                       <div class="filter-items" id="ram-filter" style="display: none;">
-                        <label><input type="checkbox" name="ram" value="4gb"> 4GB</label><br>
-                        <label><input type="checkbox" name="ram" value="8gb"> 8GB</label><br>
-                        <label><input type="checkbox" name="ram" value="16gb"> 16GB</label><br>
-                        <label><input type="checkbox" name="ram" value="32gb"> 32GB</label><br>
+                        <label><input type="checkbox" name="ram" value="4"> 4GB</label><br>
+                        <label><input type="checkbox" name="ram" value="8"> 8GB</label><br>
+                        <label><input type="checkbox" name="ram" value="16"> 16GB</label><br>
+                        <label><input type="checkbox" name="ram" value="32"> 32GB</label><br>
                       </div>
                     </div>
             
@@ -294,9 +309,10 @@
                         <button type="button" class="toggle-btn" onclick="toggleFilter('storage-filter')">▼</button>
                       </h4>
                       <div class="filter-items" id="storage-filter" style="display: none;">
-                        <label><input type="checkbox" name="storage" value="hdd"> HDD</label><br>
-                        <label><input type="checkbox" name="storage" value="ssd"> SSD</label><br>
-                        <label><input type="checkbox" name="storage" value="nvme"> NVMe</label><br>
+                        <label><input type="checkbox" name="storage" value="1"> 1 TB</label><br>
+                        <label><input type="checkbox" name="storage" value="512"> 512 GB</label><br>
+                        <label><input type="checkbox" name="storage" value="256"> 256 GB</label><br>
+                        <label><input type="checkbox" name="storage" value="128"> 128 GB</label><br>
                       </div>
                     </div>
             
@@ -320,9 +336,9 @@
                         <button type="button" class="toggle-btn" onclick="toggleFilter('screen-size-filter')">▼</button>
                       </h4>
                       <div class="filter-items" id="screen-size-filter" style="display: none;">
-                        <label><input type="checkbox" name="screen-size" value="13-inch"> Dưới 14 inch</label><br>
-                        <label><input type="checkbox" name="screen-size" value="15-inch"> 14-15 inch</label><br>
-                        <label><input type="checkbox" name="screen-size" value="17-inch"> 15-17 inch</label><br>
+                        <label><input type="checkbox" name="screen-size" value="13"> Dưới 14 inch</label><br>
+                        <label><input type="checkbox" name="screen-size" value="15"> 14-15 inch</label><br>
+                        <label><input type="checkbox" name="screen-size" value="17"> 15-17 inch</label><br>
                       </div>
                     </div>
             

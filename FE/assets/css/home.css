@@ -43,7 +43,7 @@ body {
 
 #stext {
   width: 100%;
-  padding: 10px;
+  padding: 0px;
   border: 1px solid #ccc;
   border-radius: 4px 0 0 4px;
   font-size: 16px;
@@ -52,7 +52,7 @@ body {
 #sbutton {
   background-color: #050606;
   border: none;
-  padding: 10px;
+  padding: 0px;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   color: white;

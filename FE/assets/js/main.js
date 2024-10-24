@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   let allProducts = []; // Lưu trữ tất cả sản phẩm
   let displayedProducts = []; // Sản phẩm đang hiển thị
+  let filteredProducts = []; // Sản phẩm đã lọc
   let productOffset = 10; // Vị trí bắt đầu để load thêm sản phẩm
   let currentSortOption = ''; // Lưu trữ tiêu chí sắp xếp hiện tại
 
@@ -23,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // Hàm hiển thị 4 sản phẩm nổi bật
   function displayFeaturedProducts(products) {
     const featuredProducts = products.slice(0, 4);
-
     featuredProducts.forEach(product => {
       const productDiv = document.createElement('div');
       productDiv.classList.add('featured-item');
@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   loadMoreBtn.addEventListener('click', function () {
-    const newProducts = allProducts.slice(productOffset, productOffset + 6);
+    const newProducts = filteredProducts.length > 0 ? filteredProducts.slice(productOffset, productOffset + 6) : allProducts.slice(productOffset, productOffset + 6);
     if (newProducts.length > 0) {
       displayedProducts = displayedProducts.concat(newProducts); // Cập nhật danh sách sản phẩm hiển thị
       sortAndDisplayProducts(); // Sắp xếp và hiển thị lại
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   function sortAndDisplayProducts() {
-    let sortedProducts = [...displayedProducts]; // Sắp xếp các sản phẩm đang hiển thị
+    let sortedProducts = filteredProducts.length > 0 ? [...filteredProducts] : [...displayedProducts]; // Sắp xếp các sản phẩm đã lọc hoặc đang hiển thị
 
     // Sắp xếp theo tiêu chí hiện tại
     if (currentSortOption === 'name-asc') {
@@ -109,7 +109,99 @@ document.addEventListener('DOMContentLoaded', function () {
     // Hiển thị lại các sản phẩm đã sắp xếp
     displayRegularProducts(sortedProducts);
   }
+
+  // Hàm để lấy giá trị từ form bộ lọc
+  function getFilterValues() {
+    const form = document.getElementById('filter-form');
+    const formData = new FormData(form);
+    const filters = {};
+
+    // Lấy các giá trị checkbox đã chọn
+    for (const [key, value] of formData.entries()) {
+      if (!filters[key]) {
+        filters[key] = [];
+      }
+      filters[key].push(value);
+    }
+
+    return filters;
+  }
+
+  // Hàm để cập nhật URL với các tham số lọc
+  function setURLParams(filterCriteria) {
+    const url = new URL(window.location);
+    const params = new URLSearchParams();
+
+    // Thêm từng tiêu chí vào URL
+    for (const key in filterCriteria) {
+      if (filterCriteria[key].length) {
+        params.set(key, filterCriteria[key].join(','));
+      }
+    }
+
+    // Cập nhật URL mà không reload trang
+    url.search = params.toString();
+    window.history.pushState({}, '', url);
+  }
+
+  // Hàm để lấy sản phẩm và lọc theo tiêu chí
+  async function getFilteredProducts(params) {
+    const filterCriteria = params || getFilterValues(); // Sử dụng tham số nếu có, nếu không lấy từ form
+
+    // Cập nhật URL với các tiêu chí lọc
+    setURLParams(filterCriteria);
+
+    try {
+      // Lấy dữ liệu sản phẩm
+      const productsResponse = await fetch('http://localhost:3000/products');
+      const products = await productsResponse.json();
+
+      const productDescriptionsResponse = await fetch('http://localhost:3000/productDescriptions');
+      const productDescriptions = await productDescriptionsResponse.json();
+
+      // Kết hợp sản phẩm với mô tả sản phẩm
+      const combinedData = products.map(product => {
+        const description = productDescriptions.find(desc => desc.ProductID === product.ProductID);
+        return { ...product, ...description };
+      });
+
+      // Lọc sản phẩm theo tiêu chí
+      filteredProducts = combinedData.filter(product => {
+        // Kiểm tra các tiêu chí lọc
+        const brandFilter = filterCriteria.brand ? filterCriteria.brand.includes(product.Brand.toLowerCase()) : true;
+        const priceFilter = filterCriteria.price ? filterCriteria.price.some(priceRange => {
+          const [min, max] = priceRange.split('-').map(Number);
+          return product.Price >= (min || 0) && (max ? product.Price <= max : true);
+        }) : true;
+        const cpuFilter = filterCriteria.cpu ? filterCriteria.cpu.includes(product.CPUtechnology.toLowerCase()) : true;
+
+        // So sánh RAM với kiểu dữ liệu phù hợp
+        const ramFilter = filterCriteria.ram ? filterCriteria.ram.includes(String(product.RAMcapacity)) : true;
+
+        // So sánh dung lượng lưu trữ (Capacity)
+        const storageFilter = filterCriteria.storage ? filterCriteria.storage.includes(String(product.Capacity)) : true;
+
+        // So sánh kích thước màn hình (ScreenSize)
+        const screenSizeFilter = filterCriteria['screen-size'] ? filterCriteria['screen-size'].includes(product.ScreenSize.toString()) : true;
+
+        return brandFilter && priceFilter && cpuFilter && ramFilter && storageFilter && screenSizeFilter;
+      });
+
+      // Hiển thị các sản phẩm đã lọc
+      displayRegularProducts(filteredProducts);
+      console.log(filteredProducts);
+    } catch (error) {
+      console.error('Error fetching or filtering products:', error);
+    }
+  }
+
+  // Gọi hàm để lấy và hiển thị sản phẩm theo tiêu chí lọc
+  document.getElementById('filter-form').addEventListener('submit', function (event) {
+    event.preventDefault(); // Ngăn chặn việc submit form
+    getFilteredProducts(); // Gọi hàm lọc sản phẩm
+  });
 });
+
 
 
 
@@ -384,85 +476,5 @@ function toggleNavbar() {
 
 // So sánh
 
-//Bộ lọc
-// Hàm để lấy giá trị từ form bộ lọc
-function getFilterValues() {
-  const form = document.getElementById('filter-form');
-  const formData = new FormData(form);
-  const filters = {};
 
-  // Lấy các giá trị checkbox đã chọn
-  for (const [key, value] of formData.entries()) {
-      if (!filters[key]) {
-          filters[key] = [];
-      }
-      filters[key].push(value);
-  }
-  return filters;
-}
-
-// Hàm để lấy sản phẩm và lọc theo tiêu chí
-async function getFilteredProducts(params) {
-  const filterCriteria = params || getFilterValues(); // Sử dụng tham số nếu có, nếu không lấy từ form
-
-  try {
-      // Lấy dữ liệu sản phẩm
-      const productsResponse = await fetch('http://localhost:3000/products');
-      const products = await productsResponse.json();
-
-      const productDescriptionsResponse = await fetch('http://localhost:3000/productDescriptions');
-      const productDescriptions = await productDescriptionsResponse.json();
-
-      // Kết hợp sản phẩm với mô tả sản phẩm
-      const combinedData = products.map(product => {
-          const description = productDescriptions.find(desc => desc.ProductID === product.ProductID);
-          return { ...product, ...description };
-      });
-
-      // Lọc sản phẩm theo tiêu chí
-      const filteredProducts = combinedData.filter(product => {
-          // Kiểm tra các tiêu chí lọc
-          const brandFilter = filterCriteria.brand ? filterCriteria.brand.includes(product.Brand.toLowerCase()) : true;
-          const priceFilter = filterCriteria.price ? filterCriteria.price.some(priceRange => {
-              const [min, max] = priceRange.split('-').map(Number);
-              return product.Price >= (min || 0) && (max ? product.Price <= max : true);
-          }) : true;
-          const cpuFilter = filterCriteria.cpu ? filterCriteria.cpu.includes(product.
-            CPUcompany
-            .toLowerCase()) : true;
-          const gpuFilter = filterCriteria.gpu ? filterCriteria.gpu.includes(product.GPU.toLowerCase()) : true;
-          const ramFilter = filterCriteria.ram ? filterCriteria.ram.includes(product.ram) : true;
-          const storageFilter = filterCriteria.storage ? filterCriteria.storage.includes(product.Storage.toLowerCase()) : true;
-          const usageFilter = filterCriteria.usage ? filterCriteria.usage.includes(product.Usage.toLowerCase()) : true;
-          const screenSizeFilter = filterCriteria['screen-size'] ? filterCriteria['screen-size'].includes(product.ScreenSize) : true;
-
-          return brandFilter && priceFilter && cpuFilter && gpuFilter && ramFilter && storageFilter && usageFilter && screenSizeFilter;
-      });
-
-      // Hiển thị kết quả
-      console.log(filteredProducts);
-  } catch (error) {
-      console.error('Error fetching products:', error);
-  }
-}
-
-// Bắt sự kiện khi form được gửi
-document.getElementById('filter-form').addEventListener('submit', function(event) {
-  event.preventDefault(); // Ngăn form gửi đi theo cách mặc định
-  getFilteredProducts(); // Gọi hàm lọc sản phẩm
-});
-
-// Ví dụ cách gọi hàm getFilteredProducts với tham số
-const sampleParams = {
-  brand: ['asus', 'dell'],
-  price: ['10-15'],
-  cpu: ['intel'],
-  gpu: ['nvidia'],
-  ram: ['8gb'],
-  storage: ['ssd'],
-  usage: ['gaming'],
-  'screen-size': ['15-inch']
-};
-
-getFilteredProducts(sampleParams); 
 //Bộ lọc
