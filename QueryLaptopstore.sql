@@ -4,7 +4,8 @@ CREATE DATABASE IF NOT EXISTS LaptopStore;
 USE LaptopStore;
 
 -- CMM Sáng ngu vcl 
-
+-- Tài ngu vai l 
+-- dcm Quang suc vat
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
