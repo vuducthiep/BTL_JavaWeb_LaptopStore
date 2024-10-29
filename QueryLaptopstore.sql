@@ -4,7 +4,8 @@ CREATE DATABASE IF NOT EXISTS LaptopStore;
 USE LaptopStore;
 
 -- CMM Sáng ngu vcl 
-
+-- Tài ngu vai l 
+-- dcm Quang suc vat
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
@@ -141,7 +142,7 @@ CREATE TABLE ProductDescription (
 	BatteryCapacity INT,  -- Dung lượng pin (mAh)
 	PowerSupply VARCHAR(255),  -- Công suất nguồn (W)
 	AccessoriesInTheBox TEXT,  -- Phụ kiện đi kèm
-	Size FLOAT,  -- Kích thước sản phẩm (cm)    
+	Size VARCHAR(255),  -- Kích thước sản phẩm (cm)    
 	ProductWeight DECIMAL(4,2),  -- Trọng lượng sản phẩm (kg)
 	Material VARCHAR(255),  -- Chất liệu sản phẩm
 	PN VARCHAR(255),  -- Mã sản phẩm

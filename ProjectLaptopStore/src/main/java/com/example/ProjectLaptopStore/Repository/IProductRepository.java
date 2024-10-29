@@ -3,7 +3,9 @@ package com.example.ProjectLaptopStore.Repository;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.IProductRepositoryCustom;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,6 +21,8 @@ public interface IProductRepository extends JpaRepository<ProductsEntity,Integer
     void deleteByProductIDIn(Long[] ids);
     List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
 
+//    @Query(value = "select * from  products",countQuery = "select count(*) from product",nativeQuery = true)
+//    List<ProductsEntity> getAllProducts(Pageable pageable);
 
     //Lấy top sản phẩm bán chạy
     //jpql
