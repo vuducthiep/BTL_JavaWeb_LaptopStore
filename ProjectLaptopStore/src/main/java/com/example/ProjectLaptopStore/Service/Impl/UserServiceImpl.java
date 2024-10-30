@@ -1,9 +1,6 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.DTO.IntrospecTokenDTO;
-import com.example.ProjectLaptopStore.DTO.TokenValidDTO;
-import com.example.ProjectLaptopStore.DTO.User_AuthenticationResponseDTO;
-import com.example.ProjectLaptopStore.DTO.User_RegisterDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
@@ -23,6 +20,10 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -53,6 +54,7 @@ public class UserServiceImpl implements IUserService {
 
 //    private final UserAPI userAPI;
 
+    // lay tat ca user
     @Override
     public List<User_RegisterDTO> getAllUsers() {
         List<UserEntity> entities = userRepository.findAll();
@@ -65,6 +67,7 @@ public class UserServiceImpl implements IUserService {
         return  user_loginDTO;
     }
 
+    // tao user
     @Override
     public void createUser(User_RegisterDTO user) {
         if(userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
@@ -84,6 +87,7 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(userEntity);
     }
 
+    //update user
     @Override
     public void updateUser(String phoneNumber, User_RegisterDTO user) {
         UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
@@ -95,6 +99,8 @@ public class UserServiceImpl implements IUserService {
         else throw new UserNotFoundException("User not found");
     }
 
+
+    // xoa user
     @Transactional
     @Override
     public void deleteUser(String phoneNumber) {
@@ -143,6 +149,21 @@ public class UserServiceImpl implements IUserService {
                 .valid(ms)
                 .message(message)
                 .build();
+    }
+
+
+    //phan trang user
+    @Override
+    public Page<User_DTO> searchUser(int page, int size) {
+        Pageable pageable = PageRequest.of(page-1, size);
+        List<UserEntity> entities = userRepository.getUsers(pageable);
+        List<User_DTO> userDTOs = new ArrayList<>();
+        for (UserEntity entity : entities) {
+            User_DTO userDTO = modelMapper.map(entity, User_DTO.class);
+            userDTOs.add(userDTO);
+        }
+        Page<User_DTO> userDTOPage = new PageImpl<>(userDTOs);
+        return userDTOPage;
     }
 
     // tao token
