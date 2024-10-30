@@ -245,8 +245,9 @@ CREATE TABLE Warehouses (
 
 DROP TABLE IF EXISTS ProductsInWarehouse;
 CREATE TABLE ProductsInWarehouse (
-    ProductID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
     WarehouseID INT,
+    ProductID,
     ProductName VARCHAR(100) NOT NULL,
     ProductionBatchCode VARCHAR(50),
     Dimensions VARCHAR(50),
@@ -254,26 +255,25 @@ CREATE TABLE ProductsInWarehouse (
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
+ -- thêm khoá hộ về bảng sản phẩm
 );
 
 DROP TABLE IF EXISTS ImportReceipts;
 CREATE TABLE ImportReceipts (
     ReceiptID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
+    AdminID INT,
     WarehouseID INT,
     ImportDate DATE NOT NULL,
     Importer VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL,
+    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS ImportReceiptDetails;
 CREATE TABLE ImportReceiptDetails (
     ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
-    AdminID INT,
     ProductID INT,
     Quantity INT NOT NULL,
-    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
 
