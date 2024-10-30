@@ -248,14 +248,10 @@ CREATE TABLE ProductsInWarehouse (
     ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
     WarehouseID INT,
     ProductID,
-    ProductName VARCHAR(100) NOT NULL,
-    ProductionBatchCode VARCHAR(50),
-    Dimensions VARCHAR(50),
-    Volume DECIMAL(10, 2),
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
- -- thêm khoá hộ về bảng sản phẩm
+FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS ImportReceipts;
