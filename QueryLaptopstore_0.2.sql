@@ -254,7 +254,7 @@ CREATE TABLE ProductsInWarehouse (
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
-FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
+FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 -- phiếu nhập kho 
 DROP TABLE IF EXISTS ImportReceipts;
