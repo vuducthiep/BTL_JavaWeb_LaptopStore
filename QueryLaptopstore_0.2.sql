@@ -1,7 +1,10 @@
 -- Xóa cơ sở dữ liệu nếu tồn tại và tạo mới
--- DROP DATABASE IF EXISTS LaptopStore;
-CREATE DATABASE IF NOT EXISTS LaptopStore;
-USE LaptopStore;
+-- DROP DATABASE IF EXISTS LaptopStore1;
+CREATE DATABASE IF NOT EXISTS LaptopStore1;
+USE LaptopStore1;
+
+-- CMM Sáng ngu vcl 
+
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
@@ -15,16 +18,17 @@ CREATE TABLE Users (
     INDEX idx_email (Email) -- Chỉ mục cho cột Email để tăng hiệu suất tìm kiếm
 );
 
--- Tạo bảng Cart
-DROP TABLE IF EXISTS Cart;
-CREATE TABLE Cart (
-    CartID INT PRIMARY KEY AUTO_INCREMENT,
-    CustomerID INT UNIQUE, -- Mỗi khách hàng chỉ có 1 giỏ hàng (1-1)
-    Status ENUM('active', 'checked out') DEFAULT 'active',
+DROP TABLE IF EXISTS Employees;
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    Name VARCHAR(100) NOT NULL,
     CreatedDate DATE NOT NULL,
-    TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
+    doanhsobanhang FLOAT ,
+    Status ENUM('active', 'inactive') DEFAULT 'active',
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
+
 
 -- Tạo bảng Customers với khóa ngoại tham chiếu tới bảng Cart
 DROP TABLE IF EXISTS Customers; 
@@ -38,9 +42,9 @@ CREATE TABLE Customers (
     StreetAddress VARCHAR(100),
     RegistrationDate DATE NOT NULL,
     Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
-    -- cart_CartID INT, -- Tham chiếu đến giỏ hàng của khách hàng
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    -- FOREIGN KEY (cart_CartID) REFERENCES Cart(CartID) ON DELETE CASCADE -- Khóa ngoại tới bảng Cart
+   
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+
 );
 
 
@@ -53,6 +57,17 @@ CREATE TABLE Admins (
     CreatedDate DATE NOT NULL,
     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Xóa admin khi user bị xóa
+);
+
+-- Tạo bảng Cart
+DROP TABLE IF EXISTS Cart;
+CREATE TABLE Cart (
+    CartID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT UNIQUE, -- Mỗi khách hàng chỉ có 1 giỏ hàng (1-1)
+    Status ENUM('active', 'checked out') DEFAULT 'active',
+    CreatedDate DATE NOT NULL,
+    TotalPrice DECIMAL(10, 2),
+    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
 );
 
 -- Tạo bảng Suppliers
@@ -70,19 +85,11 @@ CREATE TABLE Suppliers (
     Status ENUM('active', 'inactive') DEFAULT 'active'
 );
 
-DROP TABLE IF EXISTS Promotions;
-CREATE TABLE Promotions (
-    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
-    PromotionName VARCHAR(100) NOT NULL,
-    DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
-    PromotionDetails TEXT
-);
 -- Tạo bảng Products
 DROP TABLE IF EXISTS Products;
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY AUTO_INCREMENT,
     SupplierID INT,
-PromotionID INT , 
     ProductName VARCHAR(100) NOT NULL,
     Brand VARCHAR(50),
     Model VARCHAR(50),
@@ -91,9 +98,7 @@ PromotionID INT ,
     ReleaseDate DATE,
     WarrantyPeriod INT, -- Warranty period in months
     ImageURL VARCHAR(255),
-    Rating INT ,
-    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
- FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID)
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
 );
 
 -- https://fptshop.com.vn/so-sanh-san-pham?sp=may-tinh-xach-tay%2Flenovo-ideapad-3-14iah8-i5-12450h%3Fsku%3D00898312-vs-may-tinh-xach-tay%2Fhp-15-fd0235tu-i5-1334u%3Fsku%3D00906462-vs-may-tinh-xach-tay%2Facer-nitro-5-tiger-gaming-an515-58-773y-i7-12700h%3Fsku%3D00910749
@@ -166,7 +171,7 @@ CREATE TABLE ProductDescription (
 DROP TABLE IF EXISTS PaymentMethods;
 CREATE TABLE PaymentMethods (
     PaymentMethodID INT PRIMARY KEY AUTO_INCREMENT,
-    PaymentType ENUM('offline', 'online') NOT NULL,
+    PaymentType ENUM('Credit Card', 'Bank Transfer', 'E-wallet') NOT NULL,
     BankBrandName VARCHAR(100),
     Status ENUM('active', 'inactive') DEFAULT 'active',
     CreatedDate DATE NOT NULL
@@ -213,13 +218,11 @@ CREATE TABLE CartDetails (
     CartDetailsID INT PRIMARY KEY AUTO_INCREMENT,
     CartID INT,
     ProductID INT,
-    CustomerID INT ,
     Quantity INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
     LineTotal DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * Price) STORED,
     FOREIGN KEY (CartID) REFERENCES Cart(CartID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
 -- Tạo bảng ProductReviews
@@ -231,13 +234,11 @@ CREATE TABLE ProductReviews (
     Rating INT CHECK (Rating BETWEEN 1 AND 5),
     ReviewContent TEXT,
     ReviewDate DATE NOT NULL,
-     Status ENUM('active', 'inactive') DEFAULT 'active',
     Status ENUM('approved', 'pending') DEFAULT 'pending',
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
--- tao bang nha kho 
 DROP TABLE IF EXISTS Warehouses;
 CREATE TABLE Warehouses (
     WarehouseID INT PRIMARY KEY AUTO_INCREMENT,
@@ -246,30 +247,34 @@ CREATE TABLE Warehouses (
     WarehouseType VARCHAR(50),
     Status ENUM('active', 'inactive') DEFAULT 'active'
 );
--- sản phẩm trong kho 
+
 DROP TABLE IF EXISTS ProductsInWarehouse;
 CREATE TABLE ProductsInWarehouse (
-    ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductsInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductID INT ,
     WarehouseID INT,
-    ProductID INT,
+    ProductName VARCHAR(100) NOT NULL,
+    ProductionBatchCode VARCHAR(50),
+    Dimensions VARCHAR(50),
+    Volume DECIMAL(10, 2),
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+    
 );
--- phiếu nhập kho 
+
 DROP TABLE IF EXISTS ImportReceipts;
 CREATE TABLE ImportReceipts (
     ImportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
     AdminID INT,
     WarehouseID INT,
     ImportDate DATE NOT NULL,
-    Importer VARCHAR(255), 
-     Status ENUM('active', 'inactive') DEFAULT 'active',
+    Importer VARCHAR(255),
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
--- chi tiết phiếu nhập kho
+
 DROP TABLE IF EXISTS ImportReceiptDetails;
 CREATE TABLE ImportReceiptDetails (
     ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
@@ -277,21 +282,20 @@ CREATE TABLE ImportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
--- phiếu xuất kho 
+
 DROP TABLE IF EXISTS ExportReceipts;
 CREATE TABLE ExportReceipts (
     ExportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
-    AdminID INT,
+    UserID INT,
     WarehouseID INT,
     ExportDate DATE NOT NULL,
     Exporter VARCHAR(255),
-     Status ENUM('active', 'inactive') DEFAULT 'active',
-    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
--- chi tiết phiếu xuất kho 
+
 DROP TABLE IF EXISTS ExportReceiptDetails;
 CREATE TABLE ExportReceiptDetails (
     ExportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
@@ -299,9 +303,9 @@ CREATE TABLE ExportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ExportReceiptID) REFERENCES ExportReceipts(ExportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
--- địa chỉ giao hàng 
+
 DROP TABLE IF EXISTS ShippingAddresses;
 CREATE TABLE ShippingAddresses (
     AddressID INT PRIMARY KEY AUTO_INCREMENT,
@@ -311,43 +315,22 @@ CREATE TABLE ShippingAddresses (
     District VARCHAR(50),
     Ward VARCHAR(50),
     StreetAddress VARCHAR(100),
-     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
--- nhan vien 
-DROP TABLE IF EXISTS Employees;
-CREATE TABLE Employees (
-    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    Name VARCHAR(100) NOT NULL,
-    CreatedDate DATE NOT NULL,
-    SalesDepartment FLOAT ,
-    Status ENUM('active', 'inactive') DEFAULT 'active',
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
-);
--- khuyen mai
+
+
 DROP TABLE IF EXISTS Promotions;
 CREATE TABLE Promotions (
     PromotionID INT PRIMARY KEY AUTO_INCREMENT,
     PromotionName VARCHAR(100) NOT NULL,
-     Status ENUM('active', 'inactive') DEFAULT 'active',
     DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
     PromotionDetails TEXT
 );
--- chitet khuyen mai
-DROP TABLE IF EXISTS PromotionProduct;
-CREATE TABLE PromotionProduct (
-    PromotionProductID INT PRIMARY KEY AUTO_INCREMENT,
-    PromotionID INT,
-    ProductID INT ,
-     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
-      FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
-  
-);
-DROP TABLE IF EXISTS Contens;
-CREATE TABLE Contens {
+
+CREATE TABLE Contens (
     ContenID INT PRIMARY KEY AUTO_INCREMENT,
     ProductID INT, 
     Content TEXT ,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
-}
+);
+
