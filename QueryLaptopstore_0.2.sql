@@ -1,8 +1,7 @@
 -- Xóa cơ sở dữ liệu nếu tồn tại và tạo mới
--- DROP DATABASE IF EXISTS LaptopStore1;
+-- DROP DATABASE IF EXISTS LaptopStore;
 CREATE DATABASE IF NOT EXISTS LaptopStore;
 USE LaptopStore;
-
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
@@ -71,11 +70,19 @@ CREATE TABLE Suppliers (
     Status ENUM('active', 'inactive') DEFAULT 'active'
 );
 
+DROP TABLE IF EXISTS Promotions;
+CREATE TABLE Promotions (
+    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
+    PromotionName VARCHAR(100) NOT NULL,
+    DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
+    PromotionDetails TEXT
+);
 -- Tạo bảng Products
 DROP TABLE IF EXISTS Products;
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY AUTO_INCREMENT,
     SupplierID INT,
+PromotionID INT , 
     ProductName VARCHAR(100) NOT NULL,
     Brand VARCHAR(50),
     Model VARCHAR(50),
@@ -84,7 +91,9 @@ CREATE TABLE Products (
     ReleaseDate DATE,
     WarrantyPeriod INT, -- Warranty period in months
     ImageURL VARCHAR(255),
-    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
+    Rating INT ,
+    FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID),
+ FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID)
 );
 
 -- https://fptshop.com.vn/so-sanh-san-pham?sp=may-tinh-xach-tay%2Flenovo-ideapad-3-14iah8-i5-12450h%3Fsku%3D00898312-vs-may-tinh-xach-tay%2Fhp-15-fd0235tu-i5-1334u%3Fsku%3D00906462-vs-may-tinh-xach-tay%2Facer-nitro-5-tiger-gaming-an515-58-773y-i7-12700h%3Fsku%3D00910749
@@ -157,7 +166,7 @@ CREATE TABLE ProductDescription (
 DROP TABLE IF EXISTS PaymentMethods;
 CREATE TABLE PaymentMethods (
     PaymentMethodID INT PRIMARY KEY AUTO_INCREMENT,
-    PaymentType ENUM('Credit Card', 'Bank Transfer', 'E-wallet') NOT NULL,
+    PaymentType ENUM('offline', 'online') NOT NULL,
     BankBrandName VARCHAR(100),
     Status ENUM('active', 'inactive') DEFAULT 'active',
     CreatedDate DATE NOT NULL
@@ -239,18 +248,13 @@ CREATE TABLE Warehouses (
 
 DROP TABLE IF EXISTS ProductsInWarehouse;
 CREATE TABLE ProductsInWarehouse (
-    ProductsInWarehouseID INT PRIMARY KEY AUTO_INCREMENT
-    ProductID INT ,
+    ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
     WarehouseID INT,
-    ProductName VARCHAR(100) NOT NULL,
-    ProductionBatchCode VARCHAR(50),
-    Dimensions VARCHAR(50),
-    Volume DECIMAL(10, 2),
+    ProductID,
     MinStockLevel INT,
     MaxStockLevel INT,
-    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
-    
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
+FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS ImportReceipts;
