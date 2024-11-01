@@ -282,7 +282,7 @@ CREATE TABLE ImportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS ExportReceipts;
@@ -303,7 +303,7 @@ CREATE TABLE ExportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ExportReceiptID) REFERENCES ExportReceipts(ExportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 
 DROP TABLE IF EXISTS ShippingAddresses;
