@@ -245,7 +245,7 @@ CREATE TABLE Warehouses (
     WarehouseType VARCHAR(50),
     Status ENUM('active', 'inactive') DEFAULT 'active'
 );
-
+-- sản phẩm trong kho 
 DROP TABLE IF EXISTS ProductsInWarehouse;
 CREATE TABLE ProductsInWarehouse (
     ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
@@ -253,10 +253,10 @@ CREATE TABLE ProductsInWarehouse (
     ProductID,
     MinStockLevel INT,
     MaxStockLevel INT,
-    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
 FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
-
+-- phiếu nhập kho 
 DROP TABLE IF EXISTS ImportReceipts;
 CREATE TABLE ImportReceipts (
     ImportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
@@ -267,7 +267,7 @@ CREATE TABLE ImportReceipts (
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
-
+-- chi tiết phiếu nhập kho
 DROP TABLE IF EXISTS ImportReceiptDetails;
 CREATE TABLE ImportReceiptDetails (
     ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
@@ -277,7 +277,7 @@ CREATE TABLE ImportReceiptDetails (
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
-
+-- phiếu xuất kho 
 DROP TABLE IF EXISTS ExportReceipts;
 CREATE TABLE ExportReceipts (
     ExportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
@@ -288,7 +288,7 @@ CREATE TABLE ExportReceipts (
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
-
+-- chi tiết phiếu xuất kho 
 DROP TABLE IF EXISTS ExportReceiptDetails;
 CREATE TABLE ExportReceiptDetails (
     ExportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
@@ -298,7 +298,7 @@ CREATE TABLE ExportReceiptDetails (
     FOREIGN KEY (ExportReceiptID) REFERENCES ExportReceipts(ExportReceiptID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
 );
-
+-- địa chỉ giao hàng 
 DROP TABLE IF EXISTS ShippingAddresses;
 CREATE TABLE ShippingAddresses (
     AddressID INT PRIMARY KEY AUTO_INCREMENT,
@@ -310,18 +310,18 @@ CREATE TABLE ShippingAddresses (
     StreetAddress VARCHAR(100),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
-
+-- nhan vien 
 DROP TABLE IF EXISTS Employees;
 CREATE TABLE Employees (
     EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
     Name VARCHAR(100) NOT NULL,
     CreatedDate DATE NOT NULL,
-    doanhsobanhang FLOAT ,
+    SalesDepartment FLOAT ,
     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
-
+-- khuyen mai
 DROP TABLE IF EXISTS Promotions;
 CREATE TABLE Promotions (
     PromotionID INT PRIMARY KEY AUTO_INCREMENT,
@@ -329,13 +329,13 @@ CREATE TABLE Promotions (
     DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
     PromotionDetails TEXT
 );
-
+-- chitet khuyen mai
 DROP TABLE IF EXISTS PromotionProduct;
 CREATE TABLE PromotionProduct (
     PromotionProductID INT PRIMARY KEY AUTO_INCREMENT,
     PromotionID INT,
     ProductID INT ,
-     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
       FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
   
 );
@@ -346,7 +346,7 @@ CREATE TABLE Contens {
     Content TEXT ,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 }
-
+-- khi xóa sẽ tạo ra lich su xoa 
 DROP TABLE IF EXISTS Del;
 CREATE TABLE Del {
     Del INT PRIMARY KEY AUTO_INCREMENT,
