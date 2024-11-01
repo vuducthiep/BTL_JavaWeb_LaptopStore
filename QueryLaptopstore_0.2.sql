@@ -250,7 +250,7 @@ DROP TABLE IF EXISTS ProductsInWarehouse;
 CREATE TABLE ProductsInWarehouse (
     ProductInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
     WarehouseID INT,
-    ProductID,
+    ProductID INT,
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
@@ -263,7 +263,7 @@ CREATE TABLE ImportReceipts (
     AdminID INT,
     WarehouseID INT,
     ImportDate DATE NOT NULL,
-    Importer VARCHAR(255),
+    Importer VARCHAR(255), 
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
@@ -275,7 +275,7 @@ CREATE TABLE ImportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 -- phiếu xuất kho 
 DROP TABLE IF EXISTS ExportReceipts;
@@ -296,7 +296,7 @@ CREATE TABLE ExportReceiptDetails (
     ProductID INT,
     Quantity INT NOT NULL,
     FOREIGN KEY (ExportReceiptID) REFERENCES ExportReceipts(ExportReceiptID) ON DELETE CASCADE,
-    FOREIGN KEY (ProductID) REFERENCES ProductsInWarehouse(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 -- địa chỉ giao hàng 
 DROP TABLE IF EXISTS ShippingAddresses;
@@ -344,24 +344,5 @@ CREATE TABLE Contens {
     ContenID INT PRIMARY KEY AUTO_INCREMENT,
     ProductID INT, 
     Content TEXT ,
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
-}
--- khi xóa sẽ tạo ra lich su xoa 
-DROP TABLE IF EXISTS Del;
-CREATE TABLE Del {
-    Del INT PRIMARY KEY AUTO_INCREMENT,
-    ProductID INT, 
-    UserID INT ,
-    ContenID INT,
-    SupplierID  INT,
-    OrderID INT,
-    ImportReceiptID INT ,
-    ExportReceiptID INT,
-    AddressID INT, --ShippingAddresses 
-    PromotionID INT,
-    WarehouseID INT,
-    DelDate DATE NOT NULL,
-
-    
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 }
