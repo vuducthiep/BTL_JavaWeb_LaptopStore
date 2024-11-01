@@ -40,7 +40,7 @@ CREATE TABLE Customers (
     District VARCHAR(50),
     Ward VARCHAR(50),
     StreetAddress VARCHAR(100),
-    RegistrationDate DATE NOT NULL,
+    RegistrationDate DATE NOT NULL, --Ngày đăng ký
     Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
    
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
