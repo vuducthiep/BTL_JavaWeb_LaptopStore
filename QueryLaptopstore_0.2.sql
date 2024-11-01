@@ -231,6 +231,7 @@ CREATE TABLE ProductReviews (
     Rating INT CHECK (Rating BETWEEN 1 AND 5),
     ReviewContent TEXT,
     ReviewDate DATE NOT NULL,
+     Status ENUM('active', 'inactive') DEFAULT 'active',
     Status ENUM('approved', 'pending') DEFAULT 'pending',
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID),
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
@@ -254,7 +255,7 @@ CREATE TABLE ProductsInWarehouse (
     MinStockLevel INT,
     MaxStockLevel INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
-FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 -- phiếu nhập kho 
 DROP TABLE IF EXISTS ImportReceipts;
@@ -264,6 +265,7 @@ CREATE TABLE ImportReceipts (
     WarehouseID INT,
     ImportDate DATE NOT NULL,
     Importer VARCHAR(255), 
+     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
@@ -285,6 +287,7 @@ CREATE TABLE ExportReceipts (
     WarehouseID INT,
     ExportDate DATE NOT NULL,
     Exporter VARCHAR(255),
+     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
@@ -308,6 +311,7 @@ CREATE TABLE ShippingAddresses (
     District VARCHAR(50),
     Ward VARCHAR(50),
     StreetAddress VARCHAR(100),
+     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
 -- nhan vien 
@@ -326,6 +330,7 @@ DROP TABLE IF EXISTS Promotions;
 CREATE TABLE Promotions (
     PromotionID INT PRIMARY KEY AUTO_INCREMENT,
     PromotionName VARCHAR(100) NOT NULL,
+     Status ENUM('active', 'inactive') DEFAULT 'active',
     DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
     PromotionDetails TEXT
 );
