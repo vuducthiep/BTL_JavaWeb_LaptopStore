@@ -67,7 +67,7 @@ CREATE TABLE Cart (
     Status ENUM('active', 'checked out') DEFAULT 'active',
     CreatedDate DATE NOT NULL,
     TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
 );
 
 -- Tạo bảng Suppliers
