@@ -10,7 +10,7 @@ CREATE TABLE Users (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(15),
-    UserType ENUM('customer', 'admin') NOT NULL, -- Loại người dùng
+    UserType ENUM('customer', 'admin') NOT NULL, 
     RegistrationDate DATE NOT NULL,
     INDEX idx_email (Email) -- Chỉ mục cho cột Email để tăng hiệu suất tìm kiếm
 );
@@ -31,7 +31,7 @@ DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers (
     CustomerID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
-    RegistrationDate DATE NOT NULL, --Ngày đăng ký
+    RegistrationDate DATE NOT NULL, 
     Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 
@@ -272,7 +272,7 @@ CREATE TABLE ImportReceiptDetails (
 DROP TABLE IF EXISTS ExportReceipts;
 CREATE TABLE ExportReceipts (
     ExportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
+    AdminID INT,
     WarehouseID INT,
     ExportDate DATE NOT NULL,
     Exporter VARCHAR(255),
