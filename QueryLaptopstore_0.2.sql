@@ -1,10 +1,7 @@
 -- Xóa cơ sở dữ liệu nếu tồn tại và tạo mới
--- DROP DATABASE IF EXISTS LaptopStore1;
-CREATE DATABASE IF NOT EXISTS LaptopStore1;
-USE LaptopStore1;
-
--- CMM Sáng ngu vcl 
-
+-- DROP DATABASE IF EXISTS LaptopStoreFinal;
+CREATE DATABASE IF NOT EXISTS LaptopStoreFinal;
+USE LaptopStoreFinal;
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
@@ -24,7 +21,6 @@ CREATE TABLE Employees (
     UserID INT,
     Name VARCHAR(100) NOT NULL,
     CreatedDate DATE NOT NULL,
-    doanhsobanhang FLOAT ,
     Status ENUM('active', 'inactive') DEFAULT 'active',
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 );
@@ -35,11 +31,6 @@ DROP TABLE IF EXISTS Customers;
 CREATE TABLE Customers (
     CustomerID INT PRIMARY KEY AUTO_INCREMENT,
     UserID INT,
-    Address VARCHAR(255),
-    City VARCHAR(50),
-    District VARCHAR(50),
-    Ward VARCHAR(50),
-    StreetAddress VARCHAR(100),
     RegistrationDate DATE NOT NULL, --Ngày đăng ký
     Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
    
@@ -171,10 +162,9 @@ CREATE TABLE ProductDescription (
 DROP TABLE IF EXISTS PaymentMethods;
 CREATE TABLE PaymentMethods (
     PaymentMethodID INT PRIMARY KEY AUTO_INCREMENT,
-    PaymentType ENUM('Credit Card', 'Bank Transfer', 'E-wallet') NOT NULL,
+    PaymentType ENUM('ONLINE', 'OFFLINE') NOT NULL,
     BankBrandName VARCHAR(100),
-    Status ENUM('active', 'inactive') DEFAULT 'active',
-    CreatedDate DATE NOT NULL
+    Status ENUM('active', 'inactive') DEFAULT 'active'
 );
 
 -- Tạo bảng Orders
@@ -187,11 +177,6 @@ CREATE TABLE Orders (
     ShippingFee DECIMAL(10, 2),
     PaymentMethodID INT,
     OrderStatus ENUM('Pending', 'Confirmed', 'Shipped', 'Delivered', 'Canceled') NOT NULL,
-    ShippingAddress VARCHAR(255),
-    City VARCHAR(50),
-    District VARCHAR(50),
-    Ward VARCHAR(50),
-    StreetAddress VARCHAR(100),
     EstimatedDeliveryDate DATE,
     ActualDeliveryDate DATE,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE,
@@ -314,7 +299,7 @@ CREATE TABLE ShippingAddresses (
     City VARCHAR(50),
     District VARCHAR(50),
     Ward VARCHAR(50),
-    StreetAddress VARCHAR(100),
+    StreetAddress VARCHAR(255),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
 );
 
