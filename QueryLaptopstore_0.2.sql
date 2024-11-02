@@ -327,6 +327,17 @@ CREATE TABLE Promotions (
     PromotionDetails TEXT
 );
 
+-- chitet khuyen mai
+DROP TABLE IF EXISTS PromotionProduct;
+CREATE TABLE PromotionProduct (
+    PromotionProductID INT PRIMARY KEY AUTO_INCREMENT,
+    PromotionID INT,
+    ProductID INT ,
+     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
+      FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
+
+);
+
 CREATE TABLE Contens (
     ContenID INT PRIMARY KEY AUTO_INCREMENT,
     ProductID INT, 
