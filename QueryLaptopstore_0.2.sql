@@ -33,7 +33,6 @@ CREATE TABLE Customers (
     UserID INT,
     RegistrationDate DATE NOT NULL, --Ngày đăng ký
     Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
-   
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 
 );
@@ -277,7 +276,7 @@ CREATE TABLE ExportReceipts (
     WarehouseID INT,
     ExportDate DATE NOT NULL,
     Exporter VARCHAR(255),
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE SET NULL,
+    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
 );
 
