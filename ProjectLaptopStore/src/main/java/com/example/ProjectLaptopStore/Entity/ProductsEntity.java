@@ -2,6 +2,8 @@ package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 
 //lớp map dữ liệu với bảng Products trong db
 @Entity
+@Getter
+@Setter
 @Table(name = "products")
 public class ProductsEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,119 +54,14 @@ public class ProductsEntity implements Serializable {
 
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<ProductDescriptionEntity> productDescriptions = new ArrayList<>();
-//    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    private  ProductDescriptionEntity productDescription;
 
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ImportReceiptDetailEntity> importReceiptDetails = new ArrayList<>();
 
-    public Integer getProductID() {
-        return productID;
-    }
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ProductInWarehouseEntity> productInWarehouseEntities = new ArrayList<>();
 
-    public void setProductID(Integer productID) {
-        this.productID = productID;
-    }
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ExportReceipDetailEntity> exportReceipDetailEntities = new ArrayList<>();
 
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public Float getPrice() {
-        return price;
-    }
-
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
-    public Integer getStockQuantity() {
-        return stockQuantity;
-    }
-
-    public void setStockQuantity(Integer stockQuantity) {
-        this.stockQuantity = stockQuantity;
-    }
-
-    public Date getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Date releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Integer getWarrantyPeriod() {
-        return warrantyPeriod;
-    }
-
-    public void setWarrantyPeriod(Integer warrantyPeriod) {
-        this.warrantyPeriod = warrantyPeriod;
-    }
-
-    public String getImageURL() {
-        return imageURL;
-    }
-
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
-    public SuppliersEntity getSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(SuppliersEntity supplier) {
-        this.supplier = supplier;
-    }
-
-    public List<OrderDetailEntity> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(List<OrderDetailEntity> orderDetails) {
-        this.orderDetails = orderDetails;
-    }
-
-    public List<CartDetailsEntity> getCartDetails() {
-        return cartDetails;
-    }
-
-    public void setCartDetails(List<CartDetailsEntity> cartDetails) {
-        this.cartDetails = cartDetails;
-    }
-
-    public List<ProductReviewsEntity> getProductReviews() {
-        return productReviews;
-    }
-
-    public void setProductReviews(List<ProductReviewsEntity> productReviews) {
-        this.productReviews = productReviews;
-    }
-
-    public List<ProductDescriptionEntity> getProductDescriptions() {
-        return productDescriptions;
-    }
-
-    public void setProductDescriptions(List<ProductDescriptionEntity> productDescriptions) {
-        this.productDescriptions = productDescriptions;
-    }
 }

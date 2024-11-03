@@ -26,7 +26,7 @@ public class UserEntity implements Serializable {
     private int UserID;
     @Column(name = "FullName", nullable = false)
     private String fullName;
-    @Column(name = "Email",nullable = false)
+    @Column(name = "Email",nullable = false,unique = true)
     private String email;
     @Column(name = "Password",nullable = false)
     private String password;
@@ -39,6 +39,6 @@ public class UserEntity implements Serializable {
     private Date registrationDate;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<AdminEntity> adminEntities = new ArrayList<>();
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<CustomerEntity> customerEntities = new ArrayList<>();
+//    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+//    private List<CustomerEntity> customerEntities = new ArrayList<>();
 }

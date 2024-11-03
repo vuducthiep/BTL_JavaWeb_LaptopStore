@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -25,4 +27,8 @@ public class AdminEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "UserID")
     private UserEntity user;
+    @OneToMany(mappedBy = "admin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ImportReceiptEntity> importReceipts = new ArrayList<>();
+    @OneToMany(mappedBy = "admin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ExportReceiptEntity> exportReceipts = new ArrayList<>();
 }
