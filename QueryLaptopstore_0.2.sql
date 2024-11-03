@@ -10,7 +10,7 @@ CREATE TABLE Users (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(15),
-    UserType ENUM('customer', 'admin') NOT NULL, 
+    UserType ENUM('customer', 'admin') NOT NULL, -- Loại người dùng
     RegistrationDate DATE NOT NULL,
     INDEX idx_email (Email) -- Chỉ mục cho cột Email để tăng hiệu suất tìm kiếm
 );
@@ -188,7 +188,6 @@ CREATE TABLE OrderDetails (
     OrderDetailsID INT PRIMARY KEY AUTO_INCREMENT,
     OrderID INT,
     ProductID INT,
-    EmployeeID INt, -- tinh doanh so cho nhan vien 
     Quantity INT NOT NULL,
     Price DECIMAL(10, 2) NOT NULL,
     LineTotal DECIMAL(10, 2) GENERATED ALWAYS AS (Quantity * Price) STORED,
@@ -328,4 +327,3 @@ CREATE TABLE Contens (
     Content TEXT ,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
-
