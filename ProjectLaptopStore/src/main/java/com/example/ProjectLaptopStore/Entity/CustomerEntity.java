@@ -21,18 +21,7 @@ public class CustomerEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerID;
-    @Column(name = "Address")
-    private String address;
-    @Column(name = "City")
-    private String city;
-    @Column(name = "District")
-    private String district;
-    @Column(name = "Ward")
-    private String ward;
-    @Column(name = "StreetAddress")
-    private String streetAddress;
     @Column(name = "RegistrationDate",nullable = false)
-//    private Date registrationDate;
     private Date registrationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
@@ -46,4 +35,6 @@ public class CustomerEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "UserID")
     private UserEntity user;
+    @OneToMany(mappedBy = "customer",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ShippingAddressEntity> shippingAddressEntities = new ArrayList<>();
 }

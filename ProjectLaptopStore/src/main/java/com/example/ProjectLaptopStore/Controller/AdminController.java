@@ -12,7 +12,9 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
+@RequestMapping("/admin")
 public class AdminController {
+
 //    @PersistenceContext
 //    private EntityManager entityManager;
 
@@ -190,7 +192,7 @@ public class AdminController {
 
     //API cho trang dashboard
     //chưa tối ưu
-    @GetMapping(value = "/admin/dashboard/")
+    @GetMapping(value = "/dashboard/")
     public Admin_DashBoardResponseDTO adminDashBoard(){
         Admin_DashBoardResponseDTO result = adminDashBoardLogic.setValueForDashBoard();
         return result;

@@ -28,8 +28,6 @@ public class PayMentMethodsEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
     private Status_Enum status = Status_Enum.active;
-    @Column(name = "CreatedDate",nullable = false)
-    private Date createdDate;
     @OneToMany(mappedBy = "payMentMethod" ,fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<OrdersEntity> ordersEntities = new ArrayList<>();
 }
