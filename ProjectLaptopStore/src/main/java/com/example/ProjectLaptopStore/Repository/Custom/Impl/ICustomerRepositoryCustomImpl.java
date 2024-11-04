@@ -64,6 +64,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 //        }
 //    }
 
+    //lấy ra số khách hàng mới trong các tháng,trong năm hiện tại
     @Override
     public List<Customer_CountNewCustomerPerMonthDTO> listNewCustomerPerMonth() {
         String query = "SELECT " +
@@ -133,34 +134,44 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
     public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
         String query =
                 "SELECT " +
-                        "c.CustomerID, "+
+                        "c.CustomerID, " +
                         "u.FullName, " +
                         "u.Email, " +
                         "u.PhoneNumber, " +
                         "u.RegistrationDate, " +
-                        "c.Address, " +
-                        "c.City, " +
-                        "c.District, " +
-                        "c.Ward, " +
-                        "c.StreetAddress, " +
-                        "SUM(o.TotalAmount) AS totalamount " +
+                        "sd.Address, " +
+                        "sd.City, " +
+                        "sd.District, " +
+                        "sd.Ward, " +
+                        "sd.StreetAddress, " +
+                        "SUM(o.TotalAmount) AS totalamount, " +
+                        "SUM(od.Quantity) AS quantity " +
                         "FROM " +
                         "Customers c " +
                         "JOIN " +
                         "Users u ON u.UserID = c.UserID " +
                         "JOIN " +
                         "Orders o ON c.CustomerID = o.CustomerID " +
+                        "JOIN " +
+                        "OrderDetails od ON o.OrderID = od.OrderID " +
+                        "JOIN " +
+                        "ShippingAddresses sd ON c.CustomerID = sd.CustomerID " +
                         "WHERE " +
                         "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
                         "AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
                         "GROUP BY " +
-                        "c.CustomerID, "+
+                        "c.CustomerID, " +
                         "u.FullName, " +
                         "u.Email, " +
                         "u.PhoneNumber, " +
                         "u.RegistrationDate, " +
+                        "sd.Address, " +
+                        "sd.City, " +
+                        "sd.District, " +
+                        "sd.Ward, " +
+                        "sd.StreetAddress " +
                         "ORDER BY " +
-                        "totalamount DESC  ";
+                        "totalamount DESC ;";
         Query queryNative = entityManager.createNativeQuery(query);
         List<Object[]> resultQuery = queryNative.getResultList();
         List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = new ArrayList<>();
@@ -176,7 +187,8 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
                     (String) rowOfResult[7],
                     (String) rowOfResult[8],
                     (String) rowOfResult[9],
-                    (BigDecimal) rowOfResult[10]
+                    (BigDecimal) rowOfResult[10],
+                    (Integer) rowOfResult[11]
             );
             listTopCustomerInMonth.add(dto);
         }

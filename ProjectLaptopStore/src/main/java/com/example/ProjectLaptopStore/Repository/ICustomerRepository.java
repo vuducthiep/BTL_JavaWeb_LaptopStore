@@ -10,6 +10,8 @@ import java.util.Map;
 
 public interface ICustomerRepository extends JpaRepository<CustomerEntity,Integer>, ICustomerRepositoryCustom {
     List<CustomerEntity> findAllByCustomerIDIn(Long[] ids);
+
+    //đếm số lượng khách hàng mới trong tháng
     @Query(value =
                     "SELECT count(c.CustomerID) as newcustomer " +
                     "FROM Customers c " +
