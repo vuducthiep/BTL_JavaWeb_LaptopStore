@@ -64,4 +64,9 @@ public class ProductsEntity implements Serializable {
     @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<ExportReceipDetailEntity> exportReceipDetailEntities = new ArrayList<>();
 
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<PromotionProductEntity> promotionProductEntities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<ContentEntity> contentEntities = new ArrayList<>();
 }

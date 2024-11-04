@@ -39,6 +39,8 @@ public class UserEntity implements Serializable {
     private Date registrationDate;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<AdminEntity> adminEntities = new ArrayList<>();
-//    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    private List<CustomerEntity> customerEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<CustomerEntity> customerEntities = new ArrayList<>();
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<EmployeeEntity> employeeEntities = new ArrayList<>();
 }

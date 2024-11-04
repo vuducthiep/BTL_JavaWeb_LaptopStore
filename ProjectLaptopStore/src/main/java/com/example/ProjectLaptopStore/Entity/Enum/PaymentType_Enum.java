@@ -2,9 +2,9 @@
 package com.example.ProjectLaptopStore.Entity.Enum;
 
 public enum PaymentType_Enum {
-    CREDIT_CARD("Credit Card"),
-    BANK_TRANSFER("Bank Transfer"),
-    E_WALLET("E-wallet");
+    OFFLINE("OFFLINE"),
+    ONLINE("ONLINE");
+
 
     private final String displayValue;
 

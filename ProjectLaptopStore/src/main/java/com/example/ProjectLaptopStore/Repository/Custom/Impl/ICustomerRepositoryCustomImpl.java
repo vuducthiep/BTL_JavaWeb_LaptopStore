@@ -107,11 +107,6 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         userEntity.setUserType(User_Enum.customer);
         userEntity.setRegistrationDate(customerCreate.getRegistrationDate());
         customerEntity.setUser(userEntity);
-        customerEntity.setAddress(customerCreate.getAddress());
-        customerEntity.setCity(customerCreate.getCity());
-        customerEntity.setDistrict(customerCreate.getDistrict());
-        customerEntity.setWard(customerCreate.getWard());
-        customerEntity.setStreetAddress(customerCreate.getStreetAddress());
         customerEntity.setRegistrationDate(customerCreate.getRegistrationDate());
         customerEntity.setStatus(Customer_Enum.active);
         entityManager.persist(userEntity);
@@ -127,11 +122,6 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         userEntity.setUserType(User_Enum.customer);
         userEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
         customerEntity.setUser(userEntity);
-        customerEntity.setAddress(customerUpdate.getAddress());
-        customerEntity.setCity(customerUpdate.getCity());
-        customerEntity.setDistrict(customerUpdate.getDistrict());
-        customerEntity.setWard(customerUpdate.getWard());
-        customerEntity.setStreetAddress(customerUpdate.getStreetAddress());
         customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
         customerEntity.setStatus(Customer_Enum.active);
         entityManager.merge(userEntity);
@@ -169,11 +159,6 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
                         "u.Email, " +
                         "u.PhoneNumber, " +
                         "u.RegistrationDate, " +
-                        "c.Address, " +
-                        "c.City, " +
-                        "c.District, " +
-                        "c.Ward, " +
-                        "c.StreetAddress " +
                         "ORDER BY " +
                         "totalamount DESC  ";
         Query queryNative = entityManager.createNativeQuery(query);
