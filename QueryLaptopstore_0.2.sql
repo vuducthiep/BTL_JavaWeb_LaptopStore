@@ -255,6 +255,7 @@ CREATE TABLE ProductsInWarehouse (
     WarehouseID INT,
     ProductName VARCHAR(100) NOT NULL,
     ProductionBatchCode VARCHAR(50),
+    Quantity INT NOT NULL,
     Dimensions VARCHAR(50),
     Volume DECIMAL(10, 2),
     MinStockLevel INT,
@@ -280,7 +281,7 @@ CREATE TABLE ImportReceiptDetails (
     ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
     ImportReceiptID INT,
     ProductID INT,
-    Quantity INT NOT NULL,
+  Quantity INT NOT NULL,
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
