@@ -16,7 +16,7 @@ public class IOrderDetailRepositoryCustomImpl implements IOrderDetailRepositoryC
 
     @Override
     public List<OrderDetail_CountQuantityProductPerMonthDTO> listCountQuantityProductPerMonth() {
-        String query = "SELECT MONTH(o.OrderDate) AS month, SUM(od.Quantity) AS totalSold " +
+        String query = "SELECT MONTH(o.OrderDate) AS month, SUM(od.Quantity) AS totalSell " +
                 "FROM OrderDetails od JOIN Orders o ON od.OrderID = o.OrderID " +
                 "WHERE YEAR(o.OrderDate) = YEAR(CURDATE()) " +
                 "GROUP BY  MONTH(o.OrderDate) " +

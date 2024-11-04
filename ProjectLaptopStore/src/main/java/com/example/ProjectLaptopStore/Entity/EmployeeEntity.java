@@ -6,29 +6,25 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
-@Entity
 @Getter
 @Setter
-@Table(name = "admins")
-public class AdminEntity implements Serializable {
+@Entity
+@Table(name = "Employees")
+public class EmployeeEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer AdminID;
+    private Integer EmployeeID;
+    @Column(name = "Name",nullable = false)
+    private String name;
     @Column(name = "CreatedDate",nullable = false)
     private Date createdDate;
-    @Enumerated(EnumType.STRING)
     @Column(name = "Status")
-    private Status_Enum status;
+    @Enumerated(EnumType.STRING)
+    private Status_Enum status = Status_Enum.active;
     @ManyToOne
     @JoinColumn(name = "UserID")
     private UserEntity user;
-    @OneToMany(mappedBy = "admin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<ImportReceiptEntity> importReceipts = new ArrayList<>();
-    @OneToMany(mappedBy = "admin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    private List<ExportReceiptEntity> exportReceipts = new ArrayList<>();
 }

@@ -20,9 +20,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.parameters.P;
+//import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,13 +36,12 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     private EntityManager entityManager;
     @Override
     public List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered() {
-        //set tay cho toàn bộ trường của lớp DTO vì gặp lỗi 500, ko map dữ liệu được
         String query = "SELECT p.ProductID ,p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
-                "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered " +
+                "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered ,COALESCE(SUM(od.LineTotal), 0) AS lineTotal " +
                 "FROM Products p " +
                 "LEFT JOIN OrderDetails od ON p.ProductID = od.ProductID " +
                 "GROUP BY p.ProductID " +
-                "ORDER BY quantityOrdered DESC";
+                "ORDER BY lineTotal DESC";
         Query nativeQuery = entityManager.createNativeQuery(query);// ko cần truyền DTO.class
         List<Object[]> results = nativeQuery.getResultList();
 
@@ -57,7 +57,8 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                     (Integer) result[5], // stockQuantity
                     (Integer) result[6], // warrantyPeriod
                     (String) result[7],  // imageURL
-                    ((Number) result[8]).longValue()  // quantityOrdered (SUM result)
+                    ((Number) result[8]).longValue(),  // quantityOrdered
+                    (BigDecimal) result[9] //lineTotal
             );
             dtoList.add(dto);
         }
