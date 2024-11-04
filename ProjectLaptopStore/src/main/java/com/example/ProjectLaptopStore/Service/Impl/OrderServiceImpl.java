@@ -24,9 +24,6 @@ public class OrderServiceImpl implements IOrderService {
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
         BigDecimal res = orderRepository.findTotalAmount();
-//        BigDecimal totalAmount = order_TotalAmountInMonthDTOConverter.TotalAmount(totalAmountInMountDTOS);
-//        Order_TotalAmountInMonthDTO res = new Order_TotalAmountInMonthDTO();
-//        res.setTotalAmount(totalAmountInMountDTOS);
         return res;
     }
 
