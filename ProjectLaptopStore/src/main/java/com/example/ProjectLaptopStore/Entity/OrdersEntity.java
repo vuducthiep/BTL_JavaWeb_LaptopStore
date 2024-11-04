@@ -29,16 +29,6 @@ public class OrdersEntity implements Serializable {
     @Column(name = "OrderStatus",nullable = false)
     @Enumerated(EnumType.STRING)
     private OrderStatus_Enum orderStatus;
-    @Column(name = "ShippingAddress")
-    private String shippingAddress;
-    @Column(name = "City")
-    private String city;
-    @Column(name = "District")
-    private String district;
-    @Column(name = "Ward")
-    private String ward;
-    @Column(name = "StreetAddress")
-    private String streetAddress;
     @Column(name = "EstimatedDeliveryDate")
     private Date estimatedDeliveryDate;
     @Column(name = "ActualDeliveryDate")

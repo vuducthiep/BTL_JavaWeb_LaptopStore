@@ -2,6 +2,8 @@ package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,6 +11,8 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 @Table(name = "suppliers")
 public class SuppliersEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -38,91 +42,4 @@ public class SuppliersEntity implements Serializable {
     @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<ProductsEntity> products = new ArrayList<>();
 
-    public int getSupplierID() {
-        return supplierID;
-    }
-
-    public void setSupplierID(int supplierID) {
-        supplierID = supplierID;
-    }
-
-    public String getSupplierName() {
-        return supplierName;
-    }
-
-    public void setSupplierName(String supplierName) {
-        this.supplierName = supplierName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTaxCode() {
-        return taxCode;
-    }
-
-    public void setTaxCode(String taxCode) {
-        this.taxCode = taxCode;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    public String getRepresentative() {
-        return representative;
-    }
-
-    public void setRepresentative(String representative) {
-        this.representative = representative;
-    }
-
-    public Date getPartnershipStartDate() {
-        return partnershipStartDate;
-    }
-
-    public void setPartnershipStartDate(Date partnershipStartDate) {
-        this.partnershipStartDate = partnershipStartDate;
-    }
-
-    public Status_Enum getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status_Enum status) {
-        this.status = status;
-    }
-
-    public List<ProductsEntity> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductsEntity> products) {
-        this.products = products;
-    }
 }
