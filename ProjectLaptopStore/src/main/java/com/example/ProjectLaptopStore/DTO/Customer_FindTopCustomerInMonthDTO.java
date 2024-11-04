@@ -19,8 +19,9 @@ public class Customer_FindTopCustomerInMonthDTO {
     private String ward;
     private String streetAddress;
     private BigDecimal totalAmount;
+    private Integer quantity;
 
-    public Customer_FindTopCustomerInMonthDTO(Integer customerId, String userName, String email, String phoneNumber, Date registrationDate, String address, String city, String district, String ward, String streetAddress, BigDecimal totalAmount) {
+    public Customer_FindTopCustomerInMonthDTO(Integer customerId, String userName, String email, String phoneNumber, Date registrationDate, String address, String city, String district, String ward, String streetAddress, BigDecimal totalAmount, Integer quantity) {
         this.customerId = customerId;
         this.userName = userName;
         this.email = email;
@@ -32,5 +33,6 @@ public class Customer_FindTopCustomerInMonthDTO {
         this.ward = ward;
         this.streetAddress = streetAddress;
         this.totalAmount = totalAmount;
+        this.quantity = quantity;
     }
 }
