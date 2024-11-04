@@ -88,6 +88,7 @@ CREATE TABLE Products (
     ReleaseDate DATE,
     WarrantyPeriod INT, -- Warranty period in months
     ImageURL VARCHAR(255),
+    Rating INT ,
     FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
 );
 
