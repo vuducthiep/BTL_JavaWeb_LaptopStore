@@ -24,7 +24,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -56,7 +55,6 @@ public class UserServiceImpl implements IUserService {
 //    private final UserAPI userAPI;
 
     // lay tat ca user
-    @PreAuthorize("hasRole('admin')")
     @Override
     public List<User_RegisterDTO> getAllUsers() {
         List<UserEntity> entities = userRepository.findAll();
