@@ -5,7 +5,8 @@ import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import com.example.ProjectLaptopStore.Repository.IOrderRepository;
-import com.example.ProjectLaptopStore.Service.IOrderService;
+import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
+import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +22,21 @@ public class OrderServiceImpl implements IOrderService {
 
     @Autowired
     private Order_TotalAmountInMonthDTOConverter order_TotalAmountInMonthDTOConverter;
+
+    @Autowired
+    private IProductService productService;
+
+
+    @Autowired
+    private ICustomerService customerService;
+
+    @Autowired
+    private ISuppliersService suppliersService;
+
+    @Autowired
+    private IOrderDetailService orderDetailService;
+
+
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
         BigDecimal res = orderRepository.findTotalAmount();
@@ -50,6 +66,20 @@ public class OrderServiceImpl implements IOrderService {
         List<Order_CountTotalAmountDTO> result = orderRepository.listCountTotalAmount();
         return result;
     }
+
+    @Override
+    public BigDecimal getTotalAmountOnline() {
+        BigDecimal result = orderRepository.getTotalAmountPayOnline();
+        return result;
+    }
+
+    @Override
+    public BigDecimal getTotalAmountOffline() {
+        BigDecimal result = orderRepository.getTotalAmountPayOffline();
+        return result;
+    }
+
+
 
 
 }

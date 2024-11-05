@@ -42,30 +42,16 @@ public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
 
     @Override
     public List<Order_InvoiceDetailDTO> listInvoiceDetail() {
-        String query = "SELECT " +
-                "o.OrderDate, " +
-                "u.FullName, " +
-                "o.ShippingAddress, " +
-                "o.City, " +
-                "o.District, " +
-                "o.Ward, " +
-                "o.StreetAddress, " +
-                "p.ProductName, " +
-                "p.Model, " +
-                "p.Brand, " +
-                "od.Price, " +
-                "od.Quantity, " +
-                "od.LineTotal, " +
-                "o.ShippingFee, " +
-                "o.TotalAmount, " +
-                "o.EstimatedDeliveryDate, " +
-                "o.OrderStatus " +
-                "FROM Orders o " +
-                "JOIN Customers c ON o.CustomerID = c.CustomerID " +
-                "JOIN OrderDetails od ON o.OrderID = od.OrderID " +
-                "JOIN Products p ON od.ProductID = p.ProductID " +
-                "JOIN Users u ON c.UserID = u.UserID " +
-                "ORDER BY o.OrderDate DESC";
+        String query = "SELECT o.OrderDate,u.FullName, u.PhoneNumber,sp.Address, sp.City, sp.District, sp.Ward, sp.StreetAddress, p.ProductName, p.Model, \n" +
+                "p.Brand, od.Price, od.Quantity, od.LineTotal, o.ShippingFee, pr.PromotionName, pr.DiscountPercentage, o.TotalAmount, o.EstimatedDeliveryDate, o.OrderStatus, o.OrderID \n" +
+                "FROM Orders o \n" +
+                "LEFT JOIN Customers c ON o.CustomerID = c.CustomerID \n" +
+                "LEFT JOIN OrderDetails od ON o.OrderID = od.OrderID \n" +
+                "LEFT JOIN Promotions pr ON o.PromotionID = pr.PromotionID \n" +
+                "LEFT JOIN Products p ON od.ProductID = p.ProductID \n" +
+                "LEFT JOIN Users u ON c.UserID = u.UserID \n" +
+                "LEFT JOIN ShippingAddresses sp ON c.CustomerID = sp.CustomerID\n" +
+                "ORDER BY o.OrderDate DESC;";
 
         Query nativeQuery = entityManager.createNativeQuery(query);
         List<Object[]> result = nativeQuery.getResultList();
@@ -76,22 +62,27 @@ public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
             Order_InvoiceDetailDTO dto = new Order_InvoiceDetailDTO(
                     (Date) item[0],                // orderDate
                     (String) item[1],              // nameCustomer
-                    (String) item[2],              // shippingAddress
-                    (String) item[3],              // shippingCity
-                    (String) item[4],              // shippingDistrict
-                    (String) item[5],              // shippingWard
-                    (String) item[6],              // shippingStreet
-                    (String) item[7],              // productName
-                    (String) item[8],              // model
-                    (String) item[9],              // brand
-                    (BigDecimal) item[10],         // price
-                    (Integer) item[11],            // quantity
-                    (BigDecimal) item[12],         // lineTotal
-                    (BigDecimal) item[13],         // shippingFee
-                    (BigDecimal) item[14],         // totalAmount
-                    (Date) item[15],               // estimatedDeliveryDate
-                    OrderStatus_Enum.valueOf((String) item[16]) // orderStatus
+                    (String) item[2],
+                    (String) item[3],              // shippingAddress
+                    (String) item[4],              // shippingCity
+                    (String) item[5],              // shippingDistrict
+                    (String) item[6],              // shippingWard
+                    (String) item[7],              // shippingStreet
+                    (String) item[8],              // productName
+                    (String) item[9],              // model
+                    (String) item[10],              // brand
+                    (BigDecimal) item[11],         // price
+                    (Integer) item[12],            // quantity
+                    (BigDecimal) item[13],         // lineTotal
+                    (BigDecimal) item[14],         // shippingFee
+                    (String) item[15],
+                    (BigDecimal) item[16],
+                    (BigDecimal) item[17],         // totalAmount
+                    (Date) item[18],               // estimatedDeliveryDate
+                    OrderStatus_Enum.valueOf((String) item[19]) ,// orderStatus
+                    (Integer) item[20]
             );
+            listInvoiceDTO.add(dto);
         }
         return listInvoiceDTO;
     }

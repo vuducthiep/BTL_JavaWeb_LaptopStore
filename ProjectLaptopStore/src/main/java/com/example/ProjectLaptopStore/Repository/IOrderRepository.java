@@ -23,4 +23,15 @@ public interface IOrderRepository extends JpaRepository<OrdersEntity, Integer> ,
             "AND o.OrderDate <= CURDATE()", nativeQuery = true )
     Integer countCustomersForCurrentMonth();
 
+    @Query(value = "select sum( o.TotalAmount) as totalAmount " +
+            "from Orders o " +
+            "join PaymentMethods pm on o.PaymentMethodID = pm.PaymentMethodID " +
+            "where pm.PaymentType = 'ONLINE'",nativeQuery = true)
+    BigDecimal getTotalAmountPayOnline();
+
+    @Query(value = "select sum( o.TotalAmount) as totalAmount " +
+            "from Orders o " +
+            "join PaymentMethods pm on o.PaymentMethodID = pm.PaymentMethodID " +
+            "where pm.PaymentType = 'OFFLINE'",nativeQuery = true)
+    BigDecimal getTotalAmountPayOffline();
 }

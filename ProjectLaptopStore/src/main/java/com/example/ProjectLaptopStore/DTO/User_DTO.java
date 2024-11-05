@@ -12,23 +12,18 @@ import java.util.Date;
 
 @Setter
 @Getter
-@NoArgsConstructor
 public class User_DTO {
-    private int UserID;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
-    private User_Enum userType;
-    private Date registrationDate;
-
-    public User_DTO(int userID, String fullName, String email, String password, String phoneNumber, User_Enum userType, Date registrationDate) {
-        UserID = userID;
+    public User_DTO(String fullName, String email, String password, String phoneNumber) {
         this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
-        this.userType = userType;
-        this.registrationDate = registrationDate;
+    }
+    public User_DTO() {
+
     }
 }
