@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,19 +27,19 @@ public class AuthenticationController {
     @Autowired
     IUserService userService;
 
-//    @GetMapping(value = "/admin/users")
-//    public List<User_RegisterDTO> listUserLogin() {
-//        var authen = SecurityContextHolder.getContext().getAuthentication();
-//        log.info("user name: {}", authen.getName());
-//        log.info("Role: {}", authen.getAuthorities());
-//        List<User_RegisterDTO> users = userService.getAllUsers();
-//        return users;
-//    }
     @GetMapping(value = "/admin/users")
-    public Page<User_DTO> getAllUsers(@RequestParam(name = "pageNo")int pageNo, @RequestParam(name = "pageSize")int pageSize){
-        Page<User_DTO> rs = userService.searchUser(pageNo,pageSize);
-        return rs;
+    public List<User_RegisterDTO> listUserLogin() {
+        var authen = SecurityContextHolder.getContext().getAuthentication();
+        log.info("user name: {}", authen.getName());
+        log.info("Role: {}", authen.getAuthorities());
+        List<User_RegisterDTO> users = userService.getAllUsers();
+        return users;
     }
+//    @GetMapping(value = "/admin/users")
+//    public Page<User_DTO> getAllUsers(@RequestParam(name = "pageNo")int pageNo, @RequestParam(name = "pageSize")int pageSize){
+//        Page<User_DTO> rs = userService.searchUser(pageNo,pageSize);
+//        return rs;
+//    }
 
     @PostMapping(value = "/user/register")
     public void createUser(@RequestBody User_RegisterDTO user) {
@@ -53,8 +54,6 @@ public class AuthenticationController {
 
     @PostMapping(value = "/user/login")
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
-
-        List<User_RegisterDTO> users = userService.getAllUsers();
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
     @PostMapping(value = "/user/token-valid")

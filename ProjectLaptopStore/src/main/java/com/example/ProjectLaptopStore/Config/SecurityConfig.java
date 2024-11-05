@@ -7,12 +7,15 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
+import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
 
@@ -21,6 +24,7 @@ import javax.swing.*;
 
 @Configuration
 @EnableAutoConfiguration
+@EnableMethodSecurity
 public class SecurityConfig {
 //    private String[] GET_admin = {
 //            "/admin/sellproduct/","/admin/totalmount/","/admin/totalcustomer/",
@@ -48,17 +52,21 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request ->
                 request
                         .requestMatchers(HttpMethod.POST, "/user/**","/token-valid").permitAll()
-                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("SCOPE_admin")
-                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("SCOPE_admin")
-                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("SCOPE_admin")
-                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("SCOPE_admin")
-                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("SCOPE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/user/profile/").hasAnyAuthority("SCOPE_user", "SCOPE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/admin/users").hasAnyRole("admin")
                         .anyRequest().authenticated()
         );
 
 
         httpSecurity.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
-                        httpSecurityOAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder()))
+                        httpSecurityOAuth2ResourceServerConfigurer.jwt(jwtConfigurer -> jwtConfigurer.decoder(jwtDecoder())
+                                .jwtAuthenticationConverter(jwtAuthenticationConverter())
+                        )
                 );
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
         return httpSecurity.build();
@@ -75,4 +83,14 @@ public class SecurityConfig {
                 .macAlgorithm(MacAlgorithm.HS512)
                 .build();
     }
+
+    @Bean
+    JwtAuthenticationConverter jwtAuthenticationConverter(){
+        JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+        converter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
+        return converter;
+    }
+
 }

@@ -13,4 +13,6 @@ public interface IOrderService {
     List<Order_ListBillDTO> ListBillAtService();
     List<Order_InvoiceDetailDTO> ListInvoiceDetailAtService();
     List<Order_CountTotalAmountDTO> listCountTotalAmountAtService();
+
+
 }
