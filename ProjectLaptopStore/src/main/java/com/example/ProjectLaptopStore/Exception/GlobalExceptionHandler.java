@@ -64,6 +64,7 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Validation error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+
     // Thêm các xử lý ngoại lệ khác nếu cần
 
 }

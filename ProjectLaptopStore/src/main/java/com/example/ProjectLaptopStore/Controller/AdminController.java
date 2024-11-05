@@ -1,11 +1,14 @@
 package com.example.ProjectLaptopStore.Controller;
 
+import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -14,7 +17,8 @@ public class AdminController {
 
 //    @PersistenceContext
 //    private EntityManager entityManager;
-
+    @Autowired
+    private IPromotionService promotionService;
     @Autowired
     private IProductService productService;
 
@@ -43,15 +47,20 @@ public class AdminController {
     //API cho trang billing
     @GetMapping(value = "/billing/")
     public Admin_BillingResponseDTO adminBilling(){
-        Admin_BillingResponseDTO result = adminService.adminBillingAtService();
+        Admin_BillingResponseDTO result = orderService.adminBillingAtService();
         return result;
     }
 
-    @GetMapping(value = "/receipt/")
-    public Admin_ReceiptResponseDTO adminReceipt(){
-        Admin_ReceiptResponseDTO result = adminService.adminReceiptAtService();
-        return result;
+    //API lay thong tin cac khuyen mai
+    @GetMapping(value = "/promotion")
+    public List<Promotions_DisplayPromotionsDTO> promotion(){
+        List<Promotions_DisplayPromotionsDTO> rs = promotionService.getPromotions();
+        return rs;
     }
 
-
+    @GetMapping(value = "/promotion/{promotionName}")
+    public List<Promotions_DisplayPromotionsDTO> SearchPromotion(@PathVariable(name = "promotionName") String promotionName){
+        List<Promotions_DisplayPromotionsDTO> result = promotionService.searchPromotion(promotionName);
+        return  result;
+    }
 }

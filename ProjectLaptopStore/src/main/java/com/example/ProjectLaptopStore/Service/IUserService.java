@@ -25,7 +25,7 @@ public interface IUserService {
     //dang nhap
     User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password);
 
-    // kiem tra hon le token
+    // kiem tra hop le token
     TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException;
 
     // phan trang user
