@@ -41,5 +41,7 @@ public class OrdersEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customer;
-
+    @ManyToOne
+    @JoinColumn(name = "PromotionID")
+    private PromotionEntity promotion;
 }

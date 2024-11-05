@@ -26,5 +26,6 @@ public class PromotionEntity implements Serializable {
     private String promotionDetails;
     @OneToMany(mappedBy = "promotion",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<PromotionProductEntity> promotionProducts = new ArrayList<>();
-
+    @OneToMany(mappedBy = "promotion",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<OrdersEntity> ordersEntities = new ArrayList<>();
 }
