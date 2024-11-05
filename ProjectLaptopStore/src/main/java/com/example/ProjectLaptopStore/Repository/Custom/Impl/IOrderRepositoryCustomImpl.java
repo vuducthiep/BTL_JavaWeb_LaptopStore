@@ -43,7 +43,7 @@ public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
     @Override
     public List<Order_InvoiceDetailDTO> listInvoiceDetail() {
         String query = "SELECT o.OrderDate,u.FullName, u.PhoneNumber,sp.Address, sp.City, sp.District, sp.Ward, sp.StreetAddress, p.ProductName, p.Model, \n" +
-                "p.Brand, od.Price, od.Quantity, od.LineTotal, o.ShippingFee, pr.PromotionName, pr.DiscountPercentage, o.TotalAmount, o.EstimatedDeliveryDate, o.OrderStatus \n" +
+                "p.Brand, od.Price, od.Quantity, od.LineTotal, o.ShippingFee, pr.PromotionName, pr.DiscountPercentage, o.TotalAmount, o.EstimatedDeliveryDate, o.OrderStatus, o.OrderID \n" +
                 "FROM Orders o \n" +
                 "LEFT JOIN Customers c ON o.CustomerID = c.CustomerID \n" +
                 "LEFT JOIN OrderDetails od ON o.OrderID = od.OrderID \n" +
@@ -79,7 +79,8 @@ public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
                     (BigDecimal) item[16],
                     (BigDecimal) item[17],         // totalAmount
                     (Date) item[18],               // estimatedDeliveryDate
-                    OrderStatus_Enum.valueOf((String) item[19]) // orderStatus
+                    OrderStatus_Enum.valueOf((String) item[19]) ,// orderStatus
+                    (Integer) item[20]
             );
             listInvoiceDTO.add(dto);
         }

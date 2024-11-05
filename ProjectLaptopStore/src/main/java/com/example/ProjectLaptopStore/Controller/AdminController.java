@@ -2,6 +2,7 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,10 +43,15 @@ public class AdminController {
     //API cho trang billing
     @GetMapping(value = "/billing/")
     public Admin_BillingResponseDTO adminBilling(){
-        Admin_BillingResponseDTO result = orderService.adminBillingAtService();
+        Admin_BillingResponseDTO result = adminService.adminBillingAtService();
         return result;
     }
 
+    @GetMapping(value = "/receipt/")
+    public Admin_ReceiptResponseDTO adminReceipt(){
+        Admin_ReceiptResponseDTO result = adminService.adminReceiptAtService();
+        return result;
+    }
 
 
 }

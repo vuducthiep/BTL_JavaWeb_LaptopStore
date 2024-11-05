@@ -79,22 +79,7 @@ public class OrderServiceImpl implements IOrderService {
         return result;
     }
 
-    @Override
-    public Admin_BillingResponseDTO adminBillingAtService() {
-        Admin_BillingResponseDTO billingResponseDTO = new Admin_BillingResponseDTO();
-        try {
-            BigDecimal totalAmountOnline = orderRepository.getTotalAmountPayOnline();
-            BigDecimal totalAmountOffline = orderRepository.getTotalAmountPayOffline();
-            List<Order_InvoiceDetailDTO> listInvoice = orderRepository.listInvoiceDetail();
-            billingResponseDTO.setTotalAmountPayOnline(totalAmountOnline);
-            billingResponseDTO.setTotalAmountPayOffline(totalAmountOffline);
-            billingResponseDTO.setListInvoiceDetail(listInvoice);
-        }catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        return billingResponseDTO;
-    }
+
 
 
 }

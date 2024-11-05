@@ -16,5 +16,5 @@ public interface IOrderService {
     List<Order_CountTotalAmountDTO> listCountTotalAmountAtService();
     BigDecimal getTotalAmountOnline();
     BigDecimal getTotalAmountOffline();
-    Admin_BillingResponseDTO adminBillingAtService();
+
 }

@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Controller.TestAPI;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +27,8 @@ public class AdminControllerTest {
 
     @Autowired
     private IOrderDetailService orderDetailService;
-
-
+    @Autowired
+    private WareHouseService wareHouseService;
 
     //API lấy số sản phẩm bán trong tháng
     @GetMapping(value = "/admin/sellproduct/")
@@ -186,6 +187,12 @@ public class AdminControllerTest {
     @GetMapping(value = "/admin/payoffline/")
     public BigDecimal TotalAmountPayOffline(){
         BigDecimal result = orderService.getTotalAmountOffline();
+        return result;
+    }
+
+    @GetMapping(value = "/admin/getallwarehouse")
+    public List<WareHouseEntity> getall(){
+        List<WareHouseEntity> result = wareHouseService.getListWareHouse();
         return result;
     }
 

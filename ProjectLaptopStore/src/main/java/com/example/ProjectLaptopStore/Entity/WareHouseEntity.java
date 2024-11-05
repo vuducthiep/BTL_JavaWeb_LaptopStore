@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -28,9 +29,12 @@ public class WareHouseEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status_Enum status;
     @OneToMany(mappedBy = "warehouse",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ImportReceiptEntity> importReceiptEntities = new ArrayList<>();
     @OneToMany(mappedBy = "warehouse",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ExportReceiptEntity> exportReceiptEntities = new ArrayList<>();
     @OneToMany(mappedBy = "warehouse",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductInWarehouseEntity> productInWarehouseEntities = new ArrayList<>();
 }

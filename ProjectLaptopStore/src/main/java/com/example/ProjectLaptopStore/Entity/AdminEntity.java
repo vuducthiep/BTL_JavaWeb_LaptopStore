@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,6 +27,7 @@ public class AdminEntity implements Serializable {
     private Status_Enum status;
     @ManyToOne
     @JoinColumn(name = "UserID")
+    @JsonBackReference
     private UserEntity user;
     @OneToMany(mappedBy = "admin",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<ImportReceiptEntity> importReceipts = new ArrayList<>();
