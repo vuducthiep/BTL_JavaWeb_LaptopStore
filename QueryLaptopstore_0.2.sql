@@ -1,5 +1,5 @@
 -- Xóa cơ sở dữ liệu nếu tồn tại và tạo mới
--- DROP DATABASE IF EXISTS LaptopStoreFinal;
+DROP DATABASE IF EXISTS LaptopStoreFinal;
 CREATE DATABASE IF NOT EXISTS LaptopStoreFinal;
 USE LaptopStoreFinal;
 -- Tạo bảng Users trước
@@ -10,7 +10,7 @@ CREATE TABLE Users (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(15),
-    UserType ENUM('customer', 'admin') NOT NULL, -- Loại người dùng
+    UserType ENUM('customer', 'admin','employee') NOT NULL, -- Loại người dùng
     RegistrationDate DATE NOT NULL,
     INDEX idx_email (Email) -- Chỉ mục cho cột Email để tăng hiệu suất tìm kiếm
 );
@@ -36,9 +36,6 @@ CREATE TABLE Customers (
     FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
 
 );
-
-
-
 -- Tạo bảng Admins
 DROP TABLE IF EXISTS Admins;
 CREATE TABLE Admins (
@@ -88,11 +85,9 @@ CREATE TABLE Products (
     ReleaseDate DATE,
     WarrantyPeriod INT, -- Warranty period in months
     ImageURL VARCHAR(255),
-    Rating INT ,
     FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
 );
 
--- https://fptshop.com.vn/so-sanh-san-pham?sp=may-tinh-xach-tay%2Flenovo-ideapad-3-14iah8-i5-12450h%3Fsku%3D00898312-vs-may-tinh-xach-tay%2Fhp-15-fd0235tu-i5-1334u%3Fsku%3D00906462-vs-may-tinh-xach-tay%2Facer-nitro-5-tiger-gaming-an515-58-773y-i7-12700h%3Fsku%3D00910749
 CREATE TABLE ProductDescription (
 	ProductDescriptionID INT, 
 	ProductID INT,
@@ -167,6 +162,14 @@ CREATE TABLE PaymentMethods (
     Status ENUM('active', 'inactive') DEFAULT 'active'
 );
 
+DROP TABLE IF EXISTS Promotions;
+CREATE TABLE Promotions (
+    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
+    PromotionName VARCHAR(100) NOT NULL,
+    DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
+    PromotionDetails TEXT
+);
+
 -- Tạo bảng Orders
 DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders (
@@ -179,8 +182,10 @@ CREATE TABLE Orders (
     OrderStatus ENUM('Pending', 'Confirmed', 'Shipped', 'Delivered', 'Canceled') NOT NULL,
     EstimatedDeliveryDate DATE,
     ActualDeliveryDate DATE,
+    PromotionID INT,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE,
-    FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID)
+    FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID),
+    FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID)
 );
 
 -- Tạo bảng OrderDetails
@@ -239,11 +244,11 @@ CREATE TABLE ProductsInWarehouse (
     WarehouseID INT,
     ProductName VARCHAR(100) NOT NULL,
     ProductionBatchCode VARCHAR(50),
-    Quantity INT NOT NULL,
     Dimensions VARCHAR(50),
     Volume DECIMAL(10, 2),
     MinStockLevel INT,
     MaxStockLevel INT,
+    Quantity INT,
     FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
     
@@ -265,7 +270,7 @@ CREATE TABLE ImportReceiptDetails (
     ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
     ImportReceiptID INT,
     ProductID INT,
-  Quantity INT NOT NULL,
+    Quantity INT NOT NULL,
     FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
@@ -301,15 +306,6 @@ CREATE TABLE ShippingAddresses (
     Ward VARCHAR(50),
     StreetAddress VARCHAR(255),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
-);
-
-
-DROP TABLE IF EXISTS Promotions;
-CREATE TABLE Promotions (
-    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
-    PromotionName VARCHAR(100) NOT NULL,
-    DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
-    PromotionDetails TEXT
 );
 
 -- chitet khuyen mai
