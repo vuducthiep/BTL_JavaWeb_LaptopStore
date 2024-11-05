@@ -1,16 +1,16 @@
-package com.example.ProjectLaptopStore.ControllerLogic;
+package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-@Component
-public class AdminDashBoardLogic {
+@Service
+public class AdminServiceImpl implements AdminService {
     @Autowired
     private IProductService productService;
 
@@ -26,7 +26,9 @@ public class AdminDashBoardLogic {
     @Autowired
     private IOrderDetailService orderDetailService;
 
-    public Admin_DashBoardResponseDTO setValueForDashBoard(){
+    //hàm gộp thông tin cho trang dashboard
+    @Override
+    public Admin_DashBoardResponseDTO adminDashBoardAtService() {
         Admin_DashBoardResponseDTO adminInfo = new Admin_DashBoardResponseDTO();
         try {
             Integer productSellInMonth = orderDetailService.getQuantityProductCurrentMonthAtService();

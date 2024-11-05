@@ -9,21 +9,29 @@ import com.example.ProjectLaptopStore.Entity.OrdersEntity;
 
 @Repository
 public interface IOrderRepository extends JpaRepository<OrdersEntity, Integer> , IOrderRepositoryCustom {
-    //lấy tổng tiền từ các hóa đơn từ cột TotalAmount từ bảng Order ,được thanh toán trong
-    //tháng hiện tại bằng CreatedDate(ngày thanh toán) từ bảng Paymentmethod
+    //lấy tổng tiền từ các hóa đơn từ cột TotalAmount từ bảng Order ,được thanh toán trong tháng hiện tại
     @Query(value = "SELECT SUM(o.TotalAmount) " +
         "FROM Orders o " +
-        "JOIN PaymentMethods pm ON o.PaymentMethodID = pm.PaymentMethodID " +
-        "WHERE pm.CreatedDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
-        "AND pm.CreatedDate <= CURDATE()", nativeQuery = true)
+        "WHERE o.OrderDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
+        "AND o.OrderDate <= CURDATE()", nativeQuery = true)
     BigDecimal findTotalAmount();
 
+    //đếm số khách hàng trong tháng hiện tại
     @Query(value = "SELECT COUNT(DISTINCT o.CustomerID) " +
             "FROM Orders o " +
-            "JOIN PaymentMethods pm ON o.PaymentMethodID = pm.PaymentMethodID " +
-            "WHERE pm.CreatedDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
-            "AND pm.CreatedDate <= CURDATE()", nativeQuery = true )
+            "WHERE o.OrderDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
+            "AND o.OrderDate <= CURDATE()", nativeQuery = true )
     Integer countCustomersForCurrentMonth();
 
+    @Query(value = "select sum( o.TotalAmount) as totalAmount " +
+            "from Orders o " +
+            "join PaymentMethods pm on o.PaymentMethodID = pm.PaymentMethodID " +
+            "where pm.PaymentType = 'ONLINE'",nativeQuery = true)
+    BigDecimal getTotalAmountPayOnline();
 
+    @Query(value = "select sum( o.TotalAmount) as totalAmount " +
+            "from Orders o " +
+            "join PaymentMethods pm on o.PaymentMethodID = pm.PaymentMethodID " +
+            "where pm.PaymentType = 'OFFLINE'",nativeQuery = true)
+    BigDecimal getTotalAmountPayOffline();
 }

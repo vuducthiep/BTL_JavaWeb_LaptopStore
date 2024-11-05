@@ -1,11 +1,7 @@
 -- Xóa cơ sở dữ liệu nếu tồn tại và tạo mới
--- DROP DATABASE IF EXISTS LaptopStore1;
-CREATE DATABASE IF NOT EXISTS LaptopStore;
-USE LaptopStore;
-
--- CMM Sáng ngu vcl 
--- Tài ngu vai l 
--- dcm Quang suc vat
+DROP DATABASE IF EXISTS LaptopStoreFinal;
+CREATE DATABASE IF NOT EXISTS LaptopStoreFinal;
+USE LaptopStoreFinal;
 -- Tạo bảng Users trước
 DROP TABLE IF EXISTS Users;
 CREATE TABLE Users (
@@ -14,9 +10,40 @@ CREATE TABLE Users (
     Email VARCHAR(100) UNIQUE NOT NULL,
     Password VARCHAR(255) NOT NULL,
     PhoneNumber VARCHAR(15),
-    UserType ENUM('customer', 'admin') NOT NULL, -- Loại người dùng
+    UserType ENUM('customer', 'admin','employee') NOT NULL, -- Loại người dùng
     RegistrationDate DATE NOT NULL,
     INDEX idx_email (Email) -- Chỉ mục cho cột Email để tăng hiệu suất tìm kiếm
+);
+
+DROP TABLE IF EXISTS Employees;
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    Name VARCHAR(100) NOT NULL,
+    CreatedDate DATE NOT NULL,
+    Status ENUM('active', 'inactive') DEFAULT 'active',
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+);
+
+
+-- Tạo bảng Customers với khóa ngoại tham chiếu tới bảng Cart
+DROP TABLE IF EXISTS Customers; 
+CREATE TABLE Customers (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    RegistrationDate DATE NOT NULL, 
+    Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE
+
+);
+-- Tạo bảng Admins
+DROP TABLE IF EXISTS Admins;
+CREATE TABLE Admins (
+    AdminID INT PRIMARY KEY AUTO_INCREMENT,
+    UserID INT,
+    CreatedDate DATE NOT NULL,
+    Status ENUM('active', 'inactive') DEFAULT 'active',
+    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Xóa admin khi user bị xóa
 );
 
 -- Tạo bảng Cart
@@ -27,36 +54,7 @@ CREATE TABLE Cart (
     Status ENUM('active', 'checked out') DEFAULT 'active',
     CreatedDate DATE NOT NULL,
     TotalPrice DECIMAL(10, 2),
-    FOREIGN KEY (CustomerID) REFERENCES Users(UserID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
-);
-
--- Tạo bảng Customers với khóa ngoại tham chiếu tới bảng Cart
-DROP TABLE IF EXISTS Customers; 
-CREATE TABLE Customers (
-    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    Address VARCHAR(255),
-    City VARCHAR(50),
-    District VARCHAR(50),
-    Ward VARCHAR(50),
-    StreetAddress VARCHAR(100),
-    RegistrationDate DATE NOT NULL,
-    Status ENUM('active', 'suspended', 'locked') DEFAULT 'active',
-    cart_CartID INT, -- Tham chiếu đến giỏ hàng của khách hàng
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE,
-    FOREIGN KEY (cart_CartID) REFERENCES Cart(CartID) ON DELETE CASCADE -- Khóa ngoại tới bảng Cart
-);
-
-
-
--- Tạo bảng Admins
-DROP TABLE IF EXISTS Admins;
-CREATE TABLE Admins (
-    AdminID INT PRIMARY KEY AUTO_INCREMENT,
-    UserID INT,
-    CreatedDate DATE NOT NULL,
-    Status ENUM('active', 'inactive') DEFAULT 'active',
-    FOREIGN KEY (UserID) REFERENCES Users(UserID) ON DELETE CASCADE -- Xóa admin khi user bị xóa
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
 );
 
 -- Tạo bảng Suppliers
@@ -90,7 +88,6 @@ CREATE TABLE Products (
     FOREIGN KEY (SupplierID) REFERENCES Suppliers(SupplierID)
 );
 
--- https://fptshop.com.vn/so-sanh-san-pham?sp=may-tinh-xach-tay%2Flenovo-ideapad-3-14iah8-i5-12450h%3Fsku%3D00898312-vs-may-tinh-xach-tay%2Fhp-15-fd0235tu-i5-1334u%3Fsku%3D00906462-vs-may-tinh-xach-tay%2Facer-nitro-5-tiger-gaming-an515-58-773y-i7-12700h%3Fsku%3D00910749
 CREATE TABLE ProductDescription (
 	ProductDescriptionID INT, 
 	ProductID INT,
@@ -142,7 +139,7 @@ CREATE TABLE ProductDescription (
 	BatteryCapacity INT,  -- Dung lượng pin (mAh)
 	PowerSupply VARCHAR(255),  -- Công suất nguồn (W)
 	AccessoriesInTheBox TEXT,  -- Phụ kiện đi kèm
-	Size VARCHAR(255),  -- Kích thước sản phẩm (cm)    
+	Size FLOAT,  -- Kích thước sản phẩm (cm)    
 	ProductWeight DECIMAL(4,2),  -- Trọng lượng sản phẩm (kg)
 	Material VARCHAR(255),  -- Chất liệu sản phẩm
 	PN VARCHAR(255),  -- Mã sản phẩm
@@ -160,10 +157,17 @@ CREATE TABLE ProductDescription (
 DROP TABLE IF EXISTS PaymentMethods;
 CREATE TABLE PaymentMethods (
     PaymentMethodID INT PRIMARY KEY AUTO_INCREMENT,
-    PaymentType ENUM('Credit Card', 'Bank Transfer', 'E-wallet') NOT NULL,
+    PaymentType ENUM('ONLINE', 'OFFLINE') NOT NULL,
     BankBrandName VARCHAR(100),
-    Status ENUM('active', 'inactive') DEFAULT 'active',
-    CreatedDate DATE NOT NULL
+    Status ENUM('active', 'inactive') DEFAULT 'active'
+);
+
+DROP TABLE IF EXISTS Promotions;
+CREATE TABLE Promotions (
+    PromotionID INT PRIMARY KEY AUTO_INCREMENT,
+    PromotionName VARCHAR(100) NOT NULL,
+    DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
+    PromotionDetails TEXT
 );
 
 -- Tạo bảng Orders
@@ -176,15 +180,12 @@ CREATE TABLE Orders (
     ShippingFee DECIMAL(10, 2),
     PaymentMethodID INT,
     OrderStatus ENUM('Pending', 'Confirmed', 'Shipped', 'Delivered', 'Canceled') NOT NULL,
-    ShippingAddress VARCHAR(255),
-    City VARCHAR(50),
-    District VARCHAR(50),
-    Ward VARCHAR(50),
-    StreetAddress VARCHAR(100),
     EstimatedDeliveryDate DATE,
     ActualDeliveryDate DATE,
+    PromotionID INT,
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE,
-    FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID)
+    FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID),
+    FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID)
 );
 
 -- Tạo bảng OrderDetails
@@ -227,54 +228,100 @@ CREATE TABLE ProductReviews (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
 );
 
+DROP TABLE IF EXISTS Warehouses;
+CREATE TABLE Warehouses (
+    WarehouseID INT PRIMARY KEY AUTO_INCREMENT,
+    WarehouseName VARCHAR(100) NOT NULL,
+    Address VARCHAR(255),
+    WarehouseType VARCHAR(50),
+    Status ENUM('active', 'inactive') DEFAULT 'active'
+);
 
--- Thêm dữ liệu mẫu vào bảng Users (4 khách hàng, 1 admin)
-INSERT INTO Users (FullName, Email, Password, PhoneNumber, UserType, RegistrationDate)
-VALUES 
-('John Doe', 'johndoe@example.com', 'password123', '1234567890', 'customer', CURDATE()),
-('Jane Smith', 'janesmith@example.com', 'password456', '0987654321', 'customer', CURDATE()),
-('Alice Johnson', 'alicej@example.com', 'password789', '1112223333', 'customer', CURDATE()),
-('Bob Brown', 'bobbrown@example.com', 'password321', '4445556666', 'customer', CURDATE()),
-('Admin User', 'admin@example.com', 'adminpass', '7778889999', 'admin', CURDATE());
+DROP TABLE IF EXISTS ProductsInWarehouse;
+CREATE TABLE ProductsInWarehouse (
+    ProductsInWarehouseID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductID INT ,
+    WarehouseID INT,
+    ProductName VARCHAR(100) NOT NULL,
+    ProductionBatchCode VARCHAR(50),
+    Dimensions VARCHAR(50),
+    Volume DECIMAL(10, 2),
+    MinStockLevel INT,
+    MaxStockLevel INT,
+    Quantity INT,
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+    
+);
 
--- Thêm khách hàng vào bảng Customers
-INSERT INTO Customers (UserID, Address, City, District, Ward, StreetAddress, RegistrationDate)
-VALUES 
-(1, '123 Main St', 'Hanoi', 'Dong Da', 'Ward 1', '123 Street A', CURDATE()),
-(2, '456 Secondary Rd', 'Ho Chi Minh City', 'District 1', 'Ward 5', '456 Street B', CURDATE()),
-(3, '789 Tertiary Ave', 'Da Nang', 'Hai Chau', 'Ward 7', '789 Street C', CURDATE()),
-(4, '101 Quaternary Blvd', 'Can Tho', 'Ninh Kieu', 'Ward 10', '101 Street D', CURDATE());
+DROP TABLE IF EXISTS ImportReceipts;
+CREATE TABLE ImportReceipts (
+    ImportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
+    AdminID INT,
+    WarehouseID INT,
+    ImportDate DATE NOT NULL,
+    Importer VARCHAR(255),
+    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
+);
 
--- Thêm nhà cung cấp vào bảng Suppliers
-INSERT INTO Suppliers (SupplierName, Address, PhoneNumber, Email, TaxCode, Website, Representative, PartnershipStartDate)
-VALUES 
-('ABC Electronics', '456 Supplier Rd', '0123456789', 'contact@abc.com', '123456789', 'www.abcelectronics.com', 'Mr. ABC', CURDATE()),
-('XYZ Tech', '789 Tech Blvd', '0987654321', 'info@xyztech.com', '987654321', 'www.xyztech.com', 'Ms. XYZ', CURDATE());
+DROP TABLE IF EXISTS ImportReceiptDetails;
+CREATE TABLE ImportReceiptDetails (
+    ImportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
+    ImportReceiptID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    FOREIGN KEY (ImportReceiptID) REFERENCES ImportReceipts(ImportReceiptID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+);
 
--- Thêm sản phẩm vào bảng Products
-INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
-VALUES 
-(1, 'Laptop ABC Pro', 'ABC Brand', 'ABC123', 1500.00, 20, CURDATE(), 24, 'https://example.com/laptopabcpro.jpg'),
-(2, 'Laptop XYZ Ultra', 'XYZ Brand', 'XYZ789', 2000.00, 15,  CURDATE(), 36, 'https://example.com/laptopxyzultra.jpg'),
-(2, 'Laptop XYZ Basic', 'XYZ Brand', 'XYZ456', 1000.00, 30, CURDATE(), 12, 'https://example.com/laptopxyzbasic.jpg');
+DROP TABLE IF EXISTS ExportReceipts;
+CREATE TABLE ExportReceipts (
+    ExportReceiptID INT PRIMARY KEY AUTO_INCREMENT,
+    AdminID INT,
+    WarehouseID INT,
+    ExportDate DATE NOT NULL,
+    Exporter VARCHAR(255),
+    FOREIGN KEY (AdminID) REFERENCES Admins(AdminID) ON DELETE SET NULL,
+    FOREIGN KEY (WarehouseID) REFERENCES Warehouses(WarehouseID) ON DELETE CASCADE
+);
 
--- Thêm phương thức thanh toán vào bảng PaymentMethods
-INSERT INTO PaymentMethods (PaymentType, BankBrandName, Status, CreatedDate)
-VALUES 
-('Credit Card', 'Vietcombank', 'active', CURDATE()),
-('Bank Transfer', 'Techcombank', 'active', CURDATE()),
-('E-wallet', 'Momo', 'active', CURDATE());
+DROP TABLE IF EXISTS ExportReceiptDetails;
+CREATE TABLE ExportReceiptDetails (
+    ExportReceiptDetailID INT PRIMARY KEY AUTO_INCREMENT,
+    ExportReceiptID INT,
+    ProductID INT,
+    Quantity INT NOT NULL,
+    FOREIGN KEY (ExportReceiptID) REFERENCES ExportReceipts(ExportReceiptID) ON DELETE CASCADE,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+);
 
--- Thêm đơn hàng mẫu vào bảng Orders
-INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, ShippingAddress, City, District, Ward, StreetAddress, EstimatedDeliveryDate)
-VALUES 
-(1, CURDATE(), 1550.00, 50.00, 1, 'Pending', '123 Main St', 'Hanoi', 'Dong Da', 'Ward 1', '123 Street A', CURDATE() + INTERVAL 3 DAY),
-(2, CURDATE(), 2050.00, 50.00, 2, 'Confirmed', '456 Secondary Rd', 'Ho Chi Minh City', 'District 1', 'Ward 5', '456 Street B', CURDATE() + INTERVAL 3 DAY);
+DROP TABLE IF EXISTS ShippingAddresses;
+CREATE TABLE ShippingAddresses (
+    AddressID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+    Address VARCHAR(255),
+    City VARCHAR(50),
+    District VARCHAR(50),
+    Ward VARCHAR(50),
+    StreetAddress VARCHAR(255),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
+);
 
--- Thêm chi tiết đơn hàng vào bảng OrderDetails
-INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price)
-VALUES 
-(1, 1, 1, 1500.00),
-(2, 2, 1, 2000.00);
+-- chitet khuyen mai
+DROP TABLE IF EXISTS PromotionProduct;
+CREATE TABLE PromotionProduct (
+    PromotionProductID INT PRIMARY KEY AUTO_INCREMENT,
+    PromotionID INT,
+    ProductID INT ,
+     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
+      FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
 
+);
 
+CREATE TABLE Contens (
+    ContenID INT PRIMARY KEY AUTO_INCREMENT,
+    ProductID INT, 
+    Content TEXT ,
+    FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
+);

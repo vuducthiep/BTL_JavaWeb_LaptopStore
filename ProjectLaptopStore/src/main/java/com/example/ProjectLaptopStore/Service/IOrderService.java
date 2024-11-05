@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Service;
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
+import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -13,6 +14,7 @@ public interface IOrderService {
     List<Order_ListBillDTO> ListBillAtService();
     List<Order_InvoiceDetailDTO> ListInvoiceDetailAtService();
     List<Order_CountTotalAmountDTO> listCountTotalAmountAtService();
-
-
+    BigDecimal getTotalAmountOnline();
+    BigDecimal getTotalAmountOffline();
+    Admin_BillingResponseDTO adminBillingAtService();
 }

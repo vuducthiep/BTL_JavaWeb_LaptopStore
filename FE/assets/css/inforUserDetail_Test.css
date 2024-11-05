@@ -89,7 +89,7 @@ ul.breadcrumb {
     color: white;
     background-color: var(--color-main);
     margin-left: 10px; /* Khoảng cách ban đầu giữa button và các item */
-    transition: transform 0.3s ease; /* Thêm hiệu ứng chuyển đổi mượt */
+    transition: transform 0.5s ease; /* Thêm hiệu ứng chuyển đổi mượt */
 }
 
 .box-main .box-item:hover a {
