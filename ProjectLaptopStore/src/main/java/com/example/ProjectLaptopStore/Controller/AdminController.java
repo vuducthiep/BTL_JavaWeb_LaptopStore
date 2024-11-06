@@ -56,8 +56,7 @@ public class AdminController {
     public Admin_ReceiptResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
         return adminService.adminReceiptAtService(warehouseID);
     }
-
-
+    //ádasda
     //API lay thong tin cac khuyen mai
     @GetMapping(value = "/promotion")
     public List<Promotions_DisplayPromotionsDTO> promotion(){
