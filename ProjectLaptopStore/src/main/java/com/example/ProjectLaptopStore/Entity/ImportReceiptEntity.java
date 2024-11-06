@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ public class ImportReceiptEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ReceiptID;
+    private Integer ImportReceiptID;
     @Column(name = "ImportDate",nullable = false)
     private Date importDate;
     @Column(name = "Importer")

@@ -31,8 +31,9 @@ public class Order_InvoiceDetailDTO {
     private BigDecimal totalAmount;
     private Date estimatedDeliveryDate;
     private OrderStatus_Enum orderStatus;
+    private Integer orderId;
 
-    public Order_InvoiceDetailDTO(Date orderDate, String fullName, String phoneNumber, String shippingAddress, String shippingCity, String shippingDistrict, String shippingWard, String shippingStreet, String productName, String model, String brand, BigDecimal price, Integer quantity, BigDecimal lineTotal, BigDecimal shippingFee, String promotionName, BigDecimal discountPercentage, BigDecimal totalAmount, Date estimatedDeliveryDate, OrderStatus_Enum orderStatus) {
+    public Order_InvoiceDetailDTO(Date orderDate, String fullName, String phoneNumber, String shippingAddress, String shippingCity, String shippingDistrict, String shippingWard, String shippingStreet, String productName, String model, String brand, BigDecimal price, Integer quantity, BigDecimal lineTotal, BigDecimal shippingFee, String promotionName, BigDecimal discountPercentage, BigDecimal totalAmount, Date estimatedDeliveryDate, OrderStatus_Enum orderStatus, Integer orderId) {
         this.orderDate = orderDate;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -53,5 +54,7 @@ public class Order_InvoiceDetailDTO {
         this.totalAmount = totalAmount;
         this.estimatedDeliveryDate = estimatedDeliveryDate;
         this.orderStatus = orderStatus;
+        this.orderId = orderId;
     }
+
 }

@@ -28,6 +28,8 @@ public class ProductInWarehouseEntity implements Serializable {
     private Integer minStockLevel;
     @Column(name = "MaxStockLevel")
     private Integer maxStockLevel;
+    @Column(name = "Quantity")
+    private Integer quantity;
     @ManyToOne
     @JoinColumn(name = "WarehouseID")
     private WareHouseEntity warehouse;
