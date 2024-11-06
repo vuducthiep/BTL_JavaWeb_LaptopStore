@@ -6,15 +6,18 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
+@Transactional
 public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWarehouseRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<ProductsInWarehouse_DTO> listProductsInWarehouse() {
+    public List<ProductsInWarehouse_DTO> listProductsInWarehouse(Integer warehouseId) {
         String query = "SELECT \n" +
                 "\tp.ProductID as productId,\n" +
                 "    p.ProductName AS productName, \n" +
@@ -27,8 +30,13 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
                 "FROM \n" +
                 "    ProductsInWarehouse pi\n" +
                 "JOIN \n" +
-                "    Products p ON pi.ProductID = p.ProductID ; ";
+                "    Products p ON pi.ProductID = p.ProductID \n" +
+                "WHERE \n" +
+                "    pi.WarehouseID = :idWarehouse"; // Sử dụng tham số idWarehouse trong WHERE clause
+
         Query nativeQuery = entityManager.createNativeQuery(query);
+        nativeQuery.setParameter("idWarehouse", warehouseId);  // Gán giá trị idWarehouse vào câu truy vấn
+
         List<Object[]> result = nativeQuery.getResultList();
         List<ProductsInWarehouse_DTO> listProductInWareHouse = new ArrayList<>();
         for(Object[] rowOfResult : result) {

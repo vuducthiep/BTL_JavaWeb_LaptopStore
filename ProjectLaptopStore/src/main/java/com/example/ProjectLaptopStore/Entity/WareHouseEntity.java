@@ -18,7 +18,7 @@ public class WareHouseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer WarehouseID;
+    private Integer warehouseID;
     @Column(name = "WarehouseName",nullable = false)
     private String warehouseName;
     @Column(name = "Address")

@@ -17,22 +17,22 @@ public class ImportReceiptDetailsRepositoryCustomImpl implements ImportReceiptDe
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<ImportExport_ReceiptDTO> listImportReceipt() {
-        String query = "SELECT \n" +
-                "    p.ProductName AS productName, \n" +
-                "    p.Brand as brand,\n" +
-                "    p.Model as model,\n" +
-                "    p.Price as price,\n" +
-                "    ir.ImportDate AS importDate,          \n" +
-                "    ir.Importer AS importer,             \n" +
-                "    ird.Quantity AS quantity              \n" +
-                "FROM \n" +
-                "    ImportReceiptDetails ird\n" +
-                "JOIN \n" +
-                "    Products p ON ird.ProductID = p.ProductID\n" +
-                "JOIN \n" +
-                "    ImportReceipts ir ON ird.ImportReceiptID = ir.ImportReceiptID;\n";
+    public List<ImportExport_ReceiptDTO> listImportReceipt(Integer warehouseID) {
+        String query = "SELECT " +
+                "p.ProductName AS productName, " +
+                "p.Brand AS brand, " +
+                "p.Model AS model, " +
+                "p.Price AS price, " +
+                "ir.ImportDate AS importDate, " +
+                "ir.Importer AS importer, " +
+                "ird.Quantity AS quantity " +
+                "FROM ImportReceiptDetails ird " +
+                "JOIN Products p ON ird.ProductID = p.ProductID " +
+                "JOIN ImportReceipts ir ON ird.ImportReceiptID = ir.ImportReceiptID " +
+                "Join Warehouses w on w.WarehouseID = ir.WarehouseID " +
+                "where w.WarehouseID = :warehouseID;";
         Query nativeQuery = entityManager.createNativeQuery(query);
+        nativeQuery.setParameter("warehouseID", warehouseID);
         List<Object[]> result = nativeQuery.getResultList();
         List<ImportExport_ReceiptDTO> listImportReceipt = new ArrayList<>();
         for(Object[] rowOfResult : result) {
