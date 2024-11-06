@@ -8,5 +8,5 @@ import java.util.List;
 
 @Transactional
 public interface IWareHouseRepository extends JpaRepository<WareHouseEntity,Integer> {
-
+    WareHouseEntity findByWarehouseID(Integer warehouseID);
 }

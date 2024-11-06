@@ -7,5 +7,6 @@ import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
 public interface AdminService {
     Admin_DashBoardResponseDTO adminDashBoardAtService();
     Admin_BillingResponseDTO adminBillingAtService();
-    Admin_ReceiptResponseDTO adminReceiptAtService();
+    Admin_ReceiptResponseDTO adminReceiptAtService(Integer warehouseID);
+    Admin_ReceiptResponseDTO adminWareHouseAtService();
 }
