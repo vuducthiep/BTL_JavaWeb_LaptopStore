@@ -1,8 +1,7 @@
 package com.example.ProjectLaptopStore.Entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -10,6 +9,9 @@ import java.io.Serializable;
 @Setter
 @Entity
 @Table(name = "PromotionProduct")
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PromotionProductEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -21,4 +23,6 @@ public class PromotionProductEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "ProductID")
     private ProductsEntity product;
+
+
 }

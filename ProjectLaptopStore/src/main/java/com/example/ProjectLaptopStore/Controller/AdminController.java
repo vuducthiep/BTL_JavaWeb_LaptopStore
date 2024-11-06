@@ -1,11 +1,14 @@
 package com.example.ProjectLaptopStore.Controller;
 
+import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProduct;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
+import org.apache.coyote.Response;
 import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -62,5 +65,23 @@ public class AdminController {
     public List<Promotions_DisplayPromotionsDTO> SearchPromotion(@PathVariable(name = "promotionName") String promotionName){
         List<Promotions_DisplayPromotionsDTO> result = promotionService.searchPromotion(promotionName);
         return  result;
+    }
+
+    @GetMapping(value = "/promotion-product/{promotionName}")
+    public List<Promotion_getPromotionProduct> displayPromotionProduct(@PathVariable(name = "promotionName")String promotionName){
+        List<Promotion_getPromotionProduct> rs = promotionService.displayPromotionProduct(promotionName);
+        return  rs;
+    }
+    @PostMapping(value = "/promotion-product/add-promotion/{productID}/{promotionID}")
+    public ResponseEntity<?> addPromotion(@PathVariable(name = "productID")int productID,
+                                          @PathVariable(name = "promotionID")int promotionID){
+            promotionService.addPromotionProduct(productID,promotionID);
+            return  ResponseEntity.ok("success");
+    }
+    @DeleteMapping(value = "/promotion-product/remove-promotion/{productID}/{promotionID}")
+    public ResponseEntity<?> removePromotion(@PathVariable(name = "productID")int productID,
+                                             @PathVariable(name = "promotionID")int promotionID){
+        promotionService.deletePromotionProduct(productID,promotionID);
+        return  ResponseEntity.ok("success");
     }
 }
