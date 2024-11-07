@@ -55,15 +55,11 @@ public class AdminController {
         return result;
     }
     //API lấy thong tin trang nhà kho
-    //chưa sửa
-    @GetMapping(value = "/warehouse/")
-    public Admin_ReceiptResponseDTO adminWareHouse(){
-        Admin_ReceiptResponseDTO result = adminService.adminReceiptAtService();
-        return result;
+    @GetMapping(value = "/warehouse/{warehouseID}")
+    public Admin_ReceiptResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
+        return adminService.adminReceiptAtService(warehouseID);
     }
-
-
-
+    //ádasda
     //API lay thong tin cac khuyen mai
     @GetMapping(value = "/promotion")
     public List<Promotions_DisplayPromotionsDTO> promotion(){
