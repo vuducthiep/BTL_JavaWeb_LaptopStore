@@ -71,23 +71,29 @@ public class AdminController {
         return rs;
     }
 
+    //API tim khuyen mai theo ten
     @GetMapping(value = "/promotion/{promotionName}")
     public List<Promotions_DisplayPromotionsDTO> SearchPromotion(@PathVariable(name = "promotionName") String promotionName){
         List<Promotions_DisplayPromotionsDTO> result = promotionService.searchPromotion(promotionName);
         return  result;
     }
 
+    //API hien thi danh sach product theo promotionName
     @GetMapping(value = "/promotion-product/{promotionName}")
     public List<Promotion_getPromotionProduct> displayPromotionProduct(@PathVariable(name = "promotionName")String promotionName){
         List<Promotion_getPromotionProduct> rs = promotionService.displayPromotionProduct(promotionName);
         return  rs;
     }
+
+    //API them promotionproduct khi tich
     @PostMapping(value = "/promotion-product/add-promotion/{productID}/{promotionID}")
     public ResponseEntity<?> addPromotion(@PathVariable(name = "productID")int productID,
                                           @PathVariable(name = "promotionID")int promotionID){
             promotionService.addPromotionProduct(productID,promotionID);
             return  ResponseEntity.ok("success");
     }
+
+    //API remove promotionpoduct khi bo tich
     @DeleteMapping(value = "/promotion-product/remove-promotion/{productID}/{promotionID}")
     public ResponseEntity<?> removePromotion(@PathVariable(name = "productID")int productID,
                                              @PathVariable(name = "promotionID")int promotionID){
