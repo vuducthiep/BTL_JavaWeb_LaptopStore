@@ -15,7 +15,7 @@ public class ProductInWarehouseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ProductsInWarehouseID;
+    private Integer productsInWarehouseID;
     @Column(name = "ProductName",nullable = false)
     private String productName;
     @Column(name = "ProductionBatchCode")

@@ -118,11 +118,6 @@ public class AdminServiceImpl implements AdminService {
         return adminReceiptResponseDTO;
     }
 
-    @Override
-    public Admin_ReceiptResponseDTO adminWareHouseAtService() {
-//        List<WareHouseEntity> listWarehouse = wareHouseRepository.findAll();
-//        Admin_ReceiptResponseDTO adminReceiptResponseDTO = new Admin_ReceiptResponseDTO();4
-        return null;
-    }
+
 
 }
