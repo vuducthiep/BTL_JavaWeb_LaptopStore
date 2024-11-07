@@ -1,6 +1,5 @@
 package com.example.ProjectLaptopStore.Controller;
 
-import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
@@ -39,8 +38,6 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
-    @Autowired
-    private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard
     //chưa tối ưu
     @GetMapping(value = "/dashboard/")
@@ -59,12 +56,7 @@ public class AdminController {
     public Admin_ReceiptResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
         return adminService.adminReceiptAtService(warehouseID);
     }
-    //API sửa thông tin sản phẩm trong kho
-    @PutMapping(value = "/warehouse/update/")
-    public void productInWareHouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
-        productInWarehouseService.productInWareHouseUpdate(productsInWarehouseUpdate);
-    }
-
+    //ádasda
     //API lay thong tin cac khuyen mai
     @GetMapping(value = "/promotion")
     public List<Promotions_DisplayPromotionsDTO> promotion(){
@@ -77,6 +69,4 @@ public class AdminController {
         List<Promotions_DisplayPromotionsDTO> result = promotionService.searchPromotion(promotionName);
         return  result;
     }
-
-
 }
