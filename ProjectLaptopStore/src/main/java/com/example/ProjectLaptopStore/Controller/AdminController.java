@@ -62,7 +62,7 @@ public class AdminController {
     public Admin_ReceiptResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
         return adminService.adminReceiptAtService(warehouseID);
     }
-
+    //API cập nhật thông tin của sản phẩm trong kho
     @PutMapping(value = "/warehouse/update/")
     public void warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
         productInWarehouseService.productInWareHouseUpdate(productsInWarehouseUpdate);
