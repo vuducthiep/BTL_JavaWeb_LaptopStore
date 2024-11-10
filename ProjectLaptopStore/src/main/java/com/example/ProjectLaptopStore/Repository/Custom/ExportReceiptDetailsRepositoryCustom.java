@@ -5,5 +5,5 @@ import com.example.ProjectLaptopStore.DTO.ImportExport_ReceiptDTO;
 import java.util.List;
 
 public interface ExportReceiptDetailsRepositoryCustom {
-    List<ImportExport_ReceiptDTO> listExportReceipt();
+    List<ImportExport_ReceiptDTO> listExportReceipt(Integer warehouseID);
 }

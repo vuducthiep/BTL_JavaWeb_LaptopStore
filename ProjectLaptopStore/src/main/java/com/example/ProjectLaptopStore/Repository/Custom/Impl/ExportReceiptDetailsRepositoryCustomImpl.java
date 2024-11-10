@@ -6,31 +6,34 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Repository
+@Transactional
 public class ExportReceiptDetailsRepositoryCustomImpl implements ExportReceiptDetailsRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<ImportExport_ReceiptDTO> listExportReceipt() {
-        String query = "SELECT \n" +
-                "    p.ProductName AS productName, \n" +
-                "    p.Brand as brand,\n" +
-                "    p.Model as model,\n" +
-                "    p.Price as price,\n" +
-                "    er.ExportDate AS exportDate,          \n" +
-                "    er.Exporter AS exporter,             \n" +
-                "    erd.Quantity AS quantity              \n" +
-                "FROM \n" +
-                "    ExportReceiptDetails erd\n" +
-                "JOIN \n" +
-                "    Products p ON erd.ProductID = p.ProductID\n" +
-                "JOIN \n" +
-                "    ExportReceipts er ON erd.ExportReceiptID = er.ExportReceiptID;\n";
+    public List<ImportExport_ReceiptDTO> listExportReceipt(Integer warehouseID) {
+        String query = "SELECT " +
+                "p.ProductName AS productName, " +
+                "p.Brand as brand, " +
+                "p.Model as model, " +
+                "p.Price as price, " +
+                "er.ExportDate AS exportDate, " +
+                "er.Exporter AS exporter, " +
+                "erd.Quantity AS quantity " +
+                "FROM ExportReceiptDetails erd " +
+                "JOIN Products p ON erd.ProductID = p.ProductID " +
+                "JOIN ExportReceipts er ON erd.ExportReceiptID = er.ExportReceiptID " +
+                "Join Warehouses w on w.WarehouseID = er.WarehouseID " +
+                "where w.WarehouseID = :idwarehouse ";
+
         Query nativeQuery = entityManager.createNativeQuery(query);
+        nativeQuery.setParameter("idwarehouse", warehouseID);
         List<Object[]> result = nativeQuery.getResultList();
         List<ImportExport_ReceiptDTO> listImportReceipt = new ArrayList<>();
         for(Object[] rowOfResult : result) {

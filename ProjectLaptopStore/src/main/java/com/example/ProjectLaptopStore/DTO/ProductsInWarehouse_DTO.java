@@ -3,6 +3,9 @@ package com.example.ProjectLaptopStore.DTO;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.util.Date;
+
 @Getter
 @Setter
 public class ProductsInWarehouse_DTO {
@@ -10,19 +13,31 @@ public class ProductsInWarehouse_DTO {
     private String productName;
     private String brand;
     private String model;
-    private Integer stockQuantity;
-    private Integer quantity;
+    private Float price;
+    private Date releaseDate;
+    private Integer warrantyPeriod;
+    private String productBatchCode;
+    private String dimension;
+    private BigDecimal volume;
     private Integer minStockLevel;
     private Integer maxStockLevel;
+    private Integer quantity;
+    private Integer productInWareHouseId;
 
-    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Integer stockQuantity, Integer quantity, Integer minStockLevel, Integer maxStockLevel) {
+    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Float price, Date releaseDate, Integer warrantyPeriod, String productBatchCode, String dimension, BigDecimal volume, Integer minStockLevel, Integer maxStockLevel, Integer quantity, Integer productInWareHouseId) {
         this.productId = productId;
         this.productName = productName;
         this.brand = brand;
         this.model = model;
-        this.stockQuantity = stockQuantity;
-        this.quantity = quantity;
+        this.price = price;
+        this.releaseDate = releaseDate;
+        this.warrantyPeriod = warrantyPeriod;
+        this.productBatchCode = productBatchCode;
+        this.dimension = dimension;
+        this.volume = volume;
         this.minStockLevel = minStockLevel;
         this.maxStockLevel = maxStockLevel;
+        this.quantity = quantity;
+        this.productInWareHouseId = productInWareHouseId;
     }
 }

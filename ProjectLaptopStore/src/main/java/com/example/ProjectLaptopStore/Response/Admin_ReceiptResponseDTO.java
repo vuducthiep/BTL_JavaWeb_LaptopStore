@@ -11,11 +11,13 @@ import java.util.List;
 @Getter
 @Setter
 public class Admin_ReceiptResponseDTO {
-    private List<WareHouseEntity> listWareHouse;
+    private List<WareHouseEntity> warehouseList;
+    private WareHouseEntity warehouseInfo;
     private Integer totalQuantity;
     private Integer countProductsMaxStockLevel;
     private Integer countProductsMinStockLevel;
     private List<ImportExport_ReceiptDTO> listExportReceipt;
     private List<ImportExport_ReceiptDTO> listImportReceipt;
     private List<ProductsInWarehouse_DTO> listProductsInWarehouse;
+
 }

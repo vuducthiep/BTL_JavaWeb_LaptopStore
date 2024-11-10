@@ -9,6 +9,7 @@ import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -91,17 +92,19 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin_ReceiptResponseDTO adminReceiptAtService() {
+    public Admin_ReceiptResponseDTO adminReceiptAtService(Integer warehouseID) {
         Admin_ReceiptResponseDTO adminReceiptResponseDTO = new Admin_ReceiptResponseDTO();
         try {
-            List<WareHouseEntity> listWareHouse = wareHouseRepository.findAll();
-            Integer totalQuantity = productsInWarehouseRepository.getTotalQuantity();
-            Integer minStock = productsInWarehouseRepository.countProductsMinStockLevel();
-            Integer maxStock = productsInWarehouseRepository.countProductsMaxStockLevel();
-            List<ImportExport_ReceiptDTO> listExportReceipt = exportReceiptDetailsRepository.listExportReceipt();
-            List<ImportExport_ReceiptDTO> listImportReceipt = importReceiptDetailsRepository.listImportReceipt();
-            List<ProductsInWarehouse_DTO> listProductsInWarehouse = productsInWarehouseRepository.listProductsInWarehouse();
-            adminReceiptResponseDTO.setListWareHouse(listWareHouse);
+            List<WareHouseEntity> listWarehouse = wareHouseRepository.findAll();
+            WareHouseEntity wareHouse = wareHouseRepository.findByWarehouseID(warehouseID);
+            Integer totalQuantity = productsInWarehouseRepository.getTotalQuantity(warehouseID);
+            Integer minStock = productsInWarehouseRepository.countProductsMinStockLevel(warehouseID);
+            Integer maxStock = productsInWarehouseRepository.countProductsMaxStockLevel(warehouseID);
+            List<ImportExport_ReceiptDTO> listExportReceipt = exportReceiptDetailsRepository.listExportReceipt(warehouseID);
+            List<ImportExport_ReceiptDTO> listImportReceipt = importReceiptDetailsRepository.listImportReceipt(warehouseID);
+            List<ProductsInWarehouse_DTO> listProductsInWarehouse = productsInWarehouseRepository.listProductsInWarehouse(warehouseID);
+            adminReceiptResponseDTO.setWarehouseList(listWarehouse);
+            adminReceiptResponseDTO.setWarehouseInfo(wareHouse);
             adminReceiptResponseDTO.setTotalQuantity(totalQuantity);
             adminReceiptResponseDTO.setCountProductsMinStockLevel(minStock);
             adminReceiptResponseDTO.setCountProductsMaxStockLevel(maxStock);
@@ -114,5 +117,7 @@ public class AdminServiceImpl implements AdminService {
         }
         return adminReceiptResponseDTO;
     }
+
+
 
 }
