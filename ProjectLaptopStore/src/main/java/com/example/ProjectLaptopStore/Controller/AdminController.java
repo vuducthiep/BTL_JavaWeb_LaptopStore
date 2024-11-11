@@ -7,6 +7,9 @@ import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,7 +32,12 @@ public class AdminController {
     @Autowired
     private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard
-    //chưa tối ưu
+    @Operation(summary = "Get dashboard data for admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successfully retrieved dashboard data"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized - token is invalid or expired"),
+            @ApiResponse(responseCode = "500", description = "Internal server error")
+    })
     @GetMapping(value = "/dashboard/")
     public Admin_DashBoardResponseDTO adminDashBoard(){
         Admin_DashBoardResponseDTO result = adminService.adminDashBoardAtService();
