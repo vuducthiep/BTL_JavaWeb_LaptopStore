@@ -205,373 +205,232 @@
         <!-- End Navbar -->
         <div class="container-fluid py-4">
             <div class="row">
+                <!-- Card 1: Sản phẩm trong tháng -->
                 <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                    <div class="card">
+                    <div class="card" id="card-products-month">
                         <div class="card-header p-3 pt-2">
                             <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
                                 <i class="material-icons opacity-10">weekend</i>
                             </div>
                             <div id="Quantity_Sell_Product_Current_Month" class="text-end pt-1">
-                             <!-- hiển thị  số sản phẩm bán ra trong tháng  -->
-                                <p class="text-sm mb-0 text-capitalize">
-                                    Sản phẩm trong tháng
-                                </p>
-                                <h4 class="mb-0">3000</h4>
-
-
+                                <p class="text-sm mb-0 text-capitalize">Sản phẩm trong tháng</p>
+                                <h4 class="mb-0 product-quantity">3000</h4>
                             </div>
                         </div>
                         <hr class="dark horizontal my-0" />
                         <div class="card-footer p-3">
                             <p class="mb-0">
-                                <span class="text-success text-sm font-weight-bolder">+55% </span
-                  > so với tháng trước 
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
-                <div
-                  class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute"
-                >
-                  <i class="material-icons opacity-10">person</i>
-                </div>
-                <div id="Total_Customer_In_Current_Month" class="text-end pt-1">
-                  <!-- tổng số khách hàng trong tháng  -->
-                  <p class="text-sm mb-0 text-capitalize">
-                    khách hàng trong tháng
-                  </p>
-                  <h4 class="mb-0">2,300</h4>
-
-                </div>
-              </div>
-              <hr class="dark horizontal my-0" />
-              <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder"
-                    >+3% </span
-                  >so với ngày trước 
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
-                <div
-                  class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute"
-                >
-                  <i class="material-icons opacity-10">person</i>
-                </div>
-                <div id="Total_New_Customer_In_Current_Month" class="text-end pt-1">
-                  <!-- tổng số khách hàng mới trong tháng  -->
-                  <p class="text-sm mb-0 text-capitalize">
-                    Khách hàng mới 
-                  </p>
-                  <h4 class="mb-0">3,462</h4>
-                </div>
-              </div>
-              <hr class="dark horizontal my-0" />
-              <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-danger text-sm font-weight-bolder"
-                    >-2%</span
-                  >
-                  so với ngày trước
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-sm-6">
-            <div class="card">
-              <div class="card-header p-3 pt-2">
-                <div
-                  class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute"
-                >
-                  <i class="material-icons opacity-10">weekend</i>
-                </div>
-                <div id="Total_Amount_InCurrent_Month" class="text-end pt-1">
-                  <!-- tổng doanh thu  -->
-                  <p class="text-sm mb-0 text-capitalize">doang thu</p>
-                  <h4 class="mb-0">$103,430</h4>
-                </div>
-              </div>
-              <hr class="dark horizontal my-0" />
-              <div class="card-footer p-3">
-                <p class="mb-0">
-                  <span class="text-success text-sm font-weight-bolder"
-                    >+5% </span
-                  >so với ngày trước 
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row mt-4">
-          <div class="col-lg-4 col-md-6 mt-4 mb-4">
-            <div class="card z-index-2">
-              <div
-                class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent"
-              >
-                <div
-                  class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1"
-                >
-                  <div class="chart">
-                    <canvas
-                      id="chart-bars"
-                      class="chart-canvas"
-                      height="170"
-                    ></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <h6 class="mb-0 ">Biểu đồ khách hàng mới</h6>
-                <p class="text-sm">Last Campaign Performance</p>
-                <hr class="dark horizontal" />
-                <div class="d-flex">
-                  <i class="material-icons text-sm my-auto me-1">schedule</i>
-                  <p class="mb-0 text-sm">campaign sent 2 days ago</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6 mt-4 mb-4">
-            <div class="card z-index-2">
-              <div
-                class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent"
-              >
-                <div
-                  class="bg-gradient-success shadow-success border-radius-lg py-3 pe-1"
-                >
-                  <div class="chart">
-                    <canvas
-                      id="chart-line"
-                      class="chart-canvas"
-                      height="170"
-                    ></canvas>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <h6 class="mb-0">Biểu đồ doanh thu</h6>
-                <p class="text-sm">
-                  (<span class="font-weight-bolder">+15%</span>) increase in today sales.
+                                <span class="text-success text-sm font-weight-bolder">+55% </span> so với tháng trước 
                             </p>
-                            <hr class="dark horizontal" />
-                            <div class="d-flex">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm">updated 4 min ago</p>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 mt-4 mb-3">
-                    <div class="card z-index-2">
-                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                            <div class="bg-gradient-dark shadow-dark border-radius-lg py-3 pe-1">
-                                <div class="chart">
-                                    <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
-                                </div>
+        
+                <!-- Card 2: Khách hàng trong tháng -->
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card" id="card-customers-month">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
+                                <i class="material-icons opacity-10">person</i>
+                            </div>
+                            <div id="Total_Customer_In_Current_Month" class="text-end pt-1">
+                                <p class="text-sm mb-0 text-capitalize">Khách hàng trong tháng</p>
+                                <h4 class="mb-0 customer-quantity">2,300</h4>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <h6 class="mb-0">Biểu đồ sản phẩm bán</h6>
-                            <p class="text-sm">Last Campaign Performance</p>
-                            <hr class="dark horizontal" />
-                            <div class="d-flex">
-                                <i class="material-icons text-sm my-auto me-1">schedule</i>
-                                <p class="mb-0 text-sm">just updated</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mb-4 ">
-                <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
-                    <div class="card">
-                        <div class="card-header pb-0">
-                            <div class="row">
-                                <div class="col-lg-6 col-7 text-capitalize">
-                                    <h6>Top sản phẩm</h6>
-                                    <p class="text-sm mb-0">
-                                        <!-- <i class="fa fa-check text-info" aria-hidden="true"></i> -->
-                                        <!-- <span class="font-weight-bold ms-1">30 done</span> this month -->
-                                    </p>
-                                </div>
-                                <div class="col-lg-6 col-5 my-auto text-end">
-                                    <div class="dropdown float-lg-end pe-4">
-                                        <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v text-secondary"></i>
-                                        </a>
-                                        <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                            <li>
-                                                <a class="dropdown-item border-radius-md" href="javascript:;">Action</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            class="dropdown-item border-radius-md"
-                            href="javascript:;"
-                            >Another action</a
-                          >
-                        </li>
-                        <li>
-                          <a
-                            class="dropdown-item border-radius-md"
-                            href="javascript:;"
-                            >Something else here</a
-                          >
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body px-0 pb-2">
-                <div class="table-responsive">
-                  <table class="table align-items-center mb-0">
-                    <thead>
-                      <tr>
-                        <th
-                          class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10"
-                        >
-                          Các sản phẩm đạt mốc doanh thu ấn tượng
-                        </th>
-
-                        <th
-                          class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-"
-                        >
-                          Số lượng
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                          <!-- Data rows will be injected here by JavaScript -->
-
-                      <!-- <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div>
-                              <img
-                                src="../assets/img/small-logos/logo-xd.svg"
-                                class="avatar avatar-sm me-3"
-                                alt="xd"
-                              />
-                            </div>
-                            <div
-                              class="d-flex flex-column justify-content-center"
-                            >
-                              <h6 class="mb-0 text-sm">Laptop 1</h6>
-                            </div>
-                          </div>
-                        </td>
-                       
-                        
-                        <td class="align-middle text-center text-sm">
-                          <span class="text-xs font-weight-bold ">
-                            $14,000
-                          </span>
-                        </td> -->
-                      
-
-
-
-                      </tr>
-                     
-                    </tbody>
-                  </table>
-                </div>
-                
-              </div>
-              
-            </div>
-            <div class="row mb-4 mt-4">
-              <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
-                  <div class="card">
-                      <div class="card-header pb-0">
-                          <div class="row">
-                              <div class="col-lg-6 col-7 text-capitalize">
-                                  <h6>Top Khách Hàng</h6>
-                                  <p class="text-sm mb-0">
-                                      <!-- <i class="fa fa-check text-info" aria-hidden="true"></i> -->
-                                      <!-- <span class="font-weight-bold ms-1">30 done</span> this month -->
-                                  </p>
-                              </div>
-                              <div class="col-lg-6 col-5 my-auto text-end">
-                                  <div class="dropdown float-lg-end pe-4">
-                                      <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
-                                          <i class="fa fa-ellipsis-v text-secondary" aria-hidden="true"></i>
-                                      </a>
-                                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
-                                                    <li>
-                                                        <a class="dropdown-item border-radius-md" href="javascript:;">Action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item border-radius-md" href="javascript:;">Another action</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a>
-                                                    </li>
-                                                </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body px-0 pb-2">
-                            <div class="table-responsive">
-                                <table class="table align-items-center mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
-                                                Các khách hàng với sức mua ấn tượng
-                                            </th>
-
-                                            <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-">
-                                                doanh so tieu thu 
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <!-- <tr>
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div>
-                                                        <img src="../assets/img/small-logos/logo-xd.svg" class="avatar avatar-sm me-3" alt="xd">
-                                                    </div>
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm">Khách hàng 1</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            <td class="align-middle text-center text-sm">
-                                                <span class="text-xs font-weight-bold ">
-                          $14,000
-                        </span>
-                                            </td>
-                          
-                                        </tr> -->
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
+                        <hr class="dark horizontal my-0" />
+                        <div class="card-footer p-3">
+                            <p class="mb-0">
+                                <span class="text-success text-sm font-weight-bolder">+3% </span> so với ngày trước 
+                            </p>
                         </div>
                     </div>
                 </div>
-
-
-
+        
+                <!-- Card 3: Khách hàng mới -->
+                <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                    <div class="card" id="card-new-customers-month">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
+                                <i class="material-icons opacity-10">person</i>
+                            </div>
+                            <div id="Total_New_Customer_In_Current_Month" class="text-end pt-1">
+                                <p class="text-sm mb-0 text-capitalize">Khách hàng mới</p>
+                                <h4 class="mb-0 new-customer-quantity">3,462</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0" />
+                        <div class="card-footer p-3">
+                            <p class="mb-0">
+                                <span class="text-danger text-sm font-weight-bolder">-2%</span> so với ngày trước
+                            </p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Card 4: Doanh thu -->
+                <div class="col-xl-3 col-sm-6">
+                    <div class="card" id="card-revenue-month">
+                        <div class="card-header p-3 pt-2">
+                            <div class="icon icon-lg icon-shape bg-gradient-info shadow-info text-center border-radius-xl mt-n4 position-absolute">
+                                <i class="material-icons opacity-10">weekend</i>
+                            </div>
+                            <div id="Total_Amount_InCurrent_Month" class="text-end pt-1">
+                                <p class="text-sm mb-0 text-capitalize">Doanh thu</p>
+                                <h4 class="mb-0 revenue-amount">$103,430</h4>
+                            </div>
+                        </div>
+                        <hr class="dark horizontal my-0" />
+                        <div class="card-footer p-3">
+                            <p class="mb-0">
+                                <span class="text-success text-sm font-weight-bolder">+5% </span> so với ngày trước 
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+        
+      <div class="row mt-4">
+  <!-- Biểu đồ Khách hàng mới -->
+  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+    <div class="card shadow-sm">
+        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2" style="background-color: rgb(172, 140, 34) !important; text-align: center !important;">
 
 
-
-
-
+        <div class=" py-3 pe-1">
+          <div class="chart">
+            <canvas id="chart-bars" class="chart-canvas" height="170" ></canvas>
+          </div>
         </div>
+      </div>
+      <div class="card-body">
+        <h6 class="mb-0">Biểu đồ khách hàng mới</h6>
+        <p class="text-sm">Last Campaign Performance</p>
+        <hr class="dark horizontal" />
+        <div class="d-flex">
+          <i class="material-icons text-sm my-auto me-1">schedule</i>
+          <p class="mb-0 text-sm">campaign sent 2 days ago</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ Doanh thu -->
+  <div class="col-lg-4 col-md-6 mt-4 mb-4">
+    <div class="card shadow-sm">
+      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-success text-white">
+        <div class="bg-gradient-success py-3 pe-1">
+          <div class="chart">
+            <canvas id="chart-line" class="chart-canvas" height="170"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h6 class="mb-0">Biểu đồ doanh thu</h6>
+        <p class="text-sm">(<span class="font-weight-bolder">+15%</span>) increase in today's sales.</p>
+        <hr class="dark horizontal" />
+        <div class="d-flex">
+          <i class="material-icons text-sm my-auto me-1">schedule</i>
+          <p class="mb-0 text-sm">updated 4 min ago</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ Sản phẩm bán -->
+  <div class="col-lg-4 mt-4 mb-3">
+    <div class="card shadow-sm">
+      <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-dark text-white">
+        <div class="bg-gradient-dark py-3 pe-1">
+          <div class="chart">
+            <canvas id="chart-line-tasks" class="chart-canvas" height="170"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <h6 class="mb-0">Biểu đồ sản phẩm bán</h6>
+        <p class="text-sm">Last Campaign Performance</p>
+        <hr class="dark horizontal" />
+        <div class="d-flex">
+          <i class="material-icons text-sm my-auto me-1">schedule</i>
+          <p class="mb-0 text-sm">just updated</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bảng Top Sản phẩm -->
+<div class="row mb-4">
+  <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+    <div class="card">
+      <div class="card-header pb-0">
+        <div class="row">
+          <div class="col-lg-6 col-7 text-capitalize">
+            <h6>Top sản phẩm</h6>
+          </div>
+        </div>
+      </div>
+      <div class="card-body px-0 pb-2">
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+                  Các sản phẩm đạt mốc doanh thu ấn tượng
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-">
+                  Số lượng
+                </th>
+              </tr>
+            </thead>
+            <tbody id="top-products-table">
+              <!-- Dữ liệu từ JavaScript sẽ được chèn vào đây -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Bảng Top Khách Hàng -->
+<div class="row mb-4 mt-4">
+  <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+    <div class="card">
+      <div class="card-header pb-0">
+        <div class="row">
+          <div class="col-lg-6 col-7 text-capitalize">
+            <h6>Top Khách Hàng</h6>
+          </div>
+        </div>
+      </div>
+      <div class="card-body px-0 pb-2">
+        <div class="table-responsive">
+          <table class="table align-items-center mb-0">
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+                  Các khách hàng với sức mua ấn tượng
+                </th>
+                <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-">
+                  Doanh số tiêu thụ
+                </th>
+              </tr>
+            </thead>
+            <tbody id="top-customers-table">
+              <!-- Dữ liệu từ JavaScript sẽ được chèn vào đây -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+          
+          
 
 
     </main>
@@ -915,7 +774,7 @@
             },
         });
     </script> -->
-    <script src="assets/js/Admin_das.js"></script>
+    
     <script>
         var win = navigator.platform.indexOf("Win") > -1;
         if (win && document.querySelector("#sidenav-scrollbar")) {
@@ -926,9 +785,136 @@
         }
     </script>
     <!-- Github buttons -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
     <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-    <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script>
+    <!-- <script src="../assets/js/material-dashboard.min.js?v=3.1.0"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/Admin_dashboard.js"></script>
+    <!-- <style>
+        /* Tạo không gian cho biểu đồ */
+.canvas-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #b93e3e;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Đảm bảo biểu đồ có độ rộng và chiều cao phù hợp */
+canvas {
+  width: 100% !important; /* Đảm bảo biểu đồ luôn chiếm toàn bộ chiều rộng */
+  height: 300px;          /* Chiều cao mặc định của biểu đồ */
+}
+
+/* Tạo bóng cho biểu đồ */
+.chart-container {
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #c22424;
+  padding: 20px;
+}
+
+.chart-container .chart-title {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+/* Responsive cho các thiết bị di động */
+@media (max-width: 768px) {
+  .canvas-container {
+    padding: 10px;
+    margin: 10px;
+  }
+
+  canvas {
+    height: 250px; /* Giảm chiều cao của biểu đồ trên màn hình nhỏ */
+  }
+}
+
+/* Cải tiến giao diện legend */
+.chart-container .chart-legend {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+/* Tùy chỉnh các thanh progress và số liệu trên biểu đồ */
+.chart-title,
+.chart-legend span {
+  color: #333;
+  font-weight: bold;
+}
+
+/* Tạo các phần tử đẹp hơn cho các trục */
+.chartjs-render-monitor {
+  font-family: 'Roboto', sans-serif;
+}
+
+.chartjs-legend-item {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Cải tiến trục và dòng lưới trong biểu đồ */
+.chartjs-scale {
+  color: #ec8c8c;
+}
+
+.chartjs-grid-line {
+  stroke: #ddd;
+}
+
+/* Thêm một chút hiệu ứng hover cho biểu đồ */
+.canvas-container:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Đảm bảo các bảng thông tin hiển thị rõ ràng */
+.table-container {
+  margin-top: 30px;
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th, table td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Cải tiến button cho biểu đồ */
+.chart-container .chart-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #d42424;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chart-container .chart-btn:hover {
+  background-color: #e5ece6;
+}
+
+    </style> -->
 </body>
 
 </html>

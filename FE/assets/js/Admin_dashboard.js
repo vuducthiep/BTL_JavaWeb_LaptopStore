@@ -1,290 +1,190 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Lấy các phần tử HTML theo ID
-  const Products_sold_in_the_month = document.getElementById(
-    "Products_sold_in_the_month"
-  );
-  const Total_Customer_In_Current_Month = document.getElementById(
-    "Total_Customer_In_Current_Month"
-  );
-  const Total_New_Customer_In_Current_Month = document.getElementById(
-    "Total_New_Customer_In_Current_Month"
-  );
-  const Total_Amount_InCurrent_Month = document.getElementById(
-    "Total_Amount_InCurrent_Month"
-  );
+fetch('http://localhost:8080/admin/dashboard/')
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);  // Debug: Kiểm tra cấu trúc dữ liệu trả về
 
-  // Giả sử các giá trị sau sẽ được lấy từ API hoặc dữ liệu backend
-  let productsSoldInTheMonth = 1500; // Ví dụ giá trị thay thế
-  let totalCustomerInCurrentMonth = 2000;
-  let totalNewCustomerInCurrentMonth = 250;
-  let totalAmountInCurrentMonth = 20000000; // Đơn vị là VND
+    // Hiển thị số sản phẩm bán ra trong tháng
+    const quantitySellProductCurrentMonthElement = document.getElementById('Quantity_Sell_Product_Current_Month');
+    if (quantitySellProductCurrentMonthElement && data.quantitySellProductCurrentMonth !== undefined) {
+      quantitySellProductCurrentMonthElement.querySelector('h4').innerText = data.quantitySellProductCurrentMonth;
+    }
 
-  // Gọi API để load sản phẩm khi trang load
-  fetch("http://localhost:3000/dashboard")
-    .then((response) => response.json())
-    .then(data => {
-        // Dữ liệu được trả về từ API (ví dụ: data = List<Customer_CountNewCustomerPerMonthDTO>)
-        const labelsDA = data.map(item => item.month);  // Lấy các tháng (M, T, W, ...)
-        const newCustomerData = data.map(item => item.newCustomers);  // Lấy số lượng khách hàng mới trong tháng ?????
-        //const labels2 = data.map(item => item.month);  // Lấy các tháng (M, T, W, ...)
-        const totalAmountData = data.map(item => item.newCustomers);  // Lấy danh thu trong tháng ????
-        //const labels3 = data.map(item => item.month);  // Lấy các tháng (M, T, W, ...)
-        const totalQuantitySellProductData = data.map(item => item.newCustomers);  // Lấy số lượng san pham trong tháng ????
-        // Tạo biểu đồ
-        var ctx = document.getElementById("chart-bars").getContext("2d");
+    // Hiển thị tổng số khách hàng trong tháng
+    const totalCustomerInCurrentMonthElement = document.getElementById('Total_Customer_In_Current_Month');
+    if (totalCustomerInCurrentMonthElement && data.totalCustomerInCurrentMonth !== undefined) {
+      totalCustomerInCurrentMonthElement.querySelector('h4').innerText = data.totalCustomerInCurrentMonth;
+    }
 
-        new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: labelsDA,  // Sử dụng labels lấy từ dữ liệu
-                datasets: [{
-                    label: "New Customers",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    borderRadius: 4,
-                    borderSkipped: false,
-                    backgroundColor: "rgba(255, 255, 255, .8)",
-                    data: newCustomerData,  // Dữ liệu số lượng khách hàng mới trong tháng
-                    maxBarThickness: 6,
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                },
-                interaction: {
-                    intersect: false,
-                    mode: "index",
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: "rgba(255, 255, 255, .2)",
-                        },
-                        ticks: {
-                            suggestedMin: 0,
-                            suggestedMax: 500,  // Tùy chỉnh giá trị tối đa
-                            beginAtZero: true,
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                            color: "#fff",
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: "rgba(255, 255, 255, .2)",
-                        },
-                        ticks: {
-                            display: true,
-                            color: "#f8f9fa",
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                        },
-                    },
-                },
-            },
-        });
-        
-        var ctx2 = document.getElementById("chart-line").getContext("2d");
+    // Hiển thị tổng số khách hàng mới trong tháng
+    const totalNewCustomerInCurrentMonthElement = document.getElementById('Total_New_Customer_In_Current_Month');
+    if (totalNewCustomerInCurrentMonthElement && data.totalNewCustomerInCurrentMonth !== undefined) {
+      totalNewCustomerInCurrentMonthElement.querySelector('h4').innerText = data.totalNewCustomerInCurrentMonth;
+    }
 
-        new Chart(ctx2, {
-            type: "line",
-            data: {
-                labels: labelsDA,
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0,
-                    borderWidth: 0,
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                    pointBorderColor: "transparent",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderWidth: 4,
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: totalAmountData,
-                    maxBarThickness: 6,
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                },
-                interaction: {
-                    intersect: false,
-                    mode: "index",
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: "rgba(255, 255, 255, .2)",
-                        },
-                        ticks: {
-                            display: true,
-                            color: "#f8f9fa",
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                        },
-                        ticks: {
-                            display: true,
-                            color: "#f8f9fa",
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                        },
-                    },
-                },
-            },
-        });
+    // Hiển thị tổng doanh thu trong tháng
+    const totalAmountInCurrentMonthElement = document.getElementById('Total_Amount_InCurrent_Month');
+    if (totalAmountInCurrentMonthElement && data.totalAmountInCurrentMonth !== undefined) {
+      totalAmountInCurrentMonthElement.querySelector('h4').innerText = `$${data.totalAmountInCurrentMonth.toFixed(2)}`;
+    }
 
-        var ctx3 = document.getElementById("chart-line-tasks").getContext("2d");
+    // Hiển thị sản phẩm bán chạy nhất trong tháng
+    const topProduct = data.topPurchasedProductInMonth[0];
+    if (topProduct) {
+      const topPurchasedProductNameElement = document.getElementById('Top_Purchased_Product_Name');
+      const topPurchasedProductImageElement = document.getElementById('Top_Purchased_Product_Image');
+      const topPurchasedProductQuantityElement = document.getElementById('Top_Purchased_Product_Quantity');
+      const topPurchasedProductLineTotalElement = document.getElementById('Top_Purchased_Product_LineTotal');
 
-        new Chart(ctx3, {
-            type: "line",
-            data: {
-                labels: labelsDA,
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0,
-                    borderWidth: 0,
-                    pointRadius: 5,
-                    pointBackgroundColor: "rgba(255, 255, 255, .8)",
-                    pointBorderColor: "transparent",
-                    borderColor: "rgba(255, 255, 255, .8)",
-                    borderWidth: 4,
-                    backgroundColor: "transparent",
-                    fill: true,
-                    data: totalQuantitySellProductData,
-                    maxBarThickness: 6,
-                }, ],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    },
-                },
-                interaction: {
-                    intersect: false,
-                    mode: "index",
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                            color: "rgba(255, 255, 255, .2)",
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: "#f8f9fa",
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                        },
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5],
-                        },
-                        ticks: {
-                            display: true,
-                            color: "#f8f9fa",
-                            padding: 10,
-                            font: {
-                                size: 14,
-                                weight: 300,
-                                family: "Roboto",
-                                style: "normal",
-                                lineHeight: 2,
-                            },
-                        },
-                    },
-                },
-            },
-        });
-    })
-    .catch(error => console.error('Error fetching customer data:', error));
+      if (topPurchasedProductNameElement) {
+        topPurchasedProductNameElement.innerText = topProduct.productName;
+      }
+      if (topPurchasedProductImageElement) {
+        topPurchasedProductImageElement.src = topProduct.imageURL;
+      }
+      if (topPurchasedProductQuantityElement) {
+        topPurchasedProductQuantityElement.innerText = topProduct.quantityOrdered;
+      }
+      if (topPurchasedProductLineTotalElement) {
+        topPurchasedProductLineTotalElement.innerText = `$${topProduct.lineTotal.toFixed(2)}`;
+      }
+    }
 
-  // Cập nhật nội dung của các phần tử
-  Products_sold_in_the_month.querySelector("h4").textContent =
-    productsSoldInTheMonth.toLocaleString("vi-VN");
-  Total_Customer_In_Current_Month.querySelector("h4").textContent =
-    totalCustomerInCurrentMonth.toLocaleString("vi-VN");
-  Total_New_Customer_In_Current_Month.querySelector("h4").textContent =
-    totalNewCustomerInCurrentMonth.toLocaleString("vi-VN");
-  Total_Amount_InCurrent_Month.querySelector("h4").textContent =
-    totalAmountInCurrentMonth.toLocaleString("vi-VN");
+    // Dữ liệu biểu đồ khách hàng mới
+    const newCustomersData = {
+      labels: data.newCustomerPerMonthMap.map(item => `Month ${item.month}`),
+      values: data.newCustomerPerMonthMap.map(item => item.customerCount)
+    };
 
+    const ctx1 = document.getElementById('chart-bars').getContext('2d');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: newCustomersData.labels,
+        datasets: [{
+          label: 'New Customers',
+          data: newCustomersData.values,
+          backgroundColor: 'red',  // Màu nền (light green)
+            borderColor: 'red',  // Màu viền (dark green
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        }
+      }
+    });
 
-});
+    // Dữ liệu biểu đồ doanh thu
+    const revenueData = {
+      labels: data.totalAmountPerMonthMap.map(item => `Month ${item.month}`),
+      values: data.totalAmountPerMonthMap.map(item => item.totalAmount)
+    };
+
+    const ctx2 = document.getElementById('chart-line').getContext('2d');
+    new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: revenueData.labels,
+        datasets: [{
+          label: 'Revenue',
+          data: revenueData.values,
+          borderColor: 'rgba(76, 175, 80, 1)',
+          backgroundColor: 'rgba(76, 175, 80, 0.2)',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        }
+      }
+    });
+
+    // Dữ liệu biểu đồ sản phẩm bán
+    const productSalesData = {
+      labels: data.totalQuantitySellProductPerMonthMap.map(item => `Month ${item.month}`),
+      values: data.totalQuantitySellProductPerMonthMap.map(item => item.totalSold)
+    };
+
+    const ctx3 = document.getElementById('chart-line-tasks').getContext('2d');
+    new Chart(ctx3, {
+      type: 'line',
+      data: {
+        labels: productSalesData.labels,
+        datasets: [{
+          label: 'Products Sold',
+          data: productSalesData.values,
+          borderColor: 'rgba(33, 150, 243, 1)',
+          backgroundColor: 'rgba(33, 150, 243, 0.2)',
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        }
+      }
+    });
+
+    // Dữ liệu sản phẩm bán chạy nhất
+    const topPurchasedProductsData = data.topPurchasedProductInMonth.map(product => ({
+      label: product.productName,
+      data: [product.quantityOrdered],
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      borderColor: 'rgba(255, 99, 132, 1)',
+      borderWidth: 1
+    }));
+
+    const ctx4 = document.getElementById('top-purchased-products').getContext('2d');
+    new Chart(ctx4, {
+      type: 'bar',
+      data: {
+        labels: data.topPurchasedProductInMonth.map(product => product.productName),
+        datasets: topPurchasedProductsData
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: true }
+        }
+      }
+    });
+
+    // Cập nhật bảng Top Sản phẩm
+    const topProductsTable = document.getElementById('top-products-table');
+    data.topPurchasedProductInMonth.forEach(product => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+          ${product.productName}
+        </td>
+        <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+          ${product.quantityOrdered}
+        </td>
+      `;
+      topProductsTable.appendChild(row);
+    });
+
+    // Cập nhật bảng Top Khách Hàng
+    const topCustomersTable = document.getElementById('top-customers-table');
+    data.topCustomersInMonth.forEach(customer => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+          ${customer.customerName}
+        </td>
+        <td class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-10">
+          $${customer.totalAmount.toFixed(2)}
+        </td>
+      `;
+      topCustomersTable.appendChild(row);
+    });
+  })
+  .catch(error => {
+    console.error('Error fetching data:', error);
+    alert('Không thể tải dữ liệu từ API');
+  });
