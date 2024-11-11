@@ -1,6 +1,6 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProduct;
+import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.PromotionEntity;
@@ -62,11 +62,11 @@ public class PromotionServiceImpl implements IPromotionService {
     }
 
     @Override
-    public List<Promotion_getPromotionProduct> displayPromotionProduct(String promotionName){
+    public List<Promotion_getPromotionProductDTO> displayPromotionProduct(String promotionName){
         List<Object[]> rs = promotionRepository.getPromotionProduct(promotionName);
-        List<Promotion_getPromotionProduct> promotionProduct = new ArrayList<>();
+        List<Promotion_getPromotionProductDTO> promotionProduct = new ArrayList<>();
         for (Object[] o : rs){
-            Promotion_getPromotionProduct pp = Promotion_getPromotionProduct.builder()
+            Promotion_getPromotionProductDTO pp = Promotion_getPromotionProductDTO.builder()
                     .productName((String) o[0])
                     .brand((String) o[1])
                     .hasPromotion((Integer) o[2])
