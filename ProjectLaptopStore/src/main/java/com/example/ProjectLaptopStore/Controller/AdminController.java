@@ -3,7 +3,7 @@ package com.example.ProjectLaptopStore.Controller;
 import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
 import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
-import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
@@ -15,7 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+//Lớp kiểm soát api của role admin
 @RestController
 @CrossOrigin(origins = "http://127.0.0.1:5500")
 @RequestMapping("/admin")
@@ -33,6 +33,7 @@ public class AdminController {
     private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard
     @Operation(summary = "Get dashboard data for admin")
+    //thông báo lỗi cụ thể trên công cụ test
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved dashboard data"),
             @ApiResponse(responseCode = "401", description = "Unauthorized - token is invalid or expired"),
@@ -43,10 +44,10 @@ public class AdminController {
         Admin_DashBoardResponseDTO result = adminService.adminDashBoardAtService();
         return result;
     }
-    //API cho trang billing
-    @GetMapping(value = "/billing/")
-    public Admin_BillingResponseDTO adminBilling(){
-        Admin_BillingResponseDTO result = adminService.adminBillingAtService();
+    //API cho trang bill
+    @GetMapping(value = "/bill/")
+    public Admin_BillResponseDTO adminBilling(){
+        Admin_BillResponseDTO result = adminService.adminBillingAtService();
         return result;
     }
     //API lấy thong tin trang nhà kho

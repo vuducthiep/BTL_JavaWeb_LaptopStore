@@ -4,7 +4,7 @@ import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConvert
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Repository.*;
-import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
@@ -74,8 +74,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin_BillingResponseDTO adminBillingAtService() {
-            Admin_BillingResponseDTO billingResponseDTO = new Admin_BillingResponseDTO();
+    public Admin_BillResponseDTO adminBillingAtService() {
+            Admin_BillResponseDTO billingResponseDTO = new Admin_BillResponseDTO();
             try {
                 BigDecimal totalAmountOnline = orderRepository.getTotalAmountPayOnline();
                 BigDecimal totalAmountOffline = orderRepository.getTotalAmountPayOffline();

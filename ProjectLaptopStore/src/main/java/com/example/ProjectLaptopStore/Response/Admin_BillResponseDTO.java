@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Admin_BillingResponseDTO {
+public class Admin_BillResponseDTO {
     private BigDecimal totalAmountPayOnline;
     private BigDecimal totalAmountPayOffline;
     private List<Order_InvoiceDetailDTO> listInvoiceDetail;
