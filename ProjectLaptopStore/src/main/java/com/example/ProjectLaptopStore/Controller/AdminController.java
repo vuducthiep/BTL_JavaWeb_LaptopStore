@@ -5,7 +5,7 @@ import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -51,9 +51,10 @@ public class AdminController {
     }
     //API lấy thong tin trang nhà kho
     @GetMapping(value = "/warehouse/{warehouseID}")
-    public Admin_ReceiptResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
+    public Admin_WarehouseResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
         return adminService.adminReceiptAtService(warehouseID);
     }
+
     //API cập nhật thông tin của sản phẩm trong kho
     @PutMapping(value = "/warehouse/update/")
     public void warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
