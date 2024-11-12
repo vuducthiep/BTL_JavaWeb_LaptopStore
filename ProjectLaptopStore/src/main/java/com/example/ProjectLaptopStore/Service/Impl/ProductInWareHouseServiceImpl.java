@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
+import com.example.ProjectLaptopStore.Convert.ProductInWareHouseConverter;
 import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
 import com.example.ProjectLaptopStore.Entity.ProductInWarehouseEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
@@ -15,6 +16,14 @@ public class ProductInWareHouseServiceImpl implements ProductInWareHouseService 
     private ProductsInWarehouseRepository productsInWarehouseRepository;
     @Autowired
     private IProductRepository productRepository;
+    @Autowired
+    private ProductInWareHouseConverter productInWareHouseConverter;
+    @Override
+    public ProductsInWarehouse_DTO getProductInWarehouse(Integer idProduct) {
+        ProductInWarehouseEntity productInWarehouseEntity = productsInWarehouseRepository.findById(idProduct).get();
+        return productInWareHouseConverter.toProductInWareHouse(productInWarehouseEntity);
+    }
+
     @Override
     public void productInWareHouseUpdate(ProductsInWarehouse_DTO productsInWarehouse_Update) {
         ProductInWarehouseEntity productInWarehouseEntity = productsInWarehouseRepository.findById(productsInWarehouse_Update.getProductInWareHouseId()).get();
