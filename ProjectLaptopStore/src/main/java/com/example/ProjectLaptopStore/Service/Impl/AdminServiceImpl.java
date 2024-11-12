@@ -4,12 +4,11 @@ import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConvert
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Repository.*;
-import com.example.ProjectLaptopStore.Response.Admin_BillingResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_ReceiptResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -75,8 +74,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin_BillingResponseDTO adminBillingAtService() {
-            Admin_BillingResponseDTO billingResponseDTO = new Admin_BillingResponseDTO();
+    public Admin_BillResponseDTO adminBillingAtService() {
+            Admin_BillResponseDTO billingResponseDTO = new Admin_BillResponseDTO();
             try {
                 BigDecimal totalAmountOnline = orderRepository.getTotalAmountPayOnline();
                 BigDecimal totalAmountOffline = orderRepository.getTotalAmountPayOffline();
@@ -92,8 +91,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin_ReceiptResponseDTO adminReceiptAtService(Integer warehouseID) {
-        Admin_ReceiptResponseDTO adminReceiptResponseDTO = new Admin_ReceiptResponseDTO();
+    public Admin_WarehouseResponseDTO adminReceiptAtService(Integer warehouseID) {
+        Admin_WarehouseResponseDTO adminReceiptResponseDTO = new Admin_WarehouseResponseDTO();
         try {
             List<WareHouseEntity> listWarehouse = wareHouseRepository.findAll();
             WareHouseEntity wareHouse = wareHouseRepository.findByWarehouseID(warehouseID);
