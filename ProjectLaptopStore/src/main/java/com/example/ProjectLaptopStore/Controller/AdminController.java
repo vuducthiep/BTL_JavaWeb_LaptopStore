@@ -50,14 +50,21 @@ public class AdminController {
         Admin_BillResponseDTO result = adminService.adminBillingAtService();
         return result;
     }
+
     //API lấy thong tin trang nhà kho
     @GetMapping(value = "/warehouse/{warehouseID}")
     public Admin_WarehouseResponseDTO adminWareHouse(@PathVariable(name = "warehouseID") Integer warehouseID){
         return adminService.adminReceiptAtService(warehouseID);
     }
 
+    //API lấy thông tin của sản phẩm được chọn để sửa ở màn kho hàng
+    @GetMapping(value = "/warehouse/update/{productID}")
+    public ProductsInWarehouse_DTO getProductsInWarehouse(@PathVariable(name = "productID") Integer productID){
+        return productInWarehouseService.getProductInWarehouse(productID);
+    }
     //API cập nhật thông tin của sản phẩm trong kho
-    @PutMapping(value = "/warehouse/update/")
+    //productID không cần dùng
+    @PutMapping(value = "/warehouse/update/{productID}")
     public void warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
         productInWarehouseService.productInWareHouseUpdate(productsInWarehouseUpdate);
     }

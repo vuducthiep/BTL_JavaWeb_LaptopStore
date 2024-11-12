@@ -40,4 +40,7 @@ public class ProductsInWarehouse_DTO {
         this.quantity = quantity;
         this.productInWareHouseId = productInWareHouseId;
     }
+
+    public ProductsInWarehouse_DTO() {
+    }
 }
