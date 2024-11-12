@@ -13,24 +13,29 @@ document.addEventListener("DOMContentLoaded", function () {
     "Total_Amount_InCurrent_Month"
   );
 
-  // Giả sử các giá trị sau sẽ được lấy từ API hoặc dữ liệu backend
-  let productsSoldInTheMonth = 1500; // Ví dụ giá trị thay thế
-  let totalCustomerInCurrentMonth = 2000;
-  let totalNewCustomerInCurrentMonth = 250;
-  let totalAmountInCurrentMonth = 20000000; // Đơn vị là VND
 
   // Gọi API để load sản phẩm khi trang load
-  fetch("http://localhost:3000/dashboard")
+  fetch("http://localhost:8080/admin/dashboard/")
     .then((response) => response.json())
     .then((data) => {
+      // Cập nhật nội dung của các phần tử
+  Products_sold_in_the_month.querySelector("h4").textContent =
+  quantitySellProductCurrentMonth.toLocaleString("vi-VN");
+Total_Customer_In_Current_Month.querySelector("h4").textContent =
+totalCustomerInCurrentMonth.toLocaleString("vi-VN");
+Total_New_Customer_In_Current_Month.querySelector("h4").textContent =
+totalNewCustomerInCurrentMonth.toLocaleString("vi-VN");
+Total_Amount_InCurrent_Month.querySelector("h4").textContent =
+totalAmountInCurrentMonth.toLocaleString("vi-VN");
+
       // Dữ liệu được trả về từ API (ví dụ: data = List<Customer_CountNewCustomerPerMonthDTO>)
-      const labelsDA = data.map((item) => item.month); // Lấy các tháng (M, T, W, ...)
-      const newCustomerData = data.map((item) => item.newCustomers); // Lấy số lượng khách hàng mới trong tháng ?????
+      const labelsDA = data.map((newCustomerPerMonthMap) => newCustomerPerMonthMap.month); // Lấy các tháng (M, T, W, ...)
+      const newCustomerData = data.map((newCustomerPerMonthMap) => newCustomerPerMonthMap.customerCount); // Lấy số lượng khách hàng mới trong tháng ?????
       //const labels2 = data.map(item => item.month);  // Lấy các tháng (M, T, W, ...)
-      const totalAmountData = data.map((item) => item.newCustomers); // Lấy danh thu trong tháng ????
+      const totalAmountData = data.map((totalAmountPerMonthMap) => totalAmountPerMonthMap.totalAmount); // Lấy danh thu trong tháng ????
       //const labels3 = data.map(item => item.month);  // Lấy các tháng (M, T, W, ...)
       const totalQuantitySellProductData = data.map(
-        (item) => item.newCustomers
+        (totalQuantitySellProductPerMonthMap) => totalQuantitySellProductPerMonthMap.totalSold
       ); // Lấy số lượng san pham trong tháng ????
       // Tạo biểu đồ
       var ctx = document.getElementById("chart-bars").getContext("2d");
@@ -281,50 +286,45 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         },
       });
-    })
-    .catch((error) => console.error("Error fetching customer data:", error));
-
-  // Function to fetch data from the API and populate the customer sales table
-  function fetchCustomerSalesData() {
-    fetch("https://your-api-url.com/customers") // Replace with your API URL
-      .then((response) => response.json()) // Assuming the response is in JSON format
-      .then((data) => {
-        const tableBody = document.getElementById("customer-table-body");
+      // --------------------------------------------------------------------------------------------
+      const tableBody = document.getElementById("table-body");
         tableBody.innerHTML = ""; // Clear any previous data
 
-        data.forEach((customer) => {
+        data.forEach((topPurchasedProductInMonth) => {
           const row = document.createElement("tr");
 
           // Create customer name cell
-          const customerCell = document.createElement("td");
-          customerCell.innerHTML = `
+          const productCell = document.createElement("td");
+          productCell.innerHTML = `
                     <div class="d-flex px-2 py-1">
                         <div>
-                            <img src="${customer.image}" class="avatar avatar-sm me-3" alt="${customer.name}" />
+                            <img src="${topPurchasedProductInMonth.imageURL}" class="avatar avatar-sm me-3" alt="${topPurchasedProductInMonth.productName}" />
                         </div>
                         <div class="d-flex flex-column justify-content-center">
-                            <h6 class="mb-0 text-sm">${customer.name}</h6>
+                            <h6 class="mb-0 text-sm">${topPurchasedProductInMonth.productName}</h6>
                         </div>
                     </div>
                 `;
-          row.appendChild(customerCell);
+          row.appendChild(productCell);
 
           // Create customer sales cell
           const salesCell = document.createElement("td");
           salesCell.classList.add("align-middle", "text-center", "text-sm");
           salesCell.innerHTML = `
-                    <span class="text-xs font-weight-bold">${customer.sales}</span>
+                    <span class="text-xs font-weight-bold">${topPurchasedProductInMonth.quantityOrdered}</span>
                 `;
           row.appendChild(salesCell);
 
           // Append the row to the table
           tableBody.appendChild(row);
         });
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }
+
+
+
+    })
+    .catch((error) => console.error("Error fetching customer data:", error));
+
+
 
   // Call the fetchCustomerSalesData function when the page loads
   window.onload = fetchCustomerSalesData;
@@ -368,18 +368,12 @@ document.addEventListener("DOMContentLoaded", function () {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
+
+
   }
 
   // Call the fetchProductData function when the page is loaded
   window.onload = fetchProductData;
 
-  // Cập nhật nội dung của các phần tử
-  Products_sold_in_the_month.querySelector("h4").textContent =
-    productsSoldInTheMonth.toLocaleString("vi-VN");
-  Total_Customer_In_Current_Month.querySelector("h4").textContent =
-    totalCustomerInCurrentMonth.toLocaleString("vi-VN");
-  Total_New_Customer_In_Current_Month.querySelector("h4").textContent =
-    totalNewCustomerInCurrentMonth.toLocaleString("vi-VN");
-  Total_Amount_InCurrent_Month.querySelector("h4").textContent =
-    totalAmountInCurrentMonth.toLocaleString("vi-VN");
+ 
 });
