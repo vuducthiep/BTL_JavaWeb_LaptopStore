@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Admin_ReceiptResponseDTO {
+public class Admin_WarehouseResponseDTO {
     private List<WareHouseEntity> warehouseList;
     private WareHouseEntity warehouseInfo;
     private Integer totalQuantity;
