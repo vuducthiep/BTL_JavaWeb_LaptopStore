@@ -111,8 +111,8 @@ public class AdminControllerTest {
 
     //API tạo khách hàng
     @PostMapping("/admin/createcustomer/")
-    public void createCustomer(@RequestBody Customer_CreateCustomerDTO createCustomerDTO){
-        customerService.createCustomerAtService(createCustomerDTO);
+    public void createCustomer(@RequestBody CustomerDTO customerNew){
+        customerService.createCustomerAtService(customerNew);
     }
     //API tạo nhà cung cấp
     @PostMapping("/admin/createsupplier/")
@@ -129,7 +129,7 @@ public class AdminControllerTest {
 
     //API cập nhật người dùng
     @PutMapping("/admin/updatecustomer/")
-    public void updateCustomer(@RequestBody Customer_UpdateCustomerDTO customerUpdateDTO){
+    public void updateCustomer(@RequestBody CustomerDTO customerUpdateDTO){
         customerService.updateCustomerAtService(customerUpdateDTO);
     }
     //API cập nhật nhà cung cấp
@@ -194,6 +194,11 @@ public class AdminControllerTest {
     public List<WareHouseEntity> getall(){
         List<WareHouseEntity> result = wareHouseService.getListWareHouse();
         return result;
+    }
+    //API lấy thông tin tt khách hàng
+    @GetMapping(value = "/admin/customerinfor/")
+    public List<CustomerDTO> adminCustomer(){
+        return customerService.getListCustomers();
     }
 
 }

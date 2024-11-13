@@ -2,14 +2,14 @@ package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.Convert.Customer_CountNewCustomerConverter;
-import com.example.ProjectLaptopStore.DTO.Customer_CountNewCustomerPerMonthDTO;
-import com.example.ProjectLaptopStore.DTO.Customer_CreateCustomerDTO;
-import com.example.ProjectLaptopStore.DTO.Customer_FindTopCustomerInMonthDTO;
-import com.example.ProjectLaptopStore.DTO.Customer_UpdateCustomerDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.ShippingAddressEntity;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Repository.ICustomerRepository;
 import com.example.ProjectLaptopStore.Repository.IUserRepository;
+import com.example.ProjectLaptopStore.Repository.ShippingAddressesRepository;
+import com.example.ProjectLaptopStore.Response.Admin_CustomerResponseDTO;
 import com.example.ProjectLaptopStore.Service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +27,8 @@ public class CustomerServiceImpl implements ICustomerService {
     private Customer_CountNewCustomerConverter customerCountNewCustomerConverter;
 
     @Autowired
+    private ShippingAddressesRepository shippingAddressesRepository;
+    @Autowired
     private IUserRepository userRepository;
     @Override
     public List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth() {
@@ -38,19 +40,19 @@ public class CustomerServiceImpl implements ICustomerService {
     public void deleteCustomerAtService(Long[] ids) {
         List<CustomerEntity> listCustomerDeleteById = customerRepository.findAllByCustomerIDIn(ids);
         customerRepository.deleteCustomer(listCustomerDeleteById);
-
     }
 
     @Override
-    public void createCustomerAtService(Customer_CreateCustomerDTO customerCreate) {
-        customerRepository.createCustomer(customerCreate);
+    public void createCustomerAtService(CustomerDTO customerNew) {
+        customerRepository.createCustomer(customerNew);
     }
 
     @Override
-    public void updateCustomerAtService(Customer_UpdateCustomerDTO customerUpdate) {
-        CustomerEntity customerEntity = customerRepository.findById(customerUpdate.getCustomerId()).get();
-        UserEntity userEntity = userRepository.findById(customerEntity.getUser().getUserID()).get();
-        customerRepository.updateCustomer(customerUpdate,customerEntity,userEntity);
+    public void updateCustomerAtService(CustomerDTO customerUpdate) {
+        CustomerEntity customerEntity = customerRepository.findById(customerUpdate.getCustomerID()).get();
+        UserEntity userEntity = userRepository.findById(customerUpdate.getUserID()).get();
+        ShippingAddressEntity shippingAddressEntity = shippingAddressesRepository.findById(customerUpdate.getAddressID()).get();
+        customerRepository.updateCustomer(customerUpdate,shippingAddressEntity,customerEntity,userEntity);
     }
 
     @Override
@@ -65,12 +67,38 @@ public class CustomerServiceImpl implements ICustomerService {
         return result;
     }
 
-//    @Override
-//    public Integer countCustomers(Map<String, Object> params) {
-//        CustomerSearchBuilder customerSearchBuilder = customerCountNewCustomerConverter.toCustomerSearchBuilder(params);
-//        Integer result = customerRepository.countNewCustomer(customerSearchBuilder);
-//        return result;
-//    }
+    @Override
+    public List<CustomerDTO> getListCustomers() {
+        return customerRepository.getListCustomer();
+    }
+
+    @Override
+    public Admin_CustomerResponseDTO adminCustomer() {
+        Admin_CustomerResponseDTO result = new Admin_CustomerResponseDTO();
+        try {
+            List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth = customerRepository.listNewCustomerPerMonth();
+            List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = customerRepository.listTopCustomerInMonth();
+            List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
+            result.setCountNewCustomerPerMonth(listCountNewCustomerPerMonth);
+            result.setFindTopCustomerInMonth(listTopCustomerInMonth);
+            result.setListCustomer(listCustomer);
+        }catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public CustomerDTO getCustomerByID(Integer id) {
+        List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
+        for(CustomerDTO customerDTO : listCustomer){
+            if(customerDTO.getCustomerID().equals(id)){
+                return customerDTO;
+            }
+        }
+        return null;
+    }
 
 
 }
