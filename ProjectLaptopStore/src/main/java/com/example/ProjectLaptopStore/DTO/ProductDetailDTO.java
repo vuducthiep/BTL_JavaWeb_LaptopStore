@@ -2,13 +2,15 @@ package com.example.ProjectLaptopStore.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.relational.core.sql.In;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
 @Setter
-public class Product_CreateProductDTO {
+public class ProductDetailDTO {
+    private Integer productId;
     private Integer supplierId;
     private String productName;
     private String productBrand;
@@ -18,37 +20,39 @@ public class Product_CreateProductDTO {
     private Date releaseDate;
     private Integer warrantyPeriod;
     private String imageUrl;
+    private Integer productDescriptionId;
+//    private Integer productIdOfDescrip;
     private String cpuCompany;
     private String cpuTechnology;
     private String cpuType;
-    private String minimumCPUspeed;
+    private BigDecimal minimumCPUspeed;
     private BigDecimal maximunSpeed;
-    private long multiplier;
+    private Integer multiplier;
     private String processorCache;
     private String brandCardOboard;
     private String modelCardOboard;
     private String fullNameCardOboard;
     private String vgaBrand;
     private String vgaFullName;
-    private long ramCapacity;
+    private Integer ramCapacity;
     private String ramType;
     private String ramSpeed;
-    private long numberOfRemovableSlots;
-    private long numberOfOnboardRAM;
-    private long maximumRAMSupport;
+    private Integer numberOfRemovableSlots;
+    private Integer numberOfOnboardRAM;
+    private Integer maximumRAMSupport;
     private String hardDriveType;
-    private long totalSSDHDDSlots;
-    private long numberOfSSDHDDSlotsRemaining;
-    private long maximumHardDriveUpgradeCapacity;
+    private Integer totalSSDHDDSlots;
+    private Integer numberOfSSDHDDSlotsRemaining;
+    private Integer maximumHardDriveUpgradeCapacity;
     private String ssdType;
-    private long capacity;
+    private Integer capacity;
     private String screenSize;
     private String displayTechnology;
     private String resolution;
     private String screenType;
-    private BigDecimal scanningFrequency;
+    private String scanningFrequency;
     private String basePlate;
-    private long brightness;
+    private Integer brightness;
     private String colorCoverage;
     private BigDecimal screenRatio;
     private String communicationPort;
@@ -59,24 +63,29 @@ public class Product_CreateProductDTO {
     private String version;
     private String security;
     private String keyboardType;
-    private boolean numericKeypad;
+    private Boolean numericKeypad;
     private String keyboardLight;
     private String touchPad;
     private String batteryType;
-    private long batteryCapacity;
+    private Integer batteryCapacity;
     private String powerSupply;
     private String accessoriesInTheBox;
-    private String size;
+    private Float size;
     private BigDecimal productWeight;
     private String material;
-    private String pn;
+    private String pnProductCode;
     private String origin;
-    private long warrantyPeriodMonths;
+    private Integer warrantyPeriodMonths;
     private String storageInstructions;
     private String userManual;
     private String color;
 
-    public Product_CreateProductDTO(Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, Date releaseDate, Integer warrantyPeriod, String imageUrl, String cpuCompany, String cpuTechnology, String cpuType, String minimumCPUspeed, BigDecimal maximunSpeed, long multiplier, String processorCache, String brandCardOboard, String modelCardOboard, String fullNameCardOboard, String vgaBrand, String vgaFullName, long ramCapacity, String ramType, String ramSpeed, long numberOfRemovableSlots, long numberOfOnboardRAM, long maximumRAMSupport, String hardDriveType, long totalSSDHDDSlots, long numberOfSSDHDDSlotsRemaining, long maximumHardDriveUpgradeCapacity, String ssdType, long capacity, String screenSize, String displayTechnology, String resolution, String screenType, BigDecimal scanningFrequency, String basePlate, long brightness, String colorCoverage, BigDecimal screenRatio, String communicationPort, String wifi, String bluetooth, String webcam, String os, String version, String security, String keyboardType, boolean numericKeypad, String keyboardLight, String touchPad, String batteryType, long batteryCapacity, String powerSupply, String accessoriesInTheBox, String size, BigDecimal productWeight, String material, String pn, String origin, long warrantyPeriodMonths, String storageInstructions, String userManual, String color) {
+    public ProductDetailDTO() {
+    }
+
+
+    public ProductDetailDTO(Integer productId, Integer supplierId, String productName, String productBrand, String model, Float price, Integer stockQuantity, Date releaseDate, Integer warrantyPeriod, String imageUrl, Integer productDescriptionId, String cpuCompany, String cpuTechnology, String cpuType, BigDecimal minimumCPUspeed, BigDecimal maximunSpeed, Integer multiplier, String processorCache, String brandCardOboard, String modelCardOboard, String fullNameCardOboard, String vgaBrand, String vgaFullName, Integer ramCapacity, String ramType, String ramSpeed, Integer numberOfRemovableSlots, Integer numberOfOnboardRAM, Integer maximumRAMSupport, String hardDriveType, Integer totalSSDHDDSlots, Integer numberOfSSDHDDSlotsRemaining, Integer maximumHardDriveUpgradeCapacity, String ssdType, Integer capacity, String screenSize, String displayTechnology, String resolution, String screenType, String scanningFrequency, String basePlate, Integer brightness, String colorCoverage, BigDecimal screenRatio, String communicationPort, String wifi, String bluetooth, String webcam, String os, String version, String security, String keyboardType, Boolean numericKeypad, String keyboardLight, String touchPad, String batteryType, Integer batteryCapacity, String powerSupply, String accessoriesInTheBox, Float size, BigDecimal productWeight, String material, String pnProductCode, String origin, Integer warrantyPeriodMonths, String storageInstructions, String userManual, String color) {
+        this.productId = productId;
         this.supplierId = supplierId;
         this.productName = productName;
         this.productBrand = productBrand;
@@ -86,6 +95,7 @@ public class Product_CreateProductDTO {
         this.releaseDate = releaseDate;
         this.warrantyPeriod = warrantyPeriod;
         this.imageUrl = imageUrl;
+        this.productDescriptionId = productDescriptionId;
         this.cpuCompany = cpuCompany;
         this.cpuTechnology = cpuTechnology;
         this.cpuType = cpuType;
@@ -137,7 +147,7 @@ public class Product_CreateProductDTO {
         this.size = size;
         this.productWeight = productWeight;
         this.material = material;
-        this.pn = pn;
+        this.pnProductCode = pnProductCode;
         this.origin = origin;
         this.warrantyPeriodMonths = warrantyPeriodMonths;
         this.storageInstructions = storageInstructions;

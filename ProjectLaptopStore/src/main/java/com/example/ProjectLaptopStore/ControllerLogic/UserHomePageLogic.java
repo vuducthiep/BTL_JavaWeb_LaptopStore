@@ -45,7 +45,7 @@ public class UserHomePageLogic {
             Map<Integer,String> getSuppliersCheckboxBtn = suppliersService.getSupplierForCheckbox();
             Map<List<Integer>,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
             Map<String,String> getCPUTechnologyCheckbox = productDescriptionService.getCPUTechnologyForCheckbox();
-            Map<Long,Long> getRamCapacityCheckbox = productDescriptionService.getRamCapacityForCheckbox();
+            Map<Integer,Integer> getRamCapacityCheckbox = productDescriptionService.getRamCapacityForCheckbox();
             Map<String,String> getHardDriveCheckbox = productDescriptionService.getHardDriveForCheckbox();
             Map<String,String> getCustomerDemandCheckbox = ProDescription_FindByUserDemand_Enum.typeUserDemand();
             Map<String,String> getScreenSizeCheckbox = productDescriptionService.getScreensizeForCheckbox();

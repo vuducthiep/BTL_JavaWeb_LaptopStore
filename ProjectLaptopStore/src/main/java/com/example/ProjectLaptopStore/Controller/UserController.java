@@ -86,8 +86,8 @@ public class UserController {
     }
     //API lấy dung lượng Ram cho checkbox
     @GetMapping(value = "/user/checkboxram/")
-    public Map<Long,Long> getRamCapacityCheckbox(){
-        Map<Long,Long> result = productDescriptionService.getRamCapacityForCheckbox();
+    public Map<Integer,Integer> getRamCapacityCheckbox(){
+        Map<Integer,Integer> result = productDescriptionService.getRamCapacityForCheckbox();
         return result;
     }
     //API lấy loại ổ cứng cho checkbox
