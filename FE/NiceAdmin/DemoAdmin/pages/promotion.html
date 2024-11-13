@@ -35,6 +35,23 @@
     <!-- Nepcha Analytics (nepcha.com) -->
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
+    <style>
+      #button-custom:hover {
+        background-color: #45a049; /* Đổi màu khi di chuột */
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 1); /* Tăng bóng đổ */
+        transform: scale(1.05); /* Phóng to nhẹ khi di chuột */
+    }
+
+      #button-custom:active {
+          background-color: #3e8e41; /* Màu khi nhấn */
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4); /* Giảm bóng đổ */
+          transform: scale(1); /* Trở về kích thước ban đầu khi nhấn */
+      }
+
+      
+
+      
+    </style> 
 </head>
 
 <body class="g-sidenav-show bg-gray-200">
@@ -322,7 +339,98 @@
          <div class="row">
 
         </div>
+          
+           <!-- row 1  -->
+           <div class="row mb-4">
+            <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+              <div class="card">
+                <!-- header  -->
+                <div class="card-header pb-0">
+                  <div class="row">
+                    <div class="col-lg-6 col-7 text-capitalize">
+                      <h6>Top sản phẩm</h6>
+                    </div>
+                  </div>
+                </div>
+                
+                  <div class="col-lg-12">
 
+                    <div class="row mt-3">
+
+                      <!-- ---------------- -->
+                      <div class="col-md-5">
+                        <div class="row">
+                          <p class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity mx-4">Promotion Name</p>
+                        </div>
+                        <div class="row">
+                          <input type="text" id="promotionname" class=" mx-4 mb-6"
+                          style="b
+                          border-color: #D2D6DA;
+                          border-top: none;
+                          border-left: none;
+                          border-right: none;
+                          max-width: 500px; ">
+                        </div>
+                      </div>
+
+                      <!-- ------------------ -->
+                      <div class="col-md-3 ml-4">
+                        <div class="row">
+                          <p class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity mx-4"> Discount Percentage</p>
+                        </div>
+                        <div class="row">
+                          <input type="text" id="discountpercentage" class=" mx-4 mb-6"
+                          style="b
+                          border-color: #D2D6DA;
+                          border-top: none;
+                          border-left: none;
+                          border-right: none;">
+                        </div>
+                      </div>
+                      <!-- ----------------------- -->
+                      <div class="col-md-1 ms-11">
+                        <div class="row">
+                          
+                          <button type="submit" class="mt-6" id="button-custom"
+                          style="max-width: 150px;
+                          background-color: #4b4b4b; /* Màu nền */
+                          border: none;              /* Không có viền */
+                          color: white;              /* Màu chữ */
+                          padding: 10px 0px;        /* Khoảng cách bên trong */
+                          border-radius: 25px;        /* Góc bo tròn */
+                          cursor: pointer;           /* Con trỏ dạng bàn tay khi di chuột */
+                          transition: 0.3s;          /* Hiệu ứng chuyển màu khi di chuột */
+                          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Bóng đổ */">
+                            Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div class="row">
+                          <p class=" text-uppercase text-secondary text-xxs font-weight-bolder opacity mx-4">Promotion Name</p>
+                        </div>
+                        <div class="row">
+                          <input type="text" id="promotionname" class=" mx-4 mb-6"
+                          style="b
+                          border-color: #D2D6DA;
+                          border-top: none;
+                          border-left: none;
+                          border-right: none; ">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                 
+                
+              </div>
+            </div>
+          </div>
+          
+        
            <!--  row2 -->
 
           <div class="row mb-4 mt-4">
