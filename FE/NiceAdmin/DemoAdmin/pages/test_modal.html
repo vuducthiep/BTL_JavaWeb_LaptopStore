@@ -42,11 +42,7 @@
   text-align: center;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  cursor: pointer;
-}
+
 
 /* Style cho modal */
 .modal {
@@ -126,7 +122,107 @@ button[type="submit"]:hover {
   background-color: rgb(180, 180, 180);
 }
 </style>
-<body class="main-content">
+<body >
+  <!-- modal  -->
+    <!-- <div class="main-content">
+      <div id="modal" class="modal">
+        <div class="modal-content">
+          <span id="closeModal" class="close">&times;</span>
+          <h2>Nhập thông tin</h2>
+          
+          <form id="infoForm">
+            <h2 class="entity">
+              Tong quan
+            </h2>
+            <hr>
+            <div class="form-group">
+              <label for="name">Ten san pham </label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="brand">Hang</label>
+              <input type="text" id="brand" name="brand" required>
+            </div>
+
+            <div class="form-group">
+              <label for="price">Gia tien</label>
+              <input type="text" id="price" name="price " required>
+            </div>
+
+
+            <h2 class="entity">
+              Man hinh 
+            </h2>
+            <hr>
+            <div class="form-group">
+              <label for="kich_thuoc">Kich thuoc  </label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="congnghemanhinh ">Cong nghe man hinh</label>
+              <input type="text" id="tech_scr" name="tech_scr" required>
+            </div>
+
+            <div class="form-group">
+              <label for="Hz">Tan so quet</label>
+              <input type="text" id="Tsq" name="Tsq " required>
+            </div>
+
+            <div class="form-group">
+              <label for="Dpg">Do phan giai</label>
+              <input type="text" id="Dpg" name="Dpg " required>
+            </div>
+
+            <h2 class="entity">
+              Vi xu ly & Do hoa
+            </h2>
+            <hr>
+            <div class="form-group">
+              <label for="kich_thuoc">Chipset  </label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="congnghemanhinh ">GPU</label>
+              <input type="text" id="tech_scr" name="tech_scr" required>
+            </div>
+
+            <div class="form-group">
+              <label for="Hz">CPU</label>
+              <input type="text" id="Tsq" name="Tsq " required>
+            </div>
+
+
+            <h2 class="entity">
+              Camera
+            </h2>
+            <hr>
+            <div class="form-group">
+              <label for="kich_thuoc">Camera truoc  </label>
+              <input type="text" id="name" name="name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="congnghemanhinh ">Camera sau </label>
+              <input type="text" id="tech_scr" name="tech_scr" required>
+            </div>
+
+            
+
+
+            <div class="form-group">
+              <button type="submit"> + THEM </button>
+              <button type="submit"> + SUA </button>
+              <button type="submit"> - XOA  </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div> -->
+  <!-- end modal -->
+
     <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -737,6 +833,8 @@ button[type="submit"]:hover {
         </div>
     </div>
     <!--   Core JS Files   -->
+
+    
     <script src="../assets/js/core/popper.min.js"></script>
     <script src="../assets/js/core/bootstrap.min.js"></script>
     <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>

@@ -137,6 +137,12 @@ button[type="submit"]:hover {
   background-color: rgb(180, 180, 180);
 }
 
+hr {
+  height: 1px;
+  border: none;
+  background: linear-gradient(to right , rgba(0,0,0,0), #000, rgba(0,0,0,0));
+}
+
 
 
 </style>
@@ -163,9 +169,9 @@ button[type="submit"]:hover {
       
       <form id="infoForm">
         <h2 class="entity">
-          Tong quan
+          Tổng quan 
         </h2>
-        <hr>
+        <hr >
         <div class="form-group">
           <label for="name">Ten san pham </label>
           <input type="text" id="name" name="name" required>
@@ -181,66 +187,25 @@ button[type="submit"]:hover {
           <input type="text" id="price" name="price " required>
         </div>
 
-
-        <h2 class="entity">
-          Man hinh 
-        </h2>
-        <hr>
-        <div class="form-group">
-          <label for="kich_thuoc">Kich thuoc  </label>
-          <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-          <label for="congnghemanhinh ">Cong nghe man hinh</label>
-          <input type="text" id="tech_scr" name="tech_scr" required>
-        </div>
-
-        <div class="form-group">
-          <label for="Hz">Tan so quet</label>
-          <input type="text" id="Tsq" name="Tsq " required>
-        </div>
-
-        <div class="form-group">
-          <label for="Dpg">Do phan giai</label>
-          <input type="text" id="Dpg" name="Dpg " required>
-        </div>
-
-        <h2 class="entity">
-          Vi xu ly & Do hoa
-        </h2>
-        <hr>
-        <div class="form-group">
-          <label for="kich_thuoc">Chipset  </label>
-          <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-          <label for="congnghemanhinh ">GPU</label>
-          <input type="text" id="tech_scr" name="tech_scr" required>
-        </div>
-
-        <div class="form-group">
-          <label for="Hz">CPU</label>
-          <input type="text" id="Tsq" name="Tsq " required>
-        </div>
-
-
-        <h2 class="entity">
-          Camera
-        </h2>
-        <hr>
-        <div class="form-group">
-          <label for="kich_thuoc">Camera truoc  </label>
-          <input type="text" id="name" name="name" required>
-        </div>
-
-        <div class="form-group">
-          <label for="congnghemanhinh ">Camera sau </label>
-          <input type="text" id="tech_scr" name="tech_scr" required>
-        </div>
-
-        
+        <form id="infoForm">
+          <h2 class="entity">
+            Vi xử lí & Đồ họa 
+          </h2>
+          <hr >
+          <div class="form-group">
+            <label for="cpucompany">Ten san pham </label>
+            <input type="text" id="name" name="name" required>
+          </div>
+  
+          <div class="form-group">
+            <label for="brand">Hang</label>
+            <input type="text" id="brand" name="brand" required>
+          </div>
+  
+          <div class="form-group">
+            <label for="price">Gia tien</label>
+            <input type="text" id="price" name="price " required>
+          </div>
 
 
         <div class="form-group">
