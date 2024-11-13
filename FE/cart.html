@@ -5,26 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Giỏ Hàng</title>
     <link rel="stylesheet" href="assets/css/cart.css">
-    <script src="assets/js/cart.js" defer></script> <!-- Liên kết tệp JavaScript -->
+    <script src="assets/js/cart.js" defer></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
 </head>
 <body>
-    <div class="container">
+    <header class="" style="background-color:rgba(241, 18, 18, 0.884);">
+        <div class="container ">
+          <div class="row header-custom">
+            <div class="col-2">
+              <a class="logo" href="">
+                <img
+                  src="https://cdn2.fptshop.com.vn/unsafe/150x0/filters:quality(100)/small/logo_main_2x_ad42cac235.png"
+                  alt="Logo trang web"
+                />
+              </a>
+            </div>
+            <div class="col-5">
+              <div class="seach-form">
+                <form id="frm-seach" name="seach" action="/tim">
+                  <input
+                    type="text"
+                    placeholder="Bạn muốn tìm sản phẩm gì"
+                    name="q"
+                    id="stext"
+                    autocomplete="off"
+                    style="width: 90%"
+                  />
+                  <button type="submit" id="sbutton" style="width: 9%">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </form>
+              </div>
+            </div>
+            <div class="col-2">
+              <div class="user-account" id="userAccount" tabindex="0">
+                <i
+                  class="fa-solid fa-user"
+                  style="width: 50px; height: 50px; font-size: 40px"
+                ></i>
+                <ul class="box-user" id="userMenu" style="display: none">
+                  <li><a href="#" id="loginLink">Đăng nhập</a></li>
+                  <li>
+                    <a href="#" id="userInfo" style="display: none"
+                      >Thông tin cá nhân</a
+                    >
+                  </li>
+                  <li>
+                    <a href="#" id="orders" style="display: none">Đơn hàng</a>
+                  </li>
+                  <li>
+                    <a href="#" id="logout" style="display: none">Đăng xuất</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+  
+            <div class="col">
+              <div class="box-hotline">
+                <p class="hotline-text">
+                  <i class="fa-solid fa-phone"></i>
+                  <span style="color: rgb(0, 0, 0)">HOTLINE</span>
+                </p>
+                <p class="phone-number">0987589660</p>
+              </div>
+            </div>
+  
+            <div class="col">
+              <div class="cart">
+                <a href="cart.html" id="cartLink">
+                  <!-- Thay '/cart' bằng đường dẫn giỏ hàng của bạn -->
+                  <i
+                    class="fa-solid fa-cart-shopping"
+                    style="font-size: 43px"
+                  ></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+    <nav class="breadcrumb">
+        <a href="index.html">Trang chủ</a> / <a href="cart.html">Giỏ hàng</a>
+    </nav>
+
+    <div class="container2">
         
         <table>
             <thead>
                 <tr>
+                    <th scope="col" ><input type="checkbox" id="selectAll" onclick="toggleSelectAll()"> Chọn tất cả</th>
                     <th>STT</th>
                     <th>Tên Sản Phẩm</th>
                     <th>Giá (VNĐ)</th>
                     <th>Số Lượng</th>
                     <th>Tổng</th>
-                    <th>Hành Động</th>
+                    <th>Xóa</th>
+                    <th>Xem Chi Tiết</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
+                  <td>
+                    <input type="checkbox" class="product-checkbox">
+                  </td>
                     <td>1</td>
-                    <td>[New Outlet] Acer Nitro 5 AN515-58 (Core i7 - 12650H, 16GB, 1TB, RTX 4050 6GB)</td>
+                    <td>
+                        <img src="https://bizweb.dktcdn.net/100/111/010/products/40-b66f87e0938017bb0aa02dd630c69856.jpg?v=1594560239463" alt="Acer Nitro 5" class="product-image">
+                        [New Outlet] Acer Nitro 5 AN515-58 
+                    </td>
                     <td id="price-1" class="product-price">21.690.000</td>
                     <td>
                         <button class="quantity-btn">-</button>
@@ -32,11 +127,19 @@
                         <button class="quantity-btn">+</button>
                     </td>
                     <td><span class="item-total" id="item-total-1">21.690.000 VNĐ</span></td>
-                    <td><button class="remove-btn">Xóa</button></td>
+                    <td><button class="remove-btn"><i class="fas fa-trash"></i> Xóa</button></td>
+                    <td><button class="view-details-btn">Xem Chi Tiết</button></td>
+
+
                 </tr>
                 <tr>
+                  <td>
+                    <input type="checkbox" class="product-checkbox">
+                  </td>
                     <td>2</td>
-                    <td>[Product 2] Tên sản phẩm khác</td>
+                    <td with="20px">
+                        <img src="https://www.techone.vn/wp-content/uploads/2021/09/macbook-air-2020-13-inch-apple-m1-gold-8gb-ram-256gb-ssd-mgnd3-768x678.png" alt="Acer Nitro 5" class="product-image">
+                        Macbook Air 2020 13 inch Apple M1</td>
                     <td id="price-2" class="product-price">24.500.000</td>
                     <td>
                         <button class="quantity-btn">-</button>
@@ -44,42 +147,60 @@
                         <button class="quantity-btn">+</button>
                     </td>
                     <td><span class="item-total" id="item-total-2">24.500.000 VNĐ</span></td>
-                    <td><button class="remove-btn">Xóa</button></td>
+                    <td><button class="remove-btn"><i class="fas fa-trash"></i> Xóa</button></td>
+                    <td><button class="view-details-btn">Xem Chi Tiết</button></td>
+
+
                 </tr>
             </tbody>
         </table>
         
-        <h2>Tổng Cộng: <span class="total-amount">0 </span></h2>
-        <h2>Thanh Toán: <span class="total-price">0 </span></h2>
+        <div class="thanhToan" >
+          <h3>Tổng Cộng: <span class="total-amount">0 </span></h3>
+          <h3>Thanh Toán: <span class="total-price">0 </span></h3>
+        </div>
         
-        <div class="form-container">
+        <div class="form-container2">
             <div class="cart-left">
                 <div class="box-cart">
-                    <div class="title-box-cart">1. Khách hàng khai báo thông tin</div>
+                    <div class="title-box-cart">1. Khách hàng khai báo địa chỉ nhận hàng</div>
                     <div class="content-box-cart">
-                        <b style="font-size:14px;">Thông tin người mua</b><br>
+                        <b style="font-size:14px;">Thông tin địa chỉ</b><br>
                         <span style="font-size:11px;">Những phần đánh dấu (*) là bắt buộc</span>
                         <div class="space10"></div>
                         <table>
-                            <tbody>
-                                <tr>
-                                    <td width="95">Họ tên*</td>
-                                    <td colspan="3"><input type="text" class="inputText" name="user_info[name]" id="buyer_name"></td>
-                                </tr>
-                                <tr>
-                                    <td>Điện thoại*</td>
-                                    <td colspan="3"><input type="text" class="inputText" name="user_info[tel]" id="buyer_tel"></td>
-                                </tr>
-                                <tr>
-                                    <td>Địa chỉ*</td>
-                                    <td colspan="3"><input type="text" class="inputText" name="user_info[address]" id="buyer_address"></td>
-                                </tr>
-                                <tr>
-                                    <td>Email*</td>
-                                    <td colspan="3"><input type="text" class="inputText" name="user_info[email]" id="buyer_email"></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                          <tbody>
+                              <tr>
+                                  <td width="170">Tỉnh/Thành phố*</td>
+                                  <td colspan="3" >
+                                      <select class="inputText" name="user_info[city]" id="buyer_city" placeholder="Chọn tỉnh thành">
+                                     
+                                      </select>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>Quận/Huyện*</td>
+                                  <td colspan="3" >
+                                      <select class="inputText" name="user_info[district]" id="buyer_district">
+                                          
+                                      </select>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>Xã/Phường*</td>
+                                  <td colspan="3">
+                                      <select class="inputText" name="user_info[ward]" id="buyer_ward">
+                                        
+                                      </select>
+                                  </td>
+                              </tr>
+                              <tr>
+                                  <td>Địa chỉ cụ thể*</td>
+                                  <td colspan="3"><input type="text" class="inputText" name="user_info[specific_address]" id="buyer_specific_address"></td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      
                     </div>
                 </div>
             </div>
@@ -95,7 +216,7 @@
                     <div class="content-box-cart">
                         <table>
                             <tbody>
-                               
+                              
                                 <tr>
                                     <td valign="top"><input id="pay_1_input" name="pay_method" value="1" type="radio"></td>
                                     <td>
@@ -106,13 +227,7 @@
                                     <td valign="top"><input id="pay_2_input" name="pay_method" value="2" type="radio"></td>
                                     <td>
                                         <label for="pay_2_input">Thanh toán online</label>
-                                        <p id="bank-transfer-info" style="display: none;">Thực hiện thanh toán vào tài khoản ngân hàng của chúng tôi. Vui lòng sử dụng Mã đơn hàng của bạn trong phần Nội dung đơn đặt hàng thành công. Đơn hàng sẽ đươc giao sau khi tiền đã chuyển.
-                                            <br>Thông tin tài Khoản ngân hàng:
-                                            
-                                            <br>– STK: 986502468;
-                                            <br>– Chủ TK: Hoàng Thị Yến;
-                                            <br>– Tại ngân hàng ACB chi nhánh Hoàng Cầu - Hà Nội.
-                                        </p>
+                                        
                                     </td>
                                 </tr>
                                 
@@ -120,9 +235,7 @@
                                     <td valign="top"><input id="pay_3_input" name="pay_method" value="3" type="radio"></td>
                                     <td>
                                         <label for="pay_3_input">Thanh toán trả góp</label>
-                                        <p id="tra-gop-infor" style="display: none;">
-                                            Hỗ trợ trả góp qua thẻ tín dụng Visa, Master, JCB.
-                                        </p>
+                                        
                                     </td>
                                 </tr>
                                 
@@ -138,5 +251,56 @@
         </div>
         
     </div>
+    <scrip
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+
+
+      
+      <script src="https://esgoo.net/scripts/jquery.js"></script>
+      <style type="text/css">
+          .css_select_div{ text-align: center;}
+          .css_select{ display: inline-table; width: 25%; padding: 5px; margin: 5px 2%; border: solid 1px #686868; border-radius: 5px;}
+      </style>
+      <script>
+          $(document).ready(function() {
+              //Lấy tỉnh thành
+              $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm',function(data_tinh){	       
+                  if(data_tinh.error==0){
+                     $.each(data_tinh.data, function (key_tinh,val_tinh) {
+                        $("#buyer_city").append('<option value="'+val_tinh.id+'">'+val_tinh.full_name+'</option>');
+                     });
+                     $("#buyer_city").change(function(e){
+                          var idtinh=$(this).val();
+                          //Lấy quận huyện
+                          $.getJSON('https://esgoo.net/api-tinhthanh/2/'+idtinh+'.htm',function(data_quan){	       
+                              if(data_quan.error==0){
+                                 $("#buyer_district").html('<option value="0">Quận Huyện</option>');  
+                                 $("#buyer_ward").html('<option value="0">Phường Xã</option>');   
+                                 $.each(data_quan.data, function (key_quan,val_quan) {
+                                    $("#buyer_district").append('<option value="'+val_quan.id+'">'+val_quan.full_name+'</option>');
+                                 });
+                                 //Lấy phường xã  
+                                 $("#buyer_district").change(function(e){
+                                      var idquan=$(this).val();
+                                      $.getJSON('https://esgoo.net/api-tinhthanh/3/'+idquan+'.htm',function(data_phuong){	       
+                                          if(data_phuong.error==0){
+                                             $("#buyer_ward").html('<option value="0">Phường Xã</option>');   
+                                             $.each(data_phuong.data, function (key_phuong,val_phuong) {
+                                                $("#buyer_ward").append('<option value="'+val_phuong.id+'">'+val_phuong.full_name+'</option>');
+                                             });
+                                          }
+                                      });
+                                 });
+                                  
+                              }
+                          });
+                     });   
+                      
+                  }
+              });
+           });	    
+       </script>
 </body>
 </html> 

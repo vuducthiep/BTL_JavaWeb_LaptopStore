@@ -141,4 +141,55 @@
       margin-top: 10px;
     }
   }
+
+
+/* Form chỉnh sửa sản phẩm */
+#editProductForm {
+  display: none; /* Ẩn form theo mặc định */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 500px;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-y: auto; /* Cho phép cuộn dọc nếu nội dung dài */
+  max-height: 80vh; /* Giới hạn chiều cao tối đa */
+}
+
+/* Các trường nhập liệu */
+#editProductForm .mb-3 {
+  margin-bottom: 15px;
+}
+
+#editProductForm label {
+  font-size: 16px;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 5px;
+  display: block;
+}
+
+#editProductForm .form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+#editProductForm .form-control:focus {
+  border-color: #007bff;
+  background-color: #fff;
+  outline: none;
+}
+
+
   
