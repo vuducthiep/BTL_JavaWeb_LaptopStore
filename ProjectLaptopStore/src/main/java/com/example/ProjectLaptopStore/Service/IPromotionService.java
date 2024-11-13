@@ -8,7 +8,7 @@ import java.util.List;
 public interface IPromotionService {
     List<Promotions_DisplayPromotionsDTO> getPromotions();
     List<Promotions_DisplayPromotionsDTO> searchPromotion(String promotionName);
-    List<Promotion_getPromotionProductDTO> displayPromotionProduct(String promotionName);
+    List<Promotion_getPromotionProductDTO> displayPromotionProduct(int id);
     void addPromotionProduct(int productID,int promotionID);
     void deletePromotionProduct(int productID,int promotionID);
 }

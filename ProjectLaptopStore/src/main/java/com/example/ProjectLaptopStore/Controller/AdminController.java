@@ -88,9 +88,9 @@ public class AdminController {
         return  result;
     }
     //API hiển thị thông tin khuyến mãi cụ thể
-    @GetMapping(value = "/promotion-product/{promotionName}")
-    public List<Promotion_getPromotionProductDTO> displayPromotionProduct(@PathVariable(name = "promotionName")String promotionName){
-        List<Promotion_getPromotionProductDTO> rs = promotionService.displayPromotionProduct(promotionName);
+    @GetMapping(value = "/promotion-product/{id}")
+    public List<Promotion_getPromotionProductDTO> displayPromotionProduct(@PathVariable(name = "id")int id){
+        List<Promotion_getPromotionProductDTO> rs = promotionService.displayPromotionProduct(id);
         return  rs;
     }
     //API thêm mã giảm giá cho sản phẩm
