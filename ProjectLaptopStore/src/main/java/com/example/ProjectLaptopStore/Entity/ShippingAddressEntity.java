@@ -13,7 +13,7 @@ public class ShippingAddressEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer AddressID;
+    private Integer addressID;
     @Column(name = "Address")
     private String address;
     @Column(name = "City")

@@ -24,7 +24,7 @@ public class UserEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int UserID;
+    private int userID;
     @Column(name = "FullName", nullable = false)
     private String fullName;
     @Column(name = "Email",nullable = false,unique = true)
