@@ -26,4 +26,7 @@ public interface IUserRepository extends JpaRepository<UserEntity,Integer> {
 //    String findByUserType(User_Enum userType);
     @Query(value = "select UserID, fullName, email, password, phoneNumber, userType, registrationDate from users",countQuery = "select count(*) from users", nativeQuery = true)
     List<UserEntity> getUsers(Pageable pageable);
+
+    //tìm nhiều user vào mảng id
+    List<UserEntity> findAllByUserIDIn(Long[] ids);
 }

@@ -1,9 +1,11 @@
 package com.example.ProjectLaptopStore.Controller;
 
+import com.example.ProjectLaptopStore.DTO.CustomerDTO;
 import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
 import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
 import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
+import com.example.ProjectLaptopStore.Response.Admin_CustomerResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
@@ -11,6 +13,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +28,9 @@ public class AdminController {
 //    private EntityManager entityManager;
     @Autowired
     private IPromotionService promotionService;
+
+    @Autowired
+    private ICustomerService customerService;
 
     @Autowired
     private AdminService adminService;
@@ -101,4 +107,25 @@ public class AdminController {
         promotionService.deletePromotionProduct(productID,promotionID);
         return  ResponseEntity.ok("success");
     }
+
+    //API lấy thông tin cho màn quản lý khách hàng
+    @GetMapping(value = "/customer/")
+    public Admin_CustomerResponseDTO adminCustomer(){
+        return customerService.adminCustomer();
+    }
+
+    //API thêm khách hàng
+    @PostMapping(value = "/customer/create-customer/")
+    public void customerCreate(@RequestBody CustomerDTO customerNew){
+        customerService.createCustomerAtService(customerNew);
+    }
+
+    //API lấy thông tin chi tiết cho  
+
+    //API sửa khách hàng
+    @PutMapping(value = "/customer/update/{id}")
+    public void customerUpdate(@RequestBody CustomerDTO customerUpdate){
+        customerService.updateCustomerAtService(customerUpdate);
+    }
+
 }
