@@ -14,6 +14,4 @@ public class Admin_CustomerResponseDTO {
     List<Customer_CountNewCustomerPerMonthDTO> countNewCustomerPerMonth;
     List<Customer_FindTopCustomerInMonthDTO> findTopCustomerInMonth;
     List<CustomerDTO> listCustomer;
-
-
 }

@@ -54,7 +54,7 @@ function showInvoiceDetails(orderId) {
         .then((invoice) => {
             const details = `
                 Order Date: ${new Date(invoice.orderDate).toLocaleDateString()}<br>
-                Customer: ${invoice.fullName}<br>
+                Customer: ${invoice.fullName}<br>g
                 Phone: ${invoice.phoneNumber}<br>
                 Address: ${invoice.shippingAddress || "N/A"}, ${invoice.shippingCity || "N/A"}<br>
                 Product: ${invoice.productName} - ${invoice.model} (${invoice.brand})<br>
