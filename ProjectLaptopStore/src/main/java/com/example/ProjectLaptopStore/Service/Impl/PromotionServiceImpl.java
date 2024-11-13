@@ -12,16 +12,19 @@ import com.example.ProjectLaptopStore.Repository.IPromotionRepository;
 import com.example.ProjectLaptopStore.Service.IPromotionService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 @Service
 public class PromotionServiceImpl implements IPromotionService {
     @Autowired
     IPromotionRepository promotionRepository;
+
 
     @Autowired
     IProductRepository productRepository;
@@ -62,20 +65,20 @@ public class PromotionServiceImpl implements IPromotionService {
     }
 
     @Override
-    public List<Promotion_getPromotionProductDTO> displayPromotionProduct(String promotionName){
-        List<Object[]> rs = promotionRepository.getPromotionProduct(promotionName);
+    public List<Promotion_getPromotionProductDTO> displayPromotionProduct(int id) {
+        List<Object[]> rs = promotionRepository.getPromotionProduct(id);
         List<Promotion_getPromotionProductDTO> promotionProduct = new ArrayList<>();
         for (Object[] o : rs){
             Promotion_getPromotionProductDTO pp = Promotion_getPromotionProductDTO.builder()
-                    .productName((String) o[0])
-                    .brand((String) o[1])
-                    .hasPromotion((Integer) o[2])
+                    .productID((int) o[0])
+                    .productName((String) o[1])
+                    .brand((String) o[2])
+                    .hasPromotion((Long) o[3])
                     .build();
             promotionProduct.add(pp);
         }
         return promotionProduct;
     }
-
 
     @Override
     public void addPromotionProduct(int productID, int promotionID) {

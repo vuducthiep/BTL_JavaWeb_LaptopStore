@@ -11,7 +11,7 @@ public interface IProductDescriptionService {
 
     ProductDescriptionDTO finProductDescriptionById(Long id);
     Map<String,String> getCPUTechnologyForCheckbox();
-    Map<Long,Long> getRamCapacityForCheckbox();
+    Map<Integer,Integer> getRamCapacityForCheckbox();
     Map<String,String> getHardDriveForCheckbox();
     Map<String,String> getScreensizeForCheckbox();
 

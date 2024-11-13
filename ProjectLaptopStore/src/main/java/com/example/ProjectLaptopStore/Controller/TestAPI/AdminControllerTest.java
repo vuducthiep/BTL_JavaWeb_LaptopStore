@@ -105,7 +105,7 @@ public class AdminControllerTest {
 
     //API tạo sản phẩm
     @PostMapping("/admin/createproduct/")
-    public void createProduct(@RequestBody Product_CreateProductDTO createProductDTO){
+    public void createProduct(@RequestBody ProductDetailDTO createProductDTO){
         productService.createNewProduct(createProductDTO);
     }
 
@@ -123,7 +123,7 @@ public class AdminControllerTest {
 
     //API cập nhật  sản phẩm (trả về cho repo product chứa id)
     @PutMapping("/admin/updateproduct/")
-    public void updateProduct(@RequestBody Product_UpdateProductDTO updateProductDTO){
+    public void updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
         productService.updateProduct(updateProductDTO);
     }
 

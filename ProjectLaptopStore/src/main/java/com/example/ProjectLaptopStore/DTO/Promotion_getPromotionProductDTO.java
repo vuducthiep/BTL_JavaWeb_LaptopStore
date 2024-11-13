@@ -11,7 +11,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
 public class Promotion_getPromotionProductDTO {
+    int productID;
     String productName;
     String brand;
-    int hasPromotion;
+    Long hasPromotion;
 }
