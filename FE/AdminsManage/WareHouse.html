@@ -51,83 +51,94 @@
 
       <!-- Content -->
       <div class="container mt-5" id="content-area">
-        <h1 class="text-center">WareHouse</h1>
-        <div class="row">
-            <div class="col-8">
-                <div class="row">
-                    <div class="col-8">
-                        <div class="card-header">
-                            <h6>Thông tin kho</h6>
-                        </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="card-body">
-                                    <ul class="Warehouse-infor">
-                                        <li class="list-group">
-                                            <div class="d-flex flex-column">
-                                                <h5 id="warehouseName">Kho 1</h5>
-                                                <span id="warehouseID">ID: 1</span>
-                                                <span id="warehouseAddress">Địa chỉ: Hà Nội</span>
-                                                <span id="warehouseType">Loại nhà kho: Trung tâm</span>
-                                                <span id="warehouseStatus">Trạng thái: Kích hoạt</span>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <label for="combobox">Chọn kho</label>
-                                <select id="combobox" class="form-control" onchange="loadWarehouseData(this.value)">
-                                    <option value="1">Kho 1</option>
-                                    <option value="2">Kho 2</option>
-                                    <option value="3">Kho 3</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4">
-                        <h6>Số lượng sản phẩm trong kho</h6>
-                        <span id="productQuantity">300</span>
-                    </div>
-                </div>
+        <h1 class="text-center mb-4">WareHouse</h1>
+        
+        <!-- Khu vực thông tin kho và các nút -->
+        <div class="card mb-4">
+          <div class="card-header d-flex justify-content-between align-items-center">
+            <h6>Thông tin kho</h6>
+            <div>
+              <button class="btn btn-primary btn-sm" onclick="addWarehouse()">Thêm</button>
+              <button class="btn btn-warning btn-sm" onclick="editWarehouse()">Sửa</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteWarehouse()">Xóa</button>
             </div>
-    
-            <div class="col-4">
-                <div class="row">
-                    <div class="col-12">
-                        <span>Số sản phẩm xuất kho</span>
-                        <span id="productExportQuantity">300</span>
-                    </div>
-                    <div class="col-12">
-                        <span>Số sản phẩm nhập kho</span>
-                        <span id="productImportQuantity">300</span>
-                    </div>
-                </div>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-8">
+                <ul class="Warehouse-infor list-unstyled">
+                  <li><strong id="warehouseName">Kho 1</strong></li>
+                  <li>ID: <span id="warehouseID">1</span></li>
+                  <li>Địa chỉ: <span id="warehouseAddress">Hà Nội</span></li>
+                  <li>Loại nhà kho: <span id="warehouseType">Trung tâm</span></li>
+                  <li>Trạng thái: <span id="warehouseStatus">Kích hoạt</span></li>
+                </ul>
+              </div>
+              <div class="col-md-4">
+                <label for="combobox">Chọn kho</label>
+                <select id="combobox" class="form-control" onchange="loadWarehouseData(this.value)">
+                  <!-- Tùy chọn sẽ được tạo động -->
+                </select>
+              </div>
             </div>
+          </div>
         </div>
-    
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <div class="col-8">
-                        <div>Sản phẩm</div>
-                        <ul id="productList">
-                            <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
-                        </ul>
-                    </div>
-                    <div class="col-4">
-                        <div>Phiếu xuất kho</div>
-                        <ul id="exportList">
-                            <!-- Phiếu xuất kho sẽ được hiển thị ở đây -->
-                        </ul>
-                        <div>Phiếu nhập kho</div>
-                        <ul id="importList">
-                            <!-- Phiếu nhập kho sẽ được hiển thị ở đây -->
-                        </ul>
-                    </div>
-                </div>
+      
+        <!-- Khu vực thống kê sản phẩm -->
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h6>Số lượng sản phẩm trong kho</h6>
+                <span id="productQuantity">300</span>
+              </div>
             </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h6>Số sản phẩm xuất kho</h6>
+                <span id="productExportQuantity">300</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h6>Số sản phẩm nhập kho</h6>
+                <span id="productImportQuantity">300</span>
+              </div>
+            </div>
+          </div>
         </div>
+      
+        <!-- Khu vực sản phẩm và phiếu kho -->
+        <div class="row">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">Danh sách sản phẩm</div>
+              <ul class="list-group list-group-flush" id="productList">
+                <!-- Sản phẩm sẽ được hiển thị ở đây -->
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card mb-4">
+              <div class="card-header">Phiếu xuất kho</div>
+              <ul class="list-group list-group-flush" id="exportList">
+                <!-- Phiếu xuất kho -->
+              </ul>
+            </div>
+            <div class="card">
+              <div class="card-header">Phiếu nhập kho</div>
+              <ul class="list-group list-group-flush" id="importList">
+                <!-- Phiếu nhập kho -->
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      
     </div>
     
 

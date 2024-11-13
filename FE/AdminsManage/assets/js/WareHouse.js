@@ -9,6 +9,21 @@ function loadWarehouseData(warehouseID) {
     fetch(warehouseApiUrl)
         .then(response => response.json())
         .then(data => {
+            // Lấy combobox
+            const combobox = document.getElementById('combobox');
+            combobox.innerHTML = ''; // Xóa các option cũ nếu có
+
+            // Thêm từng kho vào combobox
+            data.warehouseList.forEach(warehouse => {
+                const option = document.createElement('option');
+                option.value = warehouse.warehouseID;
+                option.textContent = warehouse.warehouseName;
+                combobox.appendChild(option);
+            });
+
+            // Đặt giá trị mặc định cho combobox là kho hiện tại
+            combobox.value = warehouseID;
+
             // Cập nhật thông tin kho
             document.getElementById('warehouseName').innerText = data.warehouseInfo.warehouseName;
             document.getElementById('warehouseID').innerText = `ID: ${data.warehouseInfo.warehouseID}`;
@@ -25,12 +40,13 @@ function loadWarehouseData(warehouseID) {
             let productListHtml = '';
             data.listProductsInWarehouse.forEach(product => {
                 productListHtml += `
-                    <li>
-                        <img src="path/to/product-image.jpg" alt="${product.productName}" />
-                        <span>${product.productName}</span> - 
-                        <span>Số lượng: ${product.quantity}</span>
-                    </li>
-                `;
+                     <li>
+            <img src="path/to/product-image.jpg" alt="${product.productName}" />
+            <span>${product.productName}</span> - 
+            <span>Số lượng: ${product.quantity}</span>
+            <button class="btn btn-warning btn-sm" onclick="editProduct(${product.productID})">Sửa</button>
+          </li>
+        `;
             });
             document.getElementById('productList').innerHTML = productListHtml;
 
@@ -65,5 +81,13 @@ function loadWarehouseData(warehouseID) {
         .catch(error => console.error('Error fetching data:', error));
 }
 
-// Gọi hàm để load kho mặc định (Kho 1)
-loadWarehouseData(1);
+// Sự kiện lắng nghe thay đổi combobox
+document.getElementById('combobox').addEventListener('change', (event) => {
+    const selectedWarehouseID = event.target.value;
+    loadWarehouseData(selectedWarehouseID);
+});
+
+// Gọi hàm để load kho mặc định khi trang được tải (Kho 1)
+document.addEventListener('DOMContentLoaded', () => {
+    loadWarehouseData(1);
+});
