@@ -14,7 +14,7 @@ public class User_HomeResponseDTO {
     private Map<Integer,String> getSuppliersForCheckboxAndBtn;
     private Map<List<Integer>,String> getPriceProductForCheckbox;
     private Map<String,String> getCPUForCheckbox;
-    private Map<Long,Long> getRamForCheckbox;
+    private Map<Integer,Integer> getRamForCheckbox;
     private Map<String,String> getHardDriveForCheckbox;
     private Map<String,String> getCustomerDemandForCheckBox;
     private Map<String,String> getScreenSizeForCheckbox;
@@ -22,7 +22,7 @@ public class User_HomeResponseDTO {
     public User_HomeResponseDTO() {
     }
 
-    public User_HomeResponseDTO(List<Product_DisplayForHomePageDTO> findProductByKeyword, List<Product_DisplayForHomePageDTO> getProductForHomePage, Map<Integer, String> getSuppliersForCheckboxAndBtn, Map<List<Integer>, String> getPriceProductForCheckbox, Map<String, String> getCPUForCheckbox, Map<Long, Long> getRamForCheckbox, Map<String, String> getHardDriveForCheckbox, Map<String, String> getCustomerDemandForCheckBox, Map<String, String> getScreenSizeForCheckbox) {
+    public User_HomeResponseDTO(List<Product_DisplayForHomePageDTO> findProductByKeyword, List<Product_DisplayForHomePageDTO> getProductForHomePage, Map<Integer, String> getSuppliersForCheckboxAndBtn, Map<List<Integer>, String> getPriceProductForCheckbox, Map<String, String> getCPUForCheckbox, Map<Integer, Integer> getRamForCheckbox, Map<String, String> getHardDriveForCheckbox, Map<String, String> getCustomerDemandForCheckBox, Map<String, String> getScreenSizeForCheckbox) {
         this.findProductByKeyword = findProductByKeyword;
         this.getProductForHomePage = getProductForHomePage;
         this.getSuppliersForCheckboxAndBtn = getSuppliersForCheckboxAndBtn;

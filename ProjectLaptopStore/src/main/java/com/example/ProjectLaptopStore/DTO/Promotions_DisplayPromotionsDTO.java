@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Promotions_DisplayPromotionsDTO {
+    int promotionID;
     String promotionName;
     BigDecimal discountPercentage;
     String promotionDetails;

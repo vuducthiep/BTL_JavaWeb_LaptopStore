@@ -53,8 +53,8 @@ public class ProductDescriptionServiceImpl implements IProductDescriptionService
     }
 
     @Override
-    public Map<Long, Long> getRamCapacityForCheckbox() {
-        Map<Long, Long> result = new HashMap<>();
+    public Map<Integer, Integer> getRamCapacityForCheckbox() {
+        Map<Integer, Integer> result = new HashMap<>();
         List<ProductDescriptionEntity> productDescriptionEntityList = productDescriptionRepository.findAll();
         for (ProductDescriptionEntity item : productDescriptionEntityList) {
             result.put(item.getRamCapacity(),item.getRamCapacity());
