@@ -14,10 +14,13 @@ public interface IPromotionRepository extends JpaRepository<PromotionEntity,Inte
             "WHERE p.PromotionName LIKE %:name%", nativeQuery = true)
     List<PromotionEntity> getPromotionByPromotionName(@Param("name") String name);
 
-    @Query(value = "SELECT distinct p.ProductName AS productName, p.Brand AS brand, " +
-            "                   CASE WHEN pm.PromotionName = :promotionName THEN 1 ELSE 0 END AS hasPromotion " +
-            "                   FROM Products p  " +
-            "                   join promotionproduct pp on p.ProductID = pp.ProductID" +
-            "                   join promotions pm on pm.PromotionID = pp.PromotionID", nativeQuery = true)
-    List<Object[]> getPromotionProduct(@Param("promotionName")String promotionName);
+    @Query(value = "SELECT p.ProductID, \n" +
+            "       p.ProductName AS productName, \n" +
+            "       p.Brand AS brand, \n" +
+            "       MAX(CASE WHEN pm.PromotionID = :promotionID THEN 1 ELSE 0 END) AS hasPromotion\n" +
+            "FROM Products p  \n" +
+            "LEFT JOIN promotionproduct pp ON p.ProductID = pp.ProductID\n" +
+            "LEFT JOIN promotions pm ON pm.PromotionID = pp.PromotionID\n" +
+            "GROUP BY p.ProductID", nativeQuery = true)
+    List<Object[]> getPromotionProduct(@Param("promotionID")int promotionID);
 }

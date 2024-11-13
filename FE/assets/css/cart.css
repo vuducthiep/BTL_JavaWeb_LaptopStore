@@ -1,5 +1,109 @@
+/* /* Reset cơ bản
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+  }
+  /* header */
+  /* Logo */
+  /* Định dạng chung cho layout với Bootstrap */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px; /* Thêm padding để nội dung không bị chèn vào cạnh */
+  }
+  
+  /* Header */
+  .header-custom {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-wrap: wrap; /* Để cho các phần tử có thể xuống dòng khi không đủ không gian */
+  }
+  
+  /* Logo */
+  .logo img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+  }
+  
+  /* Form tìm kiếm */
+  .seach-form {
+    flex-grow: 5;
+    max-width: 500px;
+    margin-left: 20px;
+    flex-basis: 100%; /* Thay đổi để chiếm toàn bộ chiều rộng trên màn hình nhỏ */
+  }
+  
+  #stext {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+  }
+  .quantity-btn{
+    width: 17px;
+  }
+  #sbutton {
+    background-color: #050606;
+    border: none;
+    padding: 10px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    color: white;
+  }
+  
+  #sbutton i {
+    font-size: 16px;
+  }
+  
+  #sbutton:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Tài khoản người dùng */
+  .user-account {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .user-account i {
+    color: #333;
+    transition: color 0.3s ease;
+  }
+  
+  .user-account i:hover {
+    color: #007bff; /* Đổi màu biểu tượng khi hover */
+  }
+  
+.breadcrumb {
+    padding: 10px 0;
+    font-size: 18px;
+    font-family: Arial, sans-serif; 
+}
 
-.container {
+.breadcrumb a {
+    text-decoration: none; 
+    color: #007bff;
+    font-weight: bold;
+}
+
+.breadcrumb a:hover {
+    color: #0056b3;
+}
+
+
+.container2 {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
@@ -12,7 +116,9 @@ h1 {
 }
 
 table {
-    width: 100%;
+  
+  margin-right: 50px;
+    width: 110%;
     border-collapse: collapse;
 }
 
@@ -29,18 +135,19 @@ th {
 .total {
     margin: 20px 0;
     font-weight: bold;
-}
+} 
 
-.form-container {
+.form-container2 {
     display: flex; /* Sử dụng Flexbox */
     justify-content: space-between; /* Căn giữa các cột */
-}
+} */
 
 .cart-left, .cart-right {
     width: 48%; /* Đặt chiều rộng cho các cột */
 }
 
 .box-cart {
+  margin-top: 50px;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -53,17 +160,19 @@ th {
 }
 
 .content-box-cart {
+ 
     padding: 10px;
+    width: 500px;
 }
 
 .inputText {
-    width: 100%;
+    width: 80%;
     padding: 8px;
-    box-sizing: border-box; /* Đảm bảo padding không vượt quá chiều rộng */
+    box-sizing: border-box;
 }
 
 textarea {
-    resize: none; /* Không cho phép thay đổi kích thước */
+    resize: none;
 }
 
 .action-button.green {
@@ -82,20 +191,173 @@ textarea {
 }
 
 #bank-transfer-info {
-    background-color: #ff8f00; /* Màu nền cam */
-    color: #fff; /* Màu chữ trắng */
-    padding: 10px; /* Khoảng cách bên trong */
-    border-radius: 5px; /* Bo góc */
-    margin-top: 5px; /* Khoảng cách phía trên */
-    font-weight: bold; /* Chữ đậm */
+    background-color: #ff8f00;
+    color: #fff;
+    padding: 10px; 
+    border-radius: 5px; 
+    margin-top: 5px; 
+    font-weight: bold;  
     
 }
 
-#tragop-infor{
-    background-color: #ff8f00; /* Màu nền cam */
-    color: #fff; /* Màu chữ trắng */
-    padding: 10px; /* Khoảng cách bên trong */
-    border-radius: 5px; /* Bo góc */
-    margin-top: 5px; /* Khoảng cách phía trên */
-    font-weight: bold; /* Chữ đậm */
+#tra-gop-infor{
+    background-color: #ff8f00;
+    color: #fff;
+    padding: 10px; 
+    border-radius: 5px; 
+    margin-top: 5px; 
+    font-weight: bold; 
+}
+
+.quantity-input {
+    width: 50px;
+    height: 20px; 
+    text-align: center;
+    font-size: 14px; 
+}
+/* Style for the remove button */
+.remove-btn {
+  background-color: #e74c3c; /* Red background */
+  color: white;              /* White text */
+  border: none;
+  padding: 8px 12px;         /* Padding for better button size */
+  border-radius: 5px;        /* Rounded corners */
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;       /* Align the icon and text */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect for the remove button */
+.remove-btn:hover {
+  background-color: #c0392b; /* Darker red on hover */
+  transform: scale(1.05);     /* Slight scaling effect on hover */
+}
+
+/* Style for the icon inside the button */
+.remove-btn i {
+  margin-right: 8px; /* Add space between icon and text */
+}
+
+/* Style for the button when disabled (optional) */
+.remove-btn:disabled {
+  background-color: #ccc;  /* Gray background */
+  cursor: not-allowed;     /* Change cursor to indicate it's disabled */
+}
+
+.product-image {
+    width: 50px;
+    height: auto; 
+    margin-right: 10px; 
+    vertical-align: middle; 
+}
+
+#btn-submit {
+    margin-left: 180px;
+}
+
+.thanhToan {
+  margin-top: 10px;
+  border: 2px solid #333; /* Viền xung quanh */
+  border-radius: 8px; /* Bo góc viền */
+  font-family: 'Arial', sans-serif; /* Phông chữ đẹp và dễ đọc */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Bóng mờ tạo chiều sâu */
+  
+  background-color: #eadadac3; /* Màu nền nhẹ */
+  padding: 15px; /* Khoảng cách bên trong */
+  width: fit-content;
+  max-width: 400px;
+
+  text-align: center;
+  
+}
+
+.thanhToan h3 {
+  color: #333; /* Màu chữ */
+  font-weight: 600; /* Độ đậm của chữ */
+  font-size: 1.2em; /* Kích thước chữ */
+  margin: 10px 0; /* Khoảng cách giữa các dòng chữ */
+}
+
+.thanhToan .total-amount, 
+.thanhToan .total-price {
+  color: #e63946; /* Màu chữ cho số */
+  font-weight: bold;
+  font-size: 1.3em;
+}
+.view-details-btn {
+  background-color: #007bff; /* Màu nền xanh */
+  color: #fff; /* Màu chữ trắng */
+  padding: 5px 10px; /* Khoảng cách trong nút */
+  border: none; /* Không viền */
+  border-radius: 4px; /* Bo tròn góc */
+  cursor: pointer; /* Con trỏ dạng tay */
+  font-size: 14px; /* Kích thước chữ */
+  transition: background-color 0.3s ease; /* Hiệu ứng màu khi hover */
+}
+
+.view-details-btn:hover {
+  background-color: #0056b3; /* Màu xanh đậm khi hover */
+}
+.product-checkbox {
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+#selectAll{
+  height: 20px;
+  width: 20px;
+  position: relative;
+  top: 6px
+}
+
+.quantity-btn {
+  background-color: #4CAF50; /* Green background */
+  color: white;              /* White text */
+  border: none;
+  width: 20px;
+  height: 25px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the buttons */
+.quantity-btn:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Style for the quantity input field */
+.quantity-input {
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border: none;
+  outline: none;
+  background-color: #f9f9f9; /* Light background */
+  padding: 5px;
+}
+
+/* Focus style for input */
+.quantity-input:focus {
+  border: 1px solid #4CAF50; /* Green border when focused */
+}
+
+table {
+  border-collapse: collapse; /* Đảm bảo viền không bị chồng lên nhau */
+  width: 100%; /* Đảm bảo bảng chiếm toàn bộ chiều rộng */
+}
+
+table th, table td {
+  border: 1px solid #ccc; /* Thêm viền cho các ô trong bảng */
+  padding: 8px; /* Khoảng cách giữa nội dung và viền */
+  text-align: center; /* Căn giữa nội dung */
+}
+
+table th {
+  background-color: #f4f4f4; /* Màu nền cho các tiêu đề */
 }
