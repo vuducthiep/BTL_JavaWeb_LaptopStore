@@ -1,13 +1,8 @@
 package com.example.ProjectLaptopStore.Controller;
 
-import com.example.ProjectLaptopStore.DTO.CustomerDTO;
-import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
-import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
-import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
-import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_CustomerResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_DashBoardResponseDTO;
-import com.example.ProjectLaptopStore.Response.Admin_WarehouseResponseDTO;
+import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Response.*;
 import com.example.ProjectLaptopStore.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -29,6 +24,8 @@ public class AdminController {
     @Autowired
     private IPromotionService promotionService;
 
+    @Autowired
+    private IProductService productService;
     @Autowired
     private ICustomerService customerService;
 
@@ -138,5 +135,21 @@ public class AdminController {
         customerService.updateCustomerAtService(customerUpdate);
     }
 
+    //API lấy thông tin sản phẩm
+    @GetMapping(value = "/product/")
+    public Admin_ProductResponseDTO adminProduct(){
+        return productService.adminProduct();
+    }
+
+    //API tạo sản phẩm
+    @PostMapping("/createproduct/")
+    public void createProduct(@RequestBody ProductDetailDTO createProductDTO){
+        productService.createNewProduct(createProductDTO);
+    }
+    //API cập nhật  sản phẩm
+    @PutMapping("/updateproduct/")
+    public void updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
+        productService.updateProduct(updateProductDTO);
+    }
 
 }
