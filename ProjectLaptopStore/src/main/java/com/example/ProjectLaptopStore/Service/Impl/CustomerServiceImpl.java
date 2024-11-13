@@ -89,7 +89,16 @@ public class CustomerServiceImpl implements ICustomerService {
         return result;
     }
 
-
+    @Override
+    public CustomerDTO getCustomerByID(Integer id) {
+        List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
+        for(CustomerDTO customerDTO : listCustomer){
+            if(customerDTO.getCustomerID().equals(id)){
+                return customerDTO;
+            }
+        }
+        return null;
+    }
 
 
 }

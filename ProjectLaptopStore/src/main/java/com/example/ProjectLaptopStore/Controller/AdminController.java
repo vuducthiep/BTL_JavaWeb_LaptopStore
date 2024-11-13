@@ -114,18 +114,29 @@ public class AdminController {
         return customerService.adminCustomer();
     }
 
+    //API xóa khách hàng
+    @DeleteMapping(value = "/customer/{ids}")
+    public void customerDelete(@PathVariable(name = "ids") Long[] ids){
+        customerService.deleteCustomerAtService(ids);
+    }
+
     //API thêm khách hàng
     @PostMapping(value = "/customer/create-customer/")
     public void customerCreate(@RequestBody CustomerDTO customerNew){
         customerService.createCustomerAtService(customerNew);
     }
 
-    //API lấy thông tin chi tiết cho  
+    //API lấy thông tin chi tiết cho form sửa thông tin khách
+    @GetMapping(value = "/customer/update/{id}")
+    public CustomerDTO getCustomerById(@PathVariable(name = "id") Integer id){
+        return customerService.getCustomerByID(id);
+    }
 
     //API sửa khách hàng
     @PutMapping(value = "/customer/update/{id}")
     public void customerUpdate(@RequestBody CustomerDTO customerUpdate){
         customerService.updateCustomerAtService(customerUpdate);
     }
+
 
 }
