@@ -39,7 +39,8 @@ public class AdminServiceImpl implements AdminService {
     private IWareHouseRepository wareHouseRepository;
     @Autowired
     private Order_TotalAmountInMonthDTOConverter order_TotalAmountInMonthDTOConverter;
-
+    @Autowired
+    private ICustomerRepository customerRepository;
     @Autowired
     private ProductsInWarehouseRepository productsInWarehouseRepository;
     @Autowired
@@ -57,7 +58,7 @@ public class AdminServiceImpl implements AdminService {
             List<Order_CountTotalAmountDTO> totalAmountForChart = orderService.listCountTotalAmountAtService();
             List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart = orderDetailService.listCountQuantityProductPerMonth();
             List<Product_FindTopPurchasedProductsDTO> listTopProductSell = productService.findTopPurchasedProductAtService();
-            List<Customer_FindTopCustomerInMonthDTO> listTopCustomer = customerService.listTopCustomerInMonth();
+            List<CustomerDTO> listTopCustomer = customerRepository.listTopCustomerInMonth();
             adminInfo.setQuantitySellProductCurrentMonth(productSellInMonth);
             adminInfo.setTotalCustomerInCurrentMonth(totalCustomerInMonth);
             adminInfo.setTotalNewCustomerInCurrentMonth(totalNewCustomerInMonth);

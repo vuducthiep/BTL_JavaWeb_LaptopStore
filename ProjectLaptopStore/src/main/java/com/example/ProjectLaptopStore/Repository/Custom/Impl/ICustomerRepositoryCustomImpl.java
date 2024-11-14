@@ -28,17 +28,17 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
     @PersistenceContext
     private EntityManager entityManager;
 
-    // Hàm xây dựng câu truy vấn điều kiện
-    public static void queryNomal(CustomerSearchBuilder customerSearchBuilder, StringBuilder where) {
-        // Nếu có ngày bắt đầu
-        if (customerSearchBuilder.getDateRegisterFrom() != null) {
-            where.append(" and c.RegistrationDate >= :dateRegisterFrom ");
-        }
-        // Nếu có ngày kết thúc
-        if (customerSearchBuilder.getDateRegisterTo() != null) {
-            where.append(" and c.RegistrationDate <= :dateRegisterTo ");
-        }
-    }
+//    // Hàm xây dựng câu truy vấn điều kiện
+//    public static void queryNomal(CustomerSearchBuilder customerSearchBuilder, StringBuilder where) {
+//        // Nếu có ngày bắt đầu
+//        if (customerSearchBuilder.getDateRegisterFrom() != null) {
+//            where.append(" and c.RegistrationDate >= :dateRegisterFrom ");
+//        }
+//        // Nếu có ngày kết thúc
+//        if (customerSearchBuilder.getDateRegisterTo() != null) {
+//            where.append(" and c.RegistrationDate <= :dateRegisterTo ");
+//        }
+//    }
 
 //    @Override
 //    public Integer countNewCustomer(CustomerSearchBuilder customerSearchBuilder) {
@@ -154,115 +154,84 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
     }
 
     @Override
-    public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
-        String query =
-                "SELECT " +
-                        "c.CustomerID, " +
-                        "u.FullName, " +
-                        "u.Email, " +
-                        "u.PhoneNumber, " +
-                        "u.RegistrationDate, " +
-                        "sd.Address, " +
-                        "sd.City, " +
-                        "sd.District, " +
-                        "sd.Ward, " +
-                        "sd.StreetAddress, " +
-                        "SUM(o.TotalAmount) AS totalamount, " +
-                        "SUM(od.Quantity) AS quantity " +
-                        "FROM " +
-                        "Customers c " +
-                        "JOIN " +
-                        "Users u ON u.UserID = c.UserID " +
-                        "JOIN " +
-                        "Orders o ON c.CustomerID = o.CustomerID " +
-                        "JOIN " +
-                        "OrderDetails od ON o.OrderID = od.OrderID " +
-                        "JOIN " +
-                        "ShippingAddresses sd ON c.CustomerID = sd.CustomerID " +
-                        "WHERE " +
-                        "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
-                        "AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
-                        "AND c.Status = 'active' "+
-                        "GROUP BY " +
-                        "c.CustomerID, " +
-                        "u.FullName, " +
-                        "u.Email, " +
-                        "u.PhoneNumber, " +
-                        "u.RegistrationDate, " +
-                        "sd.Address, " +
-                        "sd.City, " +
-                        "sd.District, " +
-                        "sd.Ward, " +
-                        "sd.StreetAddress " +
-                        "ORDER BY " +
-                        "totalamount DESC ;";
-        Query queryNative = entityManager.createNativeQuery(query);
+    public List<CustomerDTO> listTopCustomerInMonth() {
+        StringBuilder query= setQuery(" MONTH(o.OrderDate) = MONTH(CURDATE()) " +
+                " AND YEAR(o.OrderDate) = YEAR(CURDATE()) AND ");
+        query.append(" ORDER BY totalamount DESC ");
+        Query queryNative = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = queryNative.getResultList();
-        List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = new ArrayList<>();
+        List<CustomerDTO> listCustomerDTO = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
-            Customer_FindTopCustomerInMonthDTO dto = new Customer_FindTopCustomerInMonthDTO(
-                    (Integer) rowOfResult[0],
-                    (String) rowOfResult[1],
-                    (String) rowOfResult[2],
-                    (String) rowOfResult[3],
-                    (Date) rowOfResult[4],
-                    (String) rowOfResult[5],
-                    (String) rowOfResult[6],
-                    (String) rowOfResult[7],
-                    (String) rowOfResult[8],
-                    (String) rowOfResult[9],
-                    (BigDecimal) rowOfResult[10],
-                    (Integer) rowOfResult[11]
-            );
-            listTopCustomerInMonth.add(dto);
+            CustomerDTO dto = setConstructor(rowOfResult);
+            listCustomerDTO.add(dto);
         }
-        return listTopCustomerInMonth;
+        return listCustomerDTO;
+
     }
 
     @Override
     public List<CustomerDTO> getListCustomer() {
-        String query = "SELECT \n" +
-                "u.UserID AS userID,\n" +
-                "c.CustomerID AS customerID,\n" +
-                "sa.AddressID AS addressID,\n" +
-                "u.FullName AS fullName,\n" +
-                "u.Email AS email,\n" +
-                "u.Password AS passWord,\n" +
-                "u.PhoneNumber AS phoneNumber,\n" +
-                "u.RegistrationDate AS registrationDate,\n" +
-                "sa.Address AS address,\n" +
-                "sa.City AS city,\n" +
-                "sa.District AS district,\n" +
-                "sa.Ward AS ward,\n" +
-                "sa.StreetAddress AS streetAddress\n" +
-                "FROM Users u\n" +
-                "JOIN Customers c ON u.UserID = c.UserID\n" +
-                "LEFT JOIN \n" +
-                "ShippingAddresses sa ON c.CustomerID = sa.CustomerID " +
-                "Where c.Status = 'active' ";
-        Query queryNative = entityManager.createNativeQuery(query);
+        StringBuilder query = setQuery(" ");
+        Query queryNative = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = queryNative.getResultList();
         List<CustomerDTO> listCustomerDTO = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
-            CustomerDTO dto = new CustomerDTO(
-                    (Integer) rowOfResult[0],
-                    (Integer) rowOfResult[1],
-                    (Integer) rowOfResult[2],
-                    (String) rowOfResult[3],
-                    (String) rowOfResult[4],
-                    (String) rowOfResult[5],
-                    (String) rowOfResult[6],
-                    (Date) rowOfResult[7],
-                    (String) rowOfResult[8],
-                    (String) rowOfResult[9],
-                    (String) rowOfResult[10],
-                    (String) rowOfResult[11],
-                    (String) rowOfResult[12]
-            );
+            CustomerDTO dto = setConstructor(rowOfResult);
             listCustomerDTO.add(dto);
         }
         return listCustomerDTO;
     }
 
+    public StringBuilder setQuery(String addQuery){
+        StringBuilder query = new StringBuilder(
+                "SELECT \n" +
+                        "    SUM(o.TotalAmount) AS totalamount,\n" +
+                        "    u.UserID AS userID,\n" +
+                        "    c.CustomerID AS customerID,\n" +
+                        "    sa.AddressID AS addressID,\n" +
+                        "    u.FullName AS fullName,\n" +
+                        "    u.Email AS email,\n" +
+                        "    u.Password AS passWord,\n" +
+                        "    u.PhoneNumber AS phoneNumber,\n" +
+                        "    u.RegistrationDate AS registrationDate,\n" +
+                        "    sa.Address AS address,\n" +
+                        "    sa.City AS city,\n" +
+                        "    sa.District AS district,\n" +
+                        "    sa.Ward AS ward,\n" +
+                        "    sa.StreetAddress AS streetAddress\n" +
+                        "FROM Users u\n" +
+                        "JOIN Customers c ON u.UserID = c.UserID\n" +
+                        "JOIN ShippingAddresses sa ON c.CustomerID = sa.CustomerID \n" +
+                        "JOIN Orders o ON c.CustomerID = o.CustomerID \n" +
+                        "WHERE  \n" +
+                        addQuery+
+                        "  c.Status = 'active' \n" +
+                        "GROUP BY \n" +
+                        "    u.UserID, c.CustomerID, sa.AddressID, u.FullName, u.Email, u.Password, \n" +
+                        "    u.PhoneNumber, u.RegistrationDate, sa.Address, sa.City, sa.District, \n" +
+                        "    sa.Ward, sa.StreetAddress  "
+                );
 
+        return query;
+    }
+
+    public CustomerDTO setConstructor(Object[] rowOfResult){
+        CustomerDTO dto = new CustomerDTO(
+                (BigDecimal) rowOfResult[0],
+                (Integer) rowOfResult[1],
+                (Integer) rowOfResult[2],
+                (Integer) rowOfResult[3],
+                (String) rowOfResult[4],
+                (String) rowOfResult[5],
+                (String) rowOfResult[6],
+                (String) rowOfResult[7],
+                (Date) rowOfResult[8],
+                (String) rowOfResult[9],
+                (String) rowOfResult[10],
+                (String) rowOfResult[11],
+                (String) rowOfResult[12],
+                (String) rowOfResult[13]
+        );
+        return dto;
+    }
 }
