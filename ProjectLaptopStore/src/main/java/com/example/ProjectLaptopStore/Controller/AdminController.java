@@ -2,6 +2,7 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Response.*;
 import com.example.ProjectLaptopStore.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +33,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private ISuppliersService  suppliersService;
     @Autowired
     private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard
@@ -160,6 +163,32 @@ public class AdminController {
     @DeleteMapping(value = "/product/{ids}")
     public void deleteProduct(@PathVariable Long[] ids){
         productService.deleteProduct(ids);
+    }
+    //API lấy thông tin cho quản lý nhà cung cấp
+    @GetMapping(value = "/supplier/")
+    public List<SuppliersEntity> getListSupplier(){
+        return suppliersService.getListSupplier();
+    }
+    //API lấy thông tin nhà cung cấp lên để sửa
+    @GetMapping(value = "/supplier/update/{id}")
+    public SuppliersEntity getSupplierByID (@PathVariable(name = "id") Integer id){
+        return suppliersService.getSupplierByID(id);
+    }
+
+    //API tạo nhà cung cấp
+    @PostMapping(value = "/supplier/create")
+    public void createSupplier(@RequestBody SupplierDTO supplierNew){
+        suppliersService.createSupplier(supplierNew);
+    }
+    //API cập nhật nhà cung cấp
+    @PutMapping("/supplier/update/{id}")
+    public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
+        suppliersService.updateSupplier(supplierUpdateDTO);
+    }
+    //API xóa nhà cung cấp
+    @DeleteMapping("/supplier/{ids}")
+    public void deleteSupplier(@PathVariable Long[] ids){
+        suppliersService.deleteSupplier(ids);
     }
 
 }

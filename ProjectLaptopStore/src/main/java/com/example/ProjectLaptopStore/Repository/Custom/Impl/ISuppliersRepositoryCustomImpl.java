@@ -2,7 +2,8 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
 import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.Supplier_FindTopSupplierDTO;
-import com.example.ProjectLaptopStore.DTO.Supplier_UpdateSupplierDTO;
+import com.example.ProjectLaptopStore.DTO.SupplierDTO;
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.ISuppliersRepositoryCustom;
 import jakarta.persistence.EntityManager;
@@ -45,32 +46,37 @@ public class ISuppliersRepositoryCustomImpl implements ISuppliersRepositoryCusto
     }
 
     @Override
-    public void createSupplier(Supplier_CreateSupplierDTO createSupplier) {
-        SuppliersEntity suppliersEntity = new SuppliersEntity();
-        suppliersEntity.setSupplierName(createSupplier.getSupplierName());
-        suppliersEntity.setAddress(createSupplier.getAddress());
-        suppliersEntity.setPhoneNumber(createSupplier.getPhoneNumber());
-        suppliersEntity.setEmail(createSupplier.getEmail());
-        suppliersEntity.setTaxCode(createSupplier.getTaxcode());
-        suppliersEntity.setWebsite(createSupplier.getWebsite());
-        suppliersEntity.setRepresentative(createSupplier.getRepresentative());
-        suppliersEntity.setPartnershipStartDate(createSupplier.getPartnershipStartDate());
-        entityManager.persist(suppliersEntity);
-
+    public void createSupplier(SupplierDTO supplierNew,SuppliersEntity suppliersEntity) {
+        setData(supplierNew,suppliersEntity,1);
     }
 
     @Override
-    public void updateSupplier(Supplier_UpdateSupplierDTO updateSupplier,SuppliersEntity suppliersEntity) {
-        suppliersEntity.setSupplierName(updateSupplier.getSupplierName());
-        suppliersEntity.setAddress(updateSupplier.getAddress());
-        suppliersEntity.setPhoneNumber(updateSupplier.getPhoneNumber());
-        suppliersEntity.setEmail(updateSupplier.getEmail());
-        suppliersEntity.setTaxCode(updateSupplier.getTaxcode());
-        suppliersEntity.setWebsite(updateSupplier.getWebsite());
-        suppliersEntity.setRepresentative(updateSupplier.getRepresentative());
-        suppliersEntity.setPartnershipStartDate(updateSupplier.getPartnershipStartDate());
+    public void updateSupplier(SupplierDTO supplierUpdate, SuppliersEntity suppliersEntity) {
+        setData(supplierUpdate,suppliersEntity,2);
+    }
+
+    @Override
+    public void deleteSupplier(SuppliersEntity suppliersEntity) {
+        suppliersEntity.setStatus(Status_Enum.inactive);
         entityManager.merge(suppliersEntity);
         entityManager.flush();
+    }
 
+    public void setData(SupplierDTO supplierNew, SuppliersEntity suppliersEntity,Integer task){
+        suppliersEntity.setSupplierName(supplierNew.getSupplierName());
+        suppliersEntity.setAddress(supplierNew.getAddress());
+        suppliersEntity.setPhoneNumber(supplierNew.getPhoneNumber());
+        suppliersEntity.setEmail(supplierNew.getEmail());
+        suppliersEntity.setTaxCode(supplierNew.getTaxcode());
+        suppliersEntity.setWebsite(supplierNew.getWebsite());
+        suppliersEntity.setRepresentative(supplierNew.getRepresentative());
+        suppliersEntity.setPartnershipStartDate(supplierNew.getPartnershipStartDate());
+        if(task==1){
+            entityManager.persist(suppliersEntity);
+        }
+        else{
+            entityManager.merge(suppliersEntity);
+            entityManager.flush();
+        }
     }
 }

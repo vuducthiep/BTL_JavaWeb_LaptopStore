@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -40,6 +41,7 @@ public class SuppliersEntity implements Serializable {
     private Status_Enum status = Status_Enum.active;
 
     @OneToMany(mappedBy = "supplier",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<ProductsEntity> products = new ArrayList<>();
 
 }

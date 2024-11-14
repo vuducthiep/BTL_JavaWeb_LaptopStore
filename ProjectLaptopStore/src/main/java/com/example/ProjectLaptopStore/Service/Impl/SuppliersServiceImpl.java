@@ -2,7 +2,8 @@ package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.Supplier_FindTopSupplierDTO;
-import com.example.ProjectLaptopStore.DTO.Supplier_UpdateSupplierDTO;
+import com.example.ProjectLaptopStore.DTO.SupplierDTO;
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.ISuppliersRepository;
 import com.example.ProjectLaptopStore.Service.ISuppliersService;
@@ -27,19 +28,23 @@ public class SuppliersServiceImpl implements ISuppliersService {
     }
 
     @Override
-    public void createSupplier(Supplier_CreateSupplierDTO creatSuppliers) {
-        suppliersRepository.createSupplier(creatSuppliers);
+    public void createSupplier(SupplierDTO supplierNew) {
+        SuppliersEntity suppliersEntity = new SuppliersEntity();
+        suppliersRepository.createSupplier(supplierNew,suppliersEntity);
     }
 
     @Override
     public void deleteSupplier(Long[] ids) {
-        suppliersRepository.deleteBySupplierIDIn(ids);
+        List<SuppliersEntity> listSupplierDel = suppliersRepository.findBySupplierIDIn(ids);
+        for(SuppliersEntity suppliersDel : listSupplierDel){
+            suppliersRepository.deleteSupplier(suppliersDel);
+        }
     }
 
     @Override
-    public void updateSupplier(Supplier_UpdateSupplierDTO updateSuppliers) {
-        SuppliersEntity suppliersEntity = suppliersRepository.findById(updateSuppliers.getSupplierId()).get();
-        suppliersRepository.updateSupplier(updateSuppliers, suppliersEntity);
+    public void updateSupplier(SupplierDTO supplierUpdate) {
+        SuppliersEntity suppliersEntity = suppliersRepository.findById(supplierUpdate.getSupplierId()).get();
+        suppliersRepository.updateSupplier(supplierUpdate, suppliersEntity);
     }
 
     //hàm lấy nhà cung cấp cho checkbox homepage
@@ -51,5 +56,15 @@ public class SuppliersServiceImpl implements ISuppliersService {
             suppliers.put(supplier.getSupplierID(),supplier.getSupplierName());
         }
         return suppliers;
+    }
+
+    @Override
+    public List<SuppliersEntity> getListSupplier() {
+        return suppliersRepository.findByStatus(Status_Enum.active);
+    }
+
+    @Override
+    public SuppliersEntity getSupplierByID(Integer supplierId) {
+        return suppliersRepository.findById(supplierId).get();
     }
 }

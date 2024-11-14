@@ -116,8 +116,8 @@ public class AdminControllerTest {
     }
     //API tạo nhà cung cấp
     @PostMapping("/admin/createsupplier/")
-    public void createSupplier(@RequestBody Supplier_CreateSupplierDTO createSupplierDTO){
-        suppliersService.createSupplier(createSupplierDTO);
+    public void createSupplier(@RequestBody SupplierDTO supplierNew){
+        suppliersService.createSupplier(supplierNew);
     }
 
 
@@ -134,7 +134,7 @@ public class AdminControllerTest {
     }
     //API cập nhật nhà cung cấp
     @PutMapping("/admin/updatesupplier/")
-    public void updateSupplier(@RequestBody Supplier_UpdateSupplierDTO supplierUpdateDTO){
+    public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
         suppliersService.updateSupplier(supplierUpdateDTO);
     }
 
