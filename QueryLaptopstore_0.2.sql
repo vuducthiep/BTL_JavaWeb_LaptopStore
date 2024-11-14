@@ -329,166 +329,7 @@ CREATE TABLE Contens (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 
--- -- Thêm dữ liệu vào bảng Users
--- INSERT INTO Users (FullName, Email, Password, PhoneNumber, UserType, RegistrationDate) VALUES
--- ('John Doe', 'john.doe@example.com', 'hashedpassword1', '1234567890', 'customer', '2024-01-15'),
--- ('Jane Smith', 'jane.smith@example.com', 'hashedpassword2', '0987654321', 'customer', '2024-02-20'),
--- ('Alice Brown', 'alice.brown@example.com', 'hashedpassword3', '1231231234', 'customer', '2024-03-10'),
--- ('Bob Johnson', 'bob.johnson@example.com', 'hashedpassword4', '3213214321', 'admin', '2024-04-25'),
--- ('Charlie White', 'charlie.white@example.com', 'hashedpassword5', '9876543210', 'admin', '2024-05-05'),
--- ('Charlie Red', 'charlie.red@example.com', 'hashedpassword6', '9876543211', 'employee', '2024-05-06'),
--- ('Charlie Blue', 'charlie.blue@example.com', 'hashedpassword7', '9876543212', 'employee', '2024-05-07');
 
--- -- Thêm dữ liệu vào bảng Employees
--- INSERT INTO Employees (UserID, Name, CreatedDate, Status) VALUES
--- (6, 'Jane Smith', '2024-02-21', 'active'),
--- (7, 'Charlie White', '2024-05-06', 'inactive');
-
--- -- Thêm dữ liệu vào bảng Customers
--- INSERT INTO Customers (UserID, RegistrationDate, Status) VALUES
--- (1, '2024-01-16', 'active'),
--- (2, '2024-03-11', 'suspended'),
--- (3, '2024-04-26', 'active');
-
--- -- Thêm dữ liệu vào bảng Admins
--- INSERT INTO Admins (UserID, CreatedDate, Status) VALUES
--- (4, '2024-02-22', 'active'),
--- (5, '2024-05-07', 'active');
-
--- -- Thêm dữ liệu vào bảng Suppliers
--- INSERT INTO Suppliers (SupplierName, Address, PhoneNumber, Email, TaxCode, Website, Representative, PartnershipStartDate, Status) VALUES
--- ('Tech Corp', '123 Tech Street', '1234567890', 'contact@techcorp.com', 'TC123456', 'www.techcorp.com', 'Michael Tech', '2022-01-15', 'active'),
--- ('Gadget World', '456 Gadget Ave', '0987654321', 'sales@gadgetworld.com', 'GW654321', 'www.gadgetworld.com', 'Sophie Gadget', '2022-05-20', 'active'),
--- ('Laptop Experts', '789 Laptop Blvd', '1231231234', 'support@laptopexperts.com', 'LE789456', 'www.laptopexperts.com', 'David Laptop', '2023-02-10', 'inactive'),
--- ('Supplier X', '101 Supply Road', '3213214321', 'info@supplierx.com', 'SX456123', 'www.supplierx.com', 'Anna Supply', '2021-09-01', 'active'),
--- ('Best Supplies', '202 Best Dr', '9876543210', 'contact@bestsupplies.com', 'BS987654', 'www.bestsupplies.com', 'Thomas Best', '2023-03-05', 'active');
-
--- -- Thêm dữ liệu vào bảng Products
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL) VALUES
--- (1, 'Laptop A', 'BrandA', 'ModelA1', 1500.00, 10, '2023-05-01', 24, 'url_to_image1.jpg'),
--- (2, 'Laptop B', 'BrandB', 'ModelB1', 1200.00, 20, '2023-06-15', 12, 'url_to_image2.jpg'),
--- (3, 'Laptop C', 'BrandC', 'ModelC1', 1800.00, 15, '2024-01-10', 36, 'url_to_image3.jpg'),
--- (4, 'Laptop D', 'BrandD', 'ModelD1', 1400.00, 8, '2024-02-25', 18, 'url_to_image4.jpg'),
--- (5, 'Laptop E', 'BrandE', 'ModelE1', 2000.00, 5, '2024-03-15', 24, 'url_to_image5.jpg');
-
--- -- Thêm dữ liệu vào bảng Cart
--- INSERT INTO Cart (CustomerID, Status, CreatedDate, TotalPrice) VALUES
--- (1, 'active', '2024-01-17', 1500.00),
--- (2, 'checked out', '2024-03-12', 1200.00),
--- (3, 'active', '2024-04-27', 1800.00);
-
--- -- Thêm dữ liệu vào bảng PaymentMethods
--- INSERT INTO PaymentMethods (PaymentType, BankBrandName, Status) VALUES
--- ('ONLINE', 'Bank A', 'active'),
--- ('OFFLINE', 'Bank B', 'active'),
--- ('OFFLINE', NULL, 'active'),
--- ('ONLINE', 'Bank C', 'inactive'),
--- ('OFFLINE', NULL, 'active');
-
--- -- Thêm dữ liệu vào bảng Orders
--- INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, EstimatedDeliveryDate, ActualDeliveryDate) VALUES
--- (1, '2024-01-20', 1550.00, 50.00, 1, 'Confirmed', '2024-01-25', '2024-01-24'),
--- (3, '2024-03-13', 1220.00, 20.00, 2, 'Shipped', '2024-03-20', '2024-03-18');
--- -- (4, '2024-04-12', 1850.00, 50.00, 3, 'Pending', '2024-05-03', '2024-04-28');
-
--- -- Thêm dữ liệu vào bảng OrderDetails
--- INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price) VALUES
--- (1, 1, 1, 1500.00),
--- (2, 2, 1, 1200.00);
-
--- -- Thêm dữ liệu vào bảng CartDetails
--- INSERT INTO CartDetails (CartID, ProductID, Quantity, Price) VALUES
--- (1, 1, 1, 1500.00),
--- (2, 2, 1, 1200.00);
-
--- -- Thêm dữ liệu vào bảng ProductReviews
--- INSERT INTO ProductReviews (CustomerID, ProductID, Rating, ReviewContent, ReviewDate, Status) VALUES
--- (1, 1, 5, 'Great laptop!', '2024-01-21', 'approved'),
--- (2, 2, 4, 'Good performance', '2024-03-14', 'approved'),
--- (3, 3, 3, 'Average experience', '2024-04-29', 'pending');
-
--- -- Thêm dữ liệu vào bảng Warehouses
--- INSERT INTO Warehouses (WarehouseName, Address, WarehouseType, Status) VALUES
--- ('Main Warehouse', '123 Warehouse St', 'Central', 'active'),
--- ('Secondary Warehouse', '456 Backup Ave', 'Backup', 'active'),
--- ('Temporary Warehouse', '789 Temporary Rd', 'Temporary', 'inactive');
-
--- -- Thêm dữ liệu vào bảng ProductsInWarehouse
--- INSERT INTO ProductsInWarehouse (ProductID, WarehouseID, ProductName, ProductionBatchCode, Dimensions, Volume, MinStockLevel, MaxStockLevel, Quantity) VALUES
--- (1, 1, 'Laptop A', 'Batch001', '15x10x1', 1.5, 5, 200,100),
--- (2, 2, 'Laptop B', 'Batch002', '14x9x1', 1.3, 3, 150,170),
--- (3, 1, 'Laptop C', 'Batch003', '16x11x1', 1.7, 4, 100,1),
--- (4, 3, 'Laptop D', 'Batch004', '15x10x1', 1.4, 2, 120,1),
--- (5, 2, 'Laptop E', 'Batch005', '17x12x1', 1.9, 6, 205,50);
-
--- -- Thêm dữ liệu vào bảng ImportReceipts
--- INSERT INTO ImportReceipts (AdminID, WarehouseID, ImportDate, Importer) VALUES
--- (1, 1, '2024-01-15', 'Admin John'),
--- (2, 2, '2024-02-10', 'Admin Jane');
-
--- -- Thêm dữ liệu vào bảng ImportReceiptDetails
--- INSERT INTO ImportReceiptDetails (ImportReceiptID, ProductID, Quantity) VALUES
--- (1, 1, 10),
--- (1, 2, 20),
--- (2, 3, 15);
-
--- -- Thêm dữ liệu vào bảng ExportReceipts
--- INSERT INTO ExportReceipts (AdminID, WarehouseID, ExportDate, Exporter) VALUES
--- (1, 1, '2024-01-25', 'Admin John'),
--- (2, 2, '2024-03-01', 'Admin Jane');
-
--- INSERT INTO ExportReceiptDetails (ExportReceiptID, ProductID, Quantity) VALUES
--- (1, 1, 10),
--- (1, 2, 20);
-
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (6, 'Máy tính xách tay GIGABYTE G5 KC-5S11130SB ( I5-10500H/ 16GB/ 512GB SSD/ 15.6" FHD/ RTX3060/ Win 11/ Black)', 'Gigabyte', 'N/A', 15800000, 1, '2023-05-05', 12, 'https://duyhungcomputer.vn/media/product/250-365-1.jpg');
-
--- -- Sản phẩm 366
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (3, 'Laptop MSI GF63 Thin 10SCXR 020VN (I7-10750H/ RAM 8GB/ 512GB SSD/ GTX 1650/ 15.6 inch FHD/ Win 10/ Đen)', 'MSI', 'N/A', 22890000, 1, '2022-11-15', 24, 'https://duyhungcomputer.vn/media/product/250-366-1.jpg');
-
--- -- Sản phẩm 367
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (5, 'Máy tính xách tay GIGABYTE AORUS 15P KD-72S1223GO ( i7-11800H/ 16GB/ 512GB SSD/ 15.6" FHD/ RTX 3060 6GB/ Win11/ Black)', 'Gigabyte', 'N/A', 45830000, 1, '2023-03-20', 24, 'https://duyhungcomputer.vn/media/product/250-367-1.jpg');
-
--- -- Sản phẩm 368
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (1, 'Máy tính xách tay GIGABYTE AERO15 OLED KD-72S1623GO( i7-11800H/ 16GB/ 512GB SSD/ 15.6" UHD, RTX3060/6GB , Win11, Black)', 'Gigabyte', 'N/A', 49890000, 1, '2023-01-08', 24, 'https://duyhungcomputer.vn/media/product/250-368-1.jpg');
-
--- -- Sản phẩm 369
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (4, 'Laptop HP Gaming VICTUS 16-d0198TX (4R0U0PA) (i7 11800H/ 8GB RAM/ 512GB SSD/ 16.1 FHD 144Hz/ RTX 3050Ti 4Gb/ Win10/ Đen)', 'HP', 'N/A', 31650000, 1, '2023-07-12', 24, 'https://duyhungcomputer.vn/media/product/250-369-1.jpg');
-
--- -- Sản phẩm 372
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (2, 'Laptop ASUS TUF Gaming F15 FX506HE-HN377W (Intel Core i7-11800H | 8GB | 512GB | RTX 3050Ti | 15.6 inch FHD 144 Hz | Win 11 | Đen)', 'Asus', 'N/A', 19890000, 1, '2023-02-28', 24, 'https://duyhungcomputer.vn/media/product/250-372-1.png');
-
--- -- Sản phẩm 373
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (6, 'Laptop ASUS TUF Gaming F15 FX506HF HN014W (Intel Core i5-11400H | 16GB | 512GB | RTX 2050 4GB | 15.6 inch FHD | Win 11 | Đen)', 'Asus', 'N/A', 16390000, 1, '2022-09-10', 24, 'https://duyhungcomputer.vn/media/product/250-373-1.png');
-
--- -- Sản phẩm 374
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUE(1, 'Laptop ASUS TUF Gaming F15 FX507VV4-LP382W (Intel® Core™ i9-13900H | 16GB | 512GB | RTX™ 4060 8GB | 15.6-inch FHD 144Hz | Win 11| Jaeger Gray)', 'Asus', 'N/A', 36590000, 1, '2023-04-01', 24, 'https://duyhungcomputer.vn/media/product/250-374-1.png');
-
--- -- Sản phẩm 375
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (5, 'Laptop ASUS TUF Gaming F15 FX507ZV4-LP041W (Intel® Core™ i7-12700H | 8GB | 512GB | RTX™ 4060 8GB | 15.6-inch FHD 144Hz | Win 11| Jaeger Gray)', 'Asus', 'N/A', 28390000, 1, '2023-06-15', 24, 'https://duyhungcomputer.vn/media/product/250-375-1.png');
-
--- -- Sản phẩm 376
--- INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantity, ReleaseDate, WarrantyPeriod, ImageURL)
--- VALUES
---   (3, 'Laptop gaming ASUS TUF Dash F15 FX517ZM-HN480W (Core™ i7-12650H | 8GB | 512GB | GeForce RTX™ 3060 | 15.6inch FHD | Windows 11 Home | Off Black)', 'Asus', 'N/A', 26490000, 1, '2023-08-03', 24, 'https://duyhungcomputer.vn/media/product/250-376-1.png');
--- Thêm dữ liệu vào bảng Admins
 INSERT INTO Users (FullName, Email, Password, PhoneNumber, UserType, RegistrationDate) VALUES
 ('John Doe', 'john.doe1@example.com', 'hashedpassword1', '1234567890', 'customer', '2024-10-05'),
 ('Jane Smith', 'jane.smith@example.com', 'hashedpassword2', '0987654321', 'customer', '2024-09-21'),
@@ -627,11 +468,11 @@ INSERT INTO PaymentMethods (PaymentType, BankBrandName, Status) VALUES
 
 
 INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, EstimatedDeliveryDate, ActualDeliveryDate) VALUES
-(1, '2024-01-20', 1550.00, 50.00, 1, 'Confirmed', '2024-01-25', '2024-01-24'),
-(3, '2024-03-13', 1220.00, 20.00, 2, 'Shipped', '2024-03-20', '2024-03-18'),
+(1, '2024-11-20', 1550.00, 50.00, 1, 'Confirmed', '2024-11-25', '2024-01-24'),
+(3, '2024-11-13', 1220.00, 20.00, 2, 'Shipped', '2024-11-20', '2024-03-18'),
 (4, '2024-02-10', 1800.00, 30.00, 3, 'Pending', '2024-02-15', '2024-02-14'),
-(5, '2024-04-08', 2100.00, 40.00, 4, 'Confirmed', '2024-04-15', '2024-04-14'),
-(6, '2024-03-20', 950.00, 25.00, 2, 'Shipped', '2024-03-25', '2024-03-24'),
+(5, '2024-11-08', 2100.00, 40.00, 4, 'Confirmed', '2024-11-15', '2024-04-14'),
+(6, '2024-11-20', 950.00, 25.00, 2, 'Shipped', '2024-11-22', '2024-03-24'),
 (7, '2024-05-15', 1250.00, 35.00, 3, 'Pending', '2024-05-22', '2024-05-20'),
 (8, '2024-01-27', 1600.00, 15.00, 1, 'Confirmed', '2024-02-02', '2024-02-01'),
 (9, '2024-02-18', 990.00, 10.00, 4, 'Shipped', '2024-02-24', '2024-02-23'),
