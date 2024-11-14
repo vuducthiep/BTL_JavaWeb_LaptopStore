@@ -15,7 +15,7 @@ public interface ICustomerRepositoryCustom {
     void deleteCustomer(List<CustomerEntity> listCustomerDelete);
     void createCustomer(CustomerDTO customerNew);
     void updateCustomer(CustomerDTO customerUpdate, ShippingAddressEntity shippingAddressEntity, CustomerEntity customerEntity, UserEntity userEntity);
-    List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth();
+    List<CustomerDTO> listTopCustomerInMonth();
     List<CustomerDTO> getListCustomer();
 }
 
