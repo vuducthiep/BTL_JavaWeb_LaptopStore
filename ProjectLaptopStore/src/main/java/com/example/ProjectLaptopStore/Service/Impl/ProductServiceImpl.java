@@ -59,7 +59,13 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public void deleteProduct(Long[] ids) {
+//        List<ProductsEntity> listProductsEntity = productRepository.findByProductIDIn(ids);
+//        for (ProductsEntity product : listProductsEntity) {
+//            List<ProductDescriptionEntity> productDescriptionEntities = product.getProductDescriptions();
+//        }
+//
         productRepository.deleteByProductIDIn(ids);
+        productDescriptionRepository.deleteByProduct_ProductIDIn(ids);
     }
 
     @Override
@@ -99,6 +105,11 @@ public class ProductServiceImpl implements IProductService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @Override
+    public ProductDetailDTO getProductById(Integer id) {
+        return productRepository.getOneProductDetail(id);
     }
 
 
