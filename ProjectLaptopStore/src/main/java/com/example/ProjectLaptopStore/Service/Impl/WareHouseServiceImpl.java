@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Repository.IWareHouseRepository;
 import com.example.ProjectLaptopStore.Service.WareHouseService;
@@ -14,8 +15,31 @@ public class WareHouseServiceImpl implements WareHouseService {
     private IWareHouseRepository wareHouseRepository;
     @Override
     public List<WareHouseEntity> getListWareHouse() {
-        List<WareHouseEntity> listWareHouse = wareHouseRepository.findAll();
+        List<WareHouseEntity> listWareHouse = wareHouseRepository.findByStatus(Status_Enum.active);
         return listWareHouse;
+    }
+
+    @Override
+    public void createWareHouse(WareHouseEntity wareHouseNew) {
+        WareHouseEntity wareHouseEntity = new WareHouseEntity();
+        wareHouseRepository.createWareHouse(wareHouseNew, wareHouseEntity);
+    }
+
+    @Override
+    public void updateWareHouse(WareHouseEntity wareHouseNew) {
+        WareHouseEntity wareHouseEntity = wareHouseRepository.findById(wareHouseNew.getWarehouseID()).get();
+        wareHouseRepository.updateWareHouse(wareHouseNew, wareHouseEntity);
+    }
+
+    @Override
+    public void deleteWareHouse(Integer id) {
+        WareHouseEntity wareHouseEntity = wareHouseRepository.findById(id).get();
+        wareHouseRepository.deleteWareHouse(wareHouseEntity);
+    }
+
+    @Override
+    public WareHouseEntity getWareHouseById(Integer id) {
+        return wareHouseRepository.findById(id).get();
     }
 
 
