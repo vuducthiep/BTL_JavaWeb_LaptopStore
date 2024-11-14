@@ -157,12 +157,12 @@ public class AdminControllerTest {
         suppliersService.deleteSupplier(ids);
     }
 
-    //API lấy danh sách top người tiêu dùng trong tháng
-    @GetMapping("/admin/topcustomer/")
-    public List<Customer_FindTopCustomerInMonthDTO> TopCustomerInMonth(){
-        List<Customer_FindTopCustomerInMonthDTO> result = customerService.listTopCustomerInMonth();
-        return result;
-    }
+//    //API lấy danh sách top người tiêu dùng trong tháng
+//    @GetMapping("/admin/topcustomer/")
+//    public List<Customer_FindTopCustomerInMonthDTO> TopCustomerInMonth(){
+//        List<Customer_FindTopCustomerInMonthDTO> result = customerService.listTopCustomerInMonth();
+//        return result;
+//    }
 
     //API lấy danh sách bill
     @GetMapping(value = "/admin/listbill/")

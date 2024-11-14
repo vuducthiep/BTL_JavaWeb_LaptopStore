@@ -55,11 +55,6 @@ public class CustomerServiceImpl implements ICustomerService {
         customerRepository.updateCustomer(customerUpdate,shippingAddressEntity,customerEntity,userEntity);
     }
 
-    @Override
-    public List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth() {
-        List<Customer_FindTopCustomerInMonthDTO> result = customerRepository.listTopCustomerInMonth();
-        return result;
-    }
 
     @Override
     public Integer getNewCustomerCurrentMonth() {
@@ -77,7 +72,7 @@ public class CustomerServiceImpl implements ICustomerService {
         Admin_CustomerResponseDTO result = new Admin_CustomerResponseDTO();
         try {
             List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth = customerRepository.listNewCustomerPerMonth();
-            List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth = customerRepository.listTopCustomerInMonth();
+            List<CustomerDTO> listTopCustomerInMonth = customerRepository.listTopCustomerInMonth();
             List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
             result.setCountNewCustomerPerMonth(listCountNewCustomerPerMonth);
             result.setFindTopCustomerInMonth(listTopCustomerInMonth);
