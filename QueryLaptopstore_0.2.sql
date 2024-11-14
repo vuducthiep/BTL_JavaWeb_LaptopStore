@@ -52,7 +52,7 @@ DROP TABLE IF EXISTS Cart;
 CREATE TABLE Cart (
     CartID INT PRIMARY KEY AUTO_INCREMENT,
     CustomerID INT UNIQUE, -- Mỗi khách hàng chỉ có 1 giỏ hàng (1-1)
-    Status ENUM('active', 'checked out') DEFAULT 'active',
+    Status ENUM('active', 'checked_out') DEFAULT 'active',
     CreatedDate DATE NOT NULL,
     TotalPrice DECIMAL(10, 2),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE -- Khóa ngoại tham chiếu tới Users
@@ -171,7 +171,7 @@ CREATE TABLE Promotions (
 	ProductID int ,
     DiscountPercentage DECIMAL(5, 2) NOT NULL CHECK (DiscountPercentage BETWEEN 0 AND 100),
     PromotionDetails TEXT ,
-    FOREIGN KEY (ProductID) REFERENCES Products( ProductID )
+    FOREIGN KEY (ProductID) REFERENCES Products( ProductID ) ON DELETE CASCADE
 );
 
 -- Tạo bảng Orders
@@ -592,15 +592,15 @@ INSERT INTO Products (SupplierID, ProductName, Brand, Model, Price, StockQuantit
 
 INSERT INTO Cart (CustomerID, Status, CreatedDate, TotalPrice) VALUES
 (1, 'active', '2024-01-15', 1500.00),
-(2, 'checked out', '2023-12-20', 1300.00),
+(2, 'checked_out', '2023-12-20', 1300.00),
 (3, 'active', '2023-11-25', 1450.00),
-(4, 'checked out', '2023-10-30', 1700.00),
+(4, 'checked_out', '2023-10-30', 1700.00),
 (5, 'active', '2023-10-15', 1600.00),
-(6, 'checked out', '2023-09-10', 1800.00),
+(6, 'checked_out', '2023-09-10', 1800.00),
 (7, 'active', '2023-08-05', 1550.00),
-(8, 'checked out', '2023-07-18', 1400.00),
+(8, 'checked_out', '2023-07-18', 1400.00),
 (9, 'active', '2023-06-25', 1450.00),
-(10, 'checked out', '2023-05-30', 1650.00);
+(10, 'checked_out', '2023-05-30', 1650.00);
 
 
 INSERT INTO PaymentMethods (PaymentType, BankBrandName, Status) VALUES
