@@ -3,13 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TabbleProduct</title>
+    <title>TableProduct</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="stylesheet" href="assets/styles/TableProduct.css">
+    <link rel="stylesheet" href="assets/styles/TableCustomer.css">
   </head>
   <body>
     <div class="d-flex" id="wrapper">
@@ -52,68 +52,43 @@
         </ul>
       </div>
 
-      <!-- Content -->
-<div class="container mt-5" id="content-area">
-    <h1 class="text-center">Quản Lý Sản Phẩm</h1>
+     <!-- Content -->
+<div class="container-fluid mt-5" id="content-area">
+    <h1 class="text-center">TABLE PRODUCT</h1>
   
     <!-- Thống kê tổng quan -->
-    <div class="row mt-4">
-      <div class="col-md-4">
-        <div class="card card-1">
-          <div class="card-body">
-            <h5 class="card-title">Doanh thu tháng</h5>
-            <p id="monthly-revenue">0</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-2">
-          <div class="card-body">
-            <h5 class="card-title">Sản phẩm bán ra trong tháng</h5>
-            <p id="products-sold-current-month">0</p>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="card card-3">
-          <div class="card-body">
-            <h5 class="card-title">Tổng số sản phẩm</h5>
-            <p id="total-products">0</p>
-          </div>
-        </div>
-      </div>
-    </div>
+    
   
-    <!-- Biểu đồ doanh thu -->
+    <!-- Biểu đồ -->
     <div class="row mt-5">
-      <div class="col-md-12">
-        <h3>Biểu đồ Doanh Thu Theo Tháng</h3>
-        <canvas id="monthly-revenue-chart"></canvas>
+      <div class="col-12">
+        <h3>Biểu đồ Doanh thu Theo Tháng</h3>
+        <canvas id="monthly-new-products-chart"></canvas>
       </div>
     </div>
   
-    <!-- Danh sách top sản phẩm và quản lý thông tin sản phẩm -->
+    <!-- Danh sách top khách hàng -->
     <div class="row mt-5">
       <div class="col-md-6">
-        <h3>Top Sản Phẩm Bán Chạy Trong Tháng</h3>
-        <ul id="top-products-list" class="list-group">
+        <h4>Top Sản phẩm theo tháng</h4>
+        <ul id="top-10-products-list" class="list-group">
           <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
         </ul>
       </div>
   
       <div class="col-md-6">
-        <h3>Danh Sách Sản Phẩm</h3>
+        <h4>Danh Sách Sản phẩm</h4>
         <table class="table table-striped">
           <thead>
             <tr>
               <th>#</th>
-              <th>Tên Sản Phẩm</th>
+              <th>Tên Sản phẩm</th>
+              <th>Hãng</th>
               <th>Giá</th>
-              <th>Số Lượng Đã Bán</th>
             </tr>
           </thead>
           <tbody id="product-list">
-            <!-- Dữ liệu sản phẩm sẽ được thêm vào đây bằng JavaScript -->
+            <!-- Dữ liệu khách hàng sẽ được thêm vào đây bằng JavaScript -->
           </tbody>
         </table>
       </div>
@@ -126,7 +101,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <script src="assets/js/TableProduct.js"></script>
+    <script src="assets/js/TableCustomer.js"></script>
 
 
   </body>
