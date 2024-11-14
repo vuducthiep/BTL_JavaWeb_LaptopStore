@@ -1,82 +1,109 @@
-document.addEventListener("DOMContentLoaded", () => {
-    // URL của API
-    const apiURL = "http://localhost:8080/admin/product";
+// API URL để lấy dữ liệu sản phẩm
+const productApiUrl = 'http://localhost:8080/admin/product/';
 
-    // Hàm lấy dữ liệu từ API
-    async function fetchData() {
-        try {
-            const response = await fetch(apiURL);
-            const data = await response.json();
+// Lấy các phần tử DOM cần thiết
+const productListDiv = document.getElementById('product-list');
+const top10ProductsList = document.getElementById('top-10-products-list');
+const monthlyNewProductsChart = document.getElementById('monthly-new-products-chart');
 
-            // Hiển thị dữ liệu lên giao diện
-            displayChart(data.quantityProductForChart);
-            displayTopProducts(data.listTopProductSell);
-            displayProductList(data.listProductDetail);
-        } catch (error) {
-            console.error("Lỗi khi gọi API:", error);
+// Hàm để lấy dữ liệu từ API
+async function fetchProductData() {
+  try {
+    const response = await fetch(productApiUrl);
+    
+    // Kiểm tra nếu phản hồi hợp lệ
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    // Lấy dữ liệu JSON từ phản hồi
+    const data = await response.json();
+
+    // Hiển thị danh sách sản phẩm
+    displayProductList(data.listProductDetail);
+
+    // Hiển thị top 10 sản phẩm bán chạy nhất
+    displayTop10Products(data.listTopProductSell);
+
+    // Hiển thị biểu đồ doanh thu sản phẩm theo tháng
+    displayMonthlyProductChart(data.quantityProductForChart);
+
+  } catch (error) {
+    console.error('Error fetching product data:', error);
+  }
+}
+
+// Hàm hiển thị danh sách sản phẩm
+function displayProductList(products) {
+  let productHTML = '';
+  products.forEach((product, index) => {
+    productHTML += `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${product.productName}</td>
+        <td>${product.productBrand}</td>
+        <td>${product.price.toLocaleString()} USD</td>
+      </tr>
+    `;
+  });
+  productListDiv.innerHTML = productHTML;
+}
+
+// Hàm hiển thị top 10 sản phẩm bán chạy nhất
+function displayTop10Products(products) {
+  // Sắp xếp sản phẩm theo số lượng bán giảm dần
+  const top10 = products.sort((a, b) => b.quantityOrdered - a.quantityOrdered).slice(0, 10);
+  
+  let top10HTML = '';
+  top10.forEach(product => {
+    top10HTML += `
+      <li class="list-group-item">
+        ${product.productName} - Số lượng bán: ${product.quantityOrdered}
+      </li>
+    `;
+  });
+  top10ProductsList.innerHTML = top10HTML;
+}
+
+// Hàm hiển thị biểu đồ doanh thu sản phẩm theo tháng
+function displayMonthlyProductChart(monthlyData) {
+  const months = monthlyData.map(data => `Tháng ${data.month}`);
+  const salesData = monthlyData.map(data => data.totalSold);
+
+  const chartData = {
+    labels: months,
+    datasets: [{
+      label: 'Doanh thu sản phẩm theo tháng',
+      data: salesData,
+      borderColor: 'rgb(75, 192, 192)',
+      backgroundColor: 'rgba(75, 192, 192, 0.2)',
+      fill: true,
+    }]
+  };
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top',
+      },
+      tooltip: {
+        callbacks: {
+          label: function (context) {
+            return `${context.dataset.label}: ${context.raw}`;
+          }
         }
+      }
     }
+  };
 
-    // Hàm hiển thị biểu đồ Doanh thu theo tháng
-    function displayChart(quantityProductForChart) {
-        const ctx = document.getElementById("monthly-new-products-chart").getContext("2d");
-        const labels = quantityProductForChart.map(item => `Tháng ${item.month}`);
-        const data = quantityProductForChart.map(item => item.totalSold);
+  // Vẽ biểu đồ sử dụng Chart.js
+  new Chart(monthlyNewProductsChart, {
+    type: 'line',
+    data: chartData,
+    options: chartOptions
+  });
+}
 
-        new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: "Doanh thu theo tháng",
-                    data: data,
-                    borderColor: "rgb(75, 192, 192)",
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    fill: true
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    }
-
-    // Hàm hiển thị danh sách Top sản phẩm
-    function displayTopProducts(listTopProductSell) {
-        const topProductsList = document.getElementById("top-10-products-list");
-        topProductsList.innerHTML = ""; // Xóa danh sách cũ
-
-        listTopProductSell.forEach((product, index) => {
-            const listItem = document.createElement("li");
-            listItem.className = "list-group-item";
-            listItem.textContent = `${index + 1}. ${product.productName} - Số lượng bán: ${product.quantityOrdered}`;
-            topProductsList.appendChild(listItem);
-        });
-    }
-
-    // Hàm hiển thị danh sách sản phẩm
-    function displayProductList(listProductDetail) {
-        const productList = document.getElementById("product-list");
-        productList.innerHTML = ""; // Xóa danh sách cũ
-
-        listProductDetail.forEach((product, index) => {
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-                <td>${index + 1}</td>
-                <td>${product.productName}</td>
-                <td>${product.productBrand}</td>
-                <td>${product.price.toLocaleString()} USD</td>
-            `;
-            productList.appendChild(row);
-        });
-    }
-
-    // Gọi hàm fetchData để tải dữ liệu từ API khi trang tải
-    fetchData();
-});
+// Gọi hàm fetchProductData khi trang được tải
+fetchProductData();
