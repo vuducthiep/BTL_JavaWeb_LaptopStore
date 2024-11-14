@@ -141,15 +141,25 @@ public class AdminController {
         return productService.adminProduct();
     }
 
+    //API lấy thông tin sản phẩm bằng id
+    @GetMapping(value = "/product/update/{id}")
+    public ProductDetailDTO getProductById(@PathVariable(name = "id") Integer id){
+        return productService.getProductById(id);
+    }
     //API tạo sản phẩm
-    @PostMapping("/createproduct/")
+    @PostMapping("/product/create")
     public void createProduct(@RequestBody ProductDetailDTO createProductDTO){
         productService.createNewProduct(createProductDTO);
     }
     //API cập nhật  sản phẩm
-    @PutMapping("/updateproduct/")
+    @PutMapping(value = "/product/update/{id}")
     public void updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
         productService.updateProduct(updateProductDTO);
+    }
+
+    @DeleteMapping(value = "/product/{ids}")
+    public void deleteProduct(@PathVariable Long[] ids){
+        productService.deleteProduct(ids);
     }
 
 }

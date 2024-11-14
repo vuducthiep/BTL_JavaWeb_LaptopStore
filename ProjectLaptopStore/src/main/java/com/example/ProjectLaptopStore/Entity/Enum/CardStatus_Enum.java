@@ -1,8 +1,8 @@
 package com.example.ProjectLaptopStore.Entity.Enum;
 
 public enum CardStatus_Enum {
-    ACTIVE("Active"),
-    CHECKED_OUT("Checked Out");
+    active("Active"),
+    checked_out("Checked Out");
 
     private final String displayValue;
 

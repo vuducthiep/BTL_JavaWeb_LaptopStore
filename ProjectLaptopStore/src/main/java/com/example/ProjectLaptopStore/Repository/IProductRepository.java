@@ -20,6 +20,6 @@ public interface IProductRepository extends JpaRepository<ProductsEntity,Integer
     List<ProductsEntity> findByProductNameContainingAndSupplier_SupplierNameContaining(String productName, String supplierName);
     void deleteByProductIDIn(Long[] ids);
     List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
-
+    List<ProductsEntity> findByProductIDIn(Long[] ids);
 
 }
