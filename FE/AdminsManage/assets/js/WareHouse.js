@@ -257,3 +257,149 @@ document.addEventListener('DOMContentLoaded', () => {
     loadWarehouseData(warehouseID);
 });
 
+
+//Kho 
+// Hàm xử lý khi nhấn nút "Thêm"
+
+function addWarehouse() {
+    const warehouseName = document.getElementById("editWarehouseName").value;
+    const warehouseAddress = document.getElementById("editWarehouseAddress").value;
+    const warehouseType = document.getElementById("editWarehouseType").value;
+    const warehouseStatus = document.getElementById("editWarehouseStatus").value;
+
+    const newWarehouse = {
+        warehouseID: 30, // ID tạm thời, mặc dù nó tự động tăng ở backend
+        warehouseName: warehouseName,
+        address: warehouseAddress,
+        warehouseType: warehouseType,
+        status: warehouseStatus
+    };
+
+    fetch("http://localhost:8080/admin/warehouse/create", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newWarehouse)
+    })
+    .then(response => {
+        // Kiểm tra xem phản hồi có chứa nội dung không
+        return response.text().then(text => {
+            if (text) {
+                // In nội dung phản hồi để kiểm tra
+                console.log("Nội dung phản hồi từ server:", text);
+
+                // Nếu phản hồi có nội dung, thử phân tích JSON
+                try {
+                    return JSON.parse(text);
+                } catch (e) {
+                    // Nếu không thể phân tích JSON, trả về null
+                    console.error("Lỗi phân tích JSON:", e);
+                    return null;
+                }
+            }
+            // Nếu không có nội dung trong phản hồi
+            return null;
+        });
+    })
+    .then(data => {
+        if (data) {
+            console.log("Kho mới đã được thêm:", data);
+            alert("Thêm kho thành công!");
+        } else {
+            console.log("Kho đã được thêm nhưng không có dữ liệu trả về.");
+        }
+        alert("Thêm kho thành công!");
+        window.location.reload(); 
+    })
+    .catch(error => {
+        console.error("Lỗi khi thêm kho:", error);
+        alert("Đã có lỗi xảy ra khi thêm kho.");
+    });
+}
+
+
+  // Hàm hiển thị form
+function showAddWarehouseForm() {
+    // Lấy phần tử form bằng ID và hiển thị nó
+    const form = document.getElementById("addWarehouseForm");
+    form.style.display = "block";  // Hiển thị form
+  }
+  
+  // Hàm ẩn form
+  function hideAddWarehouseForm() {
+    const form = document.getElementById("addWarehouseForm");
+    form.style.display = "none";  // Ẩn form
+  }
+  
+
+//Sửa 
+// Hàm lấy warehouseID từ URL (dùng để xác định kho cần sửa)
+function getWarehouseIDFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const warehouseID = urlParams.get('warehouseID');
+    console.log(warehouseID);  // Kiểm tra giá trị warehouseID
+    return warehouseID;
+}
+
+// Hàm hiển thị form sửa kho và điền thông tin vào các trường
+function showEditWarehouseForm() {
+    const warehouseID = getWarehouseIDFromURL();  // Lấy warehouseID từ URL
+    if (!warehouseID) {
+        alert("Không tìm thấy ID kho trong URL");
+        return;
+    }
+
+    // Gọi API GET để lấy thông tin kho
+    fetch(`http://localhost:8080/admin/warehouse/update/${warehouseID}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);  // Kiểm tra dữ liệu trả về từ API
+            if (data) {
+                // Kiểm tra xem dữ liệu có hợp lệ không
+                console.log("Dữ liệu kho:", data);
+                document.getElementById("editWarehouseForm").style.display = "block";
+                checkInputValues(); 
+                // Điền thông tin kho vào các trường trong form
+                document.getElementById("editWarehouseName").value = data.warehouseName || ''; 
+                document.getElementById("editWarehouseAddress").value = data.address || '';
+                document.getElementById("editWarehouseType").value = data.warehouseType || '';
+                document.getElementById("editWarehouseStatus").value = data.status || '';
+                checkInputValues(); 
+                document.getElementById("editWarehouseName").value = data.warehouseName || ''; 
+                document.getElementById("editWarehouseAddress").value = data.address || '';
+                document.getElementById("editWarehouseType").value = data.warehouseType || '';
+                document.getElementById("editWarehouseStatus").value = data.status || '';
+                // Hiển thị form sửa kho
+                
+            } else {
+                alert("Không có dữ liệu kho!");
+            }
+        })
+        .catch(error => {
+            console.error("Lỗi khi lấy thông tin kho:", error);
+        });
+}
+
+// Hàm kiểm tra các trường input có nhận dữ liệu không
+function checkInputValues() {
+    console.log("Tên Kho: ", document.getElementById("editWarehouseName").value);
+    console.log("Địa Chỉ: ", document.getElementById("editWarehouseAddress").value);
+    console.log("Loại Kho: ", document.getElementById("editWarehouseType").value);
+    console.log("Trạng Thái: ", document.getElementById("editWarehouseStatus").value);
+}
+
+// Lắng nghe sự kiện nhấn nút "Lưu" để lưu thông tin kho sửa
+document.getElementById("saveEditWarehouse").addEventListener("click", function () {
+    saveEditedWarehouse();
+    checkInputValues();  // Kiểm tra giá trị trường sau khi nhấn Lưu
+});
+
+
+  // Hàm kiểm tra thông tin đã được điền vào form hay chưa
+function checkInputValues() {
+    console.log("Tên Kho: ", document.getElementById("editWarehouseName").value);
+    console.log("Địa Chỉ: ", document.getElementById("editWarehouseAddress").value);
+    console.log("Loại Kho: ", document.getElementById("editWarehouseType").value);
+    console.log("Trạng Thái: ", document.getElementById("editWarehouseStatus").value);
+}

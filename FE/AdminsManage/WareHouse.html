@@ -60,8 +60,9 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h6>Thông tin kho</h6>
             <div>
-              <button class="btn btn-primary btn-sm" onclick="addWarehouse()">Thêm</button>
-              <button class="btn btn-warning btn-sm" onclick="editWarehouse()">Sửa</button>
+              <!-- Nút Thêm Kho -->
+              <button class="btn btn-primary btn-sm" onclick="showAddWarehouseForm()">Thêm</button>
+              <button class="btn btn-warning btn-sm" onclick="showEditWarehouseForm()">Sửa</button>
               <button class="btn btn-danger btn-sm" onclick="deleteWarehouse()">Xóa</button>
             </div>
           </div>
@@ -207,18 +208,78 @@
     <input type="number" id="editProductMaxStockLevel" class="form-control" />
   </div>
   
-  <div class="mb-3">
-    <label for="editProductQuantity">Số Lượng</label>
-    <input type="number" id="editProductQuantity" class="form-control" />
-  </div>
-  <button type="button" id="saveEditForm" class="btn btn-primary">Lưu</button>
-  <button type="button" id="closeEditForm" class="btn btn-secondary">Đóng</button>
-</div>
+        <div class="mb-3">
+          <label for="editProductQuantity">Số Lượng</label>
+          <input type="number" id="editProductQuantity" class="form-control" />
+        </div>
+        <button type="button" id="saveEditForm" class="btn btn-primary">Lưu</button>
+        <button type="button" id="closeEditForm" class="btn btn-secondary">Đóng</button>
+      </div>
 
       <button class="btn btn-primary" onclick="saveProductChanges()">Lưu</button>
       <button class="btn btn-secondary" onclick="closeEditForm()">Đóng</button>
     </div>
+    <!-- Form thêm kho -->
+    <!-- Form Thêm Kho -->
+<div id="addWarehouseForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); z-index: 1000;">
+  <h4>Thêm Kho Mới</h4>
+  
+  <div class="mb-3">
+    <label for="editWarehouseName">Tên Kho</label>
+    <input type="text" id="editWarehouseName" class="form-control" />
+  </div>
 
+  <div class="mb-3">
+    <label for="editWarehouseAddress">Địa Chỉ Kho</label>
+    <input type="text" id="editWarehouseAddress" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="editWarehouseType">Loại Kho</label>
+    <input type="text" id="editWarehouseType" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="editWarehouseStatus">Trạng Thái</label>
+    <input type="text" id="editWarehouseStatus" class="form-control" />
+  </div>
+
+  <button type="button" onclick="addWarehouse()" class="btn btn-primary">Thêm Kho</button>
+  <button type="button" class="btn btn-secondary" onclick="hideAddWarehouseForm()">Đóng</button>
+</div>
+     <!-- Form thêm kho -->
+    
+    
+     <!-- Form sửa kho -->
+<div id="editWarehouseForm" style="display:none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); z-index: 1000;">
+  <h4>Chỉnh Sửa Kho</h4>
+
+  <div class="mb-3">
+      <label for="editWarehouseName">Tên Kho</label>
+      <input type="text" id="editWarehouseName" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+      <label for="editWarehouseAddress">Địa Chỉ</label>
+      <input type="text" id="editWarehouseAddress" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+      <label for="editWarehouseType">Loại Kho</label>
+      <input type="text" id="editWarehouseType" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+      <label for="editWarehouseStatus">Trạng Thái</label>
+      <input type="text" id="editWarehouseStatus" class="form-control" />
+  </div>
+
+  <button type="button" id="saveEditWarehouse" class="btn btn-primary">Lưu</button>
+  <button type="button" id="closeEditWarehouseForm" class="btn btn-secondary">Đóng</button>
+</div>
+<!-- Form sửa kho -->
+
+    
     <script src="assets/js/WareHouse.js"></script>
   </body>
 </html>
