@@ -80,61 +80,79 @@
         <h4>Danh Sách Khách Hàng</h4>
         <button class="btn btn-primary" id="add-customer-btn">Thêm Khách Hàng</button>
                   <!-- Modal Thêm Khách Hàng -->
-          <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="addCustomerModalLabel">Thêm Khách Hàng</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="customerForm">
-                    <div class="mb-3">
-                      <label for="fullName" class="form-label">Tên Khách Hàng</label>
-                      <input type="text" class="form-control" id="fullName" required>
+                  <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="addCustomerModalLabel">Thêm Khách Hàng</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                          <form id="customerForm">
+                            <div class="mb-3">
+                              <label for="totalAmount" class="form-label">Tổng Số Tiền</label>
+                              <input type="number" class="form-control" id="totalAmount" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="userID" class="form-label">ID Người Dùng</label>
+                              <input type="number" class="form-control" id="userID" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="customerID" class="form-label">ID Khách Hàng</label>
+                              <input type="number" class="form-control" id="customerID" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="addressID" class="form-label">ID Địa Chỉ</label>
+                              <input type="number" class="form-control" id="addressID" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="fullName" class="form-label">Tên Khách Hàng</label>
+                              <input type="text" class="form-control" id="fullName" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="email" class="form-label">Email</label>
+                              <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="passWord" class="form-label">Mật Khẩu</label>
+                              <input type="text" class="form-control" id="passWord" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
+                              <input type="text" class="form-control" id="phoneNumber" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="registrationDate" class="form-label">Ngày Đăng Ký</label>
+                              <input type="datetime-local" class="form-control" id="registrationDate" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="address" class="form-label">Địa chỉ</label>
+                              <input type="text" class="form-control" id="address" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="city" class="form-label">Thành phố</label>
+                              <input type="text" class="form-control" id="city" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="district" class="form-label">Quận/Huyện</label>
+                              <input type="text" class="form-control" id="district" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="ward" class="form-label">Phường/Xã</label>
+                              <input type="text" class="form-control" id="ward" required>
+                            </div>
+                            <div class="mb-3">
+                              <label for="streetAddress" class="form-label">Số Nhà và Đường</label>
+                              <input type="text" class="form-control" id="streetAddress" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Lưu</button>
+                          </form>
+                        </div>
+                      </div>
                     </div>
-                    <div class="mb-3">
-                      <label for="email" class="form-label">Email</label>
-                      <input type="email" class="form-control" id="email" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="address" class="form-label">Địa chỉ</label>
-                      <input type="text" class="form-control" id="address" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="city" class="form-label">Thành phố</label>
-                      <input type="text" class="form-control" id="city" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="district" class="form-label">Quận/Huyện</label>
-                      <input type="text" class="form-control" id="district" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="ward" class="form-label">Phường/Xã</label>
-                      <input type="text" class="form-control" id="ward" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="streetAddress" class="form-label">Số Nhà và Đường</label>
-                      <input type="text" class="form-control" id="streetAddress" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="registrationDate" class="form-label">Ngày Đăng Ký</label>
-                      <input type="date" class="form-control" id="registrationDate" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="passWord" class="form-label">Mật Khẩu</label>
-                      <input type="password" class="form-control" id="passWord" required>
-                    </div>
-                    <div class="mb-3">
-                      <label for="phoneNumber" class="form-label">Số Điện Thoại</label>
-                      <input type="text" class="form-control" id="phoneNumber" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
-                  </form>
-                </div>
-              </div>
-  </div>
-</div>
+                  </div>
+                  
+                  
 
 
         <table class="table table-striped">
