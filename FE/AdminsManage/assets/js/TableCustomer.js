@@ -6,9 +6,10 @@ const customerListDiv = document.getElementById('customer-list');
 const top10CustomersList = document.getElementById('top-10-customers-list');
 const monthlyNewCustomersChart = document.getElementById('monthly-new-customers-chart');
 
-document.getElementById("add-customer-btn").addEventListener("click", function () {
-  var addCustomerModal = new bootstrap.Modal(document.getElementById("addCustomerModal"));
-  addCustomerModal.show();
+
+document.getElementById("add-customer-btn").addEventListener("click", function() {
+  const modal = new bootstrap.Modal(document.getElementById("addCustomerModal"));
+  modal.show();
 });
 
 // Hàm để lấy dữ liệu từ API
@@ -82,8 +83,6 @@ async function deleteCustomer(customerId) {
     }
   }
 }
-
-
 
 // Hàm hiển thị top 10 khách hàng chi tiêu nhiều nhất
 function displayTop10Customers(customers) {
@@ -187,6 +186,7 @@ customerForm.addEventListener('submit', async function (event) {
     // Nếu tạo khách hàng thành công, làm mới danh sách và ẩn modal
     alert('Khách hàng đã được thêm thành công!');
     fetchCustomerData(); // Làm mới danh sách khách hàng
+    
     const addCustomerModal = bootstrap.Modal.getInstance(document.getElementById('addCustomerModal'));
     addCustomerModal.hide(); // Đóng modal
 
@@ -197,3 +197,97 @@ customerForm.addEventListener('submit', async function (event) {
     alert('Có lỗi xảy ra khi thêm khách hàng.');
   }
 });
+
+// Hàm gọi API để lấy thông tin khách hàng
+// Hàm gọi API để lấy thông tin khách hàng
+function editCustomer(customerID) {
+  fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
+      method: 'GET', // Lấy dữ liệu từ API
+      headers: {
+          'Content-Type': 'application/json',
+      }
+  })
+  .then(response => response.json())
+  .then(data => {
+      // Điền thông tin vào các trường trong modal
+      document.getElementById('editUserID').value = data.userID;
+      document.getElementById('editCustomerID').value = data.customerID;
+      document.getElementById('editAddressID').value = data.addressID;
+      document.getElementById('editTotalAmount').value = data.totalAmount;
+      document.getElementById('editFullName').value = data.fullName;
+      document.getElementById('editEmail').value = data.email;
+      document.getElementById('editPassword').value = data.passWord;
+      document.getElementById('editPhoneNumber').value = data.phoneNumber;
+      document.getElementById('editRegistrationDate').value = data.registrationDate;
+      document.getElementById('editAddress').value = data.address;
+      document.getElementById('editCity').value = data.city;
+      document.getElementById('editDistrict').value = data.district;
+      document.getElementById('editWard').value = data.ward;
+      document.getElementById('editStreetAddress').value = data.streetAddress;
+      
+      // Hiển thị modal
+      const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+      editModal.show();
+  })
+  .catch(error => {
+      console.error('Error fetching customer data:', error);
+  });
+
+
+// Hàm gửi yêu cầu PUT để cập nhật thông tin khách hàng
+// Hàm gửi yêu cầu PUT để cập nhật thông tin khách hàng
+document.getElementById('editCustomerForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+
+  const updatedCustomerData = {
+      totalAmount: parseFloat(document.getElementById('editTotalAmount').value),  // Cập nhật giá trị
+      userID: parseInt(document.getElementById('editUserID').value) ,  // Giữ nguyên userID
+      customerID: parseInt(document.getElementById('editCustomerID').value),  // Giữ nguyên customerID
+      addressID: parseInt(document.getElementById('editAddressID').value),  // Giữ nguyên addressID
+      fullName: document.getElementById('editFullName').value,  // Cập nhật giá trị
+      email: document.getElementById('editEmail').value,  // Cập nhật giá trị
+      passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
+      phoneNumber: document.getElementById('editPhoneNumber').value,  // Cập nhật giá trị
+      registrationDate:document.getElementById('editRegistrationDate').value ,  // Cập nhật giá trị
+      address: document.getElementById('editAddress').value,  // Cập nhật giá trị
+      city: document.getElementById('editCity').value,  // Cập nhật giá trị
+      district: document.getElementById('editDistrict').value,  // Cập nhật giá trị
+      ward: document.getElementById('editWard').value,  // Cập nhật giá trị
+      streetAddress: document.getElementById('editStreetAddress').value  // Cập nhật giá trị
+  };
+
+  // Log the data being sent to check the object
+  console.log("Updated Customer Data:", updatedCustomerData);
+
+  // Gửi yêu cầu PUT để cập nhật dữ liệu khách hàng
+  fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
+      method: 'PUT',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedCustomerData)  // Gửi dữ liệu đã thay đổi
+  })
+  .then(response => {
+      if (!response.ok) {
+          throw new Error('Failed to update customer');
+      }
+      return response.json();
+  })
+  .then(data => {
+    
+      fetchCustomerData();  // Cập nhật lại danh sách khách hàng
+      const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
+      editModal.hide();  // Đóng modal
+      location.reload();
+
+  })
+  .catch(error => {
+      console.error('Error updating customer:', error);
+      alert('Thông tin khách hàng đã được cập nhật!');
+      location.reload();
+
+  });
+});
+
+}

@@ -167,6 +167,71 @@
           <tbody id="customer-list">
             <!-- Dữ liệu khách hàng sẽ được thêm vào đây bằng JavaScript -->
           </tbody>
+          <!-- Modal Sửa Khách Hàng -->
+<div class="modal fade" id="editCustomerModal" tabindex="-1" aria-labelledby="editCustomerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editCustomerModalLabel">Sửa Khách Hàng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editCustomerForm">
+          <input type="hidden" id="editUserID" />
+          <input type="hidden" id="editCustomerID" />
+          <input type="hidden" id="editAddressID" />
+
+          <div class="mb-3">
+            <label for="editTotalAmount" class="form-label">Tổng Số Tiền</label>
+            <input type="number" class="form-control" id="editTotalAmount" required />
+          </div>
+          <div class="mb-3">
+            <label for="editFullName" class="form-label">Tên Khách Hàng</label>
+            <input type="text" class="form-control" id="editFullName" required />
+          </div>
+          <div class="mb-3">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editEmail" required />
+          </div>
+
+          <div class="mb-3">
+            <label for="editEmail" class="form-label">Mật khẩu</label>
+            <input type="text" class="form-control" id="editPassword" required />
+          </div>
+          <div class="mb-3">
+            <label for="editPhoneNumber" class="form-label">Số Điện Thoại</label>
+            <input type="text" class="form-control" id="editPhoneNumber" required />
+          </div>
+
+          <input type="date" id="editRegistrationDate" style="display: none;" />
+
+          <div class="mb-3">
+            <label for="editAddress" class="form-label">Địa chỉ</label>
+            <input type="text" class="form-control" id="editAddress" required />
+          </div>
+          <div class="mb-3">
+            <label for="editCity" class="form-label">Thành phố</label>
+            <input type="text" class="form-control" id="editCity" required />
+          </div>
+          <div class="mb-3">
+            <label for="editDistrict" class="form-label">Quận/Huyện</label>
+            <input type="text" class="form-control" id="editDistrict" required />
+          </div>
+          <div class="mb-3">
+            <label for="editWard" class="form-label">Phường/Xã</label>
+            <input type="text" class="form-control" id="editWard" required />
+          </div>
+          <div class="mb-3">
+            <label for="editStreetAddress" class="form-label">Số Nhà và Đường</label>
+            <input type="text" class="form-control" id="editStreetAddress" required />
+          </div>
+          <button type="submit" class="btn btn-primary">Lưu</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
         </table>
       </div>
     </div>

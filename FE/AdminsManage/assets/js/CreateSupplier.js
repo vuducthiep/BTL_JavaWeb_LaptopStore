@@ -37,6 +37,7 @@ async function fetchAndRenderSuppliers() {
       suppliers.forEach((supplier) => {
         const newRow = document.createElement('tr');
         newRow.innerHTML = `
+          <td>${supplier.supplierID}</td>
           <td>${supplier.supplierName}</td>
           <td>${supplier.email}</td>
           <td>${supplier.phoneNumber}</td>
@@ -62,6 +63,7 @@ form.addEventListener('submit', async (event) => {
 
   // Lấy dữ liệu từ form
   const formData = {
+    // supplierID: document.getElementById('supplierID').value, 
     supplierName: document.getElementById('supplierName').value,
     address: document.getElementById('address').value,
     phoneNumber: document.getElementById('phoneNumber').value,

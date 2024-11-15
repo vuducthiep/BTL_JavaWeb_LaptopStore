@@ -155,14 +155,16 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 
     @Override
     public List<CustomerDTO> listTopCustomerInMonth() {
-        StringBuilder query= setQuery(" MONTH(o.OrderDate) = MONTH(CURDATE()) " +
-                " AND YEAR(o.OrderDate) = YEAR(CURDATE()) AND ");
+        StringBuilder query= new StringBuilder(" SELECT " +
+                " SUM(o.TotalAmount) AS totalamount, ");
+        query.append(setQuery(" MONTH(o.OrderDate) = MONTH(CURDATE()) " +
+                " AND YEAR(o.OrderDate) = YEAR(CURDATE()) AND "," JOIN Orders o ON c.CustomerID = o.CustomerID "));
         query.append(" ORDER BY totalamount DESC ");
         Query queryNative = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = queryNative.getResultList();
         List<CustomerDTO> listCustomerDTO = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
-            CustomerDTO dto = setConstructor(rowOfResult);
+            CustomerDTO dto = setConstructor(rowOfResult,1);
             listCustomerDTO.add(dto);
         }
         return listCustomerDTO;
@@ -171,21 +173,20 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
 
     @Override
     public List<CustomerDTO> getListCustomer() {
-        StringBuilder query = setQuery(" ");
+        StringBuilder query = new StringBuilder("Select ");
+        query.append(setQuery(" "," "));
         Query queryNative = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = queryNative.getResultList();
         List<CustomerDTO> listCustomerDTO = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
-            CustomerDTO dto = setConstructor(rowOfResult);
+            CustomerDTO dto = setConstructor(rowOfResult,2);
             listCustomerDTO.add(dto);
         }
         return listCustomerDTO;
     }
 
-    public StringBuilder setQuery(String addQuery){
+    public StringBuilder setQuery(String addQuery,String addQueryJoin){
         StringBuilder query = new StringBuilder(
-                "SELECT \n" +
-                        "    SUM(o.TotalAmount) AS totalamount,\n" +
                         "    u.UserID AS userID,\n" +
                         "    c.CustomerID AS customerID,\n" +
                         "    sa.AddressID AS addressID,\n" +
@@ -202,7 +203,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
                         "FROM Users u\n" +
                         "JOIN Customers c ON u.UserID = c.UserID\n" +
                         "JOIN ShippingAddresses sa ON c.CustomerID = sa.CustomerID \n" +
-                        "JOIN Orders o ON c.CustomerID = o.CustomerID \n" +
+                        addQueryJoin +
                         "WHERE  \n" +
                         addQuery+
                         "  c.Status = 'active' \n" +
@@ -215,23 +216,44 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         return query;
     }
 
-    public CustomerDTO setConstructor(Object[] rowOfResult){
-        CustomerDTO dto = new CustomerDTO(
-                (BigDecimal) rowOfResult[0],
-                (Integer) rowOfResult[1],
-                (Integer) rowOfResult[2],
-                (Integer) rowOfResult[3],
-                (String) rowOfResult[4],
-                (String) rowOfResult[5],
-                (String) rowOfResult[6],
-                (String) rowOfResult[7],
-                (Date) rowOfResult[8],
-                (String) rowOfResult[9],
-                (String) rowOfResult[10],
-                (String) rowOfResult[11],
-                (String) rowOfResult[12],
-                (String) rowOfResult[13]
-        );
-        return dto;
+    public CustomerDTO setConstructor(Object[] rowOfResult,Integer task){
+            if(task==1) {
+                CustomerDTO dto = new CustomerDTO(
+                        (BigDecimal) rowOfResult[0],
+                        (Integer) rowOfResult[1],
+                        (Integer) rowOfResult[2],
+                        (Integer) rowOfResult[3],
+                        (String) rowOfResult[4],
+                        (String) rowOfResult[5],
+                        (String) rowOfResult[6],
+                        (String) rowOfResult[7],
+                        (Date) rowOfResult[8],
+                        (String) rowOfResult[9],
+                        (String) rowOfResult[10],
+                        (String) rowOfResult[11],
+                        (String) rowOfResult[12],
+                        (String) rowOfResult[13]
+                );
+                return dto;
+            }
+            else{
+                CustomerDTO dto = new CustomerDTO(
+                        null,
+                        (Integer) rowOfResult[0],
+                        (Integer) rowOfResult[1],
+                        (Integer) rowOfResult[2],
+                        (String) rowOfResult[3],
+                        (String) rowOfResult[4],
+                        (String) rowOfResult[5],
+                        (String) rowOfResult[6],
+                        (Date) rowOfResult[7],
+                        (String) rowOfResult[8],
+                        (String) rowOfResult[9],
+                        (String) rowOfResult[10],
+                        (String) rowOfResult[11],
+                        (String) rowOfResult[12]
+                );
+                return dto;
+            }
     }
 }
