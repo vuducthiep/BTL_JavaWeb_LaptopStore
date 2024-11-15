@@ -136,4 +136,20 @@ public class PromotionServiceImpl implements IPromotionService {
         }
         entityManager.flush();
     }
+
+    @Override
+    public List<Promotion_getPromotionProductDTO> searchProductByName(int productID, String productName) {
+        List<Object[]> product = promotionRepository.searchProductByName(productID,productName);
+        List<Promotion_getPromotionProductDTO> rs = new ArrayList<>();
+        for(Object[] o:product){
+            Promotion_getPromotionProductDTO pp = Promotion_getPromotionProductDTO.builder()
+                    .productID((int) o[0])
+                    .productName((String) o[1])
+                    .brand((String) o[2])
+                    .hasPromotion((Long) o[3])
+                    .build();
+            rs.add(pp);
+        }
+        return rs;
+    }
 }

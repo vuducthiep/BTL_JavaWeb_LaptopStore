@@ -6,6 +6,13 @@ const productListDiv = document.getElementById('product-list');
 const top10ProductsList = document.getElementById('top-10-products-list');
 const monthlyNewProductsChart = document.getElementById('monthly-new-products-chart');
 
+document.getElementById("add-product-btn").addEventListener("click", function () {
+  var addProductModal = new bootstrap.Modal(document.getElementById("addProductModal"));
+  addProductModal.show();
+});
+
+
+
 // Hàm để lấy dữ liệu từ API
 async function fetchProductData() {
   try {
@@ -43,6 +50,12 @@ function displayProductList(products) {
         <td>${product.productName}</td>
         <td>${product.productBrand}</td>
         <td>${product.price.toLocaleString()} USD</td>
+        <td>
+          <!-- Nút Sửa -->
+          <button class="btn btn-primary btn-sm" onclick="editProduct(${product.id})">Sửa</button>
+          <!-- Nút Xóa -->
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
+        </td>
       </tr>
     `;
   });
