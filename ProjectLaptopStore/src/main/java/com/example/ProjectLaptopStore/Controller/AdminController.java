@@ -120,6 +120,14 @@ public class AdminController {
         List<Promotion_getPromotionProductDTO> rs = promotionService.displayPromotionProduct(id);
         return  rs;
     }
+
+    //API tim kiem san pham de them khuyen mai
+    @GetMapping(value = "/promotion-product/")
+    public List<Promotion_getPromotionProductDTO> searchProduct(@RequestParam(name = "promotionID")int promotionID,
+                                                                @RequestParam(name = "productName")String productName){
+         List<Promotion_getPromotionProductDTO> rs = promotionService.searchProductByName(promotionID,productName);
+         return rs;
+    }
     //API thêm mã giảm giá cho sản phẩm
     @PostMapping(value = "/promotion-product/add-promotion/{productID}/{promotionID}")
     public ResponseEntity<?> addPromotion(@PathVariable(name = "productID")int productID,
@@ -128,6 +136,7 @@ public class AdminController {
             return  ResponseEntity.ok("success");
     }
 
+    //API cap nhat thong tin khuyen mai
     @PostMapping(value = "/promotion/update-promotion")
     public ResponseEntity<?> updatePromotion(@RequestBody(required = false)Promotions_DisplayPromotionsDTO dto){
         promotionService.updatePromotion(dto);
