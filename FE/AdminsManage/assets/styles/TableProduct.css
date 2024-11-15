@@ -93,5 +93,37 @@
     padding: 20px;
     
   }
+
+
+  #content-area {
+    flex-grow: 1; /* Làm cho phần content chiếm phần còn lại của màn hình */
+    overflow-y: auto; /* Thêm thanh cuộn dọc nếu cần */
+    padding: 20px;
+  }
+  
+  #wrapper {
+    display: flex;
+    height: 100vh; /* Đảm bảo chiều cao của wrapper chiếm toàn bộ chiều cao màn hình */
+  }
+  
+  #sidebar {
+    width: 250px; /* Chiều rộng cố định cho sidebar */
+    height: 100%; /* Sidebar sẽ chiếm toàn bộ chiều cao */
+    position: fixed; /* Sidebar cố định, không bị cuộn */
+  }
+  
+  #menu-toggle {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000; /* Đảm bảo nút toggle ở trên cùng */
+  }
+  
+  @media (max-width: 768px) {
+    #sidebar {
+      width: 200px;
+    }
+  }
+  
   
   

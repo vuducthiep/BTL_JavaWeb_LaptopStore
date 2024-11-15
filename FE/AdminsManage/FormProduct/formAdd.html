@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Product</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h2>Thêm Sản Phẩm</h2>
+        <form id="product-form">
+            <!-- Basic Info -->
+            <div class="mb-3">
+                <label for="productName" class="form-label">Tên Sản phẩm</label>
+                <input type="text" class="form-control" id="productName" value="Laptop J" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="productBrand" class="form-label">Hãng</label>
+                <input type="text" class="form-control" id="productBrand" value="BrandJ" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="model" class="form-label">Mẫu sản phẩm</label>
+                <input type="text" class="form-control" id="model" value="ModelJ1" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="price" class="form-label">Giá</label>
+                <input type="number" class="form-control" id="price" value="1700" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="stockQuantity" class="form-label">Số lượng tồn kho</label>
+                <input type="number" class="form-control" id="stockQuantity" value="8" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="releaseDate" class="form-label">Ngày phát hành</label>
+                <input type="date" class="form-control" id="releaseDate" value="2023-11-01" required>
+            </div>
+
+            <!-- Warranty -->
+            <div class="mb-3">
+                <label for="warrantyPeriod" class="form-label">Thời gian bảo hành (tháng)</label>
+                <input type="number" class="form-control" id="warrantyPeriod" value="36" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="imageUrl" class="form-label">URL Hình ảnh</label>
+                <input type="text" class="form-control" id="imageUrl" value="url_to_image10.jpg">
+            </div>
+
+            <!-- CPU & Memory -->
+            <h5 class="mt-4">Thông số CPU và RAM</h5>
+
+            <div class="mb-3">
+                <label for="cpuCompany" class="form-label">Hãng CPU</label>
+                <input type="text" class="form-control" id="cpuCompany" value="Intel" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="cpuType" class="form-label">Loại CPU</label>
+                <input type="text" class="form-control" id="cpuType" value="i9-11900K" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ramCapacity" class="form-label">Dung lượng RAM (GB)</label>
+                <input type="number" class="form-control" id="ramCapacity" value="32" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ramType" class="form-label">Loại RAM</label>
+                <input type="text" class="form-control" id="ramType" value="DDR4" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="ramSpeed" class="form-label">Tốc độ RAM (MHz)</label>
+                <input type="text" class="form-control" id="ramSpeed" value="3600 MHz" required>
+            </div>
+
+            <!-- Storage -->
+            <h5 class="mt-4">Thông số Lưu trữ</h5>
+
+            <div class="mb-3">
+                <label for="hardDriveType" class="form-label">Loại ổ cứng</label>
+                <input type="text" class="form-control" id="hardDriveType" value="SSD" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="capacity" class="form-label">Dung lượng ổ cứng (GB)</label>
+                <input type="number" class="form-control" id="capacity" value="1024" required>
+            </div>
+
+            <!-- Screen -->
+            <h5 class="mt-4">Thông số Màn hình</h5>
+
+            <div class="mb-3">
+                <label for="screenSize" class="form-label">Kích thước màn hình (inch)</label>
+                <input type="number" class="form-control" id="screenSize" value="15.6" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="resolution" class="form-label">Độ phân giải màn hình</label>
+                <input type="text" class="form-control" id="resolution" value="3840x2160" required>
+            </div>
+
+            <!-- Other -->
+            <h5 class="mt-4">Thông số khác</h5>
+
+            <div class="mb-3">
+                <label for="os" class="form-label">Hệ điều hành</label>
+                <input type="text" class="form-control" id="os" value="Windows 11" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="batteryCapacity" class="form-label">Dung lượng Pin (mAh)</label>
+                <input type="number" class="form-control" id="batteryCapacity" value="7000" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="productWeight" class="form-label">Trọng lượng sản phẩm (kg)</label>
+                <input type="number" step="0.1" class="form-control" id="productWeight" value="2.4" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-success mt-4">Lưu Sản phẩm</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
