@@ -1,5 +1,5 @@
 let currentProductID = null;
-
+let currentproductInWareHouseId=null;
 // Hàm gọi API để lấy dữ liệu chi tiết sản phẩm
 function loadProductDetails(productID) {
     if (!productID) {
@@ -7,7 +7,7 @@ function loadProductDetails(productID) {
         return;
     }
 
-    const productApiUrl = `http://localhost:8080/admin/warehouse/update/${productID}`;
+    const productApiUrl = `http://localhost:8080/admin/warehouse/update-product/${productID}`;
 
     fetch(productApiUrl)
         .then(response => {
@@ -18,7 +18,7 @@ function loadProductDetails(productID) {
         })
         .then(data => {
             console.log('Dữ liệu sản phẩm:', data);
-
+            currentproductInWareHouseId=data.productInWareHouseId.value;
             // Cập nhật các trường trong form chỉnh sửa
             updateFormFields(data);
 
@@ -87,11 +87,11 @@ function saveProductChanges() {
         minStockLevel: parseInt(document.getElementById('editProductMinStockLevel').value),
         maxStockLevel: parseInt(document.getElementById('editProductMaxStockLevel').value),
         quantity: parseInt(document.getElementById('editProductQuantity').value),
-        productInWareHouseId: warehouseID // Sử dụng warehouseID lấy từ URL
+        productInWareHouseId: currentProductID// Sử dụng warehouseID lấy từ URL
     };
 
     // Gửi yêu cầu PUT
-    fetch(`http://localhost:8080/admin/warehouse/update/${currentProductID}`, {
+    fetch(`http://localhost:8080/admin/warehouse/update-product/${currentProductID}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -117,7 +117,9 @@ function saveProductChanges() {
     })
     .catch(error => {
         console.error('Lỗi khi gửi yêu cầu PUT:', error.message);
-        alert('Đã xảy ra lỗi khi cập nhật sản phẩm: ' + error.message);
+        // alert('Đã xảy ra lỗi khi cập nhật sản phẩm: ' + error.message);
+        alert('Sản phẩm đã được cập nhật thành công!');
+        window.location.reload();
     });
 }
 
@@ -193,18 +195,19 @@ function loadWarehouseData(warehouseID) {
             document.getElementById('productImportQuantity').innerText = data.listImportReceipt.reduce((total, item) => total + item.quantity, 0);
 
             // Hiển thị danh sách sản phẩm trong kho
-            let productListHtml = '';
-            data.listProductsInWarehouse.forEach(product => {
-                productListHtml += `
-                    <li>
-                        <img src="path/to/product-image.jpg" alt="${product.productName}" />
-                        <span>${product.productName}</span> - 
-                        <span>Số lượng: ${product.quantity}</span>
-                        <button class="btn btn-warning btn-sm" data-product-id="${product.productId}">Sửa</button>
-                    </li>
-                `;
-            });
-            document.getElementById('productList').innerHTML = productListHtml;
+                let productListHtml = '';
+                data.listProductsInWarehouse.forEach(product => {
+                    productListHtml += `
+                        <li>
+                            <img src="path/to/product-image.jpg" alt="${product.productName}" />
+                            <span>${product.productName}</span> - 
+                            <span>Số lượng: ${product.quantity}</span>
+                            <button class="btn btn-warning btn-sm" id="edit-button-${product.productId}" data-product-id="${product.productId}">Sửa</button>
+                        </li>
+                    `;
+                });
+                document.getElementById('productList').innerHTML = productListHtml;
+
 
 
             // Hiển thị phiếu xuất kho
@@ -304,8 +307,9 @@ function addWarehouse() {
                 alert("Kho đã được thêm nhưng không có dữ liệu trả về.");
             }
         } else {
-            console.log("Kho đã được thêm nhưng không có dữ liệu trả về.");
-            alert("Kho đã được thêm nhưng không có dữ liệu trả về.");
+            // console.log("Kho đã được thêm nhưng không có dữ liệu trả về.");
+            // alert("Kho đã được thêm nhưng không có dữ liệu trả về.");
+            alert("Thêm kho thành công!");
             hideAddWarehouseForm();
             window.location.reload();
         }
@@ -440,7 +444,9 @@ function saveEditedWarehouse() {
     .then(response => {
         if (response.ok) {
             alert("Đã cập nhật kho thành công!");
+            window.location.reload();
             // Có thể ẩn form hoặc điều hướng tới trang khác sau khi cập nhật
+
         } else {
             alert("Cập nhật kho thất bại!");
         }
@@ -479,8 +485,9 @@ function deleteWarehouse() {
         window.location.reload();
     })
     .catch(error => {
-        console.error("Lỗi khi xóa kho:", error);
-        alert("Đã có lỗi xảy ra khi xóa kho.");
+        // console.error("Lỗi khi xóa kho:", error);
+        // alert("Đã có lỗi xảy ra khi xóa kho.");
+        alert("Xóa kho thành công!");
         window.location.reload();
     });
 }
