@@ -2,6 +2,7 @@ package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConverter;
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Repository.*;
 import com.example.ProjectLaptopStore.Response.Admin_BillResponseDTO;
@@ -32,7 +33,8 @@ public class AdminServiceImpl implements AdminService {
     private IOrderDetailService orderDetailService;
     @Autowired
     private IOrderRepository orderRepository;
-
+    @Autowired
+    private WareHouseService wareHouseService;
     @Autowired
     private ExportReceiptDetailsRepository exportReceiptDetailsRepository;
     @Autowired
@@ -95,8 +97,8 @@ public class AdminServiceImpl implements AdminService {
     public Admin_WarehouseResponseDTO adminReceiptAtService(Integer warehouseID) {
         Admin_WarehouseResponseDTO adminReceiptResponseDTO = new Admin_WarehouseResponseDTO();
         try {
-            List<WareHouseEntity> listWarehouse = wareHouseRepository.findAll();
-            WareHouseEntity wareHouse = wareHouseRepository.findByWarehouseID(warehouseID);
+            List<WareHouseEntity> listWarehouse = wareHouseService.getListWareHouse();
+            WareHouseEntity wareHouse = wareHouseRepository.findByWarehouseIDAndStatus(warehouseID, Status_Enum.active);
             Integer totalQuantity = productsInWarehouseRepository.getTotalQuantity(warehouseID);
             Integer minStock = productsInWarehouseRepository.countProductsMinStockLevel(warehouseID);
             Integer maxStock = productsInWarehouseRepository.countProductsMaxStockLevel(warehouseID);
