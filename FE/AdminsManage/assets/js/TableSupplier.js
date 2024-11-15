@@ -25,6 +25,7 @@ function displaySuppliers(suppliers) {
     suppliers.forEach(supplier => {
       const row = document.createElement('tr');
       row.innerHTML = `
+        <td>${supplier.supplierID}</td>
         <td>${supplier.supplierName}</td>
         <td>${supplier.email}</td>
         <td>${supplier.phoneNumber}</td>
