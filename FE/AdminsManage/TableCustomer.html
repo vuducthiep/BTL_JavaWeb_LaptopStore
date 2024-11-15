@@ -177,7 +177,10 @@
       </div>
       <div class="modal-body">
         <form id="editCustomerForm">
+          <input type="hidden" id="editUserID" />
           <input type="hidden" id="editCustomerID" />
+          <input type="hidden" id="editAddressID" />
+
           <div class="mb-3">
             <label for="editTotalAmount" class="form-label">Tổng Số Tiền</label>
             <input type="number" class="form-control" id="editTotalAmount" required />
@@ -199,6 +202,9 @@
             <label for="editPhoneNumber" class="form-label">Số Điện Thoại</label>
             <input type="text" class="form-control" id="editPhoneNumber" required />
           </div>
+
+          <input type="date" id="editRegistrationDate" style="display: none;" />
+
           <div class="mb-3">
             <label for="editAddress" class="form-label">Địa chỉ</label>
             <input type="text" class="form-control" id="editAddress" required />
