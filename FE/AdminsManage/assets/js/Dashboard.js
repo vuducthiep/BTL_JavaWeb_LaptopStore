@@ -16,7 +16,7 @@ async function loadDashboardData() {
 
     // Dữ liệu cho biểu đồ khách hàng mới
     const newCustomerLabels = data.newCustomerPerMonthMap.map(
-      (item) => `Tháng ${item.month}`
+      (item) => ` ${item.month}`
     );
     const newCustomerData = data.newCustomerPerMonthMap.map(
       (item) => item.customerCount
@@ -74,7 +74,7 @@ async function loadDashboardData() {
 
     // Dữ liệu cho biểu đồ doanh thu (biểu đồ đường thay vì cột)
     const revenueLabels = data.totalAmountPerMonthMap.map(
-      (item) => `Tháng ${item.month}`
+      (item) => ` ${item.month}`
     );
     const revenueData = data.totalAmountPerMonthMap.map(
       (item) => item.totalAmount
@@ -130,7 +130,7 @@ async function loadDashboardData() {
 
     // Dữ liệu cho biểu đồ sản phẩm bán (biểu đồ đường thay vì pie)
     const productsSoldLabels = data.totalQuantitySellProductPerMonthMap.map(
-      (item) => `Tháng ${item.month}`
+      (item) => ` ${item.month}`
     );
     const productsSoldData = data.totalQuantitySellProductPerMonthMap.map(
       (item) => item.totalSold
@@ -192,7 +192,7 @@ async function loadDashboardData() {
 
     // Lọc và chỉ hiển thị các sản phẩm có số lượng bán từ 20 trở lên
     data.topPurchasedProductInMonth.forEach((product) => {
-      if (product.quantityOrdered >= 20) {
+      if (product.quantityOrdered >= 1) {
         const li = document.createElement("li");
         li.classList.add("list-group-item");
         li.innerHTML = `
@@ -205,17 +205,22 @@ async function loadDashboardData() {
     });
 
     // Cập nhật danh sách top khách hàng trong tháng
-    const topCustomersList = document.getElementById("top-customers-list");
-    topCustomersList.innerHTML = "";
-    data.topCustomerInMonth.forEach((customer) => {
-      const li = document.createElement("li");
-      li.classList.add("list-group-item");
-      li.innerHTML = `
-        <div><strong>${customer.name}</strong></div>
-        <div>Tổng chi tiêu: ${customer.totalSpent} VND</div>
-      `;
-      topCustomersList.appendChild(li);
-    });
+const topCustomersList = document.getElementById("top-customers-list");
+topCustomersList.innerHTML = "";
+
+// Lọc và hiển thị thông tin top khách hàng từ API
+data.topCustomerInMonth.forEach((customer) => {
+  const li = document.createElement("li");
+  li.classList.add("list-group-item");
+  li.innerHTML = `
+    <div><strong>${customer.fullName}</strong></div>
+    <div>Email: ${customer.email}</div>
+    <div>Số điện thoại: ${customer.phoneNumber}</div>
+    <div>Địa chỉ: ${customer.streetAddress}, ${customer.ward}, ${customer.district}, ${customer.city}, ${customer.address}</div>
+    <div>Tổng chi tiêu: ${customer.totalAmount} VND</div>
+  `;
+  topCustomersList.appendChild(li);
+});
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu từ API:", error);
   }
