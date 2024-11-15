@@ -1,7 +1,7 @@
 // Các phần tử HTML
 const deleteModeBtn = document.getElementById('delete-mode-btn');
 const deleteSelectedBtn = document.getElementById('delete-selected-btn');
-const supplierTable = document.getElementById('supplier-list');
+const supplierTableDelete = document.getElementById('supplier-list');
 
 // Biến trạng thái để kiểm tra chế độ xóa
 let isDeleteMode = false;
@@ -15,7 +15,7 @@ deleteModeBtn.addEventListener('click', () => {
     deleteSelectedBtn.style.display = 'inline-block';
 
     // Thêm cột checkbox vào mỗi dòng
-    const rows = supplierTable.querySelectorAll('tr');
+    const rows = supplierTableDelete.querySelectorAll('tr');
     rows.forEach((row) => {
       const checkboxCell = document.createElement('td');
       checkboxCell.innerHTML = '<input type="checkbox" class="delete-checkbox">';
@@ -26,7 +26,7 @@ deleteModeBtn.addEventListener('click', () => {
     deleteSelectedBtn.style.display = 'none';
 
     // Xóa cột checkbox
-    const rows = supplierTable.querySelectorAll('tr');
+    const rows = supplierTableDelete.querySelectorAll('tr');
     rows.forEach((row) => {
       const lastCell = row.lastElementChild;
       if (lastCell.querySelector('.delete-checkbox')) {

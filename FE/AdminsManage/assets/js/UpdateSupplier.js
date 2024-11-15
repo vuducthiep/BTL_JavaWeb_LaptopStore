@@ -1,6 +1,7 @@
+// Các phần tử HTML
 const editModeBtn = document.getElementById('toggle-edit-mode');
-const supplierTable = document.getElementById('supplier-list');
-let editModeActive = false; // Biến theo dõi trạng thái chế độ sửa
+const supplierTableUpdate = document.getElementById('supplier-list');
+let   editModeActive = false; // Biến theo dõi trạng thái chế độ sửa
 
 // Thêm hoặc gỡ cột "Sửa" khi nhấn nút "Sửa nhà cung cấp"
 editModeBtn.addEventListener('click', () => {
@@ -16,7 +17,7 @@ editModeBtn.addEventListener('click', () => {
 
 // Thêm cột "Sửa"
 function enableEditMode() {
-  const rows = supplierTable.querySelectorAll('tr');
+  const rows = supplierTableUpdate.querySelectorAll('tr');
   rows.forEach((row) => {
     const editCell = document.createElement('td');
     const editButton = document.createElement('button');
@@ -30,7 +31,7 @@ function enableEditMode() {
 
 // Gỡ cột "Sửa"
 function disableEditMode() {
-  const rows = supplierTable.querySelectorAll('tr');
+  const rows = supplierTableUpdate.querySelectorAll('tr');
   rows.forEach((row) => {
     if (row.lastChild.querySelector('button')) {
       row.removeChild(row.lastChild); // Xóa ô cuối cùng
@@ -83,9 +84,9 @@ document.getElementById('edit-supplier-form').addEventListener('submit', async (
   const updatedData = {
     supplierId: document.getElementById('edit-supplier-id').value,
     supplierName: document.getElementById('edit-supplier-name').value,
-    email: document.getElementById('edit-email').value,
-    phoneNumber: document.getElementById('edit-phone-number').value,
     address: document.getElementById('edit-address').value,
+    phoneNumber: document.getElementById('edit-phone-number').value,
+    email: document.getElementById('edit-email').value,
     taxCode: document.getElementById('edit-taxcode').value,
     website: document.getElementById('edit-website').value,
     representative: document.getElementById('edit-representative').value,
@@ -108,19 +109,24 @@ document.getElementById('edit-supplier-form').addEventListener('submit', async (
 
       // Cập nhật dữ liệu trong bảng
       const cells = row.querySelectorAll('td');
-      cells[1].innerText = updatedData.supplierName;
-      cells[2].innerText = updatedData.email;
-      cells[3].innerText = updatedData.phoneNumber;
-      cells[4].innerText = updatedData.address;
-      cells[5].innerText = updatedData.taxCode;
-      cells[6].innerText = updatedData.website;
-      cells[7].innerText = updatedData.partnershipStartDate;
+
+      // Ánh xạ dữ liệu từ `updatedData` vào các ô tương ứng
+      cells[0].innerText = updatedData.supplierId; // ID Nhà Cung Cấp
+      cells[1].innerText = updatedData.supplierName; // Tên Nhà Cung Cấp
+      cells[2].innerText = updatedData.email; // Email
+      cells[3].innerText = updatedData.phoneNumber; // Số Điện Thoại
+      cells[4].innerText = updatedData.address; // Địa Chỉ
+      cells[5].innerText = updatedData.taxCode; // Taxcode
+      cells[6].innerText = updatedData.website; // Website
+      cells[7].innerText = updatedData.partnershipStartDate; // PartnershipStartDate
+
     } else {
       const error = await response.json();
       alert('Cập nhật thất bại: ' + (error.message || 'Lỗi không xác định'));
     }
   } catch (error) {
-    console.error('Lỗi khi cập nhật nhà cung cấp:', error);
-    alert('Có lỗi xảy ra.');
+    // console.error('Lỗi khi cập nhật nhà cung cấp:', error);
+    // alert('Có lỗi xảy ra.');
+    window.location.reload() ;
   }
 }); 

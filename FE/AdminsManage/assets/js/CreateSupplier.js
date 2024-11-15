@@ -63,7 +63,7 @@ form.addEventListener('submit', async (event) => {
 
   // Lấy dữ liệu từ form
   const formData = {
-    supplierID: document.getElementById('supplierID').value, 
+    // supplierID: document.getElementById('supplierID').value, 
     supplierName: document.getElementById('supplierName').value,
     address: document.getElementById('address').value,
     phoneNumber: document.getElementById('phoneNumber').value,
