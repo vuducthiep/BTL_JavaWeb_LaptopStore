@@ -6,12 +6,6 @@ const productListDiv = document.getElementById('product-list');
 const top10ProductsList = document.getElementById('top-10-products-list');
 const monthlyNewProductsChart = document.getElementById('monthly-new-products-chart');
 
-// // Hàm khởi tạo modal "Thêm sản phẩm"
-// document.getElementById("add-product-btn").addEventListener("click", function () {
-//   const addProductModal = new bootstrap.Modal(document.getElementById("addProductModal"));
-//   addProductModal.show();
-// });
-
 // Hàm để lấy dữ liệu từ API
 async function fetchProductData() {
   try {
@@ -24,6 +18,7 @@ async function fetchProductData() {
 
     // Lấy dữ liệu JSON từ phản hồi
     const data = await response.json();
+    console.log('Fetched Product Data:', data); // Kiểm tra dữ liệu API
 
     // Gọi các hàm hiển thị dữ liệu
     displayProductList(data.listProductDetail);
@@ -36,25 +31,33 @@ async function fetchProductData() {
 
 // Hàm hiển thị danh sách sản phẩm
 function displayProductList(products) {
-  const productHTML = products.map((product, index) => `
-    <tr>
-      <td>${index + 1}</td>
-      <td>${product.productName}</td>
-      <td>${product.productBrand}</td>
-      <td>${product.price.toLocaleString()} USD</td>
-      <td>
-        <button class="btn btn-primary btn-sm" onclick="editProduct(${product.id})">Sửa</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
-      </td>
-    </tr>
-  `).join('');
+  const productHTML = products.map((product, index) => {
+    console.log('Product ID:', product.id); // Kiểm tra ID sản phẩm
+    return `
+      <tr>
+        <td>${index + 1}</td>
+        <td>${product.productName}</td>
+        <td>${product.productBrand}</td>
+        <td>${product.price.toLocaleString()} USD</td>
+        <td>
+          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Sửa</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${product.productId}')">Xóa</button>
+        </td>
+      </tr>
+    `;
+  }).join('');
   
   productListDiv.innerHTML = productHTML;
 }
 
+// Hàm để sửa sản phẩm (nơi bạn xử lý chỉnh sửa sản phẩm)
+function editProduct(productId) {
+  console.log('Edit Product ID:', productId); // Kiểm tra ID khi nhấn "Sửa"
+  // Tiến hành xử lý chỉnh sửa sản phẩm ở đây với productId
+}
+
 // Hàm hiển thị top 10 sản phẩm bán chạy nhất
 function displayTop10Products(products) {
-  // Sắp xếp sản phẩm theo số lượng bán giảm dần và lấy 10 sản phẩm bán chạy nhất
   const top10 = products.sort((a, b) => b.quantityOrdered - a.quantityOrdered).slice(0, 10);
   
   const top10HTML = top10.map(product => `
@@ -96,7 +99,6 @@ function displayMonthlyProductChart(monthlyData) {
     }
   };
 
-  // Vẽ biểu đồ sử dụng Chart.js
   new Chart(monthlyNewProductsChart, {
     type: 'line',
     data: chartData,
