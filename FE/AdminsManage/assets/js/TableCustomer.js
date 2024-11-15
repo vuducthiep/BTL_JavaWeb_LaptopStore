@@ -6,6 +6,12 @@ const customerListDiv = document.getElementById('customer-list');
 const top10CustomersList = document.getElementById('top-10-customers-list');
 const monthlyNewCustomersChart = document.getElementById('monthly-new-customers-chart');
 
+document.getElementById("add-customer-btn").addEventListener("click", function () {
+  var addCustomerModal = new bootstrap.Modal(document.getElementById("addCustomerModal"));
+  addCustomerModal.show();
+});
+
+
 // Hàm để lấy dữ liệu từ API
 async function fetchCustomerData() {
   try {
@@ -43,6 +49,13 @@ function displayCustomerList(customers) {
         <td>${customer.fullName}</td>
         <td>${customer.email}</td>
         <td>${customer.totalAmount}</td>
+        <td>
+          <!-- Nút Sửa -->
+          <button class="btn btn-primary btn-sm" onclick="editCustomer(${customer.id})">Sửa</button>
+          <!-- Nút Xóa -->
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${customer.id})">Xóa</button>
+        </td>
+        
       </tr>
     `;
   });
