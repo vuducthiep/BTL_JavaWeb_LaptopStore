@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 @Setter
 @Getter
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Builder
 public class Promotions_DisplayPromotionsDTO {
     int promotionID;
     String promotionName;
