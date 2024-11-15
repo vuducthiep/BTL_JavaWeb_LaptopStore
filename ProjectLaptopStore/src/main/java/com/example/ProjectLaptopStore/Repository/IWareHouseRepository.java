@@ -10,6 +10,6 @@ import java.util.List;
 
 @Transactional
 public interface IWareHouseRepository extends JpaRepository<WareHouseEntity,Integer> , WareHouseRepositoryCustom {
-    WareHouseEntity findByWarehouseID(Integer warehouseID);
+    WareHouseEntity findByWarehouseIDAndStatus(Integer warehouseID,Status_Enum status);
     List<WareHouseEntity> findByStatus(Status_Enum status);
 }

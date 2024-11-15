@@ -76,6 +76,7 @@
     z-index: 1100;
     border-radius: 5px;
 }
+
 #sidebar {
     width: 250px;
     position: fixed;
@@ -90,5 +91,7 @@
   #content-area {
     margin-left: 250px;
     padding: 20px;
+    
   }
+  
   
