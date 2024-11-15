@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.Date;
 @Getter
 @Setter
-public class Supplier_UpdateSupplierDTO {
+public class SupplierDTO {
     private Integer supplierId;
     private String supplierName;
     private String address;
@@ -17,7 +17,7 @@ public class Supplier_UpdateSupplierDTO {
     private String representative;
     private Date partnershipStartDate;
 
-    public Supplier_UpdateSupplierDTO(Integer supplierId, String supplierName, String address, String phoneNumber, String email, String taxcode, String website, String representative, Date partnershipStartDate) {
+    public SupplierDTO(Integer supplierId, String supplierName, String address, String phoneNumber, String email, String taxcode, String website, String representative, Date partnershipStartDate) {
         this.supplierId = supplierId;
         this.supplierName = supplierName;
         this.address = address;

@@ -116,8 +116,8 @@ public class AdminControllerTest {
     }
     //API tạo nhà cung cấp
     @PostMapping("/admin/createsupplier/")
-    public void createSupplier(@RequestBody Supplier_CreateSupplierDTO createSupplierDTO){
-        suppliersService.createSupplier(createSupplierDTO);
+    public void createSupplier(@RequestBody SupplierDTO supplierNew){
+        suppliersService.createSupplier(supplierNew);
     }
 
 
@@ -134,7 +134,7 @@ public class AdminControllerTest {
     }
     //API cập nhật nhà cung cấp
     @PutMapping("/admin/updatesupplier/")
-    public void updateSupplier(@RequestBody Supplier_UpdateSupplierDTO supplierUpdateDTO){
+    public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
         suppliersService.updateSupplier(supplierUpdateDTO);
     }
 
@@ -157,12 +157,12 @@ public class AdminControllerTest {
         suppliersService.deleteSupplier(ids);
     }
 
-    //API lấy danh sách top người tiêu dùng trong tháng
-    @GetMapping("/admin/topcustomer/")
-    public List<Customer_FindTopCustomerInMonthDTO> TopCustomerInMonth(){
-        List<Customer_FindTopCustomerInMonthDTO> result = customerService.listTopCustomerInMonth();
-        return result;
-    }
+//    //API lấy danh sách top người tiêu dùng trong tháng
+//    @GetMapping("/admin/topcustomer/")
+//    public List<Customer_FindTopCustomerInMonthDTO> TopCustomerInMonth(){
+//        List<Customer_FindTopCustomerInMonthDTO> result = customerService.listTopCustomerInMonth();
+//        return result;
+//    }
 
     //API lấy danh sách bill
     @GetMapping(value = "/admin/listbill/")

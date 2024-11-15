@@ -2,6 +2,9 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
+import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
+import com.example.ProjectLaptopStore.Repository.IWareHouseRepository;
 import com.example.ProjectLaptopStore.Response.*;
 import com.example.ProjectLaptopStore.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,6 +28,8 @@ public class AdminController {
     private IPromotionService promotionService;
 
     @Autowired
+    private WareHouseService wareHouseService;
+    @Autowired
     private IProductService productService;
     @Autowired
     private ICustomerService customerService;
@@ -32,6 +37,8 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private ISuppliersService  suppliersService;
     @Autowired
     private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard
@@ -61,16 +68,39 @@ public class AdminController {
     }
 
     //API lấy thông tin của sản phẩm được chọn để sửa ở màn kho hàng
-    @GetMapping(value = "/warehouse/update/{productID}")
+    @GetMapping(value = "/warehouse/update-product/{productID}")
     public ProductsInWarehouse_DTO getProductsInWarehouse(@PathVariable(name = "productID") Integer productID){
         return productInWarehouseService.getProductInWarehouse(productID);
     }
     //API cập nhật thông tin của sản phẩm trong kho
     //productID không cần dùng
-    @PutMapping(value = "/warehouse/update/{productID}")
+    @PutMapping(value = "/warehouse/update-product/{productID}")
     public void warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
         productInWarehouseService.productInWareHouseUpdate(productsInWarehouseUpdate);
     }
+    //API lấy thông tin nhà kho để sửa
+    @GetMapping(value = "/warehouse/update/{id}")
+    public WareHouseEntity getWarehouse(@PathVariable(name = "id") Integer id){
+        return wareHouseService.getWareHouseById(id);
+    }
+    //API câp nhật thông tin nhà kho
+    @PutMapping(value = "/warehouse/update/{id}")
+    public void updateWarehouse(@RequestBody WareHouseEntity wareHouseNew){
+        wareHouseService.updateWareHouse(wareHouseNew);
+    }
+
+    //API tạo nhà kho mới
+    @PostMapping(value = "/warehouse/create")
+    public void createWarehouse(@RequestBody WareHouseEntity wareHouseNew){
+        wareHouseService.createWareHouse(wareHouseNew);
+    }
+
+    //API xóa nhà kho
+    @DeleteMapping(value = "/warehouse/{id}")
+    public void deleteWarehouse(@PathVariable(name = "id") Integer id){
+        wareHouseService.deleteWareHouse(id);
+    }
+
 
     //API lay thong tin cac khuyen mai
     @GetMapping(value = "/promotion")
@@ -90,12 +120,28 @@ public class AdminController {
         List<Promotion_getPromotionProductDTO> rs = promotionService.displayPromotionProduct(id);
         return  rs;
     }
+
+    //API tim kiem san pham de them khuyen mai
+    @GetMapping(value = "/promotion-product/")
+    public List<Promotion_getPromotionProductDTO> searchProduct(@RequestParam(name = "promotionID")int promotionID,
+                                                                @RequestParam(name = "productName")String productName){
+         List<Promotion_getPromotionProductDTO> rs = promotionService.searchProductByName(promotionID,productName);
+         return rs;
+    }
     //API thêm mã giảm giá cho sản phẩm
     @PostMapping(value = "/promotion-product/add-promotion/{productID}/{promotionID}")
     public ResponseEntity<?> addPromotion(@PathVariable(name = "productID")int productID,
                                           @PathVariable(name = "promotionID")int promotionID){
             promotionService.addPromotionProduct(productID,promotionID);
             return  ResponseEntity.ok("success");
+    }
+
+    //API cap nhat thong tin khuyen mai
+    @PostMapping(value = "/promotion/update-promotion")
+    public ResponseEntity<?> updatePromotion(@RequestBody(required = false)Promotions_DisplayPromotionsDTO dto){
+        promotionService.updatePromotion(dto);
+        return  ResponseEntity.ok("success");
+
     }
     //API xóa mã giảm giá cho sản phẩm
     @DeleteMapping(value = "/promotion-product/remove-promotion/{productID}/{promotionID}")
@@ -141,15 +187,51 @@ public class AdminController {
         return productService.adminProduct();
     }
 
+    //API lấy thông tin sản phẩm bằng id
+    @GetMapping(value = "/product/update/{id}")
+    public ProductDetailDTO getProductById(@PathVariable(name = "id") Integer id){
+        return productService.getProductById(id);
+    }
     //API tạo sản phẩm
-    @PostMapping("/createproduct/")
+    @PostMapping("/product/create")
     public void createProduct(@RequestBody ProductDetailDTO createProductDTO){
         productService.createNewProduct(createProductDTO);
     }
     //API cập nhật  sản phẩm
-    @PutMapping("/updateproduct/")
+    @PutMapping(value = "/product/update/{id}")
     public void updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
         productService.updateProduct(updateProductDTO);
+    }
+
+    @DeleteMapping(value = "/product/{ids}")
+    public void deleteProduct(@PathVariable Long[] ids){
+        productService.deleteProduct(ids);
+    }
+    //API lấy thông tin cho quản lý nhà cung cấp
+    @GetMapping(value = "/supplier/")
+    public List<SuppliersEntity> getListSupplier(){
+        return suppliersService.getListSupplier();
+    }
+    //API lấy thông tin nhà cung cấp lên để sửa
+    @GetMapping(value = "/supplier/update/{id}")
+    public SuppliersEntity getSupplierByID (@PathVariable(name = "id") Integer id){
+        return suppliersService.getSupplierByID(id);
+    }
+
+    //API tạo nhà cung cấp
+    @PostMapping(value = "/supplier/create")
+    public void createSupplier(@RequestBody SupplierDTO supplierNew){
+        suppliersService.createSupplier(supplierNew);
+    }
+    //API cập nhật nhà cung cấp
+    @PutMapping("/supplier/update/{id}")
+    public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
+        suppliersService.updateSupplier(supplierUpdateDTO);
+    }
+    //API xóa nhà cung cấp
+    @DeleteMapping("/supplier/{ids}")
+    public void deleteSupplier(@PathVariable Long[] ids){
+        suppliersService.deleteSupplier(ids);
     }
 
 }

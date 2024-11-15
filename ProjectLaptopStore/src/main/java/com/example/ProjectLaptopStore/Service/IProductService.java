@@ -14,4 +14,6 @@ public interface IProductService {
     List<Product_DisplayForHomePageDTO> listProductForHomePage();
     List<ProductDetailDTO> listProductDetail();
     Admin_ProductResponseDTO adminProduct();
+    ProductDetailDTO getProductById(Integer id);
+
 }

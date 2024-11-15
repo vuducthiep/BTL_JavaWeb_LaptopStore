@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TableProduct</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="assets/styles/TableProduct.css">
+  </head>
+  <body>
+    <div class="d-flex" id="wrapper">
+      <!-- Sidebar Menu -->
+      <div class="bg-dark text-white" id="sidebar">
+        <div class="sidebar-header p-4">
+          <h4>Dashboard</h4>
+        </div>
+        <ul class="nav flex-column p-2">
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Dashboard.html" id="dashboardLink">Dashboard</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="TableCustomer.html" id="customerTableLink">Table Customer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="TableProduct.html" id="productTableLink">Table Product</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="TableSupplier.html" id="supplierTableLink">Table Supplier</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Bill.html" id="billLink">Bill</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="WareHouse.html" id="warehouseLink">Warehouse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Promotion.html" id="PromotionLink">Promotion</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#" id="profileLink">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#" id="signinLink">Sign in</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#" id="signupLink">Sign up</a>
+          </li>
+        </ul>
+      </div>
+
+     <!-- Content -->
+<div class="container-fluid mt-5" id="content-area">
+    <h1 class="text-center">TABLE PRODUCT</h1>
+  
+    <!-- Thống kê tổng quan -->
+    
+  
+    <!-- Biểu đồ -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <h3>Biểu đồ Doanh thu Theo Tháng</h3>
+        <canvas id="monthly-new-products-chart"></canvas>
+      </div>
+    </div>
+  
+    <!-- Danh sách top khách hàng -->
+    <div class="row mt-5">
+      <div class="col-md-6">
+        <h4>Top Sản phẩm theo tháng</h4>
+        <ul id="top-10-products-list" class="list-group">
+          <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+        </ul>
+      </div>
+  
+      <div class="col-md-6">
+        <h4>Danh Sách Sản phẩm</h4>
+        <button class="btn btn-primary" id="add-product-btn">Thêm sản phẩm</button>
+        <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="addCustomerModalLabel">Thêm Sản phẩm</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form id="productForm">
+                  <div class="mb-3">
+                    <label for="productId" class="form-label">Mã Sản Phẩm</label>
+                    <input type="number" class="form-control" id="productId" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="supplierId" class="form-label">Mã Nhà Cung Cấp</label>
+                    <input type="number" class="form-control" id="supplierId" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="productName" class="form-label">Tên Sản Phẩm</label>
+                    <input type="text" class="form-control" id="productName" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="productBrand" class="form-label">Thương Hiệu</label>
+                    <input type="text" class="form-control" id="productBrand" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="model" class="form-label">Model</label>
+                    <input type="text" class="form-control" id="model" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="price" class="form-label">Giá</label>
+                    <input type="number" class="form-control" id="price" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="stockQuantity" class="form-label">Số Lượng Tồn Kho</label>
+                    <input type="number" class="form-control" id="stockQuantity" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="releaseDate" class="form-label">Ngày Ra Mắt</label>
+                    <input type="date" class="form-control" id="releaseDate" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="warrantyPeriod" class="form-label">Thời Gian Bảo Hành</label>
+                    <input type="number" class="form-control" id="warrantyPeriod" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="imageUrl" class="form-label">URL Ảnh</label>
+                    <input type="text" class="form-control" id="imageUrl" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="productDescriptionId" class="form-label">Mã Mô Tả Sản Phẩm</label>
+                    <input type="number" class="form-control" id="productDescriptionId" required>
+                  </div>
+                
+                  <!-- CPU Information -->
+                  <div class="mb-3">
+                    <label for="cpuCompany" class="form-label">Hãng CPU</label>
+                    <input type="text" class="form-control" id="cpuCompany">
+                  </div>
+                  <div class="mb-3">
+                    <label for="cpuTechnology" class="form-label">Công Nghệ CPU</label>
+                    <input type="text" class="form-control" id="cpuTechnology">
+                  </div>
+                  <div class="mb-3">
+                    <label for="cpuType" class="form-label">Loại CPU</label>
+                    <input type="text" class="form-control" id="cpuType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="minimumCPUspeed" class="form-label">Tốc Độ CPU Tối Thiểu</label>
+                    <input type="number" class="form-control" id="minimumCPUspeed">
+                  </div>
+                  <div class="mb-3">
+                    <label for="maximunSpeed" class="form-label">Tốc Độ CPU Tối Đa</label>
+                    <input type="number" class="form-control" id="maximunSpeed">
+                  </div>
+                  <div class="mb-3">
+                    <label for="multiplier" class="form-label">Bộ Nhân CPU</label>
+                    <input type="number" class="form-control" id="multiplier">
+                  </div>
+                  <div class="mb-3">
+                    <label for="processorCache" class="form-label">Bộ Nhớ Cache CPU</label>
+                    <input type="text" class="form-control" id="processorCache">
+                  </div>
+                
+                  <!-- Card Information -->
+                  <div class="mb-3">
+                    <label for="brandCardOboard" class="form-label">Thương Hiệu Card Onboard</label>
+                    <input type="text" class="form-control" id="brandCardOboard">
+                  </div>
+                  <div class="mb-3">
+                    <label for="modelCardOboard" class="form-label">Model Card Onboard</label>
+                    <input type="text" class="form-control" id="modelCardOboard">
+                  </div>
+                  <div class="mb-3">
+                    <label for="fullNameCardOboard" class="form-label">Tên Card Onboard</label>
+                    <input type="text" class="form-control" id="fullNameCardOboard">
+                  </div>
+                
+                  <!-- VGA Information -->
+                  <div class="mb-3">
+                    <label for="vgaBrand" class="form-label">Thương Hiệu VGA</label>
+                    <input type="text" class="form-control" id="vgaBrand">
+                  </div>
+                  <div class="mb-3">
+                    <label for="vgaFullName" class="form-label">Tên VGA</label>
+                    <input type="text" class="form-control" id="vgaFullName">
+                  </div>
+                
+                  <!-- RAM Information -->
+                  <div class="mb-3">
+                    <label for="ramCapacity" class="form-label">Dung Lượng RAM</label>
+                    <input type="number" class="form-control" id="ramCapacity">
+                  </div>
+                  <div class="mb-3">
+                    <label for="ramType" class="form-label">Loại RAM</label>
+                    <input type="text" class="form-control" id="ramType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="ramSpeed" class="form-label">Tốc Độ RAM</label>
+                    <input type="text" class="form-control" id="ramSpeed">
+                  </div>
+                  <div class="mb-3">
+                    <label for="numberOfRemovableSlots" class="form-label">Số Khe RAM Có Thể Tháo Rời</label>
+                    <input type="number" class="form-control" id="numberOfRemovableSlots">
+                  </div>
+                  <div class="mb-3">
+                    <label for="numberOfOnboardRAM" class="form-label">Số RAM Onboard</label>
+                    <input type="number" class="form-control" id="numberOfOnboardRAM">
+                  </div>
+                  <div class="mb-3">
+                    <label for="maximumRAMSupport" class="form-label">Hỗ Trợ RAM Tối Đa</label>
+                    <input type="number" class="form-control" id="maximumRAMSupport">
+                  </div>
+                
+                  <!-- Hard Drive Information -->
+                  <div class="mb-3">
+                    <label for="hardDriveType" class="form-label">Loại Ổ Cứng</label>
+                    <input type="text" class="form-control" id="hardDriveType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="totalSSDHDDSlots" class="form-label">Tổng Số Khe SSD/HDD</label>
+                    <input type="number" class="form-control" id="totalSSDHDDSlots">
+                  </div>
+                  <div class="mb-3">
+                    <label for="numberOfSSDHDDSlotsRemaining" class="form-label">Số Khe SSD/HDD Còn Lại</label>
+                    <input type="number" class="form-control" id="numberOfSSDHDDSlotsRemaining">
+                  </div>
+                  <div class="mb-3">
+                    <label for="maximumHardDriveUpgradeCapacity" class="form-label">Dung Lượng Cập Nhật Ổ Cứng Tối Đa</label>
+                    <input type="number" class="form-control" id="maximumHardDriveUpgradeCapacity">
+                  </div>
+                  <div class="mb-3">
+                    <label for="ssdType" class="form-label">Loại SSD</label>
+                    <input type="text" class="form-control" id="ssdType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="capacity" class="form-label">Dung Lượng</label>
+                    <input type="number" class="form-control" id="capacity">
+                  </div>
+                
+                    
+                  <div class="mb-3">
+                    <label for="screenSize" class="form-label">Kích Thước Màn Hình</label>
+                    <input type="text" class="form-control" id="screenSize">
+                  </div>
+                  <div class="mb-3">
+                    <label for="displayTechnology" class="form-label">Công Nghệ Màn Hình</label>
+                    <input type="text" class="form-control" id="displayTechnology">
+                  </div>
+                  <div class="mb-3">
+                    <label for="resolution" class="form-label">Độ Phân Giải</label>
+                    <input type="text" class="form-control" id="resolution">
+                  </div>
+                  <div class="mb-3">
+                    <label for="screenType" class="form-label">Loại Màn Hình</label>
+                    <input type="text" class="form-control" id="screenType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="scanningFrequency" class="form-label">Tần Số Quét</label>
+                    <input type="text" class="form-control" id="scanningFrequency">
+                  </div>
+                  <div class="mb-3">
+                    <label for="basePlate" class="form-label">Chân Đế</label>
+                    <input type="text" class="form-control" id="basePlate">
+                  </div>
+                  <div class="mb-3">
+                    <label for="brightness" class="form-label">Độ Sáng</label>
+                    <input type="number" class="form-control" id="brightness">
+                  </div>
+                  <div class="mb-3">
+                    <label for="colorCoverage" class="form-label">Mức Độ Bao Phủ Màu Sắc</label>
+                    <input type="text" class="form-control" id="colorCoverage">
+                  </div>
+                  <div class="mb-3">
+                    <label for="screenRatio" class="form-label">Tỉ Lệ Màn Hình</label>
+                    <input type="number" class="form-control" id="screenRatio">
+                  </div>
+
+                  <!-- Communication and Connectivity Information -->
+                  <div class="mb-3">
+                    <label for="communicationPort" class="form-label">Cổng Kết Nối</label>
+                    <input type="text" class="form-control" id="communicationPort">
+                  </div>
+                  <div class="mb-3">
+                    <label for="wifi" class="form-label">Wi-Fi</label>
+                    <input type="text" class="form-control" id="wifi">
+                  </div>
+                  <div class="mb-3">
+                    <label for="bluetooth" class="form-label">Bluetooth</label>
+                    <input type="text" class="form-control" id="bluetooth">
+                  </div>
+                  <div class="mb-3">
+                    <label for="webcam" class="form-label">Webcam</label>
+                    <input type="text" class="form-control" id="webcam">
+                  </div>
+
+                  <!-- Operating System and Software -->
+                  <div class="mb-3">
+                    <label for="os" class="form-label">Hệ Điều Hành</label>
+                    <input type="text" class="form-control" id="os">
+                  </div>
+                  <div class="mb-3">
+                    <label for="version" class="form-label">Phiên Bản</label>
+                    <input type="text" class="form-control" id="version">
+                  </div>
+                  <div class="mb-3">
+                    <label for="security" class="form-label">Bảo Mật</label>
+                    <input type="text" class="form-control" id="security">
+                  </div>
+
+                  <!-- Keyboard and Power Information -->
+                  <div class="mb-3">
+                    <label for="keyboardType" class="form-label">Loại Bàn Phím</label>
+                    <input type="text" class="form-control" id="keyboardType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="numericKeypad" class="form-label">Có Bàn Phím Số?</label>
+                    <input type="checkbox" id="numericKeypad">
+                  </div>
+                  <div class="mb-3">
+                    <label for="keyboardLight" class="form-label">Đèn Bàn Phím</label>
+                    <input type="text" class="form-control" id="keyboardLight">
+                  </div>
+                  <div class="mb-3">
+                    <label for="touchPad" class="form-label">Bàn Di Cảm Ứng</label>
+                    <input type="text" class="form-control" id="touchPad">
+                  </div>
+
+                  <!-- Battery and Accessories -->
+                  <div class="mb-3">
+                    <label for="batteryType" class="form-label">Loại Pin</label>
+                    <input type="text" class="form-control" id="batteryType">
+                  </div>
+                  <div class="mb-3">
+                    <label for="batteryCapacity" class="form-label">Dung Lượng Pin</label>
+                    <input type="number" class="form-control" id="batteryCapacity">
+                  </div>
+                  <div class="mb-3">
+                    <label for="powerSupply" class="form-label">Nguồn Cung Cấp</label>
+                    <input type="text" class="form-control" id="powerSupply">
+                  </div>
+                  <div class="mb-3">
+                    <label for="accessoriesInTheBox" class="form-label">Phụ Kiện Trong Hộp</label>
+                    <input type="text" class="form-control" id="accessoriesInTheBox">
+                  </div>
+
+                  <!-- Size, Weight, and Material -->
+                  <div class="mb-3">
+                    <label for="size" class="form-label">Kích Thước</label>
+                    <input type="number" class="form-control" id="size">
+                  </div>
+                  <div class="mb-3">
+                    <label for="productWeight" class="form-label">Trọng Lượng</label>
+                    <input type="number" class="form-control" id="productWeight">
+                  </div>
+                  <div class="mb-3">
+                    <label for="material" class="form-label">Chất Liệu</label>
+                    <input type="text" class="form-control" id="material">
+                  </div>
+
+                  <!-- Product Code and Origin -->
+                  <div class="mb-3">
+                    <label for="pnProductCode" class="form-label">Mã Sản Phẩm</label>
+                    <input type="text" class="form-control" id="pnProductCode">
+                  </div>
+                  <div class="mb-3">
+                    <label for="origin" class="form-label">Nguồn Gốc</label>
+                    <input type="text" class="form-control" id="origin">
+                  </div>
+
+                  <!-- Warranty and Storage Information -->
+                  <div class="mb-3">
+                    <label for="warrantyPeriodMonths" class="form-label">Thời Gian Bảo Hành (Tháng)</label>
+                    <input type="number" class="form-control" id="warrantyPeriodMonths">
+                  </div>
+                  <div class="mb-3">
+                    <label for="storageInstructions" class="form-label">Hướng Dẫn Lưu Trữ</label>
+                    <input type="text" class="form-control" id="storageInstructions">
+                  </div>
+                  <div class="mb-3">
+                    <label for="userManual" class="form-label">Hướng Dẫn Sử Dụng</label>
+                    <input type="text" class="form-control" id="userManual">
+                  </div>
+
+                  <!-- Color -->
+                  <div class="mb-3">
+                    <label for="color" class="form-label">Màu Sắc</label>
+                    <input type="text" class="form-control" id="color">
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">Lưu Thông Tin</button>
+                </form>
+
+                
+                
+              </div>
+            </div>
+</div>
+</div>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Tên Sản phẩm</th>
+              <th>Hãng</th>
+              <th>Giá</th>
+            </tr>
+          </thead>
+          <tbody id="product-list">
+            <!-- Dữ liệu khách hàng sẽ được thêm vào đây bằng JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+
+    <!-- Button to toggle sidebar -->
+    <button class="btn btn-dark" id="menu-toggle">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="assets/js/TableProduct.js"></script>
+
+
+  </body>
+</html>

@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IProductDescriptionRepository extends JpaRepository<ProductDescriptionEntity, Long> {
-    List<ProductDescriptionEntity> findAll();
-
+    void deleteByProduct_ProductIDIn(Long[] productID);
+    void deleteByProductDescriptionIDIn(Long[] ids);
     @Query(value = "SELECT * FROM ProductDescription pd WHERE pd.ProductID = :productId", nativeQuery = true)
     ProductDescriptionEntity findAllByProductId(@Param("productId") Long productId);
 

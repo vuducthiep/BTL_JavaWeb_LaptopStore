@@ -10,6 +10,8 @@ import com.example.ProjectLaptopStore.Repository.IProductRepository;
 import com.example.ProjectLaptopStore.Repository.IPromotionProductRepository;
 import com.example.ProjectLaptopStore.Repository.IPromotionRepository;
 import com.example.ProjectLaptopStore.Service.IPromotionService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.relational.core.sql.In;
@@ -25,6 +27,8 @@ public class PromotionServiceImpl implements IPromotionService {
     @Autowired
     IPromotionRepository promotionRepository;
 
+    @PersistenceContext
+    EntityManager entityManager;
 
     @Autowired
     IProductRepository productRepository;
@@ -112,5 +116,40 @@ public class PromotionServiceImpl implements IPromotionService {
         } else {
             throw new RuntimeException("PromotionProduct not found");
         }
+    }
+
+    @Override
+    public void updatePromotion(Promotions_DisplayPromotionsDTO dto) {
+        PromotionEntity promotion = promotionRepository.findById(dto.getPromotionID()).orElse(null);
+        if(promotion == null){
+            promotion = new PromotionEntity();
+            promotion.setPromotionName(dto.getPromotionName());
+            promotion.setDiscountPercentage(dto.getDiscountPercentage());
+            promotion.setPromotionDetails(dto.getPromotionDetails());
+            entityManager.persist(promotion);
+        }
+        else{
+            promotion.setPromotionName(dto.getPromotionName());
+            promotion.setDiscountPercentage(dto.getDiscountPercentage());
+            promotion.setPromotionDetails(dto.getPromotionDetails());
+            entityManager.merge(promotion);
+        }
+        entityManager.flush();
+    }
+
+    @Override
+    public List<Promotion_getPromotionProductDTO> searchProductByName(int productID, String productName) {
+        List<Object[]> product = promotionRepository.searchProductByName(productID,productName);
+        List<Promotion_getPromotionProductDTO> rs = new ArrayList<>();
+        for(Object[] o:product){
+            Promotion_getPromotionProductDTO pp = Promotion_getPromotionProductDTO.builder()
+                    .productID((int) o[0])
+                    .productName((String) o[1])
+                    .brand((String) o[2])
+                    .hasPromotion((Long) o[3])
+                    .build();
+            rs.add(pp);
+        }
+        return rs;
     }
 }

@@ -22,19 +22,22 @@
             <a class="nav-link text-white" href="Dashboard.html" id="dashboardLink">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#" id="customerTableLink">Table Customer</a>
+            <a class="nav-link text-white" href="TableCustomer.html" id="customerTableLink">Table Customer</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#" id="productTableLink">Table Product</a>
+            <a class="nav-link text-white" href="TableProduct.html" id="productTableLink">Table Product</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#" id="supplierTableLink">Table Supplier</a>
+            <a class="nav-link text-white" href="TableSupplier.html" id="supplierTableLink">Table Supplier</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="Bill.html" id="billLink">Bill</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="WareHouse.html" id="warehouseLink">Warehouse</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="Promotion.html" id="PromotionLink">Promotion</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#" id="profileLink">Profile</a>
@@ -57,8 +60,9 @@
           <div class="card-header d-flex justify-content-between align-items-center">
             <h6>Thông tin kho</h6>
             <div>
-              <button class="btn btn-primary btn-sm" onclick="addWarehouse()">Thêm</button>
-              <button class="btn btn-warning btn-sm" onclick="editWarehouse()">Sửa</button>
+              <!-- Nút Thêm Kho -->
+              <button class="btn btn-primary btn-sm" onclick="showAddWarehouseForm()">Thêm</button>
+              <button class="btn btn-warning btn-sm" onclick="showEditWarehouseForm()">Sửa</button>
               <button class="btn btn-danger btn-sm" onclick="deleteWarehouse()">Xóa</button>
             </div>
           </div>
@@ -67,7 +71,7 @@
               <div class="col-md-8">
                 <ul class="Warehouse-infor list-unstyled">
                   <li><strong id="warehouseName">Kho 1</strong></li>
-                  <li>ID: <span id="warehouseID">1</span></li>
+                  <li><span id="warehouseID">1</span></li>
                   <li>Địa chỉ: <span id="warehouseAddress">Hà Nội</span></li>
                   <li>Loại nhà kho: <span id="warehouseType">Trung tâm</span></li>
                   <li>Trạng thái: <span id="warehouseStatus">Kích hoạt</span></li>
@@ -204,18 +208,76 @@
     <input type="number" id="editProductMaxStockLevel" class="form-control" />
   </div>
   
-  <div class="mb-3">
-    <label for="editProductQuantity">Số Lượng</label>
-    <input type="number" id="editProductQuantity" class="form-control" />
-  </div>
-  <button type="button" id="saveEditForm" class="btn btn-primary">Lưu</button>
-  <button type="button" id="closeEditForm" class="btn btn-secondary">Đóng</button>
-</div>
+        <div class="mb-3">
+          <label for="editProductQuantity">Số Lượng</label>
+          <input type="number" id="editProductQuantity" class="form-control" />
+        </div>
+        <button type="button" id="saveEditForm" class="btn btn-primary">Lưu</button>
+        <button type="button" id="closeEditForm" class="btn btn-secondary">Đóng</button>
+      </div>
 
       <button class="btn btn-primary" onclick="saveProductChanges()">Lưu</button>
       <button class="btn btn-secondary" onclick="closeEditForm()">Đóng</button>
     </div>
+<!-- Form Thêm Kho -->
+<div id="addWarehouseForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); z-index: 1000;">
+  <h4>Thêm Kho Mới</h4>
+  
+  <div class="mb-3">
+    <label for="addWarehouseName">Tên Kho</label>
+    <input type="text" id="addWarehouseName" class="form-control" />
+  </div>
 
+  <div class="mb-3">
+    <label for="addWarehouseAddress">Địa Chỉ Kho</label>
+    <input type="text" id="addWarehouseAddress" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="addWarehouseType">Loại Kho</label>
+    <input type="text" id="addWarehouseType" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="addWarehouseStatus">Trạng Thái</label>
+    <input type="text" id="addWarehouseStatus" class="form-control" />
+  </div>
+
+  <button type="button" onclick="addWarehouse()" class="btn btn-primary">Thêm Kho</button>
+  <button type="button" class="btn btn-secondary" onclick="hideAddWarehouseForm()">Đóng</button>
+</div>
+
+<!-- Form Chỉnh Sửa Kho -->
+<div id="editWarehouseForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 5px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1); z-index: 1000;">
+  <h4>Chỉnh Sửa Thông Tin Kho</h4>
+
+  <div class="mb-3">
+    <label for="editWarehouseName">Tên Kho</label>
+    <input type="text" id="editWarehouseName" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="editWarehouseAddress">Địa Chỉ</label>
+    <input type="text" id="editWarehouseAddress" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="editWarehouseType">Loại Kho</label>
+    <input type="text" id="editWarehouseType" class="form-control" />
+  </div>
+
+  <div class="mb-3">
+    <label for="editWarehouseStatus">Trạng Thái</label>
+    <input type="text" id="editWarehouseStatus" class="form-control" />
+  </div>
+
+  <button type="button" id="saveButton" class="btn btn-primary">Lưu</button>
+  <button type="button" id="closeButton" class="btn btn-secondary">Đóng</button>
+</div>
+
+
+
+    
     <script src="assets/js/WareHouse.js"></script>
   </body>
 </html>

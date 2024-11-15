@@ -12,6 +12,6 @@ import java.util.List;
 @Setter
 public class Admin_CustomerResponseDTO {
     List<Customer_CountNewCustomerPerMonthDTO> countNewCustomerPerMonth;
-    List<Customer_FindTopCustomerInMonthDTO> findTopCustomerInMonth;
+    List<CustomerDTO> findTopCustomerInMonth;
     List<CustomerDTO> listCustomer;
 }

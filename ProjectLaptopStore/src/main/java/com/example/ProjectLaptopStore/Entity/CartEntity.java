@@ -23,7 +23,7 @@ public class CartEntity implements Serializable {
     private Integer CartID;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
-    private CardStatus_Enum status = CardStatus_Enum.ACTIVE;
+    private CardStatus_Enum status = CardStatus_Enum.active;
     @Column(name = "CreatedDate", nullable = false)
     private Date createdDate;
     @Column(name = "TotalPrice",precision = 10,scale = 2)

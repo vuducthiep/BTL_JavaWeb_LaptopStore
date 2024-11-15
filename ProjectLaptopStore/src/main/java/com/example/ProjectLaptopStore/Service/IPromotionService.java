@@ -11,4 +11,6 @@ public interface IPromotionService {
     List<Promotion_getPromotionProductDTO> displayPromotionProduct(int id);
     void addPromotionProduct(int productID,int promotionID);
     void deletePromotionProduct(int productID,int promotionID);
+    void updatePromotion(Promotions_DisplayPromotionsDTO dto);
+    List<Promotion_getPromotionProductDTO> searchProductByName(int productID, String productName);
 }

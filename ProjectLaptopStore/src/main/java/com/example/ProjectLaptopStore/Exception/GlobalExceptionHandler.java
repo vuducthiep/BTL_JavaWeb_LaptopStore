@@ -64,7 +64,21 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>("Validation error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    // Xử lý ngoại lệ khi không có quyền truy cập
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> handleAccessDeniedException(AccessDeniedException ex) {
+        return new ResponseEntity<>("AccessDeniedException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<String> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        return new ResponseEntity<>("HttpMessageNotReadableException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileUploadException.class)
+    public ResponseEntity<String> handleFileUploadException(FileUploadException ex) {
+        return new ResponseEntity<>("FileUploadException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
     // Thêm các xử lý ngoại lệ khác nếu cần
 
 }

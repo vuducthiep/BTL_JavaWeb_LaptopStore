@@ -12,7 +12,7 @@ public interface ICustomerService {
     void deleteCustomerAtService(Long[] ids);
     void createCustomerAtService(CustomerDTO customerNew);
     void updateCustomerAtService(CustomerDTO customerUpdate);
-    List<Customer_FindTopCustomerInMonthDTO> listTopCustomerInMonth();
+
     Integer getNewCustomerCurrentMonth();
     List<CustomerDTO> getListCustomers();
     Admin_CustomerResponseDTO adminCustomer();

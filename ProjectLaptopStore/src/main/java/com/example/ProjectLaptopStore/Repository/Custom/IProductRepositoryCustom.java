@@ -15,5 +15,6 @@ public interface IProductRepositoryCustom {
     void updateProduct(ProductDetailDTO updateProductDTO, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity);
     List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key);
     List<ProductDetailDTO> listProductDetail();
+    ProductDetailDTO getOneProductDetail(Integer id);
 //    Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize);
 }
