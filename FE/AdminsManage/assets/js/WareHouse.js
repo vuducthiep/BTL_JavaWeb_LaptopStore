@@ -440,7 +440,9 @@ function saveEditedWarehouse() {
     .then(response => {
         if (response.ok) {
             alert("Đã cập nhật kho thành công!");
+            window.location.reload();
             // Có thể ẩn form hoặc điều hướng tới trang khác sau khi cập nhật
+
         } else {
             alert("Cập nhật kho thất bại!");
         }
