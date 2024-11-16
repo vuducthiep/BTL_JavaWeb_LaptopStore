@@ -4,7 +4,7 @@ import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConvert
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
-import com.example.ProjectLaptopStore.Repository.IOrderRepository;
+import com.example.ProjectLaptopStore.Repository.OrderRepository;
 import com.example.ProjectLaptopStore.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,25 +15,25 @@ import java.util.List;
 
 @Service
 @Transactional
-public class OrderServiceImpl implements IOrderService {
+public class OrderServiceImpl implements OrderService {
     @Autowired
-    private IOrderRepository orderRepository;
+    private OrderRepository orderRepository;
 
     @Autowired
     private Order_TotalAmountInMonthDTOConverter order_TotalAmountInMonthDTOConverter;
 
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
 
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
 
     @Autowired
-    private IOrderDetailService orderDetailService;
+    private OrderDetailService orderDetailService;
 
 
     @Override

@@ -5,7 +5,7 @@ import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 
 import java.util.List;
 
-public interface IPromotionService {
+public interface PromotionService {
     List<Promotions_DisplayPromotionsDTO> getPromotions();
     List<Promotions_DisplayPromotionsDTO> searchPromotion(String promotionName);
     List<Promotion_getPromotionProductDTO> displayPromotionProduct(int id);

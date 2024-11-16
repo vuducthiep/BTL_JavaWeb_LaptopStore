@@ -4,9 +4,8 @@ import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Response.Admin_CustomerResponseDTO;
 
 import java.util.List;
-import java.util.Map;
 
-public interface ICustomerService {
+public interface CustomerService {
 //    Integer countCustomers(Map<String, Object> params);
     List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth();
     void deleteCustomerAtService(Long[] ids);

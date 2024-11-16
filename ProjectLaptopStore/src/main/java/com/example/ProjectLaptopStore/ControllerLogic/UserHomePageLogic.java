@@ -4,10 +4,9 @@ import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
-import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
-import com.example.ProjectLaptopStore.Service.IProductService;
-import com.example.ProjectLaptopStore.Service.ISuppliersService;
-import jakarta.persistence.Column;
+import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
+import com.example.ProjectLaptopStore.Service.ProductService;
+import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,14 +15,14 @@ import java.util.Map;
 @Component
 public class UserHomePageLogic {
     @Autowired
-    private IProductDescriptionService productDescriptionService;
+    private ProductDescriptionService productDescriptionService;
 
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
 
 
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     //hàm set dữ liệu cho đối tượng trả ra cho homepageAPI
     public User_HomeResponseDTO setValueForHomePage(String keyword){

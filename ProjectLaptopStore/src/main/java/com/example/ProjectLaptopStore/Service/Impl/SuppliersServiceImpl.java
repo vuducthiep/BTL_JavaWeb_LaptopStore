@@ -1,12 +1,11 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.Supplier_FindTopSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.SupplierDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
-import com.example.ProjectLaptopStore.Repository.ISuppliersRepository;
-import com.example.ProjectLaptopStore.Service.ISuppliersService;
+import com.example.ProjectLaptopStore.Repository.SuppliersRepository;
+import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,9 +16,9 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class SuppliersServiceImpl implements ISuppliersService {
+public class SuppliersServiceImpl implements SuppliersService {
     @Autowired
-    private ISuppliersRepository suppliersRepository;
+    private SuppliersRepository suppliersRepository;
 
     @Override
     public List<Supplier_FindTopSupplierDTO> listTopSupplier() {

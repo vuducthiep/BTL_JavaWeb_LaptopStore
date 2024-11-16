@@ -5,8 +5,8 @@ import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
-import com.example.ProjectLaptopStore.Repository.IUserRepository;
-import com.example.ProjectLaptopStore.Service.IUserService;
+import com.example.ProjectLaptopStore.Repository.UserRepository;
+import com.example.ProjectLaptopStore.Service.UserService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
@@ -42,10 +42,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal=true)
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
-    IUserRepository userRepository;
+    UserRepository userRepository;
     ModelMapper modelMapper;
 //    private final Authentication authentication;
     @NonFinal

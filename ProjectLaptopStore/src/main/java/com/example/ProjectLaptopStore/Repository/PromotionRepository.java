@@ -1,6 +1,5 @@
 package com.example.ProjectLaptopStore.Repository;
 
-import com.example.ProjectLaptopStore.DTO.Promotion_getPromotionProductDTO;
 import com.example.ProjectLaptopStore.Entity.PromotionEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -8,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface IPromotionRepository extends JpaRepository<PromotionEntity,Integer> {
+public interface PromotionRepository extends JpaRepository<PromotionEntity,Integer> {
     List<PromotionEntity> getAllBy();
 
     @Query(value = "SELECT * FROM Promotions p " +

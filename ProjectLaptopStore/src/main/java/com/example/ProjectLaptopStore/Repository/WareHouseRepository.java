@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Transactional
-public interface IWareHouseRepository extends JpaRepository<WareHouseEntity,Integer> , WareHouseRepositoryCustom {
+public interface WareHouseRepository extends JpaRepository<WareHouseEntity,Integer> , WareHouseRepositoryCustom {
     WareHouseEntity findByWarehouseIDAndStatus(Integer warehouseID,Status_Enum status);
     List<WareHouseEntity> findByStatus(Status_Enum status);
 }

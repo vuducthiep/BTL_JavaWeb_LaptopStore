@@ -6,7 +6,7 @@ import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 
 import java.util.List;
 
-public interface IProductService {
+public interface ProductService {
     List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService();
     void createNewProduct(ProductDetailDTO productCreate);
     void updateProduct(ProductDetailDTO productUpdate);

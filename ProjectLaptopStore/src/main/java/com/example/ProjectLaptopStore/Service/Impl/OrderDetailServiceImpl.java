@@ -1,18 +1,17 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.OrderDetail_CountQuantityProductPerMonthDTO;
-import com.example.ProjectLaptopStore.Repository.IOrderDetailRepository;
-import com.example.ProjectLaptopStore.Service.IOrderDetailService;
+import com.example.ProjectLaptopStore.Repository.OrderDetailRepository;
+import com.example.ProjectLaptopStore.Service.OrderDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
-public class OrderDetailServiceImpl implements IOrderDetailService {
+public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Autowired
-    private IOrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Override
     public List<OrderDetail_CountQuantityProductPerMonthDTO> listCountQuantityProductPerMonth() {

@@ -1,16 +1,13 @@
 package com.example.ProjectLaptopStore.Repository;
 
-import com.example.ProjectLaptopStore.DTO.User_DTO;
-import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface IUserRepository extends JpaRepository<UserEntity,Integer> {
+public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     //lay tat ca user
     List<UserEntity> findAll();
 
