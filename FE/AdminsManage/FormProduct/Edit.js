@@ -1,6 +1,6 @@
 // Function to open the edit product form and populate it with data
 function editProduct(productId) {
-  // Gọi API để lấy sản phẩm theo productId (ở đây bạn cần thay thế bằng API thực tế của bạn)
+
   fetch(`http://localhost:8080/admin/product/update/${productId}`, {
     method: "GET",
     headers: {
@@ -8,145 +8,146 @@ function editProduct(productId) {
     },
   })
     .then((response) => response.json())
-    .then((product) => {
+    .then((data) => {
+      const productDetail=data.productDetail;
       // Điền thông tin vào các trường trong form sửa
-      idProduct=product.productId;
-      idProductDes=product.productDescriptionId;
-      idSupplier=product.supplierId;
+      idProduct= productDetail.productId;
+      idProductDes= productDetail.productDescriptionId;
+      idSupplier= productDetail.supplierId;
       console.log('id product :',idProduct);
       console.log('id productDes :',idProductDes);
       console.log('id productSuppiler :',idSupplier);
       
-      document.getElementById("edit-productName").value = product.productName;
-      document.getElementById("edit-productBrand").value = product.productBrand;
-      document.getElementById("edit-model").value = product.model;
-      document.getElementById("edit-price").value = product.price;
+      document.getElementById("edit-productName").value = productDetail.productName;
+      document.getElementById("edit-productBrand").value = productDetail.productBrand;
+      document.getElementById("edit-model").value = productDetail.model;
+      document.getElementById("edit-price").value = productDetail.price;
       document.getElementById("edit-stockQuantity").value =
-        product.stockQuantity;
-      document.getElementById("edit-releaseDate").value = product.releaseDate;
+        productDetail.stockQuantity;
+      document.getElementById("edit-releaseDate").value = productDetail.releaseDate;
       document.getElementById("edit-warrantyPeriod").value =
-        product.warrantyPeriod;
-      document.getElementById("edit-imageUrl").value = product.imageUrl;
+        productDetail.warrantyPeriod;
+      document.getElementById("edit-imageUrl").value = productDetail.imageUrl;
 
       // Điền thông tin CPU, RAM, ổ cứng, màn hình...
-      document.getElementById("edit-cpuCompany").value = product.cpuCompany;
+      document.getElementById("edit-cpuCompany").value = productDetail.cpuCompany;
       document.getElementById("edit-cpuTechnology").value =
-        product.cpuTechnology;
-      document.getElementById("edit-cpuType").value = product.cpuType;
+        productDetail.cpuTechnology;
+      document.getElementById("edit-cpuType").value = productDetail.cpuType;
       document.getElementById("edit-minimumCPUspeed").value =
-        product.minimumCPUspeed;
-      document.getElementById("edit-maximunSpeed").value = product.maximunSpeed;
-      document.getElementById("edit-multiplier").value = product.multiplier;
+        productDetail.minimumCPUspeed;
+      document.getElementById("edit-maximunSpeed").value = productDetail.maximunSpeed;
+      document.getElementById("edit-multiplier").value = productDetail.multiplier;
       document.getElementById("edit-processorCache").value =
-        product.processorCache;
+        productDetail.processorCache;
       document.getElementById("edit-brandCardOboard").value =
-        product.brandCardOboard;
+        productDetail.brandCardOboard;
       document.getElementById("edit-modelCardOboard").value =
-        product.modelCardOboard;
+        productDetail.modelCardOboard;
       document.getElementById("edit-fullNameCardOboard").value =
-        product.fullNameCardOboard;
-      document.getElementById("edit-vgaBrand").value = product.vgaBrand;
-      document.getElementById("edit-vgaFullName").value = product.vgaFullName;
+        productDetail.fullNameCardOboard;
+      document.getElementById("edit-vgaBrand").value = productDetail.vgaBrand;
+      document.getElementById("edit-vgaFullName").value = productDetail.vgaFullName;
 
-      document.getElementById("edit-ramCapacity").value = product.ramCapacity;
-      document.getElementById("edit-ramType").value = product.ramType;
-      document.getElementById("edit-ramSpeed").value = product.ramSpeed;
+      document.getElementById("edit-ramCapacity").value = productDetail.ramCapacity;
+      document.getElementById("edit-ramType").value = productDetail.ramType;
+      document.getElementById("edit-ramSpeed").value = productDetail.ramSpeed;
       document.getElementById("edit-numberOfRemovableSlots").value =
-        product.numberOfRemovableSlots;
+        productDetail.numberOfRemovableSlots;
       document.getElementById("edit-numberOfOnboardRAM").value =
-        product.numberOfOnboardRAM;
+        productDetail.numberOfOnboardRAM;
       document.getElementById("edit-maximumRAMSupport").value =
-        product.maximumRAMSupport;
+        productDetail.maximumRAMSupport;
       document.getElementById("edit-totalSSDHDDSlots").value =
-        product.totalSSDHDDSlots;
+        productDetail.totalSSDHDDSlots;
       document.getElementById("edit-numberOfSSDHDDSlotsRemaining").value =
-        product.numberOfSSDHDDSlotsRemaining;
+        productDetail.numberOfSSDHDDSlotsRemaining;
 
       document.getElementById("edit-maximumHardDriveUpgradeCapacity").value =
-        product.maximumHardDriveUpgradeCapacity;
+        productDetail.maximumHardDriveUpgradeCapacity;
 
-      document.getElementById("edit-ssdType").value = product.ssdType;
+      document.getElementById("edit-ssdType").value = productDetail.ssdType;
 
       document.getElementById("edit-hardDriveType").value =
-        product.hardDriveType;
-      document.getElementById("edit-capacity").value = product.capacity;
+        productDetail.hardDriveType;
+      document.getElementById("edit-capacity").value = productDetail.capacity;
 
-      document.getElementById("edit-screenSize").value = product.screenSize;
+      document.getElementById("edit-screenSize").value = productDetail.screenSize;
 
       document.getElementById("edit-displayTechnology").value =
-        product.displayTechnology;
-      document.getElementById("edit-resolution").value = product.resolution;
+        productDetail.displayTechnology;
+      document.getElementById("edit-resolution").value = productDetail.resolution;
 
-      document.getElementById("edit-screenType").value = product.screenType;
+      document.getElementById("edit-screenType").value = productDetail.screenType;
 
       document.getElementById("edit-scanningFrequency").value =
-        product.scanningFrequency;
-      document.getElementById("edit-basePlate").value = product.basePlate;
+        productDetail.scanningFrequency;
+      document.getElementById("edit-basePlate").value = productDetail.basePlate;
 
       document.getElementById("edit-colorCoverage").value =
-        product.colorCoverage;
+        productDetail.colorCoverage;
 
-      document.getElementById("edit-screenRatio").value = product.screenRatio;
+      document.getElementById("edit-screenRatio").value = productDetail.screenRatio;
 
-      document.getElementById("edit-os").value = product.os;
+      document.getElementById("edit-os").value = productDetail.os;
 
-      document.getElementById("edit-version").value = product.version;
+      document.getElementById("edit-version").value = productDetail.version;
 
-      document.getElementById("edit-security").value = product.security;
+      document.getElementById("edit-security").value = productDetail.security;
 
-      document.getElementById("edit-keyboardType").value = product.keyboardType;
-      if (product.numericKeypad === true) {
+      document.getElementById("edit-keyboardType").value = productDetail.keyboardType;
+      if (productDetail.numericKeypad === true) {
         document.getElementById("edit-numericKeypadTrue").checked = true;
-      } else if (product.numericKeypad === false) {
+      } else if (productDetail.numericKeypad === false) {
         document.getElementById("edit-numericKeypadFalse").checked = true;
       }
 
       document.getElementById("edit-keyboardLight").value =
-        product.keyboardLight;
+        productDetail.keyboardLight;
 
-      document.getElementById("edit-touchPad").value = product.touchPad;
+      document.getElementById("edit-touchPad").value = productDetail.touchPad;
 
-      document.getElementById("edit-powerSupply").value = product.powerSupply;
+      document.getElementById("edit-powerSupply").value = productDetail.powerSupply;
       document.getElementById("edit-communicationPort").value =
-        product.communicationPort;
+        productDetail.communicationPort;
 
-      document.getElementById("edit-size").value = product.size;
+      document.getElementById("edit-size").value = productDetail.size;
 
       document.getElementById("edit-productWeight").value =
-        product.productWeight;
+        productDetail.productWeight;
 
-      document.getElementById("edit-material").value = product.material;
-      document.getElementById("edit-wifi").value = product.wifi;
-      document.getElementById("edit-bluetooth").value = product.bluetooth;
-      document.getElementById("edit-webcam").value = product.webcam;
+      document.getElementById("edit-material").value = productDetail.material;
+      document.getElementById("edit-wifi").value = productDetail.wifi;
+      document.getElementById("edit-bluetooth").value = productDetail.bluetooth;
+      document.getElementById("edit-webcam").value = productDetail.webcam;
 
-      document.getElementById("edit-batteryType").value = product.batteryType;
+      document.getElementById("edit-batteryType").value = productDetail.batteryType;
       document.getElementById("edit-batteryCapacity").value =
-        product.batteryCapacity;
+        productDetail.batteryCapacity;
       document.getElementById("edit-accessoriesInTheBox").value =
-        product.accessoriesInTheBox;
+        productDetail.accessoriesInTheBox;
 
-      document.getElementById("edit-color").value = product.color;
-      document.getElementById("edit-origin").value = product.origin;
+      document.getElementById("edit-color").value =productDetail.color;
+      document.getElementById("edit-origin").value = productDetail.origin;
       document.getElementById("edit-pnProductCode").value =
-        product.pnProductCode;
+      productDetail.pnProductCode;
 
       document.getElementById("edit-warrantyPeriodMonths").value =
-        product.warrantyPeriodMonths;
+        productDetail.warrantyPeriodMonths;
 
       document.getElementById("edit-storageInstructions").value =
-        product.storageInstructions;
+        productDetail.storageInstructions;
 
-      document.getElementById("edit-userManual").value = product.userManual;
+      document.getElementById("edit-userManual").value = productDetail.userManual;
 
-      document.getElementById("edit-brightness").value = product.brightness;
+      document.getElementById("edit-brightness").value = productDetail.brightness;
 
       // Hiển thị form sửa
       document.getElementById("edit-product-form-container").style.display =
         "block";
       document.getElementById(
         "edit-form-title"
-      ).textContent = `Sửa sản phẩm: ${product.productName}`;
+      ).textContent = `Sửa sản phẩm: ${productDetail.productName}`;
     })
     .catch((error) => {
       console.error("Error fetching product data:", error);

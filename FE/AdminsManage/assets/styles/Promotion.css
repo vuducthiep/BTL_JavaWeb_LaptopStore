@@ -5,66 +5,73 @@
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #343a40; /* Đổi màu nền cho sidebar */
-    transition: width 0.3s ease, visibility 0s 0.3s; /* Delay visibility change */
-    z-index: 1000; /* Đảm bảo sidebar nằm trên các phần tử khác */
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1); /* Thêm bóng cho sidebar */
-}
-
-/* Sidebar header */
-.sidebar-header {
+    background-color: #343a40;
+    transition: width 0.3s ease, visibility 0s 0.3s;
+    z-index: 1000;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Sidebar header */
+  .sidebar-header {
     padding: 20px;
-    background-color: #eb2255; /* Màu nền header sidebar */
+    background-color: #eb2255;
     color: #fff;
     font-size: 24px;
     font-weight: bold;
     text-align: center;
     border-bottom: 2px solid #6c757d;
-}
-
-/* Menu items */
-.nav-link {
+  }
+  
+  /* Menu items */
+  .nav-link {
     color: #f8f9fa !important;
     font-size: 16px;
     padding: 15px 20px;
     transition: background-color 0.3s ease, padding-left 0.3s ease;
     border-radius: 10px;
-}
-
-/* Hover effect for menu items */
-.nav-link:hover {
+  }
+  
+  /* Hover effect for menu items */
+  .nav-link:hover {
     background-color: #ec5489;
-    padding-left: 30px; /* Thêm hiệu ứng khi hover */
+    padding-left: 30px;
     border-radius: 10px;
-}
-
-/* Content area */
-#wrapper {
+  }
+  
+  /* Content area */
+  #wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     transition: margin-left 0.3s ease;
     padding-left: 0;
-    width: 80%;
-}
-
-/* Make sidebar collapse */
-#sidebar.collapsed {
+    height: 100vh;
+    width: 100%; /* Đảm bảo phần content chiếm 100% chiều rộng */
+  }
+  
+  #content-area {
+    flex-grow: 1; /* Làm cho phần content chiếm phần còn lại của màn hình */
+    overflow-y: auto; /* Thêm thanh cuộn dọc nếu cần */
+    padding: 20px;
+    margin-left: 250px; /* Giữ khoảng cách với sidebar */
+  }
+  
+  /* Sidebar collapse style */
+  #sidebar.collapsed {
     width: 0;
-    visibility: hidden; /* Ẩn sidebar mà không ảnh hưởng đến layout */
-}
-
-/* Adjust wrapper when sidebar is collapsed */
-#sidebar.collapsed ~ #wrapper {
+    visibility: hidden;
+  }
+  
+  #sidebar.collapsed ~ #wrapper {
     margin-left: 0;
-}
-
-/* Khi sidebar được mở lại */
-#sidebar:not(.collapsed) ~ #wrapper {
+  }
+  
+  /* Tăng khoảng cách cho content khi sidebar mở lại */
+  #sidebar:not(.collapsed) ~ #wrapper {
     margin-left: 250px;
-}
-
-/* Button for toggling sidebar */
-#menu-toggle {
+  }
+  
+  /* Button for toggling sidebar */
+  #menu-toggle {
     position: fixed;
     top: 15px;
     left: 15px;
@@ -75,148 +82,35 @@
     font-size: 20px;
     z-index: 1100;
     border-radius: 5px;
-}
-
-/* CSS cho sidebar */
-#sidebar {
-    width: 250px;
-    position: fixed;
-    height: 100%;
-    overflow-y: auto;
   }
   
-  #wrapper {
-    display: flex;
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    #sidebar {
+        width: 200px;
+    }
+  
+    #content-area {
+        margin-left: 200px; /* Cập nhật margin cho content khi sidebar nhỏ hơn */
+    }
   }
   
+  #menu-toggle {
+    display: none;
+  }
+  
+  /* Ensure content doesn't overflow sidebar */
   #content-area {
     margin-left: 250px;
     padding: 20px;
+    flex-grow: 1;
+    overflow-x: hidden; /* Tránh cuộn ngang */
   }
   
-  /* Promotion.css */
-
-/* Định dạng cho container */
-.container {
-    max-width: 1200px;
-    margin: auto;
-    padding: 20px;
-}
-
-/* Tiêu đề chính */
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-/* Định dạng cho các tiêu đề phụ */
-h3 {
-    color: #555;
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #007bff;
-    padding-bottom: 8px;
-}
-
-/* Bảng khuyến mãi và bảng sản phẩm */
-.table {
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table th {
-    background-color: #007bff;
-    color: white;
-    font-weight: 600;
-    padding: 15px;
-}
-
-.table td {
-    padding: 12px;
-    color: #333;
-}
-
-/* Định dạng hàng cho trạng thái rỗng */
-.table-striped tbody tr:nth-of-type(odd) {
-    background-color: #f9f9f9;
-}
-
-.table-striped tbody tr:nth-of-type(even) {
-    background-color: #e9ecef;
-}
-
-/* Định dạng nút trong bảng */
-.table input[type="radio"],
-.table input[type="checkbox"] {
-    cursor: pointer;
-    transform: scale(1.2);
-}
-
-/* Định dạng nút Thêm Khuyến Mãi */
-#add-promotion-form {
-    margin-top: 20px;
-}
-
-#add-promotion-form .form-group label {
-    font-weight: 500;
-    color: #555;
-}
-
-#add-promotion-form .form-control {
-    margin-right: 10px;
-    min-width: 250px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-#add-promotion-form button {
-    background-color: #007bff;
-    border-color: #007bff;
-    color: white;
-    padding: 8px 20px;
-    border-radius: 4px;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
-}
-
-#add-promotion-form button:hover {
-    background-color: #0056b3;
-}
-
-/* Nút toggle sidebar */
-#menu-toggle {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-    background-color: #343a40;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-}
-
-#menu-toggle:hover {
-    background-color: #1d2124;
-}
-
-/* Khoảng cách giữa các phần */
-#content-area, #add-promotion-area, #product-area {
-    margin-top: 40px;
-}
-
-
-/* Ẩn nút toggle trên màn hình lớn */
-#menu-toggle {
+  #menu-toggle {
     display: none;
-}
+  }
+  
 
 /* Hiển thị nút toggle khi màn hình nhỏ hơn 768px */
 @media (max-width: 768px) {
@@ -225,19 +119,13 @@ h3 {
         position: fixed;
         top: 20px;
         left: 20px;
-        z-index: 1000;
         background-color: #343a40;
         color: white;
         border: none;
-        padding: 10px 15px;
-        border-radius: 4px;
+        padding: 12px 15px;  /* Giảm padding */
+        border-radius: 5px;
         cursor: pointer;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-        transition: background-color 0.3s ease;
-    }
-
-    #menu-toggle:hover {
-        background-color: #1d2124;
     }
 
     /* Đặt sidebar để ẩn trên màn hình nhỏ và toggle theo button */
@@ -248,11 +136,73 @@ h3 {
     /* Khi nút được click, hiện sidebar */
     #wrapper.active #sidebar {
         display: block;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100%;
         width: 250px;
-        z-index: 999;
     }
 }
+
+/* Cập nhật bảng */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background-color: #5899da;  /* Màu nền nhẹ cho bảng */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);  /* Thêm bóng nhẹ cho bảng */
+}
+
+/* Header bảng */
+th, td {
+    padding: 12px 16px;  /* Giảm padding cho thẻ th và td */
+    text-align: left;
+    border: 1px solid #ddd; /* Đường viền nhẹ cho các ô */
+}
+
+th {
+    background-color: #e93c67 !important;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+
+/* Dòng chẵn có nền màu nhạt */
+tr:nth-child(even) {
+    background-color: #f2f9ff;  /* Nền nhẹ nhàng cho các dòng chẵn */
+}
+
+/* Dòng lẻ có nền hơi tối */
+tr:nth-child(odd) {
+    background-color: #ffffff;  /* Nền trắng cho các dòng lẻ */
+}
+
+/* Hiệu ứng hover cho dòng khi rê chuột */
+tr:hover {
+    background-color: #f1f8ff;  /* Màu nền sáng hơn khi hover */
+    cursor: pointer;  /* Thêm con trỏ dạng tay khi hover */
+}
+
+/* Hiệu ứng thay đổi màu nền cho ô khi hover */
+td:hover {
+    background-color: #e9ecef; /* Màu nền ô khi hover */
+}
+
+/* Định dạng ô checkbox và radio */
+input[type="radio"], input[type="checkbox"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Đổi màu khi checkbox hoặc radio được chọn */
+input[type="radio"]:checked {
+    background-color: #28a745;  /* Màu xanh cho radio đã chọn */
+}
+
+input[type="checkbox"]:checked {
+    background-color: #ffc107;  /* Màu vàng cho checkbox đã chọn */
+}
+
+/* Tránh thay đổi màu nền tiêu đề khi hover lên bảng */
+th:hover {
+    background-color: #007bff; /* Không thay đổi màu tiêu đề khi hover */
+}
+
