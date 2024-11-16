@@ -3,11 +3,10 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
-import com.example.ProjectLaptopStore.DTO.Product_UpdateProductDTO;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
-import com.example.ProjectLaptopStore.Repository.Custom.IProductRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.ProductRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
@@ -25,7 +24,7 @@ import java.util.List;
 //sử dụng JDBC để lấy dữ liệu
 @Repository
 @Transactional
-public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
+public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
@@ -36,7 +35,9 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                 "FROM Products p " +
                 "JOIN OrderDetails od ON p.ProductID = od.ProductID " +
                 "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
-                "WHERE s.Status = 'active'  " +
+                "JOIN Orders o on o.OrderID =  od.OrderID " +
+                "WHERE s.Status = 'active' and " +
+                "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
                 "GROUP BY p.ProductID " +
                 "ORDER BY lineTotal DESC";
         Query nativeQuery = entityManager.createNativeQuery(query);// ko cần truyền DTO.class
@@ -209,6 +210,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     @Override
     public List<ProductDetailDTO> listProductDetail() {
         StringBuilder query = setQuery();
+        query.append(" ORDER BY p.productId desc ");
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
         List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
@@ -406,7 +408,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                 "JOIN ProductDescription pd ON p.productId = pd.productId " +
                 "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
                 "WHERE s.Status = 'active'" +
-                "ORDER BY p.productId desc ");
+                " ");
         return query;
     }
     //hàm set dữ liệu cho constructor

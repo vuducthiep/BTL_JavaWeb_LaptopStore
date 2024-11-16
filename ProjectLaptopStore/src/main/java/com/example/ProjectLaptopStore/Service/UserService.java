@@ -1,15 +1,13 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.*;
-import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.nimbusds.jose.JOSEException;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.text.ParseException;
 import java.util.List;
 
-public interface IUserService {
+public interface UserService {
     // lay user
     List<User_RegisterDTO> getAllUsers();
 

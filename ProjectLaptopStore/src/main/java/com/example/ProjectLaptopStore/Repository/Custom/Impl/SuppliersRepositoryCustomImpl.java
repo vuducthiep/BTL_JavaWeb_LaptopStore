@@ -1,11 +1,10 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
-import com.example.ProjectLaptopStore.DTO.Supplier_CreateSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.Supplier_FindTopSupplierDTO;
 import com.example.ProjectLaptopStore.DTO.SupplierDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
-import com.example.ProjectLaptopStore.Repository.Custom.ISuppliersRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.SuppliersRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -18,7 +17,7 @@ import java.util.List;
 
 @Transactional
 @Repository
-public class ISuppliersRepositoryCustomImpl implements ISuppliersRepositoryCustom {
+public class SuppliersRepositoryCustomImpl implements SuppliersRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 

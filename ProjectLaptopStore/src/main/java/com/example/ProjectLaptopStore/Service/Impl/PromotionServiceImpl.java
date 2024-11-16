@@ -6,15 +6,14 @@ import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.PromotionEntity;
 import com.example.ProjectLaptopStore.Entity.PromotionProductEntity;
 import com.example.ProjectLaptopStore.Exception.PromotionNotFoundException;
-import com.example.ProjectLaptopStore.Repository.IProductRepository;
-import com.example.ProjectLaptopStore.Repository.IPromotionProductRepository;
-import com.example.ProjectLaptopStore.Repository.IPromotionRepository;
-import com.example.ProjectLaptopStore.Service.IPromotionService;
+import com.example.ProjectLaptopStore.Repository.ProductRepository;
+import com.example.ProjectLaptopStore.Repository.PromotionProductRepository;
+import com.example.ProjectLaptopStore.Repository.PromotionRepository;
+import com.example.ProjectLaptopStore.Service.PromotionService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,21 +22,21 @@ import java.util.List;
 
 @Transactional
 @Service
-public class PromotionServiceImpl implements IPromotionService {
+public class PromotionServiceImpl implements PromotionService {
     @Autowired
-    IPromotionRepository promotionRepository;
+    PromotionRepository promotionRepository;
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Autowired
-    IProductRepository productRepository;
+    ProductRepository productRepository;
 
     @Autowired
     ModelMapper modelMapper;
 
     @Autowired
-    IPromotionProductRepository promotionProductRepository;
+    PromotionProductRepository promotionProductRepository;
 
     @Override
     public List<Promotions_DisplayPromotionsDTO> getPromotions() {

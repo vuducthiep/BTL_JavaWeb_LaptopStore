@@ -1,17 +1,14 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
-import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
-import com.example.ProjectLaptopStore.Repository.IWareHouseRepository;
 import com.example.ProjectLaptopStore.Response.*;
 import com.example.ProjectLaptopStore.Service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,20 +22,20 @@ public class AdminController {
 //    @PersistenceContext
 //    private EntityManager entityManager;
     @Autowired
-    private IPromotionService promotionService;
+    private PromotionService promotionService;
 
     @Autowired
     private WareHouseService wareHouseService;
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
     private AdminService adminService;
 
     @Autowired
-    private ISuppliersService  suppliersService;
+    private SuppliersService suppliersService;
     @Autowired
     private ProductInWareHouseService productInWarehouseService;
     //API cho trang dashboard

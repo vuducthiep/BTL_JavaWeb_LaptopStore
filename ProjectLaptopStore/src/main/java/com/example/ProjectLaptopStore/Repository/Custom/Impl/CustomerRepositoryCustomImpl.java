@@ -1,18 +1,15 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
-import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.ShippingAddressEntity;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
-import com.example.ProjectLaptopStore.Repository.Custom.ICustomerRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.CustomerRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
-import org.apache.catalina.User;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +21,7 @@ import java.util.List;
 @Repository
 //@Primary
 @Transactional
-public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom {
+public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -138,7 +135,7 @@ public class ICustomerRepositoryCustomImpl implements ICustomerRepositoryCustom 
         userEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
 
         customerEntity.setUser(userEntity);
-        customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
+//        customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
         customerEntity.setStatus(Customer_Enum.active);
 
         shippingAddressEntity.setCustomer(customerEntity);

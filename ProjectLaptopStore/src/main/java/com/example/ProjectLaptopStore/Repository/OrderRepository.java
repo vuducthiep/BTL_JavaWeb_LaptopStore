@@ -1,6 +1,6 @@
 package com.example.ProjectLaptopStore.Repository;
 
-import com.example.ProjectLaptopStore.Repository.Custom.IOrderRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.OrderRepositoryCustom;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import com.example.ProjectLaptopStore.Entity.OrdersEntity;
 
 @Repository
-public interface IOrderRepository extends JpaRepository<OrdersEntity, Integer> , IOrderRepositoryCustom {
+public interface OrderRepository extends JpaRepository<OrdersEntity, Integer> , OrderRepositoryCustom {
     //lấy tổng tiền từ các hóa đơn từ cột TotalAmount từ bảng Order ,được thanh toán trong tháng hiện tại
     @Query(value = "SELECT SUM(o.TotalAmount) " +
         "FROM Orders o " +

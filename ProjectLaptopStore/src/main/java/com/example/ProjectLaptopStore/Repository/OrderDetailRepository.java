@@ -1,7 +1,7 @@
 package com.example.ProjectLaptopStore.Repository;
 
 import com.example.ProjectLaptopStore.Entity.OrderDetailEntity;
-import com.example.ProjectLaptopStore.Repository.Custom.IOrderDetailRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.OrderDetailRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public interface IOrderDetailRepository extends JpaRepository<OrderDetailEntity,Integer>, IOrderDetailRepositoryCustom {
+public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,Integer>, OrderDetailRepositoryCustom {
 
     //lấy số lượng sản phẩm bán được trong tháng hiện tại
     @Query(value =

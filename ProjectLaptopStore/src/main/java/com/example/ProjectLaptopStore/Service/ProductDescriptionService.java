@@ -1,12 +1,11 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.ProductDescriptionDTO;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Map;
 
-public interface IProductDescriptionService {
+public interface ProductDescriptionService {
     List<ProductDescriptionDTO> finAllProductDescription();
 
     ProductDescriptionDTO finProductDescriptionById(Long id);

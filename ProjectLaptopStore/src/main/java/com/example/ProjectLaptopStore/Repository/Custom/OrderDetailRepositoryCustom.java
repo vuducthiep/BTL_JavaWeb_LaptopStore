@@ -1,10 +1,9 @@
-package com.example.ProjectLaptopStore.Service;
+package com.example.ProjectLaptopStore.Repository.Custom;
 
 import com.example.ProjectLaptopStore.DTO.OrderDetail_CountQuantityProductPerMonthDTO;
 
 import java.util.List;
 
-public interface IOrderDetailService {
+public interface OrderDetailRepositoryCustom {
     List<OrderDetail_CountQuantityProductPerMonthDTO> listCountQuantityProductPerMonth();
-    Integer getQuantityProductCurrentMonthAtService();
 }

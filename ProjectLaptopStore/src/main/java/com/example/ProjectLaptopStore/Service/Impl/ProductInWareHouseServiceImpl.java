@@ -4,7 +4,7 @@ import com.example.ProjectLaptopStore.Convert.ProductInWareHouseConverter;
 import com.example.ProjectLaptopStore.DTO.ProductsInWarehouse_DTO;
 import com.example.ProjectLaptopStore.Entity.ProductInWarehouseEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
-import com.example.ProjectLaptopStore.Repository.IProductRepository;
+import com.example.ProjectLaptopStore.Repository.ProductRepository;
 import com.example.ProjectLaptopStore.Repository.ProductsInWarehouseRepository;
 import com.example.ProjectLaptopStore.Service.ProductInWareHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ public class ProductInWareHouseServiceImpl implements ProductInWareHouseService 
     @Autowired
     private ProductsInWarehouseRepository productsInWarehouseRepository;
     @Autowired
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
     @Autowired
     private ProductInWareHouseConverter productInWareHouseConverter;
     @Override

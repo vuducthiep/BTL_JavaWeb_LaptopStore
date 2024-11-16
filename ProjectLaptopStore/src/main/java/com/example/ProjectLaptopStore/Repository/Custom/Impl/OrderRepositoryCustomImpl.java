@@ -4,7 +4,7 @@ import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.OrderStatus_Enum;
-import com.example.ProjectLaptopStore.Repository.Custom.IOrderRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.OrderRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 @Repository
-public class IOrderRepositoryCustomImpl implements IOrderRepositoryCustom {
+public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
     @Override

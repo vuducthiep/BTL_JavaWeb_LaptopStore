@@ -3,8 +3,8 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.Convert.Product_DescriptionDTOConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDescriptionDTO;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
-import com.example.ProjectLaptopStore.Repository.IProductDescriptionRepository;
-import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
+import com.example.ProjectLaptopStore.Repository.ProductDescriptionRepository;
+import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ProductDescriptionServiceImpl implements IProductDescriptionService {
+public class ProductDescriptionServiceImpl implements ProductDescriptionService {
 
     @Autowired
-    private IProductDescriptionRepository productDescriptionRepository;
+    private ProductDescriptionRepository productDescriptionRepository;
 
     @Autowired
     private Product_DescriptionDTOConverter productDescriptionDTOConverter;

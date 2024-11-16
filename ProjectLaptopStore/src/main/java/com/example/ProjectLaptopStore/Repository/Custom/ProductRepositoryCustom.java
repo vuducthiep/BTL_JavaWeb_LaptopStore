@@ -3,13 +3,12 @@ package com.example.ProjectLaptopStore.Repository.Custom;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
-import com.example.ProjectLaptopStore.DTO.Product_UpdateProductDTO;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 
 import java.util.List;
 
-public interface IProductRepositoryCustom {
+public interface ProductRepositoryCustom {
     List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered();
     void createProduct(ProductDetailDTO productNew, ProductsEntity productsEntity, ProductDescriptionEntity productDescriptionEntity);
     void updateProduct(ProductDetailDTO updateProductDTO, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity);

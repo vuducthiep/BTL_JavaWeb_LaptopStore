@@ -7,7 +7,7 @@ import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
 import java.math.BigDecimal;
 import java.util.List;
 
-public interface IOrderService {
+public interface OrderService {
     BigDecimal getTotalAmountInMountAtService();
     Integer TotalCustomerInMonthAtService();
     List<Order_ListBillDTO> ListBillAtService();

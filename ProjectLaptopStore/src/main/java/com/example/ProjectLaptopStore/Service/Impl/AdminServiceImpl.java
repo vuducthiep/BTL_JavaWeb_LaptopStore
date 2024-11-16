@@ -18,31 +18,31 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
-    private IOrderService orderService;
+    private OrderService orderService;
 
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
 
     @Autowired
-    private IOrderDetailService orderDetailService;
+    private OrderDetailService orderDetailService;
     @Autowired
-    private IOrderRepository orderRepository;
+    private OrderRepository orderRepository;
     @Autowired
     private WareHouseService wareHouseService;
     @Autowired
     private ExportReceiptDetailsRepository exportReceiptDetailsRepository;
     @Autowired
-    private IWareHouseRepository wareHouseRepository;
+    private WareHouseRepository wareHouseRepository;
     @Autowired
     private Order_TotalAmountInMonthDTOConverter order_TotalAmountInMonthDTOConverter;
     @Autowired
-    private ICustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
     private ProductsInWarehouseRepository productsInWarehouseRepository;
     @Autowired

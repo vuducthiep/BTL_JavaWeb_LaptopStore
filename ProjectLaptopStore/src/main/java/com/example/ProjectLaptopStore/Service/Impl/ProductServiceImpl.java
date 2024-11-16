@@ -6,15 +6,13 @@ import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
-import com.example.ProjectLaptopStore.Repository.IOrderDetailRepository;
-import com.example.ProjectLaptopStore.Repository.IOrderRepository;
-import com.example.ProjectLaptopStore.Repository.IProductDescriptionRepository;
-import com.example.ProjectLaptopStore.Repository.IProductRepository;
+import com.example.ProjectLaptopStore.Repository.OrderDetailRepository;
+import com.example.ProjectLaptopStore.Repository.ProductDescriptionRepository;
+import com.example.ProjectLaptopStore.Repository.ProductRepository;
 import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
-import com.example.ProjectLaptopStore.Service.IOrderDetailService;
-import com.example.ProjectLaptopStore.Service.IProductService;
-import com.example.ProjectLaptopStore.Service.ISuppliersService;
+import com.example.ProjectLaptopStore.Service.ProductService;
+import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,20 +23,20 @@ import java.util.List;
 
 @Service
 @Transactional
-public class ProductServiceImpl implements IProductService {
+public class ProductServiceImpl implements ProductService {
     @Autowired
-    private IProductRepository productRepository;
+    private ProductRepository productRepository;
 
     @Autowired
     private Product_SearchBuilderConverter productSearchBuilderConverter;
     @Autowired
-    private IOrderDetailRepository orderDetailRepository;
+    private OrderDetailRepository orderDetailRepository;
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
-    private IProductDescriptionRepository productDescriptionRepository;
+    private ProductDescriptionRepository productDescriptionRepository;
     @Autowired
     private Product_DisplayForHomePageConverter productDisplayForHomePageConverter;
     @Override

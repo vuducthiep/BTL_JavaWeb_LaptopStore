@@ -2,17 +2,13 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
-import com.example.ProjectLaptopStore.DTO.User_DTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
-import com.example.ProjectLaptopStore.Service.IProductDescriptionService;
-import com.example.ProjectLaptopStore.Service.IProductService;
-import com.example.ProjectLaptopStore.Service.IUserService;
-import lombok.AccessLevel;
+import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
+import com.example.ProjectLaptopStore.Service.ProductService;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
-import com.example.ProjectLaptopStore.Service.ISuppliersService;
+import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,14 +20,14 @@ import java.util.Map;
 @RestController
 public class UserController {
     @Autowired
-    private IProductDescriptionService productDescriptionService;
+    private ProductDescriptionService productDescriptionService;
 
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
 
 
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
     private UserHomePageLogic userHomePageLogic;

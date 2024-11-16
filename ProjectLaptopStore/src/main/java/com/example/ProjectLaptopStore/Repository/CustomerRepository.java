@@ -1,14 +1,13 @@
 package com.example.ProjectLaptopStore.Repository;
 
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
-import com.example.ProjectLaptopStore.Repository.Custom.ICustomerRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.Custom.CustomerRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
-import java.util.Map;
 
-public interface ICustomerRepository extends JpaRepository<CustomerEntity,Integer>, ICustomerRepositoryCustom {
+public interface CustomerRepository extends JpaRepository<CustomerEntity,Integer>, CustomerRepositoryCustom {
     List<CustomerEntity> findAllByCustomerIDIn(Long[] ids);
 
     //đếm số lượng khách hàng mới trong tháng

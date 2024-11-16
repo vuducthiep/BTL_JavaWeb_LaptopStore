@@ -1,35 +1,33 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
-import com.example.ProjectLaptopStore.Builder.CustomerSearchBuilder;
 import com.example.ProjectLaptopStore.Convert.Customer_CountNewCustomerConverter;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
 import com.example.ProjectLaptopStore.Entity.ShippingAddressEntity;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
-import com.example.ProjectLaptopStore.Repository.ICustomerRepository;
-import com.example.ProjectLaptopStore.Repository.IUserRepository;
+import com.example.ProjectLaptopStore.Repository.CustomerRepository;
+import com.example.ProjectLaptopStore.Repository.UserRepository;
 import com.example.ProjectLaptopStore.Repository.ShippingAddressesRepository;
 import com.example.ProjectLaptopStore.Response.Admin_CustomerResponseDTO;
-import com.example.ProjectLaptopStore.Service.ICustomerService;
+import com.example.ProjectLaptopStore.Service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @Transactional
-public class CustomerServiceImpl implements ICustomerService {
+public class CustomerServiceImpl implements CustomerService {
     @Autowired
-    private ICustomerRepository customerRepository;
+    private CustomerRepository customerRepository;
     @Autowired
     private Customer_CountNewCustomerConverter customerCountNewCustomerConverter;
 
     @Autowired
     private ShippingAddressesRepository shippingAddressesRepository;
     @Autowired
-    private IUserRepository userRepository;
+    private UserRepository userRepository;
     @Override
     public List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth() {
         List<Customer_CountNewCustomerPerMonthDTO> result = customerRepository.listNewCustomerPerMonth();

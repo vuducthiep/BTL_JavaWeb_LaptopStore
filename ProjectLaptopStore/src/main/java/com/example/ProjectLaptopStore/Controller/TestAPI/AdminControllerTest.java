@@ -14,19 +14,19 @@ import java.util.List;
 @RequestMapping("/test")
 public class AdminControllerTest {
     @Autowired
-    private IProductService productService;
+    private ProductService productService;
 
     @Autowired
-    private IOrderService orderService;
+    private OrderService orderService;
 
     @Autowired
-    private ICustomerService customerService;
+    private CustomerService customerService;
 
     @Autowired
-    private ISuppliersService suppliersService;
+    private SuppliersService suppliersService;
 
     @Autowired
-    private IOrderDetailService orderDetailService;
+    private OrderDetailService orderDetailService;
     @Autowired
     private WareHouseService wareHouseService;
 
