@@ -93,5 +93,14 @@
     padding: 20px;
     
   }
-  
+  .custom-header {
+    text-align: center; /* Căn giữa chữ */
+    background-color: #4caf50; /* Màu nền (xanh lá cây nhạt) */
+    color: white; /* Màu chữ */
+    padding: 15px 20px; /* Khoảng cách bên trong */
+    border-radius: 10px; /* Bo tròn góc */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+    font-family: Arial, sans-serif; /* Font chữ hiện đại */
+    font-size: 18px; /* Kích thước chữ */
+  }
   
