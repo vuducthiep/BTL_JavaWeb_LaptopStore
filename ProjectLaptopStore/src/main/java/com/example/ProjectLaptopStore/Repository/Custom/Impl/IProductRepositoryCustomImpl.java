@@ -405,7 +405,8 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                 "FROM Products p\n" +
                 "JOIN ProductDescription pd ON p.productId = pd.productId " +
                 "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
-                "WHERE s.Status = 'active' ");
+                "WHERE s.Status = 'active'" +
+                "ORDER BY p.productId desc ");
         return query;
     }
     //hàm set dữ liệu cho constructor
