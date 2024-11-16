@@ -48,7 +48,7 @@ function displayCustomerList(customers) {
         <td>${index + 1}</td>
         <td>${customer.fullName}</td>
         <td>${customer.email}</td>
-        <td>${customer.address}</td>
+        <td>${customer.city}</td>
         <td>
           <!-- Nút Sửa -->
           <button class="btn btn-primary btn-sm" onclick="editCustomer(${customer.customerID})">Sửa</button>
@@ -88,17 +88,22 @@ async function deleteCustomer(customerId) {
 function displayTop10Customers(customers) {
   // Sắp xếp khách hàng theo tổng chi tiêu giảm dần
   const top10 = customers.sort((a, b) => b.totalAmount - a.totalAmount).slice(0, 10);
-  
+
   let top10HTML = '';
-  top10.forEach(customer => {
+  top10.forEach((customer, index) => {
     top10HTML += `
-      <li class="list-group-item">
-        ${customer.fullName} - ${customer.totalAmount}
-      </li>
+      <tr>
+        <td>${index + 1}</td>  <!-- STT -->
+        <td>${customer.fullName}</td>
+        <td>${customer.totalAmount}</td>
+      </tr>
     `;
   });
-  top10CustomersList.innerHTML = top10HTML;
+
+  // Cập nhật phần thân bảng với dữ liệu mới
+  document.getElementById('top-10-customers-list').innerHTML = top10HTML;
 }
+
 
 // Hàm hiển thị biểu đồ khách hàng mới theo tháng
 function displayMonthlyCustomerChart(monthlyCounts) {
