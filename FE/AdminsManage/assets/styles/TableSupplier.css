@@ -108,7 +108,7 @@
 
 /* Nút thêm nhà cung cấp */
 button {
-    padding: 5px 5px;
+    padding: 10px 10px;
     font-size: 16px;
     cursor: pointer;
     border: none;
@@ -186,3 +186,6 @@ button {
   form button:hover {
     background-color: #bf426e;
   }
+
+
+

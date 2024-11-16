@@ -6,13 +6,6 @@ const productListDiv = document.getElementById('product-list');
 const top10ProductsList = document.getElementById('top-10-products-list');
 const monthlyNewProductsChart = document.getElementById('monthly-new-products-chart');
 
-document.getElementById("add-product-btn").addEventListener("click", function () {
-  var addProductModal = new bootstrap.Modal(document.getElementById("addProductModal"));
-  addProductModal.show();
-});
-
-
-
 // Hàm để lấy dữ liệu từ API
 async function fetchProductData() {
   try {
@@ -25,16 +18,12 @@ async function fetchProductData() {
 
     // Lấy dữ liệu JSON từ phản hồi
     const data = await response.json();
+    console.log('Fetched Product Data:', data); // Kiểm tra dữ liệu API
 
-    // Hiển thị danh sách sản phẩm
+    // Gọi các hàm hiển thị dữ liệu
     displayProductList(data.listProductDetail);
-
-    // Hiển thị top 10 sản phẩm bán chạy nhất
     displayTop10Products(data.listTopProductSell);
-
-    // Hiển thị biểu đồ doanh thu sản phẩm theo tháng
     displayMonthlyProductChart(data.quantityProductForChart);
-
   } catch (error) {
     console.error('Error fetching product data:', error);
   }
@@ -42,39 +31,41 @@ async function fetchProductData() {
 
 // Hàm hiển thị danh sách sản phẩm
 function displayProductList(products) {
-  let productHTML = '';
-  products.forEach((product, index) => {
-    productHTML += `
+  const productHTML = products.map((product, index) => {
+    console.log('Product ID:', product.id); // Kiểm tra ID sản phẩm
+    return `
       <tr>
         <td>${index + 1}</td>
         <td>${product.productName}</td>
         <td>${product.productBrand}</td>
         <td>${product.price.toLocaleString()} USD</td>
         <td>
-          <!-- Nút Sửa -->
-          <button class="btn btn-primary btn-sm" onclick="editProduct(${product.id})">Sửa</button>
-          <!-- Nút Xóa -->
-          <button class="btn btn-danger btn-sm" onclick="deleteProduct(${product.id})">Xóa</button>
+          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Sửa</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${product.productId}')">Xóa</button>
         </td>
       </tr>
     `;
-  });
+  }).join('');
+  
   productListDiv.innerHTML = productHTML;
+}
+
+// Hàm để sửa sản phẩm (nơi bạn xử lý chỉnh sửa sản phẩm)
+function editProduct(productId) {
+  console.log('Edit Product ID:', productId); // Kiểm tra ID khi nhấn "Sửa"
+  // Tiến hành xử lý chỉnh sửa sản phẩm ở đây với productId
 }
 
 // Hàm hiển thị top 10 sản phẩm bán chạy nhất
 function displayTop10Products(products) {
-  // Sắp xếp sản phẩm theo số lượng bán giảm dần
   const top10 = products.sort((a, b) => b.quantityOrdered - a.quantityOrdered).slice(0, 10);
   
-  let top10HTML = '';
-  top10.forEach(product => {
-    top10HTML += `
-      <li class="list-group-item">
-        ${product.productName} - Số lượng bán: ${product.quantityOrdered}
-      </li>
-    `;
-  });
+  const top10HTML = top10.map(product => `
+    <li class="list-group-item">
+      ${product.productName} - Số lượng bán: ${product.quantityOrdered}
+    </li>
+  `).join('');
+  
   top10ProductsList.innerHTML = top10HTML;
 }
 
@@ -86,7 +77,7 @@ function displayMonthlyProductChart(monthlyData) {
   const chartData = {
     labels: months,
     datasets: [{
-      label: 'Doanh thu sản phẩm theo tháng',
+      label: 'Sản phẩm bán theo tháng',
       data: salesData,
       borderColor: 'rgb(75, 192, 192)',
       backgroundColor: 'rgba(75, 192, 192, 0.2)',
@@ -97,9 +88,7 @@ function displayMonthlyProductChart(monthlyData) {
   const chartOptions = {
     responsive: true,
     plugins: {
-      legend: {
-        position: 'top',
-      },
+      legend: { position: 'top' },
       tooltip: {
         callbacks: {
           label: function (context) {
@@ -110,7 +99,6 @@ function displayMonthlyProductChart(monthlyData) {
     }
   };
 
-  // Vẽ biểu đồ sử dụng Chart.js
   new Chart(monthlyNewProductsChart, {
     type: 'line',
     data: chartData,
