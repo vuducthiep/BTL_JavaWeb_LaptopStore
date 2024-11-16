@@ -38,7 +38,7 @@ public class OrderServiceImpl implements IOrderService {
 
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
-        BigDecimal res = orderRepository.findTotalAmount();
+        BigDecimal res = orderRepository.getTotalAmount();
         return res;
     }
 

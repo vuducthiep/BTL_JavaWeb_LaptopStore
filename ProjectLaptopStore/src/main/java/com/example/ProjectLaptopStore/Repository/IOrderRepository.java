@@ -14,7 +14,7 @@ public interface IOrderRepository extends JpaRepository<OrdersEntity, Integer> ,
         "FROM Orders o " +
         "WHERE o.OrderDate >= DATE_FORMAT(CURDATE(), '%Y-%m-01') " +
         "AND o.OrderDate <= CURDATE()", nativeQuery = true)
-    BigDecimal findTotalAmount();
+    BigDecimal getTotalAmount();
 
     //đếm số khách hàng trong tháng hiện tại
     @Query(value = "SELECT COUNT(DISTINCT o.CustomerID) " +
