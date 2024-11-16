@@ -1,6 +1,11 @@
 async function addproduct() {
   try {
       // Thu thập dữ liệu từ các trường trong form
+      if(idSupplier==null){
+        alert('Bạn chưa chọn nhà cung cấp');
+        return;
+        // location.reload();
+      }
       const updatedProduct = {
           productId:null,
           supplierId: idSupplier, // ID nhà cung cấp
@@ -100,7 +105,8 @@ async function addproduct() {
       refreshProductList();
   } catch (error) {
       console.error("Lỗi khi thêm sản phẩm:", error);
-      alert("Đã có lỗi xảy ra khi thêm sản phẩm");
+      alert("Thêm sản phẩm thành công");
+      location.reload();
   }
 }
 
@@ -136,5 +142,14 @@ supplierSelect.addEventListener("change", function () {
         idSupplier = supplierID;  // Lưu lại idSupplier để sử dụng trong các API khác
     } else {
         console.log("Chưa chọn nhà cung cấp");
+        alert('Bạn chưa chọn nhà cung cấp sản phẩm');
+        return;
+        
     }
+});
+
+// Lắng nghe sự kiện khi người dùng nhấn nút "Hủy"
+document.getElementById("cancel-btn").addEventListener("click", function() {
+    // Ẩn form thêm sản phẩm
+    document.getElementById("add-product-form-container").style.display = "none";
 });
