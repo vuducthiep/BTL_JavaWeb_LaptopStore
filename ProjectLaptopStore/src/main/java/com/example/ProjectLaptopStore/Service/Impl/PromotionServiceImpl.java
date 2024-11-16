@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,6 +149,17 @@ public class PromotionServiceImpl implements PromotionService {
                     .hasPromotion((Long) o[3])
                     .build();
             rs.add(pp);
+        }
+        return rs;
+    }
+
+    @Override
+    public Promotions_DisplayPromotionsDTO getPromotionByID(int id) {
+        PromotionEntity o = promotionRepository.getPromotionByID(id);
+        Promotions_DisplayPromotionsDTO rs = new Promotions_DisplayPromotionsDTO();
+        if (o == null) throw  new PromotionNotFoundException("Khong ton tai khuyen mai");
+        else{
+            rs = modelMapper.map(o,Promotions_DisplayPromotionsDTO.class);
         }
         return rs;
     }
