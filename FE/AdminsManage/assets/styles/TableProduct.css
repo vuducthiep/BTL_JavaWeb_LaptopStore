@@ -102,3 +102,14 @@
   flex-grow: 1;
   overflow-x: hidden; /* Tránh cuộn ngang */
 }
+
+#menu-toggle {
+  display: block;
+}
+
+/* Ẩn nút trên giao diện lớn (ví dụ: từ 768px trở lên) */
+@media (min-width: 768px) {
+  #menu-toggle {
+    display: none;
+  }
+}

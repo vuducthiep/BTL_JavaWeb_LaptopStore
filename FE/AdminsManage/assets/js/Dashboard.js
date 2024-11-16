@@ -12,7 +12,7 @@ async function loadDashboardData() {
       data.totalNewCustomerInCurrentMonth;
     document.getElementById(
       "total-amount-in-current-month"
-    ).innerText = `${data.totalAmountInCurrentMonth} VND`;
+    ).innerText = `${data.totalAmountInCurrentMonth} $`;
 
     // Dữ liệu cho biểu đồ khách hàng mới
     const newCustomerLabels = data.newCustomerPerMonthMap.map(
@@ -87,7 +87,7 @@ async function loadDashboardData() {
         labels: revenueLabels,
         datasets: [
           {
-            label: "Doanh thu (VND)",
+            label: "Doanh thu ($)",
             data: revenueData,
             borderColor: "rgba(54, 162, 235, 1)", // Màu đường cho doanh thu
             fill: false, // Không tô màu dưới đường
@@ -105,7 +105,7 @@ async function loadDashboardData() {
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return `${tooltipItem.raw} VND`; // Hiển thị doanh thu
+                return `${tooltipItem.raw} $`; // Hiển thị doanh thu
               },
             },
           },
@@ -120,7 +120,7 @@ async function loadDashboardData() {
           y: {
             title: {
               display: true,
-              text: "Doanh thu (VND)",
+              text: "Doanh thu ($)",
             },
             beginAtZero: true,
           },
@@ -198,7 +198,7 @@ async function loadDashboardData() {
         li.innerHTML = `
       <div><strong>${product.productName}</strong> (${product.brand} - ${product.model})</div>
       <div>Số lượng bán: ${product.quantityOrdered}</div>
-      <div>Doanh thu: ${product.lineTotal} VND</div>
+      <div>Doanh thu: ${product.lineTotal} $</div>
     `;
         topProductsList.appendChild(li);
       }
@@ -217,7 +217,7 @@ data.topCustomerInMonth.forEach((customer) => {
     <div>Email: ${customer.email}</div>
     <div>Số điện thoại: ${customer.phoneNumber}</div>
     <div>Địa chỉ: ${customer.streetAddress}, ${customer.ward}, ${customer.district}, ${customer.city}, ${customer.address}</div>
-    <div>Tổng chi tiêu: ${customer.totalAmount} VND</div>
+    <div>Tổng chi tiêu: ${customer.totalAmount} $</div>
   `;
   topCustomersList.appendChild(li);
 });
