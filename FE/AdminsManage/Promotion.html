@@ -55,7 +55,31 @@
  <!-- Content -->
 <div class="container mt-5" id="content-area">
   <h1 class="text-center">Quản Lý Khuyến Mãi</h1>
-
+  <!-- Thêm khuyến mãi mới -->
+  <div class="row mt-5">
+    <div class="col-md-12">
+        <h3>Thêm Khuyến Mãi Mới</h3>
+        <form id="add-promotion-form" class="form-inline">
+              <div class="form-group mr-3">
+                <label for="promotion-id" class="mr-2">ID:</label>
+                <input type="text" id="promotion-id" class="form-control" placeholder="Nhập id" value="">
+            </div>
+            <div class="form-group mr-3">
+                <label for="promotion-name" class="mr-2">Tên Khuyến Mãi:</label>
+                <input type="text" id="promotion-name" class="form-control" placeholder="Nhập tên khuyến mãi" value="">
+            </div>
+            <div class="form-group mr-3">
+                <label for="discount-percentage" class="mr-2">Phần Trăm Giảm:</label>
+                <input type="number" id="discount-percentage" class="form-control" placeholder="Nhập phần trăm giảm" value="">
+            </div>
+            <div class="form-group mr-3">
+                <label for="promotion-details" class="mr-2">Chi Tiết Khuyến Mãi:</label>
+                <input type="text" id="promotion-details" class="form-control" placeholder="Nhập chi tiết khuyến mãi" value="">
+            </div>
+            <button type="button" class="btn btn-primary" onclick="addPromotion()">Cập nhật</button>
+        </form>
+    </div>
+</div>
   <!-- Danh sách khuyến mãi -->
   <div class="row mt-5">
       <div class="col-md-12">
@@ -123,7 +147,8 @@
     </button>
 
     <script src="assets/js/Promotion.js"></script>
-
+    <link rel="stylesheet" href="Promotion/form.css">
+    <script src="Promotion/editPromotion.js"></script>
 
   </body>
 </html>

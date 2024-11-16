@@ -66,16 +66,19 @@
 
         <!-- Danh sách top sản phẩm và chọn nhà cung cấp -->
         <div class="row mt-5">
-          <!-- Danh sách Top sản phẩm -->
-          <div class="col-md-6">
+          
+
+          <div class="col-md-5">
             <h4>Top Sản phẩm theo tháng</h4>
-            <ul id="top-10-products-list" class="list-group">
-              <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
-            </ul>
+            <div id="top-10-products-list">
+              <!-- Bảng sẽ được chèn động bằng JavaScript -->
+            </div>
           </div>
+          
+          
 
           <!-- Danh sách sản phẩm và các nút Thêm và Combobox Nhà Cung Cấp -->
-          <div class="col-md-6">
+          <div class="col-md-7">
             <!-- Nút Thêm Sản phẩm và Chọn Nhà Cung Cấp -->
             <div class="d-flex justify-content-between align-items-center mb-4">
               <button id="add-product-btn" class="btn btn-primary">Thêm Sản phẩm</button>
@@ -88,6 +91,7 @@
             </div>
 
             <!-- Danh sách sản phẩm -->
+             <h4>Danh sách sản phẩm</h4>
             <div class="table-responsive mt-4">
               <table class="table table-striped table-hover">
                 <thead>
@@ -455,9 +459,9 @@
 
 
 <button type="submit" class="btn btn-primary" id="submit-btn">Thêm</button>
-
+<button type="button" class="btn btn-secondary" id="cancel-btn">Hủy</button>
       </form>
-      <button type="button" class="btn btn-secondary" id="cancel-btn">Hủy</button>
+     
     </div>
 
     <!-- Form thêm -->
@@ -800,8 +804,9 @@
 
 
         <button type="submit" class="btn btn-primary" id="save-edit-btn">Sửa</button>
+        <button type="button" class="btn btn-secondary" id="cancel-edit-btn">Hủy</button>
       </form>
-      <button type="button" class="btn btn-secondary" id="cancel-edit-btn">Hủy</button>
+      
     </div>
 
     <!-- Form sửa -->
