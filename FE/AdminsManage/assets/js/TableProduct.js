@@ -58,16 +58,35 @@ function editProduct(productId) {
 
 // Hàm hiển thị top 10 sản phẩm bán chạy nhất
 function displayTop10Products(products) {
+  // Lấy danh sách top 10 sản phẩm dựa trên số lượng bán
   const top10 = products.sort((a, b) => b.quantityOrdered - a.quantityOrdered).slice(0, 10);
-  
-  const top10HTML = top10.map(product => `
-    <li class="list-group-item">
-      ${product.productName} - Số lượng bán: ${product.quantityOrdered}
-    </li>
-  `).join('');
-  
-  top10ProductsList.innerHTML = top10HTML;
+
+  // Tạo HTML cho bảng
+  const top10HTML = `
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Tên sản phẩm</th>
+          <th>Số lượng bán</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${top10.map((product, index) => `
+          <tr>
+            <td>${index + 1}</td>
+            <td>${product.productName}</td>
+            <td>${product.quantityOrdered}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  // Hiển thị bảng trong phần tử HTML
+  document.getElementById("top-10-products-list").innerHTML = top10HTML;
 }
+
 
 // Hàm hiển thị biểu đồ doanh thu sản phẩm theo tháng
 function displayMonthlyProductChart(monthlyData) {
