@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 
 import java.util.List;
@@ -15,5 +16,6 @@ public interface IProductService {
     List<ProductDetailDTO> listProductDetail();
     Admin_ProductResponseDTO adminProduct();
     ProductDetailDTO getProductById(Integer id);
+    Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct);
 
 }

@@ -5,13 +5,16 @@ import com.example.ProjectLaptopStore.Convert.Product_SearchBuilderConverter;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.IOrderDetailRepository;
 import com.example.ProjectLaptopStore.Repository.IOrderRepository;
 import com.example.ProjectLaptopStore.Repository.IProductDescriptionRepository;
 import com.example.ProjectLaptopStore.Repository.IProductRepository;
+import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 import com.example.ProjectLaptopStore.Service.IOrderDetailService;
 import com.example.ProjectLaptopStore.Service.IProductService;
+import com.example.ProjectLaptopStore.Service.ISuppliersService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,7 +33,8 @@ public class ProductServiceImpl implements IProductService {
     private Product_SearchBuilderConverter productSearchBuilderConverter;
     @Autowired
     private IOrderDetailRepository orderDetailRepository;
-
+    @Autowired
+    private ISuppliersService suppliersService;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -110,6 +114,21 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ProductDetailDTO getProductById(Integer id) {
         return productRepository.getOneProductDetail(id);
+    }
+
+    @Override
+    public Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct) {
+        Admin_ProductDetailResponseDTO result = new Admin_ProductDetailResponseDTO();
+        try{
+            ProductDetailDTO productDetail = getProductById(idProduct);
+            List<SuppliersEntity> listSupplier = suppliersService.getListSupplier();
+            result.setProductDetail(productDetail);
+            result.setListSupplier(listSupplier);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

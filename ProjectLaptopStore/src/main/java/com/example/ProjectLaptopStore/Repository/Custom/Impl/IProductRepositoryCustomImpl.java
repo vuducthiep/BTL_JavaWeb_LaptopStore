@@ -34,7 +34,9 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
         String query = "SELECT p.ProductID ,p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
                 "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered ,COALESCE(SUM(od.LineTotal), 0) AS lineTotal " +
                 "FROM Products p " +
-                "LEFT JOIN OrderDetails od ON p.ProductID = od.ProductID " +
+                "JOIN OrderDetails od ON p.ProductID = od.ProductID " +
+                "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
+                "WHERE s.Status = 'active'  " +
                 "GROUP BY p.ProductID " +
                 "ORDER BY lineTotal DESC";
         Query nativeQuery = entityManager.createNativeQuery(query);// ko cần truyền DTO.class
@@ -221,7 +223,7 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     @Override
     public ProductDetailDTO getOneProductDetail(Integer idProduct) {
         StringBuilder query = setQuery();
-        query.append(" where p.productId = :idProduct ");
+        query.append(" AND p.productId = :idProduct ");
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         nativeQuery.setParameter("idProduct", idProduct);
         List<Object[]> resultQuery = nativeQuery.getResultList();
@@ -332,8 +334,8 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
     //hàm tạo query lấy thông tin bảng product productdes
     public StringBuilder setQuery(){
         StringBuilder query = new StringBuilder("SELECT \n" +
-                "    p.productId,\n" +
                 "    p.supplierId,\n" +
+                "    p.productId,\n" +
                 "    p.productName,\n" +
                 "    p.brand AS productBrand,\n" +
                 "    p.model,\n" +
@@ -401,7 +403,9 @@ public class IProductRepositoryCustomImpl implements IProductRepositoryCustom {
                 "    pd.userManual,\n" +
                 "    pd.color\n" +
                 "FROM Products p\n" +
-                "JOIN ProductDescription pd ON p.productId = pd.productId ");
+                "JOIN ProductDescription pd ON p.productId = pd.productId " +
+                "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
+                "WHERE s.Status = 'active' ");
         return query;
     }
     //hàm set dữ liệu cho constructor
