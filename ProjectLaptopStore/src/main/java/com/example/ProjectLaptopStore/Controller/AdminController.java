@@ -105,6 +105,11 @@ public class AdminController {
         List<Promotions_DisplayPromotionsDTO> rs = promotionService.getPromotions();
         return rs;
     }
+    @GetMapping(value = "/promotion/")
+    public Promotions_DisplayPromotionsDTO getPromotionbyID(@RequestParam(name = "promotionID")int promotionID){
+        Promotions_DisplayPromotionsDTO rs = promotionService.getPromotionByID(promotionID);
+        return rs;
+    }
     //API tìm kiếm khuyến mãi theo tên
     @GetMapping(value = "/promotion/{promotionName}")
     public List<Promotions_DisplayPromotionsDTO> SearchPromotion(@PathVariable(name = "promotionName") String promotionName){
