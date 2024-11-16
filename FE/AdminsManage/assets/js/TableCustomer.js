@@ -48,7 +48,7 @@ function displayCustomerList(customers) {
         <td>${index + 1}</td>
         <td>${customer.fullName}</td>
         <td>${customer.email}</td>
-        <td>${customer.totalAmount}</td>
+        <td>${customer.address}</td>
         <td>
           <!-- Nút Sửa -->
           <button class="btn btn-primary btn-sm" onclick="editCustomer(${customer.customerID})">Sửa</button>

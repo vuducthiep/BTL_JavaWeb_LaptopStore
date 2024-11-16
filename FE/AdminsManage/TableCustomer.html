@@ -51,33 +51,38 @@
           </li>
         </ul>
       </div>
-
+    </div>
      <!-- Content -->
-<div class="container-fluid mt-5" id="content-area">
-    <h1 class="text-center">TABLE CUSTOMER</h1>
+<div class="containers mt-5" id="content-area">
+  <h1 class="text-center rounded bg-primary text-white py-3 px-4 shadow">TABLE CUSTOMER</h1>
+
   
     <!-- Thống kê tổng quan -->
     
   
     <!-- Biểu đồ -->
     <div class="row mt-5">
-      <div class="col-12">
+      <div class="col-12 d-flex justify-content-center">
         <h3>Biểu đồ Khách Hàng Mới Theo Tháng</h3>
+      </div>
+      <div class="col-12">
         <canvas id="monthly-new-customers-chart"></canvas>
       </div>
     </div>
+    
   
     <!-- Danh sách top khách hàng -->
     <div class="row mt-5">
       <div class="col-md-6">
-        <h4>Top 10 Khách Hàng Chi Tiêu Nhiều Nhất</h4>
+        <h4 class="custom-header">Top 10 Khách Hàng Chi Tiêu Nhiều Nhất Trong Tháng</h4>
+
         <ul id="top-10-customers-list" class="list-group">
           <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
         </ul>
       </div>
   
       <div class="col-md-6">
-        <h4>Danh Sách Khách Hàng</h4>
+        <h4 class="custom-header">Danh Sách Khách Hàng</h4>
         <button class="btn btn-primary" id="add-customer-btn">Thêm Khách Hàng</button>
                   <!-- Modal Thêm Khách Hàng -->
                   <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
@@ -161,7 +166,7 @@
               <th>#</th>
               <th>Tên Khách Hàng</th>
               <th>Email</th>
-              <th>Tổng Chi Tiêu</th>
+              <th>Địa chỉ</th>
             </tr>
           </thead>
           <tbody id="customer-list">
@@ -182,8 +187,7 @@
           <input type="hidden" id="editAddressID" />
 
           <div class="mb-3">
-            <label for="editTotalAmount" class="form-label">Tổng Số Tiền</label>
-            <input type="number" class="form-control" id="editTotalAmount" required />
+            <input type="hidden" class="form-control" id="editTotalAmount" required />
           </div>
           <div class="mb-3">
             <label for="editFullName" class="form-label">Tên Khách Hàng</label>
