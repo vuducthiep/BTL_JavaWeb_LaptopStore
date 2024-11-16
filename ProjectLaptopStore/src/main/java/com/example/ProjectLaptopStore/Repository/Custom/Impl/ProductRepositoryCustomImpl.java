@@ -287,7 +287,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         productDescriptionEntity.setDisplayTechnology(productNew.getDisplayTechnology());
         productDescriptionEntity.setResolution(productNew.getResolution());
         productDescriptionEntity.setScreenType(productNew.getScreenType());
-//        productDescriptionEntity.setScanningFrequency(productNew.getScanningFrequency());
+        productDescriptionEntity.setScanningFrequency(productNew.getScanningFrequency());
         productDescriptionEntity.setBasePlate(productNew.getBasePlate());
         productDescriptionEntity.setBrightness(productNew.getBrightness());
         productDescriptionEntity.setColorCoverage(productNew.getColorCoverage());
@@ -322,7 +322,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             // Lưu cả sản phẩm và mô tả sản phẩm
             entityManager.persist(productsEntity);
             entityManager.persist(productDescriptionEntity);
-            entityManager.flush();
+//            entityManager.flush();
         }
         //cập nhật
         else {
