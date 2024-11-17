@@ -35,7 +35,7 @@ function selectPromotion(promotionID, promotionName) {
   selectedPromotionID = promotionID;
   console.log('Khuyến mãi được chọn:', promotionName); // Hiển thị tên khuyến mãi
   loadProductsByPromotion(selectedPromotionID);
-
+  loadPromotionData(promotionID);
   const url = new URL(window.location.href);
   url.searchParams.set('promotionID', promotionID);
   window.history.pushState({}, '', url);
@@ -48,6 +48,27 @@ function selectPromotion(promotionID, promotionName) {
       element.textContent = promotionName;
     }
   });
+}
+
+// Hàm để tải thông tin khuyến mãi vào form theo promotionID
+function loadPromotionData(promotionID) {
+  fetch(`http://localhost:8080/admin/promotion/?promotionID=${promotionID}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        // Điền dữ liệu vào các trường trong form
+        document.getElementById('promotion-id').value = data.promotionID;
+        document.getElementById('promotion-name').value = data.promotionName;
+        document.getElementById('discount-percentage').value = data.discountPercentage;
+        document.getElementById('promotion-details').value = data.promotionDetails;
+      } else {
+        alert('Không tìm thấy thông tin khuyến mãi!');
+      }
+    })
+    .catch(error => {
+      // console.error('Lỗi khi lấy thông tin khuyến mãi:', error);
+      // alert('Có lỗi khi tải thông tin khuyến mãi.');
+    });
 }
 
 
