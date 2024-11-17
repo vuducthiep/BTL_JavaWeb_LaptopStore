@@ -14,10 +14,10 @@ fetch('http://localhost:8080/admin/promotion')
         const row = document.createElement('tr');
         row.innerHTML = `
           <td>${promotion.promotionID}</td>
-          <td>${promotion.promotionName}</td>
+          <td class="promotion-name">${promotion.promotionName}</td> <!-- Sử dụng class thay vì id -->
           <td>
             <input type="radio" name="promotion" value="${promotion.promotionID}" 
-                   onclick="selectPromotion(${promotion.promotionID})">
+                   onclick="selectPromotion(${promotion.promotionID}, '${promotion.promotionName}')">
           </td>
         `;
         promotionListElement.appendChild(row);
@@ -31,15 +31,46 @@ fetch('http://localhost:8080/admin/promotion')
   });
 
 // Hàm để chọn khuyến mãi
-function selectPromotion(promotionID) {
+function selectPromotion(promotionID, promotionName) {
   selectedPromotionID = promotionID;
-  console.log('Khuyến mãi được chọn:', selectedPromotionID);
+  console.log('Khuyến mãi được chọn:', promotionName); // Hiển thị tên khuyến mãi
   loadProductsByPromotion(selectedPromotionID);
-
+  loadPromotionData(promotionID);
   const url = new URL(window.location.href);
   url.searchParams.set('promotionID', promotionID);
   window.history.pushState({}, '', url);
+
+  // Gán tên khuyến mãi vào phần tử có class 'promotion-name'
+  const promotionNameElements = document.querySelectorAll('.promotion-name');
+  promotionNameElements.forEach(element => {
+    if (element.textContent === promotionName) {
+      // Gán giá trị vào phần tử
+      element.textContent = promotionName;
+    }
+  });
 }
+
+// Hàm để tải thông tin khuyến mãi vào form theo promotionID
+function loadPromotionData(promotionID) {
+  fetch(`http://localhost:8080/admin/promotion/?promotionID=${promotionID}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data) {
+        // Điền dữ liệu vào các trường trong form
+        document.getElementById('promotion-id').value = data.promotionID;
+        document.getElementById('promotion-name').value = data.promotionName;
+        document.getElementById('discount-percentage').value = data.discountPercentage;
+        document.getElementById('promotion-details').value = data.promotionDetails;
+      } else {
+        alert('Không tìm thấy thông tin khuyến mãi!');
+      }
+    })
+    .catch(error => {
+      // console.error('Lỗi khi lấy thông tin khuyến mãi:', error);
+      // alert('Có lỗi khi tải thông tin khuyến mãi.');
+    });
+}
+
 
 // Hàm để gọi API lấy sản phẩm theo khuyến mãi đã chọn
 function loadProductsByPromotion(promotionID) {
