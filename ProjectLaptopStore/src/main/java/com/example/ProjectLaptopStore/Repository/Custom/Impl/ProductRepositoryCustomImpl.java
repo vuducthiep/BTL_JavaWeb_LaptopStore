@@ -42,7 +42,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 "ORDER BY lineTotal DESC";
         Query nativeQuery = entityManager.createNativeQuery(query);// ko cần truyền DTO.class
         List<Object[]> results = nativeQuery.getResultList();
-
         //set thủ công
         List<Product_FindTopPurchasedProductsDTO> dtoList = new ArrayList<>();
         for (Object[] result : results) {
@@ -60,7 +59,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             );
             dtoList.add(dto);
         }
-
         return dtoList;
 
 
@@ -214,7 +212,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
         List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
-
         for (Object[] rowOfResult : resultQuery) {
             ProductDetailDTO dto = setConstructor(rowOfResult);
             listProductDetailDTO.add(dto);
@@ -232,7 +229,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         ProductDetailDTO productDetai = new ProductDetailDTO();
         for (Object[] rowOfResult : resultQuery) {
             productDetai = setConstructor(rowOfResult);
-
         }
         return productDetai;
     }
@@ -322,7 +318,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             // Lưu cả sản phẩm và mô tả sản phẩm
             entityManager.persist(productsEntity);
             entityManager.persist(productDescriptionEntity);
-//            entityManager.flush();
         }
         //cập nhật
         else {

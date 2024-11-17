@@ -1,12 +1,9 @@
 package com.example.ProjectLaptopStore.DTO;
 
 public class OrderDetail_CountQuantityProductPerMonthDTO {
-
     private Integer month;
     private Long totalSold;
-
     public OrderDetail_CountQuantityProductPerMonthDTO( Integer month, Long totalSold) {
-
         this.month = month;
         this.totalSold = totalSold;
     }
