@@ -29,7 +29,6 @@ public class OrderDetailRepositoryCustomImpl implements OrderDetailRepositoryCus
         List<Object[]> resultQuery = queryNative.getResultList();
         List<OrderDetail_CountQuantityProductPerMonthDTO> listQuantityProductPerMonth = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
-
             Integer month = (Integer) rowOfResult[0];
             BigDecimal quantity = (BigDecimal) rowOfResult[1];
             OrderDetail_CountQuantityProductPerMonthDTO dto = new OrderDetail_CountQuantityProductPerMonthDTO(

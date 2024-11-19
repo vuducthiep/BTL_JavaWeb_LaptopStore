@@ -58,6 +58,7 @@ public class SuppliersServiceImpl implements SuppliersService {
     }
 
     @Override
+    //kien thuc spring data
     public List<SuppliersEntity> getListSupplier() {
         return suppliersRepository.findByStatus(Status_Enum.active);
     }

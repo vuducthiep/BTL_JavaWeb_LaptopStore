@@ -43,7 +43,6 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
 
         Query nativeQuery = entityManager.createNativeQuery(query);
         nativeQuery.setParameter("idWarehouse", warehouseId);  // Gán giá trị idWarehouse vào câu truy vấn
-
         List<Object[]> result = nativeQuery.getResultList();
         List<ProductsInWarehouse_DTO> listProductInWareHouse = new ArrayList<>();
         for(Object[] rowOfResult : result) {
