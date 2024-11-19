@@ -113,3 +113,82 @@
     display: none;
   }
 }
+
+/* Phong cách chung cho khung chứa */
+.col-md-5 {
+  background-color: #f9f9f9; /* Màu nền nhạt */
+  border-radius: 8px; /* Góc bo tròn */
+  padding: 20px; /* Khoảng cách bên trong */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  border: 1px solid #ddd; /* Viền mỏng */
+}
+
+/* Tiêu đề của danh sách */
+.col-md-5 h4 {
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #333; /* Màu chữ đậm */
+  border-bottom: 2px solid #007bff; /* Đường kẻ dưới */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  text-transform: uppercase; /* Chữ in hoa */
+}
+
+/* Phong cách chung cho khung chứa */
+.col-md-7 {
+  background-color: #f9f9f9; /* Màu nền nhạt */
+  border-radius: 8px; /* Góc bo tròn */
+  padding: 20px; /* Khoảng cách bên trong */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hiệu ứng đổ bóng */
+  border: 1px solid #ddd; /* Viền mỏng */
+}
+
+/* Tiêu đề của danh sách */
+.col-md-7 h4 {
+  font-family: 'Arial', sans-serif;
+  font-size: 18px;
+  color: #333; /* Màu chữ đậm */
+  border-bottom: 2px solid #007bff; /* Đường kẻ dưới */
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+  text-transform: uppercase; /* Chữ in hoa */
+}
+
+/* Danh sách các sản phẩm */
+#top-10-products-list {
+  list-style: none; /* Xóa dấu chấm của danh sách */
+  padding: 0;
+  margin: 0;
+}
+
+/* Phong cách cho từng mục trong danh sách */
+#top-10-products-list .list-group-item {
+  background-color: #fff; /* Nền trắng */
+  margin-bottom: 10px; /* Khoảng cách giữa các mục */
+  padding: 10px 15px; /* Khoảng cách bên trong */
+  border: 1px solid #ddd; /* Viền */
+  border-radius: 6px; /* Góc bo tròn */
+  display: flex;
+  justify-content: space-between; /* Căn đều các phần tử trong mục */
+  align-items: center; /* Căn giữa theo chiều dọc */
+  transition: background-color 0.3s; /* Hiệu ứng chuyển màu nền */
+}
+
+/* Hiệu ứng hover */
+#top-10-products-list .list-group-item:hover {
+  background-color: #f0f8ff; /* Màu nền khi hover */
+  cursor: pointer;
+}
+
+/* Phong cách cho nội dung chính trong mục */
+#top-10-products-list .product-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Phong cách cho phần thông tin phụ (nếu có) */
+#top-10-products-list .product-info {
+  font-size: 14px;
+  color: #666;
+}
