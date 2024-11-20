@@ -39,12 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
   
-    // Khi người dùng nhấp vào "Đăng nhập"
-    loginLink.addEventListener("click", function (event) {
-        event.preventDefault();
-        // Điều hướng người dùng đến trang đăng nhập
-        window.location.href = "login.html";
-    });
+   
   
     // Khi người dùng nhấp vào "Đăng xuất"
     logout.addEventListener("click", function (event) {

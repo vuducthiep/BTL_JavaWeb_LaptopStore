@@ -1,5 +1,8 @@
 let displayedProducts = []; // Mảng lưu trữ các sản phẩm đang hiển thị
 let allProducts = [];
+window.ProductNumberDisplayed = 0;
+window.CurrentProduct=[]
+window.productOffset = 10;
 document.addEventListener('DOMContentLoaded', function () {
   const featuredList = document.getElementById('featured-products-list');
   window.regularList = document.getElementById('regular-products-list'); // Khai báo global để sử dụng ở các file khác
@@ -7,13 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
  
 
-  let productOffset = 10;
+
 
   // Lấy dữ liệu sản phẩm từ API
   fetch('http://localhost:3000/products')
     .then(response => response.json())
     .then(data => {
-      allProducts = data;
+      let allProducts = data;
+      window.CurrentProduct=allProducts;
       displayFeaturedProducts(allProducts);
 
       // Cập nhật mảng displayedProducts khi tải dữ liệu
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
  function displayRegularProducts(products) {
     window.regularList.innerHTML = ''; // Xóa danh sách sản phẩm cũ
     products.forEach(product => {
+      window.ProductNumberDisplayed++;
       const productDiv = document.createElement('div');
       productDiv.classList.add('product-item');
       productDiv.innerHTML = `
@@ -74,20 +79,29 @@ document.addEventListener('DOMContentLoaded', function () {
       `;
       window.regularList.appendChild(productDiv);
     });
-   
+   console.log("số sản phẩm đang hiển thị ở div : ",ProductNumberDisplayed);
   }
 
   // Hàm xử lý nút "Load More"
   loadMoreBtn.addEventListener('click', function () {
-    const newProducts = allProducts.slice(productOffset, productOffset + 6); // Tải thêm 6 sản phẩm
-    if (newProducts.length > 0) {
-     
-      displayedProducts = displayedProducts.concat(newProducts); // Cập nhật mảng displayedProducts
-      console.log(displayedProducts)
-      displayRegularProducts(displayedProducts); // Hiển thị sản phẩm đã cập nhật
-      productOffset += 6;
-    } else {
-      loadMoreBtn.style.display = 'none'; // Ẩn nút "Load More" khi không còn sản phẩm để tải
+    // Kiểm tra xem còn sản phẩm nào chưa được hiển thị không
+    window.ProductNumberDisplayed=0;
+    if (window.ProductNumberDisplayed < window.CurrentProduct.length) {
+      // Lấy thêm 6 sản phẩm mới từ danh sách đã lọc, không lấy lại các sản phẩm đã hiển thị
+      const newProducts = window.CurrentProduct.slice(window.productOffset, window.productOffset + 6); 
+  
+      if (newProducts.length > 0) {
+        displayedProducts = displayedProducts.concat(newProducts); // Cập nhật danh sách đang hiển thị
+        window.productOffset += 6; // Tăng chỉ số offset
+        displayRegularProducts(displayedProducts); // Hiển thị các sản phẩm mới
+      }
+    }
+  
+    // Kiểm tra lại nếu đã hiển thị hết sản phẩm, ẩn nút "Load More"
+    if (window.ProductNumberDisplayed >= window.CurrentProduct.length) {
+      loadMoreBtn.style.display = 'none'; // Ẩn nút nếu không còn sản phẩm
     }
   });
+  
+
 });
