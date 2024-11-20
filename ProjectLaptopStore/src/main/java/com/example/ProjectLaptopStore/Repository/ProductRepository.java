@@ -11,10 +11,9 @@ import java.util.List;
 @Repository
 //sử dụng spring data jpa, và custom để lấy dữ liệu
 public interface ProductRepository extends JpaRepository<ProductsEntity,Integer>, ProductRepositoryCustom {
-    List<ProductsEntity> findByProductNameContainingAndBrandContaining(String productName, String brand);
-    List<ProductsEntity> findByProductNameContainingAndSupplier_SupplierNameContaining(String productName, String supplierName);
+//    List<ProductsEntity> findByProductNameContainingAndBrandContaining(String productName, String brand);
+//    List<ProductsEntity> findByProductNameContainingAndSupplier_SupplierNameContaining(String productName, String supplierName);
     void deleteByProductIDIn(Long[] ids);
     List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
-    List<ProductsEntity> findByProductIDIn(Long[] ids);
-
+//    List<ProductsEntity> findByProductIDIn(Long[] ids);
 }

@@ -12,5 +12,4 @@ import java.util.List;
 public class Admin_ProductDetailResponseDTO {
     ProductDetailDTO productDetail;
     List<SuppliersEntity> listSupplier;
-
 }

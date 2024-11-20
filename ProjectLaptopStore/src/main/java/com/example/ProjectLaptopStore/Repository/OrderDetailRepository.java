@@ -7,10 +7,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+
 @Transactional
 public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,Integer>, OrderDetailRepositoryCustom {
-
     //lấy số lượng sản phẩm bán được trong tháng hiện tại
     @Query(value =
             "SELECT SUM(od.quantity) as totalquantity " +
