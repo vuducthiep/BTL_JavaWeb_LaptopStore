@@ -1,189 +1,171 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('product-list');
     const totalPriceElement = document.querySelector('.total-price');
     const totalElement = document.querySelector('.total-amount');
     const bankTransferInfo = document.getElementById('bank-transfer-info');
     const traGopInfor = document.getElementById('tra-gop-infor');
-    const submitButton = document.getElementById('btn-submit'); // Nút gửi đơn hàng
+    const submitButton = document.getElementById('btn-submit');
     const selectAllCB = document.getElementById('selectAll');
-    const selectProducts = document.querySelectorAll('.product-checkbox');
+    const addressSelect = document.getElementById('address-select');
 
-
-    // Thêm sự kiện cho checkbox "Chọn tất cả"
-selectAllCB.addEventListener('change', selectAllCheckbox); //Phai de len dau de ko bi chậm 1 nhịp
-
-    // Hàm cập nhật tổng số lượng và tổng tiền
-function updateTotal() {
-    let totalPrice = 0;
-
-    // Lấy tất cả các hàng trong bảng giỏ hàng
-    const rows = document.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-        const checkbox = row.querySelector('.product-checkbox');
-        const quantityInput = row.querySelector('.quantity-input');
-        const priceElement = row.querySelector('.product-price');
-
-        // Kiểm tra xem phần tử giá có tồn tại không
-        if (!priceElement) {
-            console.error('Không tìm thấy phần tử giá trong hàng:', row);
-            return; // Bỏ qua hàng này nếu không tìm thấy
+    // Fetch product data from API
+    async function fetchProducts() {
+        try {
+            const response = await fetch('https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/cart');
+            if (!response.ok) throw new Error('Failed to fetch products');
+            const products = await response.json();
+            populateTable(products);
+            updateTotal();
+        } catch (error) {
+            console.error('Error fetching products:', error);
         }
+    }
 
-        const pricePerItem = parseFloat(priceElement.textContent.replace(/\./g, '').trim());
-        const quantity = parseInt(quantityInput.value) || 0;
-        const itemTotal = quantity * pricePerItem;
+    // Populate table with product data
+    function populateTable(products) {
+        tableBody.innerHTML = ''; // Clear table
+        products.forEach((product, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><input type="checkbox" class="product-checkbox"></td>
+                <td>${index + 1}</td>
+                <td>
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
+                    ${product.name}
+                </td>
+                <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VNĐ</td>
+                <td>
+                    <button class="quantity-btn decrease">-</button>
+                    <input type="number" value="1" min="1" class="quantity-input">
+                    <button class="quantity-btn increase">+</button>
+                </td>
+                <td class="item-total">${product.price.toLocaleString()} VNĐ</td>
+                <td><button class="remove-btn">Xóa</button></td>
+                <td><button class="view-details-btn">Xem Chi Tiết</button></td>
+            `;
+            tableBody.appendChild(row);
+        });
 
-        // Luôn cập nhật cột "Tổng" cho từng sản phẩm trong bảng
-        const itemTotalElement = row.querySelector('.item-total');
-        if (itemTotalElement) {
-            itemTotalElement.textContent = itemTotal.toLocaleString() + ' VNĐ';
-        } else {
-            console.error('Không tìm thấy phần tử tổng trong hàng:', row);
-        }
+        initializeRowEvents();
+    }
 
-        // Chỉ cộng vào tổng tiền nếu sản phẩm được tích chọn
-        if (checkbox && checkbox.checked) {
-            totalPrice += itemTotal;
-        }
-    });
+    // Initialize row events
+    function initializeRowEvents() {
+        // Quantity input events
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('input', function () {
+                updateRowTotal(this);
+                updateTotal();
+            });
+        });
 
-    // Cập nhật tổng tiền cho giỏ hàng
-    totalElement.textContent = totalPrice.toLocaleString() + ' VNĐ';
-    totalPriceElement.textContent = totalPrice.toLocaleString() + ' VNĐ';
-}
-
-selectAllCB.addEventListener('change', updateTotal);
-// Thêm sự kiện cho checkbox sản phẩm
-document.querySelectorAll('.product-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', updateTotal); // Gọi updateTotal khi tích chọn hoặc bỏ chọn sản phẩm
-});
-
-
-
-    // Hàm thêm sự kiện cho các ô nhập số lượng
-    function addQuantityInputListeners(input) {
-        input.addEventListener('change', updateTotal);
-        const quantityButtons = input.parentElement.querySelectorAll('.quantity-btn');
-        quantityButtons.forEach(button => {
-            button.addEventListener('click', function() {
+        // Quantity button events
+        document.querySelectorAll('.quantity-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const input = this.parentElement.querySelector('.quantity-input');
                 const currentValue = parseInt(input.value) || 0;
-                input.value = button.textContent === '+' ? currentValue + 1 : Math.max(currentValue - 1, 1);
-                updateTotal(); // Cập nhật tổng sau khi thay đổi
+                input.value = this.classList.contains('increase') ? currentValue + 1 : Math.max(1, currentValue - 1);
+                updateRowTotal(input);
+                updateTotal();
             });
         });
-    }
 
-    // Thêm sự kiện cho các ô nhập số lượng
-    document.querySelectorAll('.quantity-input').forEach(input => {
-        addQuantityInputListeners(input);
-    });
-
-    // Thêm sự kiện cho các phương thức thanh toán
-    function addPaymentMethodListeners() {
-        const paymentMethods = document.querySelectorAll('input[name="pay_method"]');
-        paymentMethods.forEach(method => {
-            method.addEventListener('change', function() {
-                bankTransferInfo.style.display = this.value == 2 ? 'block' : 'none'; // Hiện/ẩn thông tin chuyển khoản
-                traGopInfor.style.display = this.value == 3 ? 'block' : 'none'; // Hiện/ẩn thông tin trả góp
-            });
-        });
-    }
-
-    // Thêm sự kiện cho nút xóa
-    function initializeRemoveButtons() {
-        const removeButtons = document.querySelectorAll('.remove-btn');
-        removeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const row = button.closest('tr'); // Lấy hàng tương ứng
-                const confirmDelete = confirm("Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng không?");
-                
-                if (confirmDelete) {
-                    row.remove(); // Xóa hàng khỏi bảng
-                    updateTotal(); // Cập nhật tổng sau khi xóa
-                    // initializeRemoveButtons(); // Cập nhật lại sự kiện cho nút xóa
+        // Remove button events
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này?')) {
+                    this.closest('tr').remove();
+                    updateTotal();
                 }
             });
         });
+
+        // Product checkbox events
+        document.querySelectorAll('.product-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', updateTotal);
+        });
+    }
+    
+    
+    // Update the total for a single row
+    function updateRowTotal(input) {
+        const row = input.closest('tr');
+        const quantity = parseInt(input.value) || 0;
+        const price = parseFloat(row.querySelector('.product-price').dataset.price);
+        const rowTotalElement = row.querySelector('.item-total');
+
+        const rowTotal = price * quantity;
+        rowTotalElement.textContent = rowTotal.toLocaleString() + ' VNĐ';
     }
 
-    // Hàm gửi đơn hàng
+
+    // Update total price and amount
+    function updateTotal() {
+        let totalPrice = 0;
+        document.querySelectorAll('#product-list tr').forEach(row => {
+            const checkbox = row.querySelector('.product-checkbox');
+            const quantityInput = row.querySelector('.quantity-input');
+            const priceElement = row.querySelector('.product-price');
+
+            if (checkbox.checked) {
+                const price = parseFloat(priceElement.dataset.price);
+                const quantity = parseInt(quantityInput.value) || 0;
+                totalPrice += price * quantity;
+            }
+        });
+
+        totalPriceElement.textContent = totalPrice.toLocaleString() + ' VNĐ';
+        totalElement.textContent = totalPrice.toLocaleString() + ' VNĐ';
+    }
+
+    // Select all checkboxes
+    selectAllCB.addEventListener('change', function () {
+        const checkboxes = document.querySelectorAll('.product-checkbox');
+        checkboxes.forEach(checkbox => (checkbox.checked = this.checked));
+        updateTotal();
+    });
+
+    // Payment method listeners
+    // function initializePaymentMethods() {
+    //     const paymentMethods = document.querySelectorAll('input[name="pay_method"]');
+    //     paymentMethods.forEach(method => {
+    //         method.addEventListener('change', function () {
+    //             bankTransferInfo.style.display = this.value === '2' ? 'block' : 'none';
+    //             traGopInfor.style.display = this.value === '3' ? 'block' : 'none';
+    //         });
+    //     });
+    // }
+
+    // Submit button listener
     function handleSubmit() {
-        submitButton.addEventListener('click', function(event) {
-            event.preventDefault(); // Ngăn chặn hành động mặc định của nút gửi
+        submitButton.addEventListener('click', event => {
+            event.preventDefault();
 
             const buyerName = document.getElementById('buyer_name').value.trim();
             const buyerTel = document.getElementById('buyer_tel').value.trim();
             const buyerAddress = document.getElementById('buyer_address').value.trim();
             const buyerEmail = document.getElementById('buyer_email').value.trim();
-            const note = document.getElementById('ship_to_note').value.trim();
-
-            // Kiểm tra xem đã chọn phương thức thanh toán chưa
-            const paymentMethods = document.querySelectorAll('input[name="pay_method"]');
-            const selectedPaymentMethod = Array.from(paymentMethods).some(method => method.checked);
-
-            if (!selectedPaymentMethod) {
-                alert("Vui lòng chọn phương thức thanh toán.");
-                return;
-            }
 
             if (!buyerName || !buyerTel || !buyerAddress || !buyerEmail) {
-                alert("Vui lòng điền đầy đủ thông tin người mua.");
+                alert('Vui lòng điền đầy đủ thông tin.');
                 return;
             }
 
-            // Hiển thị thông báo đơn hàng đã được gửi
-            alert("Đơn hàng của bạn đã được gửi thành công!");
-            // Có thể thực hiện thêm logic gửi thông tin lên server ở đây
-        });
-    }
-    const addressSelect = document.getElementById('address-select');
+            if (!document.querySelector('input[name="pay_method"]:checked')) {
+                alert('Vui lòng chọn phương thức thanh toán.');
+                return;
+            }
 
-    
-
-    // Hàm cập nhật dropdown địa chỉ
-    function populateAddressSelect(addresses) {
-        addresses.forEach(address => {
-            const option = document.createElement('option');
-            option.value = address.id; // Sử dụng id hoặc giá trị phù hợp
-            option.textContent = address.name; // Sử dụng tên địa chỉ
-            addressSelect.appendChild(option);
+            alert('Đơn hàng đã được gửi thành công!');
         });
     }
 
-
-// Hàm để cập nhật trạng thái của tất cả checkbox sản phẩm
-function selectAllCheckbox() {
-    const isChecked = selectAllCB.checked;
-    selectProducts.forEach(checkbox => {
-        checkbox.checked = isChecked;
-    });
-}
-
-
-
-// Hàm để kiểm tra trạng thái của checkbox "Chọn tất cả" khi có thay đổi từ các checkbox sản phẩm
-function updateSelectAllCheckbox() {
-    const allChecked = Array.from(selectProducts).every(checkbox => checkbox.checked);
-    selectAllCB.checked = allChecked;
-}
-
-// Thêm sự kiện cho checkbox "Chọn tất cả"
-selectAllCB.addEventListener('change', selectAllCheckbox);
-
-// Thêm sự kiện cho từng checkbox sản phẩm
-selectProducts.forEach(checkbox => {
-    checkbox.addEventListener('change', updateSelectAllCheckbox);
-});
-
-
-    // Hàm khởi tạo
+    // Initialize everything
     function initialize() {
-        fetchAddresses(); // Gọi API để lấy địa chỉ
-        addPaymentMethodListeners(); // Thêm sự kiện cho phương thức thanh toán
-        initializeRemoveButtons(); // Khởi tạo sự kiện cho nút xóa
-        handleSubmit(); // Thêm sự kiện cho nút gửi đơn hàng
-        updateTotal(); // Khởi tạo giá trị tổng khi tải trang
-        addCheckboxListeners();
+        fetchProducts();
+        initializePaymentMethods();
+        handleSubmit();
     }
 
-    initialize(); // Gọi hàm khởi tạo
+    initialize();
 });
