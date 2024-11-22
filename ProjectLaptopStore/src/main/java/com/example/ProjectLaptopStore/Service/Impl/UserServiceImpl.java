@@ -188,8 +188,9 @@ public class UserServiceImpl implements UserService {
     private String generateToken(UserEntity user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
         CustomerEntity customer = customerRepository.getCustomerID(user.getUserID());
-        if(customer == null) {
-            throw new UserNotFoundException("User not found");
+        int id = 0;
+        if(customer != null) {
+            id = customer.getCustomerID();
         }
 
         String role;
@@ -204,7 +205,7 @@ public class UserServiceImpl implements UserService {
                 .issuer("laptopabc.com")
                 .issueTime(new Date())
                 .claim("scope",role)
-                .claim("id",customer.getCustomerID())
+                .claim("id",id)
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
