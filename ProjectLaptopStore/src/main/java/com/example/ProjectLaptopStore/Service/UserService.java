@@ -28,4 +28,7 @@ public interface UserService {
 
     // phan trang user
     Page<User_DTO> searchUser(int page, int size);
+
+    //thong tin user
+    User_DTO UserInfor();
 }

@@ -20,10 +20,12 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -194,6 +196,15 @@ public class UserServiceImpl implements UserService {
             log.error(e.getMessage() + "Can not create token");
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public User_DTO UserInfor() {
+        var contex = SecurityContextHolder.getContext();
+        String phone = contex.getAuthentication().getName();
+        UserEntity user = userRepository.findAllByPhoneNumber(phone);
+        User_DTO userDTO = modelMapper.map(user,User_DTO.class);
+        return userDTO;
     }
 }
 

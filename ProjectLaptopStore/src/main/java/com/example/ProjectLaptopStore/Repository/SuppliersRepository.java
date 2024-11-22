@@ -10,7 +10,9 @@ import java.util.List;
 @Repository
 public interface SuppliersRepository extends JpaRepository<SuppliersEntity,Integer> , SuppliersRepositoryCustom {
 //    List<SuppliersEntity> findAll();
+    //phương thuc tim nha cung cap theo ID
     List<SuppliersEntity> findBySupplierIDIn(Long[] ids);
 //    void deleteBySupplierIDIn(Long[] ids);
+    //phuong thuc tim nha cung cap theo status
     List<SuppliersEntity> findByStatus(Status_Enum status);
 }
