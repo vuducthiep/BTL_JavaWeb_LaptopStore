@@ -2,11 +2,13 @@ package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.DTO.User_DTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.ProductService;
+import com.example.ProjectLaptopStore.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class UserController {
     @Autowired
     private SuppliersService suppliersService;
 
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private ProductService productService;
@@ -117,5 +121,10 @@ public class UserController {
 
     }
 
+    @GetMapping(value = "/user/myInfor")
+    public User_DTO getMyInfor(){
+        User_DTO dto = userService.UserInfor();
+        return  dto;
+    }
 
 }

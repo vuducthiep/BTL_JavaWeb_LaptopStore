@@ -210,11 +210,14 @@ public class AdminController {
     public void deleteProduct(@PathVariable Long[] ids){
         productService.deleteProduct(ids);
     }
+
+
     //API lấy thông tin cho quản lý nhà cung cấp
     @GetMapping(value = "/supplier/")
     public List<SuppliersEntity> getListSupplier(){
         return suppliersService.getListSupplier();
     }
+
     //API lấy thông tin nhà cung cấp lên để sửa
     @GetMapping(value = "/supplier/update/{id}")
     public SuppliersEntity getSupplierByID (@PathVariable(name = "id") Integer id){
@@ -226,11 +229,13 @@ public class AdminController {
     public void createSupplier(@RequestBody SupplierDTO supplierNew){
         suppliersService.createSupplier(supplierNew);
     }
+
     //API cập nhật nhà cung cấp
     @PutMapping(value = "/supplier/update/{id}")
     public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
         suppliersService.updateSupplier(supplierUpdateDTO);
     }
+
     //API xóa nhà cung cấp
     @DeleteMapping("/supplier/{ids}")
     public void deleteSupplier(@PathVariable Long[] ids){
