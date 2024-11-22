@@ -1,46 +1,60 @@
-async function loginUser(email, password) {
-    try {
-      // Gửi yêu cầu GET để lấy danh sách Users từ API giả lập
-      const usersResponse = await fetch("http://localhost:3000/Users");
-      if (!usersResponse.ok) {
-        throw new Error("Không thể kết nối tới API Users.");
-      }
-  
-      const users = await usersResponse.json();
-  
-      // Tìm user dựa trên email
-      const user = users.find(u => u.Email === email);
-  
-      if (!user) {
-        return {
-          success: false,
-          message: "Email không tồn tại.",
-        };
-      }
-  
-      // Kiểm tra mật khẩu
-      if (user.Password !== password) {
-        return {
-          success: false,
-          message: "Mật khẩu không đúng.",
-        };
-      }
-  
-      // Đăng nhập thành công
-      return {
-        success: true,
-        message: "Đăng nhập thành công!",
-        user: {
-          UserID: user.UserID,
-          FullName: user.FullName,
-          Email: user.Email,
-          UserType: user.UserType,
-        },
-      };
-    } catch (error) {
-      return {
-        success: false,
-        message: `Lỗi: ${error.message}`,
-      };
+async function login(event) {
+  event.preventDefault(); // Ngăn form gửi yêu cầu mặc định
+
+  // Lấy dữ liệu từ form
+  const username = document.getElementById("loGin").value;
+  const password = document.getElementById("passWord").value;
+
+  try {
+    // Gửi yêu cầu POST đến API
+    const response = await fetch("http://localhost:8080/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ phoneNumber: username, password: password }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Không thể kết nối tới server. Vui lòng thử lại!");
     }
+
+    const data = await response.json();
+
+    // Kiểm tra trạng thái đăng nhập
+    if (data.status) {
+      alert("Đăng nhập thành công!"); // Thông báo đăng nhập thành công
+
+      // In ra token
+      console.log("Token nhận được từ server:", data.token);
+
+      // Lưu token vào localStorage
+      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Giải mã token để lấy vai trò
+      const payload = JSON.parse(atob(data.token.split(".")[1])); // Decode phần payload của token
+      console.log('Payload của mày :',payload)
+      // In ra vai trò (role)
+      console.log("Vai trò của người dùng:", payload.scope);
+
+      // Kiểm tra vai trò (role)
+      if (payload.scope === "admin") {
+        // Nếu là admin, chuyển đến trang admin
+        window.location.href =
+          "/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/AdminsManage/Dashboard.html";
+      } else if (payload.scope === "customer") {
+        // Nếu là user, chuyển đến trang người dùng
+        window.location.href =
+          "/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/HomePage/index.html";
+      } else {
+        // Vai trò không xác định
+        alert("Vai trò không hợp lệ!");
+      }
+    } else {
+      alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+  } catch (error) {
+    alert(`Lỗi: ${error.message}`);
   }
+}

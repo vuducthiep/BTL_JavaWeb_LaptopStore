@@ -42,80 +42,12 @@
         </div>
       </div>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const loginForm = document.getElementById("loginform");
+   
 
-        loginForm.addEventListener("submit", async function (event) {
-          event.preventDefault(); // Ngăn reload trang
+    <!-- Thêm script Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/LoginAccount/Login.js"></script>
+</body>
+    
 
-          const phonenumber = document.getElementById("loGin").value;
-          const password = document.getElementById("passWord").value;
-
-          try {
-            const res = await fetch("http://localhost:8080/login", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                phoneNumber: phonenumber,
-                password: password,
-              }),
-            });
-
-            if (!res.ok) {
-              const err = await res.json();
-              alert(
-                "Đăng nhập không thành công: " +
-                  (err.message || "Lỗi không xác định")
-              );
-              return;
-            }
-
-            const data = await res.json();
-            const token = data.token;
-
-            // Lưu token vào localStorage
-            localStorage.setItem("token", token);
-
-            // Giải mã token để lấy claim "id"
-
-            alert("Đăng nhập thành công");
-            window.location.href = "index.html";
-            const tokens = localStorage.getItem("token");
-
-            if (token) {
-              // 2. Giải mã token JWT và lấy thông tin từ payload
-              const decodedToken = parseJwt(tokens);
-
-              // 3. Truy xuất thông tin từ payload
-              alert("User ID:" + decodedToken.id); // ID người dùng
-              alert("User Role:" + decodedToken.scope); // Quyền của người dùng
-            } else {
-              console.log("Token không có sẵn trong localStorage.");
-            }
-          } catch (error) {
-            console.error("Lỗi kết nối:", error);
-            alert("Có lỗi xảy ra, vui lòng thử lại sau!");
-          }
-        });
-
-        // Hàm giải mã payload từ token JWT
-        function parseJwt(token) {
-          const base64Url = token.split(".")[1]; // Lấy phần payload
-          const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/"); // Chuyển Base64URL về Base64
-          const jsonPayload = decodeURIComponent(
-            atob(base64)
-              .split("")
-              .map(function (c) {
-                return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
-              })
-              .join("")
-          );
-          return JSON.parse(jsonPayload); // Trả về object payload
-        }
-      });
-    </script>
-  </body>
 </html>
