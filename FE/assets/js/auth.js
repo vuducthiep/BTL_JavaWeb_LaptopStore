@@ -6,7 +6,8 @@ async function login(event) {
     const password = document.getElementById("passWord").value;
 
     // Gửi yêu cầu đăng nhập
-    const response = await fetch('http://localhost:3000/users'); // Đường dẫn đến Fake API
+    //const response = await fetch('http://localhost:3000/users'); // Đường dẫn đến Fake API
+    //const response = await fetch('http://localhost:8080/login'); 
 
     if (!response.ok) {
         alert("Lỗi khi kết nối đến API");

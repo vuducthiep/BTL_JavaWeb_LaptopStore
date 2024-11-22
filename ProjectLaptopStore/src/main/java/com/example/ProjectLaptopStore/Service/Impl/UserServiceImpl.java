@@ -1,11 +1,16 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
+import com.example.ProjectLaptopStore.Repository.CustomerRepository;
 import com.example.ProjectLaptopStore.Repository.UserRepository;
+import com.example.ProjectLaptopStore.Service.CustomerService;
 import com.example.ProjectLaptopStore.Service.UserService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -47,8 +52,14 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
     UserRepository userRepository;
+
     ModelMapper modelMapper;
+
+    CustomerRepository customerRepository;
+
+
 //    private final Authentication authentication;
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -80,13 +91,18 @@ public class UserServiceImpl implements UserService {
             }
         }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Date date = Date.from(user.getRegisterDate().atZone(ZoneId.systemDefault()).toInstant());
         UserEntity userEntity = new UserEntity();
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        userEntity.setRegistrationDate(date);
+        userEntity.setRegistrationDate(new Date());
         userEntity.setUserType(User_Enum.customer);
         userRepository.save(userEntity);
+        CustomerEntity customer = new CustomerEntity();
+        customer.setStatus(Customer_Enum.active);
+        customer.setUser(userEntity);
+        customer.setRegistrationDate(new Date());
+        customerRepository.save(customer);
+
     }
 
     //update user
@@ -171,6 +187,11 @@ public class UserServiceImpl implements UserService {
     // tao token
     private String generateToken(UserEntity user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
+        CustomerEntity customer = customerRepository.getCustomerID(user.getUserID());
+        if(customer == null) {
+            throw new UserNotFoundException("User not found");
+        }
+
         String role;
         if(user.getUserType().equals(User_Enum.customer)) {
             role = "customer";
@@ -183,6 +204,7 @@ public class UserServiceImpl implements UserService {
                 .issuer("laptopabc.com")
                 .issueTime(new Date())
                 .claim("scope",role)
+                .claim("id",customer.getCustomerID())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
