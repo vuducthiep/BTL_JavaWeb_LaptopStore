@@ -1203,27 +1203,130 @@
 
     
   ],
-  "users": [
+    "Users": [
+      {
+        "UserID": 1,
+        "FullName": "John Doe",
+        "Email": "john.doe@example.com",
+        "Password": "hashedpassword123",
+        "PhoneNumber": "1234567890",
+        "UserType": "customer",
+        "RegistrationDate": "2024-01-01"
+      },
+      {
+        "UserID": 2,
+        "FullName": "Jane Smith",
+        "Email": "jane.smith@example.com",
+        "Password": "hashedpassword456",
+        "PhoneNumber": "0987654321",
+        "UserType": "admin",
+        "RegistrationDate": "2023-12-15"
+      }
+    ],
+    "Employees": [
+      {
+        "EmployeeID": 1,
+        "UserID": 1,
+        "Name": "John Doe",
+        "CreatedDate": "2024-02-01",
+        "Status": "active"
+      }
+    ],
+    "Customers": [
+      {
+        "CustomerID": 1,
+        "UserID": 1,
+        "RegistrationDate": "2024-01-01",
+        "Status": "active"
+      }
+    ],
+    "Admins": [
+      {
+        "AdminID": 1,
+        "UserID": 2,
+        "CreatedDate": "2023-12-15",
+        "Status": "active"
+      }
+    ],
+    "Cart": [
+      {
+        "CartID": 1,
+        "CustomerID": 1,
+        "Status": "active",
+        "CreatedDate": "2024-02-01",
+        "TotalPrice": 500.00
+      }
+    ],
+    "CartDetails": [
     {
-      "id": "1",
-      "username": "admin",
-      "password": "admin123",
-      "role": "admin"
+      "CartDetailsID": 1,
+      "CartID": 1,
+      "ProductID": 101,
+      "Quantity": 2,
+      "Price": 15000000.00,
+      "LineTotal": 30000000.00
     },
     {
-      "id": "2",
-      "username": "user",
-      "password": "user123",
-      "role": "user"
+      "CartDetailsID": 2,
+      "CartID": 1,
+      "ProductID": 102,
+      "Quantity": 1,
+      "Price": 20000000.00,
+      "LineTotal": 20000000.00
     },
     {
-      "id": "0a60",
-      "username": "luong",
-      "email": "luong@gmail.com",
-      "password": "luong123",
-      "role": "user"
+      "CartDetailsID": 3,
+      "CartID": 2,
+      "ProductID": 103,
+      "Quantity": 3,
+      "Price": 10000000.00,
+      "LineTotal": 30000000.00
+    },
+    {
+      "CartDetailsID": 4,
+      "CartID": 3,
+      "ProductID": 104,
+      "Quantity": 1,
+      "Price": 5000000.00,
+      "LineTotal": 5000000.00
+    },
+    {
+      "CartDetailsID": 5,
+      "CartID": 3,
+      "ProductID": 105,
+      "Quantity": 2,
+      "Price": 7000000.00,
+      "LineTotal": 14000000.00
     }
   ],
+    "Suppliers": [
+      {
+        "SupplierID": 1,
+        "SupplierName": "Tech Supplies Co.",
+        "Address": "123 Tech Street, Silicon Valley",
+        "PhoneNumber": "1122334455",
+        "Email": "contact@techsupplies.com",
+        "TaxCode": "TAX123456",
+        "Website": "www.techsupplies.com",
+        "Representative": "Alice Johnson",
+        "PartnershipStartDate": "2022-01-01",
+        "Status": "active"
+      },
+      {
+        "SupplierID": 2,
+        "SupplierName": "Global Electronics",
+        "Address": "456 Global Lane, New York",
+        "PhoneNumber": "2233445566",
+        "Email": "info@globalelectronics.com",
+        "TaxCode": "TAX789012",
+        "Website": "www.globalelectronics.com",
+        "Representative": "Bob Williams",
+        "PartnershipStartDate": "2023-06-15",
+        "Status": "inactive"
+      }
+    ]
+  
+  ,
   "productDescriptions": [
     {
       "ProductDescriptionID": 1,
@@ -7425,4 +7528,5 @@
     }
 
   ]
+  
 }
