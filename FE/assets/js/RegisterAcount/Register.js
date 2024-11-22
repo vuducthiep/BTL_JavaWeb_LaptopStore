@@ -1,68 +1,65 @@
-async function registerUser(fullName, email, password, phoneNumber) {
-    const usersApiUrl = "http://localhost:3000/Users";
-    const customersApiUrl = "http://localhost:3000/Customers";
-  
-    try {
-      // Kiểm tra xem email đã tồn tại chưa
-      const existingUsersResponse = await fetch(usersApiUrl);
-      const existingUsers = await existingUsersResponse.json();
-      const emailExists = existingUsers.some(user => user.Email === email);
-  
-      if (emailExists) {
-        return { success: false, message: "Email đã tồn tại, vui lòng sử dụng email khác." };
-      }
-  
-      // Tạo mới người dùng
-      const registrationDate = new Date().toISOString().split("T")[0]; // YYYY-MM-DD
-      const newUser = {
-        FullName: fullName,
-        Email: email,
-        Password: password, // Mã hóa trong thực tế
-        PhoneNumber: phoneNumber || null,
-        UserType: "customer",
-        RegistrationDate: registrationDate
-      };
-  
-      const userResponse = await fetch(usersApiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newUser)
-      });
-  
-      if (!userResponse.ok) {
-        throw new Error("Không thể thêm người dùng mới.");
-      }
-  
-      const createdUser = await userResponse.json();
-  
-      // Đồng bộ ID giữa Users và Customers
-      const newCustomer = {
-        CustomerID: createdUser.UserID, // Đảm bảo ID khớp
-        UserID: createdUser.UserID,
-        RegistrationDate: registrationDate,
-        Status: "active"
-      };
-  
-      const customerResponse = await fetch(customersApiUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newCustomer)
-      });
-  
-      if (!customerResponse.ok) {
-        throw new Error("Không thể thêm thông tin khách hàng.");
-      }
-  
-      const createdCustomer = await customerResponse.json();
-  
-      return {
-        success: true,
-        message: "Đăng ký thành công!",
-        user: createdUser,
-        customer: createdCustomer
-      };
-    } catch (error) {
-      console.error("Lỗi khi đăng ký:", error.message);
-      return { success: false, message: error.message };
-    }
+async function register(event) {
+  event.preventDefault();
+
+  // Lấy dữ liệu từ form
+  const fullname = document.getElementById("fullName").value;
+  const Email = document.getElementById("email").value;
+  const PassWord = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirmPassword").value;
+  const PhoneNumber = document.getElementById("phoneNumber").value;
+
+  // Kiểm tra mật khẩu
+  if (PassWord !== confirmPassword) {
+      alert("Mật khẩu không khớp. Vui lòng kiểm tra lại!");
+      return;
   }
+
+  // Chuẩn bị dữ liệu để gửi
+  const RegisterDate = new Date().toISOString(); // Thời gian hiện tại theo chuẩn ISO 8601
+  const userData = {
+      id: null,
+      fullName: fullname,
+      email: Email,
+      password: PassWord,
+      phoneNumber: PhoneNumber,
+      registerDate: RegisterDate
+  };
+
+  // In dữ liệu gửi đi
+  console.log("Dữ liệu gửi đi:", userData);
+
+  // Gửi dữ liệu tới API
+  try {
+    const response = await fetch("http://localhost:8080/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userData)
+    });
+
+    if (response.ok) {
+      const contentType = response.headers.get("Content-Type");
+      // Kiểm tra xem response có phải là JSON không
+      if (contentType && contentType.includes("application/json")) {
+        const result = await response.json(); // Đọc JSON nếu có
+        console.log("Phản hồi JSON từ server:", result);
+        alert(result.message || "Đăng ký thành công!");
+      } else if (contentType && contentType.includes("text/plain")) {
+        const result = await response.text(); 
+        console.log("Phản hồi từ server:", result);
+        alert(result); 
+      } else {
+        alert("Định dạng phản hồi không được hỗ trợ.");
+      }
+      window.location.href = "login.html"; 
+    } else {
+      
+      const error = await response.text(); // Đọc lỗi nếu phản hồi là text
+      alert("Đăng ký thất bại: " + (error || "Vui lòng thử lại."));
+    }
+  } catch (error) {
+    console.error("Lỗi khi gọi API:", error);
+    alert("Có lỗi xảy ra. Vui lòng thử lại.");
+  }
+}
