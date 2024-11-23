@@ -3,10 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPriceElement = document.querySelector('.total-price');
     const totalElement = document.querySelector('.total-amount');
     const bankTransferInfo = document.getElementById('bank-transfer-info');
-    const traGopInfor = document.getElementById('tra-gop-infor');
     const submitButton = document.getElementById('btn-submit');
     const selectAllCB = document.getElementById('selectAll');
-    const addressSelect = document.getElementById('address-select');
 
     // Fetch product data from API
     async function fetchProducts() {
@@ -20,6 +18,48 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching products:', error);
         }
     }
+
+    async function loadPaymentMethods() {
+        try {
+          const response = await fetch("https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/payment-method"); // Gọi API
+          if (!response.ok) {
+            throw new Error("Không thể lấy dữ liệu từ API");
+          }
+          const data = await response.json(); // Chuyển đổi JSON
+          const paymentMethods = data.paymentMethods; // Lấy danh sách phương thức thanh toán
+    
+          // Lấy phần tử tbody
+          const tableBody = document.getElementById("paymentMethodsTable");
+          tableBody.innerHTML = ""; // Xóa nội dung cũ (nếu có)
+    
+          // Duyệt qua danh sách phương thức thanh toán và thêm vào bảng
+          paymentMethods.forEach(method => {
+            // Tạo một dòng mới
+            const row = document.createElement("tr");
+    
+            // Cột radio button
+            const radioCell = document.createElement("td");
+            radioCell.innerHTML = `<input id="pay_${method.id}_input" name="pay_method" value="${method.id}" type="radio">`;
+    
+            // Cột tên phương thức
+            const labelCell = document.createElement("td");
+            labelCell.innerHTML = `<label for="pay_${method.id}_input">${method.name}</label>`;
+    
+            // Gắn cột vào hàng
+            row.appendChild(radioCell);
+            row.appendChild(labelCell);
+    
+            // Gắn hàng vào bảng
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Lỗi khi tải phương thức thanh toán:", error);
+        }
+      }
+    
+      // Gọi hàm để tải dữ liệu
+      loadPaymentMethods();
+      
 
     // Populate table with product data
     function populateTable(products) {
