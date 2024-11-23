@@ -1,13 +1,16 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.CartEntity;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.Enum.CardStatus_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
+import com.example.ProjectLaptopStore.Repository.CartRepository;
 import com.example.ProjectLaptopStore.Repository.CustomerRepository;
 import com.example.ProjectLaptopStore.Repository.UserRepository;
 import com.example.ProjectLaptopStore.Service.CustomerService;
@@ -59,6 +62,7 @@ public class UserServiceImpl implements UserService {
 
     CustomerRepository customerRepository;
 
+    CartRepository cartRepository;
 
 //    private final Authentication authentication;
     @NonFinal
@@ -91,18 +95,30 @@ public class UserServiceImpl implements UserService {
             }
         }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        // tao moi user
         UserEntity userEntity = new UserEntity();
+        // tao moi customer
+        CustomerEntity customer = new CustomerEntity();
+        //tao moi cart cho customer
+        CartEntity cart = new CartEntity();
+
+        Date date = new Date();
+
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        userEntity.setRegistrationDate(new Date());
+        userEntity.setRegistrationDate(date);
         userEntity.setUserType(User_Enum.customer);
         userRepository.save(userEntity);
-        CustomerEntity customer = new CustomerEntity();
+
         customer.setStatus(Customer_Enum.active);
         customer.setUser(userEntity);
-        customer.setRegistrationDate(new Date());
+        customer.setRegistrationDate(date);
         customerRepository.save(customer);
 
+        cart.setCreatedDate(date);
+        cart.setStatus(CardStatus_Enum.active);
+        cart.setCustomer(customer);
+        cartRepository.save(cart);
     }
 
     //update user

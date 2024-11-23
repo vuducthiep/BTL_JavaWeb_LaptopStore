@@ -2,9 +2,12 @@ package com.example.ProjectLaptopStore.Repository;
 
 import com.example.ProjectLaptopStore.Repository.Custom.OrderRepositoryCustom;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import java.math.BigDecimal;
+import java.util.List;
+
 import com.example.ProjectLaptopStore.Entity.OrdersEntity;
 
 @Repository
@@ -34,4 +37,13 @@ public interface OrderRepository extends JpaRepository<OrdersEntity, Integer> , 
             "join PaymentMethods pm on o.PaymentMethodID = pm.PaymentMethodID " +
             "where pm.PaymentType = 'OFFLINE'",nativeQuery = true)
     BigDecimal getTotalAmountPayOffline();
+
+    // lay danh sach cac don hang
+    @Query(value = "SELECT * FROM Orders o WHERE o.customerID = :customerID",nativeQuery = true)
+    List<OrdersEntity> findByCustomerID(@Param("customerID") int customerID);
+
+    @Query(value = "SELECT * FROM Orders o WHERE o.OrderID = :orderID",nativeQuery = true)
+    OrdersEntity findByOrderID(@Param("orderID") int orderID);
+
+
 }

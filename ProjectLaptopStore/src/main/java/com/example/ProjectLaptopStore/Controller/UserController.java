@@ -1,16 +1,15 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
+import com.example.ProjectLaptopStore.DTO.OrderDTO;
+import com.example.ProjectLaptopStore.DTO.OrderDetail_displayForStatusDTO;
 import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.DTO.User_DTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
-import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
-import com.example.ProjectLaptopStore.Service.ProductService;
-import com.example.ProjectLaptopStore.Service.UserService;
+import com.example.ProjectLaptopStore.Service.*;
 import lombok.RequiredArgsConstructor;
-import com.example.ProjectLaptopStore.Service.SuppliersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +35,11 @@ public class UserController {
     @Autowired
     private UserHomePageLogic userHomePageLogic;
 
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    OrderDetailService orderDetailService;
     //=========================================== API test =====================================================
 
 //    @GetMapping(value = "/product/productdescription/")
@@ -121,10 +125,29 @@ public class UserController {
 
     }
 
+    // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
     public User_DTO getMyInfor(){
         User_DTO dto = userService.UserInfor();
         return  dto;
+    }
+
+    @GetMapping(value = "/user/orders/")
+    public List<OrderDTO> getOrders(@RequestParam(name = "customerID")int customerID){
+        List<OrderDTO> rs = orderService.getListOrderByCustomerID(customerID);
+        return rs;
+    }
+
+    @GetMapping(value = "/user/orders/{orderID}")
+    public List<OrderDetail_displayForStatusDTO> displayOrderDtail(@PathVariable int orderID){
+        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.listDisplayForStatus(orderID);
+        return rs;
+    }
+
+    @GetMapping(value = "/user/orders/status")
+    public List<OrderDetail_displayForStatusDTO> displayOrderDetalByStatus(@RequestParam(name = "status")String status){
+        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.displayForStatus(status);
+        return rs;
     }
 
 }

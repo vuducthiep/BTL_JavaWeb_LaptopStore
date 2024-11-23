@@ -1,16 +1,20 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConverter;
+import com.example.ProjectLaptopStore.DTO.OrderDTO;
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
+import com.example.ProjectLaptopStore.Entity.OrdersEntity;
 import com.example.ProjectLaptopStore.Repository.OrderRepository;
 import com.example.ProjectLaptopStore.Service.*;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDetailService orderDetailService;
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     @Override
@@ -78,7 +84,15 @@ public class OrderServiceImpl implements OrderService {
         return result;
     }
 
-
-
-
+    @Override
+    public List<OrderDTO> getListOrderByCustomerID(int customerID) {
+        List<OrdersEntity> orders = orderRepository.findByCustomerID(customerID);
+        List<OrderDTO> dto = new ArrayList<>();
+        for (OrdersEntity order : orders) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO = modelMapper.map(order, OrderDTO.class);
+            dto.add(orderDTO);
+        }
+        return dto;
+    }
 }
