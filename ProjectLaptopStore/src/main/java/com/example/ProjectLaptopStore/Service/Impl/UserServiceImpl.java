@@ -30,6 +30,7 @@ import lombok.experimental.NonFinal;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
@@ -44,9 +45,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,7 +56,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal=true)
 public class UserServiceImpl implements UserService {
 
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
     UserRepository userRepository;
 
@@ -181,13 +179,15 @@ public class UserServiceImpl implements UserService {
         else throw new RuntimeException("So dien thoai khong ton tai");
     }
 // tra ve token
+    @Autowired
+    JwtTokenUtil JwtTokenUtil;
     @Override
     public User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password) {
         UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if(userEntity != null) {
             boolean status =  passwordEncoder.matches(password, userEntity.getPassword());
-            var token = generateToken(userEntity);
+            var token = JwtTokenUtil.generateToken(userEntity);
             if(!status)
                 token = null;
             return User_AuthenticationResponseDTO.builder()
@@ -200,27 +200,7 @@ public class UserServiceImpl implements UserService {
     }
 
     // kiem tra token co hop le khong
-    @Override
-    public TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException {
-        var tk = token.getToken();
-        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
-        SignedJWT signedJWT = SignedJWT.parse(tk);
-        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        var verified = signedJWT.verify(verifier);
-        boolean ms = verified && expirationTime.after(new Date());
-        String message;
-        if (ms == true){
-            message = "Login Success";
-        }
-        else {
-            message = "Invalid Token";
-        }
-        return TokenValidDTO.builder()
-                .token(tk)
-                .valid(ms)
-                .message(message)
-                .build();
-    }
+
 
 
     //phan trang user
@@ -238,41 +218,7 @@ public class UserServiceImpl implements UserService {
     }
 
     // tao token
-    private String generateToken(UserEntity user){
-        JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
-        CustomerEntity customer = customerRepository.getCustomerID(user.getUserID());
-        int id = 0;
-        if(customer != null) {
-            id = customer.getCustomerID();
-        }
 
-        String role;
-        if(user.getUserType().equals(User_Enum.customer)) {
-            role = "customer";
-        }
-        else {
-            role = "admin";
-        }
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getPhoneNumber())
-                .issuer("laptopabc.com")
-                .issueTime(new Date())
-                .claim("scope",role)
-                .claim("id",id)
-                .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
-                ))
-                .build();
-        Payload payload = new Payload(jwtClaimsSet.toJSONObject());
-        JWSObject jwsObject = new JWSObject(jwsHeader,payload);
-        try {
-            jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
-            return jwsObject.serialize();
-        } catch (JOSEException e) {
-            log.error(e.getMessage() + "Can not create token");
-            throw new RuntimeException(e);
-        }
-    }
 
     @Override
     public User_DTO UserInfor() {

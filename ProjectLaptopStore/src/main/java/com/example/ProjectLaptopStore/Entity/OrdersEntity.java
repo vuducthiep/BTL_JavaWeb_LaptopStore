@@ -44,4 +44,8 @@ public class OrdersEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "PromotionID")
     private PromotionEntity promotion;
+
+    @ManyToOne
+    @JoinColumn(name = "AddressID")
+    private ShippingAddressEntity shipAddress;
 }

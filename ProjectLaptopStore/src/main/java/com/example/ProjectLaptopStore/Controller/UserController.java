@@ -4,13 +4,21 @@ import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
+import com.example.ProjectLaptopStore.Entity.ShippingAddressEntity;
+import com.example.ProjectLaptopStore.Repository.ShippingAddressesRepository;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
+import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.NonFinal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +46,12 @@ public class UserController {
 
     @Autowired
     OrderDetailService orderDetailService;
+
+    @Autowired
+    private ShippingAddressesService shippingAddressesService;
+
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
     //=========================================== API test =====================================================
 
 //    @GetMapping(value = "/product/productdescription/")
@@ -130,6 +144,7 @@ public class UserController {
         return  dto;
     }
 
+    // API cap nhat thong tin user
     @PostMapping(value = "/user/update")
     public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
         userService.updateUser(dto);
@@ -137,6 +152,7 @@ public class UserController {
     }
 
 
+    //API hien thi danh sach order
     @GetMapping(value = "/user/orders/")
     public List<OrderDetail_displayForStatusDTO> getOrders(@RequestParam(name = "customerID")int customerID){
         List<OrderDetail_displayForStatusDTO> rs = orderDetailService.listDisplayForStatus(customerID);
@@ -144,10 +160,45 @@ public class UserController {
     }
 
 
+    // API hien thi danh sach order theo status
     @GetMapping(value = "/user/orders/status")
     public List<OrderDetail_displayForStatusDTO> displayOrderDetalByStatus(@RequestParam(name = "status")String status){
         List<OrderDetail_displayForStatusDTO> rs = orderDetailService.displayForStatus(status);
         return rs;
     }
+
+    // API lay danh sach Shipping address
+    @GetMapping(value = "/user/shipping-address")
+    public List<ShippingAddressesDTO> getShippingAddresses(@RequestHeader("Authorization")String authorization){
+        String token = authorization.substring("Bearer ".length());
+        int customerID = jwtTokenUtil.getCustomerID(token);
+        List<ShippingAddressesDTO> rs = shippingAddressesService.getAllShippingAddresses(customerID);
+        return rs;
+    }
+
+    // API them dia chi nhan hang
+    @PostMapping(value = "/user/add-shipping-address")
+    public ResponseEntity<?> addShippingAddress(@RequestHeader("Authorization")String authorization,
+                                                    @RequestBody ShippingAddressesDTO dto){
+        String token = authorization.substring("Bearer ".length());
+        int customerID = jwtTokenUtil.getCustomerID(token);
+        shippingAddressesService.addShippingAddresses(dto,customerID);
+        return ResponseEntity.ok("Shipping address added successfully");
+    }
+
+    // API cap nhat thon tin dia chi nhan hang
+    @PutMapping(value = "/user/update-shipping-address")
+    public ResponseEntity<?> updateShippingAddress(@RequestBody ShippingAddressesDTO dto){
+        shippingAddressesService.updateShippingAddresses(dto);
+        return ResponseEntity.ok("Shipping address updated successfully");
+    }
+
+    // API xoa dia chi nhan hang
+    @DeleteMapping(value = "/user/remove-shipping-address")
+    public ResponseEntity<?> removeShippingAddress(@RequestParam(value = "addressID")int addressID){
+        shippingAddressesService.deleteShippingAddresses(addressID);
+        return ResponseEntity.ok("Shipping address removed successfully");
+    }
+
 
 }

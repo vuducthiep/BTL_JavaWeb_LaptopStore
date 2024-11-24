@@ -24,8 +24,6 @@ public interface UserService {
     User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password);
 
     // kiem tra hop le token
-    TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException;
-
     // phan trang user
     Page<User_DTO> searchUser(int page, int size);
 

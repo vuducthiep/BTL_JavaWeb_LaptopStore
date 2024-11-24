@@ -22,7 +22,7 @@ public class OrderDTO {
     private OrderStatus_Enum orderStatus;
     private Date estimatedDeliveryDate;
     private Date actualDeliveryDate;
-
+    private int addressID;
     public OrderDTO() {
     }
 }
