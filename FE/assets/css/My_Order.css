@@ -63,9 +63,9 @@ ul.breadcrumb {
 /* End khối tóm tắt thông tin khách hàng */
 
 /* Khối điều hướng màn hình */
-.box-main {
-    /* margin-top: -26%; */
-}
+/* .box-main {
+    
+} */
 
 .box-item {
     border-radius: 4%;
@@ -77,9 +77,9 @@ ul.breadcrumb {
     font-size: larger;
 }
 
-.box-item i {
+/* .box-item i {
 
-}
+} */
 
 .box-item a {
     text-decoration: none;
@@ -95,30 +95,28 @@ ul.breadcrumb {
 .box-main .box-item:hover a {
     color: white;
 }
-/* End khối điều hướng màn hình */
 
-/* Khối quản lý thông tin cá nhân */
-.box-content{
+/* Khối quản lý đơn hàng của tôi */
+.box-manage-order{
     margin-left: 28%;
     /* margin-top: -7%;  */
     border-radius: 3%;
 }
 
-.box-content .box-content-main {
+.box-manage-order .box-content-main {
     text-align: center;
     padding: 5%;
 }
 
-.box-content .box-content-main .box-content-item {
+.box-manage-order .box-content-main .box-content-item {
     display: flex;
     margin-left: 25%;
     justify-content: space-between;
 }
 
-.box-content .box-content-item p {
+.box-manage-order .box-content-item p {
     margin-right: 25%;
 }
 
 
-/* End khối quản lý thông tin cá nhân */
-
+/* End khối quản lý đơn hàng của tôi */
