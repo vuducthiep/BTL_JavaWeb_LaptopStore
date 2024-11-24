@@ -23,14 +23,20 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,I
     Integer getTotalQuantityProductCurrentMonth();
 
     // lay danh sach cac don hang
-    @Query(value = "SELECT o.OrderID,o.ProductID, p.ProductName, o.LineTotal, p.ImageURL FROM OrderDetails o\n" +
-            "            JOIN Products p ON p.ProductID = o.ProductID\n" +
-            "            WHERE o.OrderID = :orderID ",nativeQuery = true)
-    List<Object[]> getOrderDetail(@Param("orderID")int orderID);
+    @Query(value = "SELECT o.OrderID,o.ProductID, p.ProductName, o.LineTotal, p.ImageURL " +
+            "FROM OrderDetails o " +
+            "JOIN Products p ON p.ProductID = o.ProductID " +
+            "JOIN Orders od On od.OrderID = o.OrderID " +
+            "JOIN Customers c On c.CustomerID = od.CustomerID " +
+            "WHERE c.CustomerID = :customerID ",nativeQuery = true)
+    List<Object[]> getOrderDetail(@Param("customerID")int customerID);
 
-    @Query(value = "SELECT od.OrderID,od.ProductID, p.ProductName, od.LineTotal, p.ImageURL FROM OrderDetails od\n" +
-            "            JOIN Products p ON p.ProductID = od.ProductID\n" +
-            "            JOIN Orders o ON o.OrderID = od.OrderID\n" +
-            "            WHERE o.OrderStatus like :orderStatus",nativeQuery = true)
+    // hien thi theo status
+    @Query(value = "SELECT o.OrderID,o.ProductID, p.ProductName, o.LineTotal, p.ImageURL " +
+            "FROM OrderDetails o " +
+            "JOIN Products p ON p.ProductID = o.ProductID " +
+            "JOIN Orders od On od.OrderID = o.OrderID " +
+            "JOIN Customers c On c.CustomerID = od.CustomerID " +
+            "WHERE c.CustomerID = 1 AND od.OrderStatus like :orderStatus",nativeQuery = true)
     List<Object[]> SearchOrderDetailByStatus(@Param("orderStatus")String orderStatus);
 }

@@ -1,16 +1,14 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
-import com.example.ProjectLaptopStore.DTO.OrderDTO;
-import com.example.ProjectLaptopStore.DTO.OrderDetail_displayForStatusDTO;
-import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
-import com.example.ProjectLaptopStore.DTO.User_DTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -132,17 +130,19 @@ public class UserController {
         return  dto;
     }
 
+    @PostMapping(value = "/user/update")
+    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
+        userService.updateUser(dto);
+        return ResponseEntity.ok("User updated successfully");
+    }
+
+
     @GetMapping(value = "/user/orders/")
-    public List<OrderDTO> getOrders(@RequestParam(name = "customerID")int customerID){
-        List<OrderDTO> rs = orderService.getListOrderByCustomerID(customerID);
+    public List<OrderDetail_displayForStatusDTO> getOrders(@RequestParam(name = "customerID")int customerID){
+        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.listDisplayForStatus(customerID);
         return rs;
     }
 
-    @GetMapping(value = "/user/orders/{orderID}")
-    public List<OrderDetail_displayForStatusDTO> displayOrderDtail(@PathVariable int orderID){
-        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.listDisplayForStatus(orderID);
-        return rs;
-    }
 
     @GetMapping(value = "/user/orders/status")
     public List<OrderDetail_displayForStatusDTO> displayOrderDetalByStatus(@RequestParam(name = "status")String status){

@@ -8,6 +8,8 @@ import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
+import com.example.ProjectLaptopStore.Exception.EmailAlreadyExistsException;
+import com.example.ProjectLaptopStore.Exception.PhoneNumberAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
 import com.example.ProjectLaptopStore.Repository.CartRepository;
@@ -20,6 +22,7 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import jakarta.persistence.EntityManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -64,6 +67,7 @@ public class UserServiceImpl implements UserService {
 
     CartRepository cartRepository;
 
+    EntityManager entityManager;
 //    private final Authentication authentication;
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -122,15 +126,48 @@ public class UserServiceImpl implements UserService {
     }
 
     //update user
+    @Transactional
     @Override
-    public void updateUser(String phoneNumber, User_RegisterDTO user) {
-        UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(userEntity != null) {
-            userEntity = modelMapper.map(user,UserEntity.class);
-            userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        else throw new UserNotFoundException("User not found");
+    public void updateUser(User_UpdateUserDTO user) {
+            UserEntity entity = userRepository.findById(user.getUserID()).orElse(null);
+            if(entity == null) {
+                throw new UserNotFoundException("User not found");
+            }
+            else{
+                if(user.getEmail() == "" || user.getNewPassword() == "" || user.getPassword() == "" ||
+                user.getPhoneNumber() == "" || user.getFullName() == "") {
+                    try {
+                        throw new Exception("Cac truong du lieu khong hop le");
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else{
+
+                    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                    entity.setFullName(user.getFullName());
+                    if(user.getPhoneNumber() != entity.getPhoneNumber() && !userRepository.existsByPhoneNumber(user.getPhoneNumber())){
+                        entity.setPhoneNumber(user.getPhoneNumber());
+                    }else{
+                        if(user.getPhoneNumber().equals(entity.getPhoneNumber())){
+                            entity.setPhoneNumber(user.getPhoneNumber());
+                        }
+                        else
+                        throw new PhoneNumberAlreadyExistsException("Phone number already exists");
+                    }
+                    if(user.getEmail() != entity.getEmail() && !userRepository.existsByEmail(user.getEmail())){
+                        entity.setEmail(user.getEmail());
+                    }else {
+                        if(user.getEmail().equals(entity.getEmail())){
+                            entity.setEmail(user.getEmail());
+                        }
+                        else
+                        throw  new EmailAlreadyExistsException("Email already exists");
+                    }
+                    entity.setPassword(passwordEncoder.encode(user.getNewPassword()));
+                    entityManager.merge(entity);
+                }
+            }
     }
 
 
