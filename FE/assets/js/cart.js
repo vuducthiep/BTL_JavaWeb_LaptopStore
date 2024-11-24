@@ -19,6 +19,74 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    fetch('https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/address')  // URL API của bạn
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Lỗi kết nối đến API');
+        }
+        return response.json();  // Chuyển dữ liệu trả về thành JSON
+    })
+    .then(data => {
+        console.log('Danh sách địa chỉ:', data.address);  // Hiển thị dữ liệu trong console
+        if (data && data.address) {
+            renderAddresses(data.address);  // Gọi hàm renderAddresses để hiển thị dữ liệu
+        } else {
+            throw new Error('Dữ liệu không hợp lệ');
+        }
+    })
+    .catch(error => {
+        console.error('Lỗi khi tải danh sách địa chỉ:', error);
+        alert('Không thể tải danh sách địa chỉ. Vui lòng thử lại sau.');
+    });
+
+    function renderAddresses(addresses) {
+        const addressTable = document.getElementById('address-table');  // Lấy bảng để hiển thị dữ liệu
+        const tbody = addressTable.querySelector('tbody');  // Lấy phần thân của bảng
+    
+        // Xóa dữ liệu cũ nếu có
+        tbody.innerHTML = '';
+    
+        addresses.forEach(address => {
+            // Tạo một dòng mới cho mỗi địa chỉ
+            const row = document.createElement('tr');
+    
+            // Tạo các cột dữ liệu (td) cho mỗi địa chỉ
+            const streetCell = document.createElement('td');
+            streetCell.textContent = address.street;
+    
+            const wardCell = document.createElement('td');
+            wardCell.textContent = address.ward;
+    
+            const districtCell = document.createElement('td');
+            districtCell.textContent = address.district;
+    
+            const cityCell = document.createElement('td');
+            cityCell.textContent = address.city;
+    
+            // Tạo radio button để chọn
+            const selectCell = document.createElement('td');
+            const radioButton = document.createElement('input');
+            radioButton.type = 'radio';
+            radioButton.name = 'address';  // Đảm bảo mỗi nhóm radio button có tên giống nhau
+            radioButton.value = address.id;  // Dùng ID địa chỉ làm giá trị
+    
+            // Thêm radio button vào cột
+            selectCell.appendChild(radioButton);
+    
+            // Thêm các cột vào dòng
+            row.appendChild(streetCell);
+            row.appendChild(wardCell);
+            row.appendChild(districtCell);
+            row.appendChild(cityCell);
+            row.appendChild(selectCell);
+    
+            // Thêm dòng vào bảng
+            tbody.appendChild(row);
+        });
+    }
+    
+    
+    
     async function loadPaymentMethods() {
         try {
           const response = await fetch("https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/payment-method"); // Gọi API
@@ -165,16 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTotal();
     });
 
-    // Payment method listeners
-    // function initializePaymentMethods() {
-    //     const paymentMethods = document.querySelectorAll('input[name="pay_method"]');
-    //     paymentMethods.forEach(method => {
-    //         method.addEventListener('change', function () {
-    //             bankTransferInfo.style.display = this.value === '2' ? 'block' : 'none';
-    //             traGopInfor.style.display = this.value === '3' ? 'block' : 'none';
-    //         });
-    //     });
-    // }
+    
 
     // Submit button listener
     function handleSubmit() {
@@ -203,8 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize everything
     function initialize() {
         fetchProducts();
-        initializePaymentMethods();
+        
         handleSubmit();
+        fetchAndRenderAddresses();
     }
 
     initialize();
