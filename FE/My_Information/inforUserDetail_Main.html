@@ -10,6 +10,7 @@
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
         />
+        <!-- link để nhúng bootstrap -->
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -156,34 +157,86 @@
         <!-- Khối quản lý thông tin cá nhân -->
         <div class="box-content col-9 bg-white">
                 <h3>Thông tin cá nhân</h3>
-                
                 <div class="box-content-main">
                     <i class="fa-solid fa-circle-user"
                     style="font-size: 450%;"></i>
 
                     <div class="box-content-item">
                         <label for="">Họ và tên :</label>
-                        <p>Le Minh Quang</p>
+                        <p id="infor-name">Le Minh Quang</p>
                     </div>
 
                     <div class="box-content-item">
                         <label for="">Số điện thoại :</label>
-                        <p>012345678</p>
+                        <p id="infor-phoneNumber">012345678</p>
                     </div>
 
                     <div class="box-content-item">
                         <label for="">Email :</label>
-                        <p>lmq@gmail.com</p>
+                        <p id="infor-email">lmq@gmail.com</p>
                     </div>
 
-                    <div class="box-content-item">
+                    <!-- <div class="box-content-item">
                         <label for="">Mật khẩu :</label>
-                        <p>*********</p>
-                    </div>
+                        <p id="infor-pw">*********</p>
+                    </div> -->
 
-                    <button>
+                    <!-- <button>
                         Chỉnh sửa thông tin
-                    </button>
+                    </button> -->
+
+                    <!-- Nút kích hoạt Modal -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Chỉnh sửa thông tin
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa thông tin tài khoản</h5>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="fullName-field">Họ và tên : </label>
+                                <input type="text" name="fullName-field" id="fullName-field">
+                              </div>
+                              
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="phoneNumber-field">Số điện thoại : </label>
+                                <input type="text" name="phoneNumber-field" id="phoneNumber-field">
+                              </div>
+
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="email-field">Email : </label>
+                                <input type="text" name="email-field" id="email-field">
+                              </div>
+
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="password-currently-field">Mật khẩu hiện tại : </label>
+                                <input type="text" name="password-currently-field" id="password-currently-field">
+                              </div>
+
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="password-new-field">Mật khẩu mới : </label>
+                                <input type="text" name="password-new-field" id="password-new-field">
+                              </div>
+
+                              <div class="form-edit-infor mb-4 d-flex align-items-center justify-content-between">
+                                <label for="password-confirm-field">Xác nhận lại mật khẩu : </label>
+                                <input type="text" name="password-confirm-field" id="password-confirm-field">
+                              </div>
+
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                              <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                 </div>  
         </div>
 
@@ -192,6 +245,8 @@
       </div>
 
       <script src="../assets/js/inforUserDetail_Main.js"></script>
+      <!-- href để tạo modal -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

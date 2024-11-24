@@ -1,6 +1,7 @@
 async function fetchUserInfo() {
   // Lấy token từ localStorage
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("authToken");
+  console.log(token)
 
   if (!token) {
     console.error("Token không tồn tại. Vui lòng đăng nhập trước.");
@@ -27,8 +28,14 @@ async function fetchUserInfo() {
     // Đọc dữ liệu JSON từ phản hồi
     const userInfo = await response.json();
 
+    
+
     // Hiển thị thông tin tài khoản trong console
     console.log("Thông tin tài khoản:", userInfo);
+    document.getElementById("infor-name").innerHTML = userInfo.fullName
+    document.getElementById("infor-phoneNumber").innerHTML = userInfo.phoneNumber
+    document.getElementById("infor-email").innerHTML = userInfo.email
+    document.getElementById("infor-pw").innerHTML = userInfo.password
   } catch (error) {
     console.error("Lỗi khi kết nối tới API:", error);
   }
@@ -36,3 +43,4 @@ async function fetchUserInfo() {
 
 // Gọi hàm để lấy thông tin tài khoản
 fetchUserInfo();
+
