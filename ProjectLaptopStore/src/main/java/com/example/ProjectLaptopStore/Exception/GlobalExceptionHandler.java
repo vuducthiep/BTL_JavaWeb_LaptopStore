@@ -79,6 +79,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleFileUploadException(FileUploadException ex) {
         return new ResponseEntity<>("FileUploadException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(PhoneNumberAlreadyExistsException.class)
+    public ResponseEntity<String> handlePhoneNumberAlreadyExistsException(PhoneNumberAlreadyExistsException ex) {
+        return new ResponseEntity<>("PhoneNumberAlreadyExistsException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
     // Thêm các xử lý ngoại lệ khác nếu cần
 
 }

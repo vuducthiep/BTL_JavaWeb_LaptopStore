@@ -4,8 +4,11 @@ import com.example.ProjectLaptopStore.Entity.OrderDetailEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.OrderDetailRepositoryCustom;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Transactional
@@ -19,4 +22,21 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,I
                     "  AND YEAR(o.OrderDate) = YEAR(CURDATE())", nativeQuery = true)
     Integer getTotalQuantityProductCurrentMonth();
 
+    // lay danh sach cac don hang
+    @Query(value = "SELECT o.OrderID,o.ProductID, p.ProductName, o.LineTotal, p.ImageURL " +
+            "FROM OrderDetails o " +
+            "JOIN Products p ON p.ProductID = o.ProductID " +
+            "JOIN Orders od On od.OrderID = o.OrderID " +
+            "JOIN Customers c On c.CustomerID = od.CustomerID " +
+            "WHERE c.CustomerID = :customerID ",nativeQuery = true)
+    List<Object[]> getOrderDetail(@Param("customerID")int customerID);
+
+    // hien thi theo status
+    @Query(value = "SELECT o.OrderID,o.ProductID, p.ProductName, o.LineTotal, p.ImageURL " +
+            "FROM OrderDetails o " +
+            "JOIN Products p ON p.ProductID = o.ProductID " +
+            "JOIN Orders od On od.OrderID = o.OrderID " +
+            "JOIN Customers c On c.CustomerID = od.CustomerID " +
+            "WHERE c.CustomerID = 1 AND od.OrderStatus like :orderStatus",nativeQuery = true)
+    List<Object[]> SearchOrderDetailByStatus(@Param("orderStatus")String orderStatus);
 }

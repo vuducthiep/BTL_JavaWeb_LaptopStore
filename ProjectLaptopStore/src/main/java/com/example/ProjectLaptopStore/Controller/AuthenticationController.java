@@ -4,6 +4,7 @@ package com.example.ProjectLaptopStore.Controller;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Service.UserService;
+import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
 import com.nimbusds.jose.JOSEException;
 
 import lombok.RequiredArgsConstructor;
@@ -62,11 +63,14 @@ public class AuthenticationController {
 
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
+    @Autowired
+    JwtTokenUtil jwtTokenUtil;
+
     @PostMapping(value = "/token-valid")
     public TokenValidDTO login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
         var context = SecurityContextHolder.getContext();
         log.info(context.getAuthentication().getName());
-        return userService.validateToken(token);
+        return jwtTokenUtil.validateToken(token);
     }
 
 

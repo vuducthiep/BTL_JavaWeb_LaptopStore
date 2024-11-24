@@ -13,16 +13,11 @@ import java.util.Date;
 @Setter
 @Getter
 public class User_DTO {
+    private int id;
     private String fullName;
     private String email;
     private String password;
     private String phoneNumber;
-    public User_DTO(String fullName, String email, String password, String phoneNumber) {
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-    }
     public User_DTO() {
 
     }

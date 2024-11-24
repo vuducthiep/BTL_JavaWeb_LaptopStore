@@ -19,6 +19,7 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     // kiem tra sdt da ton tai chua
     boolean existsByPhoneNumber(String phoneNumber);
 
+    boolean existsByEmail(String email);
     //xoa user theo sdt
     void deleteByPhoneNumber(String phoneNumber);
 
