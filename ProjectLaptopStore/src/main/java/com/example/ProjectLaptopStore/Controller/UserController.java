@@ -219,7 +219,7 @@ public class UserController {
         return ResponseEntity.ok("Cart detail deleted successfully");
     }
 
-    @PutMapping(value = "/user/order/create-order")
+    @PutMapping(value = "/user/mycart/create-order")
     public ResponseEntity<?> createOrder(@RequestBody List<OrderDTO> dto,
                                          @RequestHeader("Authorization")String authorization){
         String token = authorization.substring("Bearer ".length());

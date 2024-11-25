@@ -5,15 +5,9 @@ import com.example.ProjectLaptopStore.DTO.OrderDTO;
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
-import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.*;
 import com.example.ProjectLaptopStore.Entity.Enum.OrderStatus_Enum;
-import com.example.ProjectLaptopStore.Entity.OrdersEntity;
-import com.example.ProjectLaptopStore.Entity.PayMentMethodsEntity;
-import com.example.ProjectLaptopStore.Entity.ShippingAddressEntity;
-import com.example.ProjectLaptopStore.Repository.CustomerRepository;
-import com.example.ProjectLaptopStore.Repository.OrderRepository;
-import com.example.ProjectLaptopStore.Repository.PaymentMethodRepository;
-import com.example.ProjectLaptopStore.Repository.ShippingAddressesRepository;
+import com.example.ProjectLaptopStore.Repository.*;
 import com.example.ProjectLaptopStore.Service.*;
 import jakarta.persistence.EntityManager;
 import org.modelmapper.ModelMapper;
@@ -65,8 +59,16 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     PaymentMethodRepository PaymentMethodRepository;
+
     @Autowired
     private PaymentMethodRepository paymentMethodRepository;
+
+    @Autowired
+    CartDetailRepository CartDetailRepository;
+    @Autowired
+    private CartDetailRepository cartDetailRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
@@ -142,16 +144,33 @@ public class OrderServiceImpl implements OrderService {
             }
 
             OrdersEntity orderEntity = new OrdersEntity();
+            OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
+
             orderEntity.setCustomer(c);
             orderEntity.setOrderDate(new Date());
             orderEntity.setTotalAmount(order.getTotalAmount());
-            orderEntity.setShippingFee(order.getShippingFee());
+            orderEntity.setShippingFee(new BigDecimal(35000));
             orderEntity.setOrderStatus(OrderStatus_Enum.Confirmed);
             orderEntity.setEstimatedDeliveryDate(order.getEstimatedDeliveryDate());
             orderEntity.setActualDeliveryDate(order.getActualDeliveryDate());
             orderEntity.setPayMentMethod(pm);
             orderEntity.setShipAddress(sa);
             entityManager.persist(orderEntity);
+            entityManager.flush();
+
+            CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(order.getCartDetailID()).orElse(null);
+            if(cartDetailsEntity == null){
+                throw new RuntimeException("You must select a cart detail");
+            }
+            orderDetailEntity.setOrder(orderEntity);
+            orderDetailEntity.setProduct(cartDetailsEntity.getProduct());
+            orderDetailEntity.setQuantity(cartDetailsEntity.getQuantity());
+            orderDetailEntity.setPrice(cartDetailsEntity.getPrice());
+            orderDetailEntity.setLineTotal(cartDetailsEntity.getLineTotal());
+            entityManager.persist(orderDetailEntity);
+            entityManager.flush();
+
+            
         }
     }
 
