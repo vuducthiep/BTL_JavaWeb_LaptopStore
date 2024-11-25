@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching products:', error);
         }
     }
+    fetchProducts();
 
     fetch('https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/address')  // URL API của bạn
     .then(response => {
@@ -156,15 +157,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         initializeRowEvents();
     }
+    
 
     // Initialize row events
     function initializeRowEvents() {
         // Quantity input events
         document.querySelectorAll('.quantity-input').forEach(input => {
             input.addEventListener('input', function () {
+                // Nếu giá trị nhỏ hơn 1 hoặc không phải số, đặt lại thành 1
+                if (parseInt(this.value) < 1 || isNaN(this.value) || this.value==="") {
+                    this.value = 1;
+                }
                 updateRowTotal(this);
                 updateTotal();
             });
+            
         });
 
         // Quantity button events
@@ -233,39 +240,4 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTotal();
     });
 
-    
-
-    // Submit button listener
-    function handleSubmit() {
-        submitButton.addEventListener('click', event => {
-            event.preventDefault();
-
-            const buyerName = document.getElementById('buyer_name').value.trim();
-            const buyerTel = document.getElementById('buyer_tel').value.trim();
-            const buyerAddress = document.getElementById('buyer_address').value.trim();
-            const buyerEmail = document.getElementById('buyer_email').value.trim();
-
-            if (!buyerName || !buyerTel || !buyerAddress || !buyerEmail) {
-                alert('Vui lòng điền đầy đủ thông tin.');
-                return;
-            }
-
-            if (!document.querySelector('input[name="pay_method"]:checked')) {
-                alert('Vui lòng chọn phương thức thanh toán.');
-                return;
-            }
-
-            alert('Đơn hàng đã được gửi thành công!');
-        });
-    }
-
-    // Initialize everything
-    function initialize() {
-        fetchProducts();
-        
-        handleSubmit();
-        fetchAndRenderAddresses();
-    }
-
-    initialize();
 });
