@@ -52,6 +52,11 @@ public class UserController {
 
     @Autowired
     JwtTokenUtil jwtTokenUtil;
+
+    @Autowired
+    CartDetailService cartDetailService;
+
+
     //=========================================== API test =====================================================
 
 //    @GetMapping(value = "/product/productdescription/")
@@ -200,5 +205,26 @@ public class UserController {
         return ResponseEntity.ok("Shipping address removed successfully");
     }
 
+    @GetMapping(value = "/user/mycart/cart-detail")
+    public List<CartDetailDTO> getCartDetail(@RequestHeader("Authorization")String authorization){
+        String token = authorization.substring("Bearer ".length());
+        int cartID = jwtTokenUtil.getCartID(token);
+        List<CartDetailDTO> rs = cartDetailService.getAllCartDetails(cartID);
+        return rs;
+    }
 
+    @DeleteMapping(value = "/user/mycart/remove-cartdetail")
+    public ResponseEntity<?> deleteCartDetail(@RequestParam("cartDetailID")int cartDetailID){
+        cartDetailService.deleteCartDetail(cartDetailID);
+        return ResponseEntity.ok("Cart detail deleted successfully");
+    }
+
+    @PutMapping(value = "/user/order/create-order")
+    public ResponseEntity<?> createOrder(@RequestBody List<OrderDTO> dto,
+                                         @RequestHeader("Authorization")String authorization){
+        String token = authorization.substring("Bearer ".length());
+        int customerID = jwtTokenUtil.getCustomerID(token);
+        orderService.createOrder(dto,customerID);
+        return ResponseEntity.ok("Order created successfully");
+    }
 }
