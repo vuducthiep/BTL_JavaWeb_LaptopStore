@@ -156,6 +156,7 @@ public class AdminController {
     //API lấy thông tin cho màn quản lý khách hàng
     @GetMapping(value = "/customer/")
     public Admin_CustomerResponseDTO adminCustomer(){
+
         return customerService.adminCustomer();
     }
 

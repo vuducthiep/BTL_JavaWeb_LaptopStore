@@ -15,7 +15,7 @@ public interface UserService {
     void createUser(User_RegisterDTO user) ;
 
     //update user
-    void updateUser(User_UpdateUserDTO dto);
+    void updateUser(User_UpdateUserDTO dto,int userID);
 
     //xoa user
     void deleteUser(String phoneNumber);

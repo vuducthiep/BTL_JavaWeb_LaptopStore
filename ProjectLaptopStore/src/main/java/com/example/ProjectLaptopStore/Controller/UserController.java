@@ -150,9 +150,12 @@ public class UserController {
     }
 
     // API cap nhat thong tin user
-    @PostMapping(value = "/user/update")
-    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
-        userService.updateUser(dto);
+    @PostMapping(value = "/user/update-infor")
+    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto,
+                                        @RequestHeader("Authorization") String authorization){
+        String token = authorization.substring("Bearer ".length());
+        int userID = jwtTokenUtil.getUserID(token);
+        userService.updateUser(dto,userID);
         return ResponseEntity.ok("User updated successfully");
     }
 
@@ -205,6 +208,7 @@ public class UserController {
         return ResponseEntity.ok("Shipping address removed successfully");
     }
 
+    // API lay ra cartdetail
     @GetMapping(value = "/user/mycart/cart-detail")
     public List<CartDetailDTO> getCartDetail(@RequestHeader("Authorization")String authorization){
         String token = authorization.substring("Bearer ".length());
@@ -213,12 +217,14 @@ public class UserController {
         return rs;
     }
 
+    // API xoa sp trong cart
     @DeleteMapping(value = "/user/mycart/remove-cartdetail")
     public ResponseEntity<?> deleteCartDetail(@RequestParam("cartDetailID")int cartDetailID){
         cartDetailService.deleteCartDetail(cartDetailID);
         return ResponseEntity.ok("Cart detail deleted successfully");
     }
 
+    //API tao don hang moi
     @PutMapping(value = "/user/mycart/create-order")
     public ResponseEntity<?> createOrder(@RequestBody List<OrderDTO> dto,
                                          @RequestHeader("Authorization")String authorization){

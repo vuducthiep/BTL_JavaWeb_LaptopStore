@@ -126,8 +126,8 @@ public class UserServiceImpl implements UserService {
     //update user
     @Transactional
     @Override
-    public void updateUser(User_UpdateUserDTO user) {
-            UserEntity entity = userRepository.findById(user.getUserID()).orElse(null);
+    public void updateUser(User_UpdateUserDTO user,int userID) {
+            UserEntity entity = userRepository.findById(userID).orElse(null);
             if(entity == null) {
                 throw new UserNotFoundException("User not found");
             }
@@ -181,19 +181,24 @@ public class UserServiceImpl implements UserService {
 // tra ve token
     @Autowired
     JwtTokenUtil JwtTokenUtil;
+
     @Override
     public User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password) {
         UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if(userEntity != null) {
-            boolean status =  passwordEncoder.matches(password, userEntity.getPassword());
-            var token = JwtTokenUtil.generateToken(userEntity);
-            if(!status)
-                token = null;
-            return User_AuthenticationResponseDTO.builder()
-                    .status(status)
-                    .token(token)
-                    .build();
+            CustomerEntity customer = customerRepository.getCustomerID(userEntity.getUserID());
+            if (customer.getStatus().equals(Customer_Enum.active)) {
+                boolean status = passwordEncoder.matches(password, userEntity.getPassword());
+                var token = JwtTokenUtil.generateToken(userEntity);
+                if (!status)
+                    token = null;
+                return User_AuthenticationResponseDTO.builder()
+                        .status(status)
+                        .token(token)
+                        .build();
+            }
+            else throw new RuntimeException("Your account is not active");
         }
         else throw new UserNotFoundException("User not found");
 
