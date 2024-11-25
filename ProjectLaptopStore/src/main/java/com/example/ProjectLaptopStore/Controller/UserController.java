@@ -1,7 +1,6 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.ControllerLogic.UserHomePageLogic;
-import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
@@ -46,19 +45,19 @@ public class UserController {
 //    }
 //
 
-    //API người dùng tìm kiếm danh sách sản phẩm bằng 1 từ khóa bất kì
-    @GetMapping(value = "/user/searchproduct/")
-    public List<Product_DisplayForHomePageDTO> listProductSearchByKey(@RequestParam(value = "keyword") Object keyword) {
-        List<Product_DisplayForHomePageDTO> result = productService.listSearchProductByKey(keyword);
-        return result;
-
-    }
-
-    @GetMapping(value = "/user/hometest/")
-    public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
-        List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
-        return result;
-    }
+//    //API người dùng tìm kiếm danh sách sản phẩm bằng 1 từ khóa bất kì
+//    @GetMapping(value = "/user/searchproduct/")
+//    public List<Product_DisplayForHomePageDTO> listProductSearchByKey(@RequestParam(value = "keyword") Object keyword) {
+//        List<Product_DisplayForHomePageDTO> result = productService.listSearchProductByKey(keyword);
+//        return result;
+//
+//    }
+//
+//    @GetMapping(value = "/user/hometest/")
+//    public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
+//        List<Product_DisplayForHomePageDTO> result = productService.listProductForHomePage();
+//        return result;
+//    }
 
     //API lấy nhà cung cấp cho checkbox(cả checkbox và btn)
     @GetMapping(value = "/user/checkboxsuppliers/")

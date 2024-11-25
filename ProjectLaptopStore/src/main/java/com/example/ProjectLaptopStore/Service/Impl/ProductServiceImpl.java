@@ -3,9 +3,11 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.Convert.Product_DisplayForHomePageConverter;
 import com.example.ProjectLaptopStore.Convert.Product_SearchBuilderConverter;
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.ContentEntity;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
+import com.example.ProjectLaptopStore.Repository.ContentRepository;
 import com.example.ProjectLaptopStore.Repository.OrderDetailRepository;
 import com.example.ProjectLaptopStore.Repository.ProductDescriptionRepository;
 import com.example.ProjectLaptopStore.Repository.ProductRepository;
@@ -26,7 +28,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
-
+    @Autowired
+    private ContentRepository contentRepository;
     @Autowired
     private Product_SearchBuilderConverter productSearchBuilderConverter;
     @Autowired
@@ -49,14 +52,16 @@ public class ProductServiceImpl implements ProductService {
     public void createNewProduct(ProductDetailDTO productNew) {
         ProductsEntity productsEntity = new ProductsEntity();
         ProductDescriptionEntity productDescriptionEntity = new ProductDescriptionEntity();
-        productRepository.createProduct(productNew,productsEntity,productDescriptionEntity);
+        ContentEntity contentEntity = new ContentEntity();
+        productRepository.createProduct(productNew,productsEntity,productDescriptionEntity,contentEntity);
     }
 
     @Override
     public void updateProduct(ProductDetailDTO productUpdate) {
         ProductsEntity productsEntity = productRepository.findById(productUpdate.getProductId()).get();
         ProductDescriptionEntity productDescriptionEntity = productDescriptionRepository.findById(Long.valueOf(productUpdate.getProductDescriptionId())).get();
-        productRepository.updateProduct(productUpdate, productsEntity,productDescriptionEntity);
+        ContentEntity contentEntity = contentRepository.findByProduct_ProductID(productUpdate.getProductId());
+        productRepository.updateProduct(productUpdate, productsEntity,productDescriptionEntity,contentEntity);
     }
 
     @Override
@@ -66,19 +71,19 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product_DisplayForHomePageDTO> listSearchProductByKey(Object key) {
-        List<Product_DisplayForHomePageDTO> result = productRepository.findAllProductsByKey(key);
+    public List<ProductDetailDTO> listSearchProductByKey(Object key) {
+        List<ProductDetailDTO> result = productRepository.findAllProductsByKey(key);
         return result;
     }
 
     //hàm lấy sản phẩm ra cho trang chủ nhưng giới hạn trong 30 sản phẩm và sắp xếp theo sản phẩm mới
     @Override
-    public List<Product_DisplayForHomePageDTO> listProductForHomePage() {
+    public List<ProductDetailDTO> listProductForHomePage() {
         List<ProductsEntity> listProduct = productRepository.findTop30ByOrderByReleaseDateDesc();
-        List<Product_DisplayForHomePageDTO> result = new ArrayList<>();
+        List<ProductDetailDTO> result = new ArrayList<>();
         for(ProductsEntity item : listProduct){
-            Product_DisplayForHomePageDTO productDisplayForHomePageDTO = productDisplayForHomePageConverter.toDisplayHomePage(item);
-            result.add(productDisplayForHomePageDTO);
+//            ProductDetailDTO productDisplayForHomePageDTO = productDisplayForHomePageConverter.toDisplayHomePage(item);
+//            result.add(productDisplayForHomePageDTO);
         }
         return result;
     }
