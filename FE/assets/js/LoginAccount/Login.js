@@ -37,6 +37,9 @@ async function login(event) {
       console.log('Payload của mày :',payload)
       // In ra vai trò (role)
       console.log("Vai trò của người dùng:", payload.scope);
+      localStorage.setItem("id-user", payload["id-user"]);
+      localStorage.setItem("id-cart", payload["id-cart"]);
+      localStorage.setItem("id-customer", payload["id-customer"]);
 
       // Kiểm tra vai trò (role)
       if (payload.scope === "admin") {
