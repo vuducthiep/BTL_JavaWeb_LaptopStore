@@ -85,6 +85,32 @@
     color: #007bff; /* Đổi màu biểu tượng khi hover */
   }
   
+/* Ẩn menu mặc định */
+.box-user {
+  display: none;
+  position: absolute;
+  top: 100%; /* Menu hiển thị bên dưới user-account */
+  left: 0;
+  background-color: #fff; /* Màu nền của menu */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng cho menu */
+  padding: 10px 0;
+  border-radius: 4px;
+  width: 200px; /* Điều chỉnh kích thước menu */
+  z-index: 1000;
+}
+
+/* Hiển thị menu khi người dùng trỏ chuột vào .user-account */
+.user-account:hover .box-user {
+  display: block;
+}
+
+/* Đảm bảo menu không bị chồng lên các phần tử khác */
+.user-account {
+  position: relative;
+}
+
+
+
 .breadcrumb {
     padding: 10px 0;
     font-size: 18px;

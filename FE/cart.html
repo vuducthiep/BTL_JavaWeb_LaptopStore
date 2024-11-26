@@ -29,14 +29,15 @@
                 <div class="col-2">
                     <div class="user-account" id="userAccount" tabindex="0">
                         <i class="fa-solid fa-user" style="font-size: 40px;"></i>
-                        <ul class="box-user" id="userMenu" style="display: none;">
+                        <ul class="box-user" id="userMenu">
                             <li><a href="#" id="loginLink">Đăng nhập</a></li>
-                            <li><a href="#" id="userInfo" style="display: none;">Thông tin cá nhân</a></li>
-                            <li><a href="#" id="orders" style="display: none;">Đơn hàng</a></li>
-                            <li><a href="#" id="logout" style="display: none;">Đăng xuất</a></li>
+                            <li><a href="#" id="userInfo" style="display: block;">Thông tin cá nhân</a></li>
+                            <li><a href="#" id="orders" style="display: block;">Đơn hàng</a></li>
+                            <li><a href="#" id="logout" style="display: block;">Đăng xuất</a></li>
                         </ul>
                     </div>
                 </div>
+                
                 <div class="col">
                     <div class="box-hotline">
                         <p class="hotline-text"><i class="fa-solid fa-phone"></i><span>HOTLINE</span></p>
@@ -120,10 +121,24 @@
                     <div class="title-box-cart">2. Chọn phương thức thanh toán</div>
                     <div class="content-box-cart2">
                         <table>
+                            <thead>
+                                <tr>
+                                    <th>Phương thức thanh toán</th>
+                                    <th>Chọn</th>
+                                </tr>
+                            </thead>
                             <tbody id="paymentMethodsTable">
-                              
+                                <tr>
+                                    <td>Online</td>
+                                    <td><input type="radio" name="paymentMethod" value="card"></td>
+                                </tr>
+                                <tr>
+                                    <td>Offline</td>
+                                    <td><input type="radio" name="paymentMethod" value="cash"></td>
+                                </tr>
                             </tbody>
                         </table>
+                        
                     </div>
                 </div>
                 <div class="product-actions-single">
