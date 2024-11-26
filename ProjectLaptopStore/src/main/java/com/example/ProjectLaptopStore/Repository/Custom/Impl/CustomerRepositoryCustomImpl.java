@@ -170,7 +170,7 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
     //sang fix hien thi
 //    @Override
 //    public List<CustomerDTO> getListCustomer() {
-//        StringBuilder query = new StringBuilder("Select u.FullName, u.Email, u.PhoneNumber \n" +
+//        StringBuilder query = new StringBuilder("Select u.UserID,c.CustomerID,u.FullName, u.Email, u.PhoneNumber \n" +
 //                "FROM Users u\n" +
 //                "JOIN Customers c ON u.UserID = c.UserID ");
 ////        query.append(setQuery(" "," "));

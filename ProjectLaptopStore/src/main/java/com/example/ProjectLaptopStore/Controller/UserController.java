@@ -9,6 +9,7 @@ import com.example.ProjectLaptopStore.Repository.ShippingAddressesRepository;
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.*;
 import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
+import com.nimbusds.jose.JOSEException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -229,6 +231,15 @@ public class UserController {
     public ResponseEntity<?> createOrder(@RequestBody List<OrderDTO> dto,
                                          @RequestHeader("Authorization")String authorization){
         String token = authorization.substring("Bearer ".length());
+        try {
+            TokenValidDTO valid = jwtTokenUtil.validateToken(token);
+            if(!valid.isValid())
+                return ResponseEntity.badRequest().body(valid);
+        } catch (JOSEException e) {
+            throw new RuntimeException(e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         int customerID = jwtTokenUtil.getCustomerID(token);
         orderService.createOrder(dto,customerID);
         return ResponseEntity.ok("Order created successfully");
