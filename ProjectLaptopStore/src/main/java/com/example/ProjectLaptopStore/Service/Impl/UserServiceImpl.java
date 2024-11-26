@@ -3,11 +3,23 @@ package com.example.ProjectLaptopStore.Service.Impl;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
+
+import com.example.ProjectLaptopStore.Entity.CartEntity;
+import com.example.ProjectLaptopStore.Entity.CustomerEntity;
+import com.example.ProjectLaptopStore.Entity.Enum.CardStatus_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
+
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
+import com.example.ProjectLaptopStore.Exception.EmailAlreadyExistsException;
+import com.example.ProjectLaptopStore.Exception.PhoneNumberAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
+import com.example.ProjectLaptopStore.Repository.CartRepository;
+import com.example.ProjectLaptopStore.Repository.CustomerRepository;
 import com.example.ProjectLaptopStore.Repository.UserRepository;
+
 import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
 import com.example.ProjectLaptopStore.Service.ProductService;
@@ -18,6 +30,7 @@ import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jose.crypto.MACVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
+import jakarta.persistence.EntityManager;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -27,10 +40,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -38,9 +53,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.temporal.ChronoUnit;
+import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -61,9 +74,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private ProductService productService;
 
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+
     UserRepository userRepository;
+
     ModelMapper modelMapper;
+
+    CustomerRepository customerRepository;
+
+    CartRepository cartRepository;
+
+    EntityManager entityManager;
 //    private final Authentication authentication;
     @NonFinal
     @Value("${jwt.signerKey}")
@@ -95,25 +115,75 @@ public class UserServiceImpl implements UserService {
             }
         }
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Date date = Date.from(user.getRegisterDate().atZone(ZoneId.systemDefault()).toInstant());
+        // tao moi user
         UserEntity userEntity = new UserEntity();
+        // tao moi customer
+        CustomerEntity customer = new CustomerEntity();
+        //tao moi cart cho customer
+        CartEntity cart = new CartEntity();
+
+        Date date = new Date();
+
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
         userEntity.setRegistrationDate(date);
         userEntity.setUserType(User_Enum.customer);
         userRepository.save(userEntity);
+
+        customer.setStatus(Customer_Enum.active);
+        customer.setUser(userEntity);
+        customer.setRegistrationDate(date);
+        customerRepository.save(customer);
+
+        cart.setCreatedDate(date);
+        cart.setStatus(CardStatus_Enum.active);
+        cart.setCustomer(customer);
+        cartRepository.save(cart);
     }
 
     //update user
+    @Transactional
     @Override
-    public void updateUser(String phoneNumber, User_RegisterDTO user) {
-        UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if(userEntity != null) {
-            userEntity = modelMapper.map(user,UserEntity.class);
-            userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
-        }
-        else throw new UserNotFoundException("User not found");
+    public void updateUser(User_UpdateUserDTO user,int userID) {
+            UserEntity entity = userRepository.findById(userID).orElse(null);
+            if(entity == null) {
+                throw new UserNotFoundException("User not found");
+            }
+            else{
+                if(user.getEmail() == "" || user.getNewPassword() == "" || user.getPassword() == "" ||
+                user.getPhoneNumber() == "" || user.getFullName() == "") {
+                    try {
+                        throw new Exception("Cac truong du lieu khong hop le");
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                else{
+
+                    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+                    entity.setFullName(user.getFullName());
+                    if(user.getPhoneNumber() != entity.getPhoneNumber() && !userRepository.existsByPhoneNumber(user.getPhoneNumber())){
+                        entity.setPhoneNumber(user.getPhoneNumber());
+                    }else{
+                        if(user.getPhoneNumber().equals(entity.getPhoneNumber())){
+                            entity.setPhoneNumber(user.getPhoneNumber());
+                        }
+                        else
+                        throw new PhoneNumberAlreadyExistsException("Phone number already exists");
+                    }
+                    if(user.getEmail() != entity.getEmail() && !userRepository.existsByEmail(user.getEmail())){
+                        entity.setEmail(user.getEmail());
+                    }else {
+                        if(user.getEmail().equals(entity.getEmail())){
+                            entity.setEmail(user.getEmail());
+                        }
+                        else
+                        throw  new EmailAlreadyExistsException("Email already exists");
+                    }
+                    entity.setPassword(passwordEncoder.encode(user.getNewPassword()));
+                    entityManager.merge(entity);
+                }
+            }
     }
 
 
@@ -127,46 +197,34 @@ public class UserServiceImpl implements UserService {
         else throw new RuntimeException("So dien thoai khong ton tai");
     }
 // tra ve token
+    @Autowired
+    JwtTokenUtil JwtTokenUtil;
+
     @Override
     public User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password) {
         UserEntity userEntity = userRepository.findAllByPhoneNumber(phoneNumber);
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if(userEntity != null) {
-            boolean status =  passwordEncoder.matches(password, userEntity.getPassword());
-            var token = generateToken(userEntity);
-            if(!status)
-                token = null;
-            return User_AuthenticationResponseDTO.builder()
-                    .status(status)
-                    .token(token)
-                    .build();
+            CustomerEntity customer = customerRepository.getCustomerID(userEntity.getUserID());
+
+            if (customer!=null && customer.getStatus().equals(Customer_Enum.active) || userEntity.getUserType().equals(User_Enum.admin)) {
+                boolean status = passwordEncoder.matches(password, userEntity.getPassword());
+                var token = JwtTokenUtil.generateToken(userEntity);
+                if (!status)
+                    token = null;
+                return User_AuthenticationResponseDTO.builder()
+                        .status(status)
+                        .token(token)
+                        .build();
+            }
+            else throw new RuntimeException("Your account is not active");
         }
         else throw new UserNotFoundException("User not found");
 
     }
 
     // kiem tra token co hop le khong
-    @Override
-    public TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException {
-        var tk = token.getToken();
-        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
-        SignedJWT signedJWT = SignedJWT.parse(tk);
-        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        var verified = signedJWT.verify(verifier);
-        boolean ms = verified && expirationTime.after(new Date());
-        String message;
-        if (ms == true){
-            message = "Login Success";
-        }
-        else {
-            message = "Invalid Token";
-        }
-        return TokenValidDTO.builder()
-                .token(tk)
-                .valid(ms)
-                .message(message)
-                .build();
-    }
+
 
 
     //phan trang user
@@ -217,33 +275,15 @@ public class UserServiceImpl implements UserService {
     }
 
     // tao token
-    private String generateToken(UserEntity user){
-        JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
-        String role;
-        if(user.getUserType().equals(User_Enum.customer)) {
-            role = "customer";
-        }
-        else {
-            role = "admin";
-        }
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getPhoneNumber())
-                .issuer("laptopabc.com")
-                .issueTime(new Date())
-                .claim("scope",role)
-                .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
-                ))
-                .build();
-        Payload payload = new Payload(jwtClaimsSet.toJSONObject());
-        JWSObject jwsObject = new JWSObject(jwsHeader,payload);
-        try {
-            jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
-            return jwsObject.serialize();
-        } catch (JOSEException e) {
-            log.error(e.getMessage() + "Can not create token");
-            throw new RuntimeException(e);
-        }
+
+
+    @Override
+    public User_DTO UserInfor() {
+        var contex = SecurityContextHolder.getContext();
+        String phone = contex.getAuthentication().getName();
+        UserEntity user = userRepository.findAllByPhoneNumber(phone);
+        User_DTO userDTO = modelMapper.map(user,User_DTO.class);
+        return userDTO;
     }
 }
 

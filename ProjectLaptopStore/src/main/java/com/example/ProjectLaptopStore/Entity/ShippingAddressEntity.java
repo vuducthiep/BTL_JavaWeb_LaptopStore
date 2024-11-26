@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -27,4 +29,7 @@ public class ShippingAddressEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "CustomerID")
     private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "shipAddress")
+    private List<OrdersEntity> orders;
 }

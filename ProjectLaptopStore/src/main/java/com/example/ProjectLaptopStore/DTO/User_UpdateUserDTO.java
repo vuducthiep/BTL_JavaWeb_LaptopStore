@@ -6,10 +6,12 @@ import lombok.Setter;
 @Setter
 @Getter
 public class User_UpdateUserDTO {
-    private String user_name;
-    private String phone_number;
+    private int userID;
+    private String fullName;
+    private String phoneNumber;
     private String email;
     private String password;
+    private String newPassword;
 
 
 }

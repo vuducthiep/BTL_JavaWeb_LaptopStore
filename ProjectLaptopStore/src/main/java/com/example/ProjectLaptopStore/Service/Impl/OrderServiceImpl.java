@@ -1,16 +1,23 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConverter;
+import com.example.ProjectLaptopStore.DTO.OrderDTO;
 import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
 import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
-import com.example.ProjectLaptopStore.Repository.OrderRepository;
+import com.example.ProjectLaptopStore.Entity.*;
+import com.example.ProjectLaptopStore.Entity.Enum.OrderStatus_Enum;
+import com.example.ProjectLaptopStore.Repository.*;
 import com.example.ProjectLaptopStore.Service.*;
+import jakarta.persistence.EntityManager;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -35,6 +42,33 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderDetailService orderDetailService;
 
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    EntityManager entityManager;
+
+    @Autowired
+    CustomerRepository CustomerRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
+
+    @Autowired
+    ShippingAddressesRepository shippingAddressesRepository;
+
+    @Autowired
+    PaymentMethodRepository PaymentMethodRepository;
+
+    @Autowired
+    private PaymentMethodRepository paymentMethodRepository;
+
+    @Autowired
+    CartDetailRepository CartDetailRepository;
+    @Autowired
+    private CartDetailRepository cartDetailRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
@@ -78,7 +112,67 @@ public class OrderServiceImpl implements OrderService {
         return result;
     }
 
+    @Override
+    public List<OrderDTO> getListOrderByCustomerID(int customerID) {
+        List<OrdersEntity> orders = orderRepository.findByCustomerID(customerID);
+        List<OrderDTO> dto = new ArrayList<>();
+        for (OrdersEntity order : orders) {
+            OrderDTO orderDTO = new OrderDTO();
+            orderDTO = modelMapper.map(order, OrderDTO.class);
+            dto.add(orderDTO);
+        }
+        return dto;
+    }
 
+    @Override
+    public void createOrder(List<OrderDTO> orderDTO,int id) {
+        if(orderDTO.size() == 0){
+            throw new RuntimeException("Create Order Failed");
+        }
+        CustomerEntity c = customerRepository.findById(id).orElse(null);
+        if(c == null){
+            throw new RuntimeException("Create Order Failed");
+        }
+        for (OrderDTO order : orderDTO) {
+            PayMentMethodsEntity pm = paymentMethodRepository.findById(order.getPaymentMethodID()).orElse(null);
+            if(pm == null){
+                throw new RuntimeException("You must select payment method");
+            }
+            ShippingAddressEntity sa = shippingAddressesRepository.findById(order.getAddressID()).orElse(null);
+            if(sa == null){
+                throw new RuntimeException("you must select a shipping address");
+            }
+
+            OrdersEntity orderEntity = new OrdersEntity();
+            OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
+
+            orderEntity.setCustomer(c);
+            orderEntity.setOrderDate(new Date());
+            orderEntity.setTotalAmount(order.getTotalAmount());
+            orderEntity.setShippingFee(new BigDecimal(35000));
+            orderEntity.setOrderStatus(OrderStatus_Enum.Confirmed);
+            orderEntity.setEstimatedDeliveryDate(order.getEstimatedDeliveryDate());
+            orderEntity.setActualDeliveryDate(order.getActualDeliveryDate());
+            orderEntity.setPayMentMethod(pm);
+            orderEntity.setShipAddress(sa);
+            entityManager.persist(orderEntity);
+            entityManager.flush();
+
+            CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(order.getCartDetailID()).orElse(null);
+            if(cartDetailsEntity == null){
+                throw new RuntimeException("You must select a cart detail");
+            }
+            orderDetailEntity.setOrder(orderEntity);
+            orderDetailEntity.setProduct(cartDetailsEntity.getProduct());
+            orderDetailEntity.setQuantity(cartDetailsEntity.getQuantity());
+            orderDetailEntity.setPrice(cartDetailsEntity.getPrice());
+            orderDetailEntity.setLineTotal(cartDetailsEntity.getLineTotal());
+            entityManager.persist(orderDetailEntity);
+            entityManager.flush();
+
+            
+        }
+    }
 
 
 }

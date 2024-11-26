@@ -16,7 +16,7 @@ public interface UserService {
     void createUser(User_RegisterDTO user) ;
 
     //update user
-    void updateUser(String phoneNumber, User_RegisterDTO user);
+    void updateUser(User_UpdateUserDTO dto,int userID);
 
     //xoa user
     void deleteUser(String phoneNumber);
@@ -25,10 +25,13 @@ public interface UserService {
     User_AuthenticationResponseDTO Authenticate(String phoneNumber, String password);
 
     // kiem tra hop le token
-    TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException;
-
     // phan trang user
     Page<User_DTO> searchUser(int page, int size);
 
+
     User_HomeResponseDTO userHomePage(String keyword);
+
+    //thong tin user
+    User_DTO UserInfor();
+
 }

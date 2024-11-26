@@ -78,7 +78,7 @@ DROP TABLE IF EXISTS Products;
 CREATE TABLE Products (
     ProductID INT PRIMARY KEY AUTO_INCREMENT,
     SupplierID INT,
-    ProductName VARCHAR(100) NOT NULL,
+    ProductName VARCHAR(250) NOT NULL,
     Brand VARCHAR(50),
     Model VARCHAR(50),
     Price FLOAT NOT NULL,
@@ -174,6 +174,18 @@ CREATE TABLE Promotions (
     FOREIGN KEY (ProductID) REFERENCES Products( ProductID ) ON DELETE CASCADE
 );
 
+DROP TABLE IF EXISTS ShippingAddresses;
+CREATE TABLE ShippingAddresses (
+    AddressID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerID INT,
+    Address VARCHAR(255),
+    City VARCHAR(50),
+    District VARCHAR(50),
+    Ward VARCHAR(50),
+    StreetAddress VARCHAR(255),
+    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
+);
+
 -- Tạo bảng Orders
 DROP TABLE IF EXISTS Orders;
 CREATE TABLE Orders (
@@ -187,6 +199,8 @@ CREATE TABLE Orders (
     EstimatedDeliveryDate DATE,
     ActualDeliveryDate DATE,
     PromotionID INT,
+    AddressID INT , 
+    FOREIGN KEY (AddressID) REFERENCES ShippingAddresses(AddressID),
     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE,
     FOREIGN KEY (PaymentMethodID) REFERENCES PaymentMethods(PaymentMethodID),
     FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID)
@@ -300,17 +314,17 @@ CREATE TABLE ExportReceiptDetails (
     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE
 );
 
-DROP TABLE IF EXISTS ShippingAddresses;
-CREATE TABLE ShippingAddresses (
-    AddressID INT PRIMARY KEY AUTO_INCREMENT,
-    CustomerID INT,
-    Address VARCHAR(255),
-    City VARCHAR(50),
-    District VARCHAR(50),
-    Ward VARCHAR(50),
-    StreetAddress VARCHAR(255),
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
-);
+-- DROP TABLE IF EXISTS ShippingAddresses;
+-- CREATE TABLE ShippingAddresses (
+--     AddressID INT PRIMARY KEY AUTO_INCREMENT,
+--     CustomerID INT,
+--     Address VARCHAR(255),
+--     City VARCHAR(50),
+--     District VARCHAR(50),
+--     Ward VARCHAR(50),
+--     StreetAddress VARCHAR(255),
+--     FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID) ON DELETE CASCADE
+-- );
 
 -- chitet khuyen mai
 DROP TABLE IF EXISTS PromotionProduct;
@@ -318,8 +332,8 @@ CREATE TABLE PromotionProduct (
     PromotionProductID INT PRIMARY KEY AUTO_INCREMENT,
     PromotionID INT,
     ProductID INT ,
-     FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
-      FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
+	FOREIGN KEY (ProductID) REFERENCES Products(ProductID) ON DELETE CASCADE,
+	FOREIGN KEY (PromotionID) REFERENCES Promotions(PromotionID) ON DELETE CASCADE
 );
 
 CREATE TABLE Contens (
@@ -466,17 +480,42 @@ INSERT INTO PaymentMethods (PaymentType, BankBrandName, Status) VALUES
 ('OFFLINE', NULL, 'inactive'),
 ('ONLINE', 'PVcomBank', 'active');
 
+INSERT INTO ShippingAddresses ( CustomerID, Address, City, District, Ward, StreetAddress) VALUES
+( 1, 'Vietnam', 'Hanoi', 'Bac Tu Liem', 'Cau Dien', '132'),
+( 2, 'Vietnam', 'Hanoi', 'Dong Da', 'Khuong Thuong', '256'),
+( 3, 'Vietnam', 'Hanoi', 'Thanh Xuan', 'Phuong Liet', '78'),
+( 4, 'Vietnam', 'Hanoi', 'Cau Giay', 'Dich Vong', '104'),
+( 5, 'Vietnam', 'Hanoi', 'Hoan Kiem', 'Hang Bong', '12A'),
+( 6, 'Vietnam', 'Ho Chi Minh City', 'District 1', 'Ben Nghe', '150'),
+( 7, 'Vietnam', 'Ho Chi Minh City', 'District 3', 'Vo Thi Sau', '89'),
+( 8, 'Vietnam', 'Ho Chi Minh City', 'District 5', 'Ward 7', '342'),
+( 9, 'Vietnam', 'Da Nang', 'Hai Chau', 'Thanh Binh', '77'),
+( 10, 'Vietnam', 'Da Nang', 'Son Tra', 'Man Thai', '43'),
+( 8, 'Vietnam', 'Ninh Binh', 'Hoa Lu', 'Trung Son', '16'),
+( 1, 'Vietnam', 'Thai Binh', 'Nam Cuong', 'Thanh Binh', '19'),
+( 10, 'Vietnam', 'Gia Lai', 'Dong Huong', 'Tuan Thao', '145');
 
-INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, EstimatedDeliveryDate, ActualDeliveryDate) VALUES
-(1, '2024-11-20', 1550.00, 50.00, 1, 'Confirmed', '2024-11-25', '2024-01-24'),
-(3, '2024-11-13', 1220.00, 20.00, 2, 'Shipped', '2024-11-20', '2024-03-18'),
-(4, '2024-02-10', 1800.00, 30.00, 3, 'Pending', '2024-02-15', '2024-02-14'),
-(5, '2024-11-08', 2100.00, 40.00, 4, 'Confirmed', '2024-11-15', '2024-04-14'),
-(6, '2024-11-20', 950.00, 25.00, 2, 'Shipped', '2024-11-22', '2024-03-24'),
-(7, '2024-05-15', 1250.00, 35.00, 3, 'Pending', '2024-05-22', '2024-05-20'),
-(8, '2024-01-27', 1600.00, 15.00, 1, 'Confirmed', '2024-02-02', '2024-02-01'),
-(9, '2024-02-18', 990.00, 10.00, 4, 'Shipped', '2024-02-24', '2024-02-23'),
-(10, '2024-03-05', 1450.00, 20.00, 2, 'Pending', '2024-03-12', '2024-03-11');
+INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, EstimatedDeliveryDate, ActualDeliveryDate , AddressID ) VALUES
+(1, '2024-11-20', 1550.00, 50.00, 1, 'Confirmed', '2024-11-25', '2024-01-24' , 1),
+(3, '2024-11-13', 1220.00, 20.00, 2, 'Shipped', '2024-11-20', '2024-03-18' , 2),
+(4, '2024-02-10', 1800.00, 30.00, 3, 'Pending', '2024-02-15', '2024-02-14' , 3),
+(5, '2024-11-08', 2100.00, 40.00, 4, 'Confirmed', '2024-11-15', '2024-04-14' , 4),
+(6, '2024-11-20', 950.00, 25.00, 2, 'Shipped', '2024-11-22', '2024-03-24' , 5),
+(7, '2024-05-15', 1250.00, 35.00, 3, 'Pending', '2024-05-22', '2024-05-20' , 5),
+(8, '2024-01-27', 1600.00, 15.00, 1, 'Confirmed', '2024-02-02', '2024-02-01' , 6),
+(9, '2024-02-18', 990.00, 10.00, 4, 'Shipped', '2024-02-24', '2024-02-23' , 5),
+(10, '2024-03-05', 1450.00, 20.00, 2, 'Pending', '2024-03-12', '2024-03-11' , 7);
+
+-- INSERT INTO Orders (CustomerID, OrderDate, TotalAmount, ShippingFee, PaymentMethodID, OrderStatus, EstimatedDeliveryDate, ActualDeliveryDate , AddressID ) VALUES
+-- (1, '2024-11-20', 1550.00, 50.00, 1, 'Confirmed', '2024-11-25', '2024-01-24'),
+-- (3, '2024-11-13', 1220.00, 20.00, 2, 'Shipped', '2024-11-20', '2024-03-18'),
+-- (4, '2024-02-10', 1800.00, 30.00, 3, 'Pending', '2024-02-15', '2024-02-14'),
+-- (5, '2024-11-08', 2100.00, 40.00, 4, 'Confirmed', '2024-11-15', '2024-04-14'),
+-- (6, '2024-11-20', 950.00, 25.00, 2, 'Shipped', '2024-11-22', '2024-03-24'),
+-- (7, '2024-05-15', 1250.00, 35.00, 3, 'Pending', '2024-05-22', '2024-05-20'),
+-- (8, '2024-01-27', 1600.00, 15.00, 1, 'Confirmed', '2024-02-02', '2024-02-01'),
+-- (9, '2024-02-18', 990.00, 10.00, 4, 'Shipped', '2024-02-24', '2024-02-23'),
+-- (10, '2024-03-05', 1450.00, 20.00, 2, 'Pending', '2024-03-12', '2024-03-11');
 
 
 INSERT INTO OrderDetails (OrderID, ProductID, Quantity, Price) VALUES
@@ -668,17 +707,18 @@ INSERT INTO ExportReceiptDetails (ExportReceiptID, ProductID, Quantity) VALUES
 -- (10, 5, 15);
 
 
-INSERT INTO ShippingAddresses (AddressID, CustomerID, Address, City, District, Ward, StreetAddress) VALUES
-(1, 1, 'Vietnam', 'Hanoi', 'Bac Tu Liem', 'Cau Dien', '132'),
-(2, 2, 'Vietnam', 'Hanoi', 'Dong Da', 'Khuong Thuong', '256'),
-(3, 3, 'Vietnam', 'Hanoi', 'Thanh Xuan', 'Phuong Liet', '78'),
-(4, 4, 'Vietnam', 'Hanoi', 'Cau Giay', 'Dich Vong', '104'),
-(5, 5, 'Vietnam', 'Hanoi', 'Hoan Kiem', 'Hang Bong', '12A'),
-(6, 6, 'Vietnam', 'Ho Chi Minh City', 'District 1', 'Ben Nghe', '150'),
-(7, 7, 'Vietnam', 'Ho Chi Minh City', 'District 3', 'Vo Thi Sau', '89'),
-(8, 8, 'Vietnam', 'Ho Chi Minh City', 'District 5', 'Ward 7', '342'),
-(9, 9, 'Vietnam', 'Da Nang', 'Hai Chau', 'Thanh Binh', '77'),
-(10, 10, 'Vietnam', 'Da Nang', 'Son Tra', 'Man Thai', '43');
+
+-- INSERT INTO ShippingAddresses (AddressID, CustomerID, Address, City, District, Ward, StreetAddress) VALUES
+-- (1, 1, 'Vietnam', 'Hanoi', 'Bac Tu Liem', 'Cau Dien', '132'),
+-- (2, 2, 'Vietnam', 'Hanoi', 'Dong Da', 'Khuong Thuong', '256'),
+-- (3, 3, 'Vietnam', 'Hanoi', 'Thanh Xuan', 'Phuong Liet', '78'),
+-- (4, 4, 'Vietnam', 'Hanoi', 'Cau Giay', 'Dich Vong', '104'),
+-- (5, 5, 'Vietnam', 'Hanoi', 'Hoan Kiem', 'Hang Bong', '12A'),
+-- (6, 6, 'Vietnam', 'Ho Chi Minh City', 'District 1', 'Ben Nghe', '150'),
+-- (7, 7, 'Vietnam', 'Ho Chi Minh City', 'District 3', 'Vo Thi Sau', '89'),
+-- (8, 8, 'Vietnam', 'Ho Chi Minh City', 'District 5', 'Ward 7', '342'),
+-- (9, 9, 'Vietnam', 'Da Nang', 'Hai Chau', 'Thanh Binh', '77'),
+-- (10, 10, 'Vietnam', 'Da Nang', 'Son Tra', 'Man Thai', '43');
 -- (11, 11, 'Vietnam', 'Hai Phong', 'Ngo Quyen', 'May To', '56B'),
 -- (12, 12, 'Vietnam', 'Hai Phong', 'Le Chan', 'Dinh Dong', '102'),
 -- (13, 13, 'Vietnam', 'Can Tho', 'Ninh Kieu', 'Tan An', '35'),

@@ -184,22 +184,22 @@ function loadWarehouseData(warehouseID) {
 
             // Cập nhật thông tin kho
             document.getElementById('warehouseName').innerText = data.warehouseInfo.warehouseName;
-            document.getElementById('warehouseID').innerText = `ID: ${data.warehouseInfo.warehouseID}`;
-            document.getElementById('warehouseAddress').innerText = `Địa chỉ: ${data.warehouseInfo.address}`;
-            document.getElementById('warehouseType').innerText = `Loại nhà kho: ${data.warehouseInfo.warehouseType}`;
-            document.getElementById('warehouseStatus').innerText = `Trạng thái: ${data.warehouseInfo.status}`;
+            document.getElementById('warehouseID').innerText = `${data.warehouseInfo.warehouseID}`;
+            document.getElementById('warehouseAddress').innerText = `${data.warehouseInfo.address}`;
+            document.getElementById('warehouseType').innerText = `${data.warehouseInfo.warehouseType}`;
+            document.getElementById('warehouseStatus').innerText = `${data.warehouseInfo.status}`;
 
             // Cập nhật số lượng sản phẩm trong kho
             document.getElementById('productQuantity').innerText = data.totalQuantity;
-            document.getElementById('productExportQuantity').innerText = data.listExportReceipt.reduce((total, item) => total + item.quantity, 0);
-            document.getElementById('productImportQuantity').innerText = data.listImportReceipt.reduce((total, item) => total + item.quantity, 0);
-
+            document.getElementById('countProductsMaxStockLevel').innerText = data.countProductsMaxStockLevel;
+            document.getElementById('countProductsMinStockLevel').innerText = data.countProductsMinStockLevel;
+            // <img src="${product.ImageURL}" alt="${product.productName}" /> ẩn tạm thời
             // Hiển thị danh sách sản phẩm trong kho
                 let productListHtml = '';
                 data.listProductsInWarehouse.forEach(product => {
                     productListHtml += `
                         <li>
-                            <img src="path/to/product-image.jpg" alt="${product.productName}" />
+                           
                             <span>${product.productName}</span> - 
                             <span>Số lượng: ${product.quantity}</span>
                             <button class="btn btn-warning btn-sm" id="edit-button-${product.productId}" data-product-id="${product.productId}">Sửa</button>
@@ -211,11 +211,12 @@ function loadWarehouseData(warehouseID) {
 
 
             // Hiển thị phiếu xuất kho
+           // <img src="path/to/product-image.jpg" alt="${receipt.productName}" /> ẩn tạm đi
             let exportListHtml = '';
             data.listExportReceipt.forEach(receipt => {
                 exportListHtml += `
                     <li>
-                        <img src="path/to/product-image.jpg" alt="${receipt.productName}" />
+                      
                         <span>${receipt.productName}</span> - 
                         <span>Ngày xuất: ${receipt.date}</span> - 
                         <span>Số lượng: ${receipt.quantity}</span>
@@ -225,11 +226,12 @@ function loadWarehouseData(warehouseID) {
             document.getElementById('exportList').innerHTML = exportListHtml;
 
             // Hiển thị phiếu nhập kho
+           // <img src="path/to/product-image.jpg" alt="${receipt.productName}" /> ẩn tạm đi
             let importListHtml = '';
             data.listImportReceipt.forEach(receipt => {
                 importListHtml += `
                     <li>
-                        <img src="path/to/product-image.jpg" alt="${receipt.productName}" />
+                       
                         <span>${receipt.productName}</span> - 
                         <span>Ngày nhập: ${receipt.date}</span> - 
                         <span>Số lượng: ${receipt.quantity}</span>
