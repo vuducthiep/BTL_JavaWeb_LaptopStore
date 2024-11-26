@@ -146,7 +146,7 @@ public class AdminController {
 
     }
     //API xóa mã giảm giá cho sản phẩm
-    @DeleteMapping(value = "/promotion-product/remove-promotion/{productID}/{promotionID}")
+    @DeleteMapping(value = "/promotion-.product/remove-promotion/{productID}/{promotionID}")
     public ResponseEntity<?> removePromotion(@PathVariable(name = "productID")int productID,
                                              @PathVariable(name = "promotionID")int promotionID){
         promotionService.deletePromotionProduct(productID,promotionID);

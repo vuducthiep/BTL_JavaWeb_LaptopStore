@@ -17,11 +17,14 @@ document.addEventListener("DOMContentLoaded", function () {
             orders.style.display = "block"; // Hiển thị Đơn hàng
             logout.style.display = "block"; // Hiển thị Đăng xuất
             console.log('đây là token khi đăng nhập :',localStorage.getItem("authToken"))
+            console.log('User id đang đăng nhập:',localStorage.getItem('id-user'))
+            console.log('Customer id đang đăng nhập:',localStorage.getItem('id-customer'))
+            console.log('cart id đang đăng nhập:',localStorage.getItem('id-cart'))
         } else {
             loginLink.style.display = "block"; // Hiển thị Đăng nhập
             userInfo.style.display = "none"; // Ẩn Thông tin cá nhân
             orders.style.display = "none"; // Ẩn Đơn hàng
-            logout.style.display = "none"; // Ẩn Đăng xuất
+            logout.style.display = "none"; // Ẩn Đăng xuất:
         }
     }
 
@@ -41,9 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem("isLoggedIn"); // Xóa trạng thái đăng nhập
         localStorage.removeItem("userRole");
         localStorage.removeItem('authToken') // Xóa vai trò
+        localStorage.removeItem('id-user')
+        localStorage.removeItem('id-customer')
+        localStorage.removeItem('id-cart')
         isLoggedIn = false;
         console.log('Token khi tao đã đăng xuất',localStorage.getItem('authToken'))
-        updateMenu(); // Cập nhật lại giao diện
+        updateMenu(); 
     });
 
     // Gọi hàm để cập nhật giao diện ngay khi trang load
