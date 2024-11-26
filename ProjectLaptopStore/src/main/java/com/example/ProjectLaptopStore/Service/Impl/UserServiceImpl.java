@@ -188,7 +188,8 @@ public class UserServiceImpl implements UserService {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if(userEntity != null) {
             CustomerEntity customer = customerRepository.getCustomerID(userEntity.getUserID());
-            if (customer.getStatus().equals(Customer_Enum.active)) {
+
+            if (customer!=null && customer.getStatus().equals(Customer_Enum.active) || userEntity.getUserType().equals(User_Enum.admin)) {
                 boolean status = passwordEncoder.matches(password, userEntity.getPassword());
                 var token = JwtTokenUtil.generateToken(userEntity);
                 if (!status)
