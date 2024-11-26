@@ -11,11 +11,10 @@ public interface ProductService {
     void createNewProduct(ProductDetailDTO productCreate);
     void updateProduct(ProductDetailDTO productUpdate);
     void deleteProduct(Long[] ids);
-    List<Product_DisplayForHomePageDTO> listSearchProductByKey(Object key);
-    List<Product_DisplayForHomePageDTO> listProductForHomePage();
+    List<ProductDetailDTO> listSearchProductByKey(Object key);
+    List<ProductDetailDTO> listProductForHomePage();
     List<ProductDetailDTO> listProductDetail();
     Admin_ProductResponseDTO adminProduct();
     ProductDetailDTO getProductById(Integer id);
     Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct);
-
 }

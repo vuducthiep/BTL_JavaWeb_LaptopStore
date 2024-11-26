@@ -11,8 +11,12 @@ public interface ShippingAddressesRepository extends JpaRepository<ShippingAddre
     List<ShippingAddressEntity> findAllByAddressIDIn(Long[] ids);
 
 
-    @Query(value = "SELECT * FROM ShippingAddresses sp WHERE sp.CustomerID = :customerID",nativeQuery = true)
-    List<ShippingAddressEntity> getAllShippingAddresses(@Param("customerID")int customerID);
+    @Query(value = "SELECT sa.AddressID, sa.Address, sa.City, sa.District, Ward, sa.StreetAddress , u.PhoneNumber\n" +
+            "FROM ShippingAddresses sa \n" +
+            "JOIN Customers c ON c.CustomerID = sa.CustomerID\n" +
+            "JOIN Users u ON u.UserID = c.UserID\n" +
+            "WHERE sa.CustomerID = :customerID",nativeQuery = true)
+    List<Object[]> getAllShippingAddresses(@Param("customerID")int customerID);
 
     @Query(value = "SELECT * FROM ShippingAddresses WHERE AddressID = :id",nativeQuery = true)
     ShippingAddressEntity getShippingAddressById(@Param("id")int id);

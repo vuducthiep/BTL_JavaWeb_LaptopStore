@@ -33,18 +33,18 @@ public class ShippingAddressServiceImpl implements ShippingAddressesService {
 
     @Override
     public List<ShippingAddressesDTO> getAllShippingAddresses(int id) {
-        List<ShippingAddressEntity> ship = shippingAddressesRepository.getAllShippingAddresses(id);
+        List<Object[]> ship = shippingAddressesRepository.getAllShippingAddresses(id);
         List<ShippingAddressesDTO> resutl = new ArrayList<>();
 
-        for (ShippingAddressEntity sa : ship) {
+        for (Object[] o : ship) {
             ShippingAddressesDTO dto = ShippingAddressesDTO.builder()
-                    .addressID(sa.getAddressID())
-                    .customerID(sa.getCustomer().getCustomerID())
-                    .address(sa.getAddress())
-                    .city(sa.getCity())
-                    .district(sa.getDistrict())
-                    .ward(sa.getWard())
-                    .streetAddress(sa.getStreetAddress())
+                    .addressID((int) o[0])
+                    .address((String) o[1])
+                    .city((String) o[2])
+                    .district((String) o[3])
+                    .ward((String) o[4])
+                    .streetAddress((String) o[5])
+                    .phoneNumber((String) o[6])
                     .build();
 
             resutl.add(dto);

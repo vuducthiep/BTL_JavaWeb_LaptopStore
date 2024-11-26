@@ -82,6 +82,24 @@ public class CustomerServiceImpl implements CustomerService {
         return result;
     }
 
+    // sang fix lai hien thi
+//    @Override
+//    public Admin_CustomerResponseDTO adminCustomer() {
+//        Admin_CustomerResponseDTO result = new Admin_CustomerResponseDTO();
+//        try {
+//            List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth = customerRepository.listNewCustomerPerMonth();
+//            List<CustomerDTO> listTopCustomerInMonth = customerRepository.listTopCustomerInMonth();
+//            List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
+//            result.setCountNewCustomerPerMonth(listCountNewCustomerPerMonth);
+//            result.setFindTopCustomerInMonth(listTopCustomerInMonth);
+//            result.setListCustomer(listCustomer);
+//        }catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+//        return result;
+//    }
+
     @Override
     public CustomerDTO getCustomerByID(Integer id) {
         List<CustomerDTO> listCustomer = customerRepository.getListCustomer();

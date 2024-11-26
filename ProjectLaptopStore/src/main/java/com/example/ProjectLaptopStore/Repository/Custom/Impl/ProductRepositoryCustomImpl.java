@@ -1,8 +1,9 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
+import com.example.ProjectLaptopStore.Convert.ContentConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
-import com.example.ProjectLaptopStore.DTO.Product_DisplayForHomePageDTO;
+import com.example.ProjectLaptopStore.Entity.ContentEntity;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
@@ -13,6 +14,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 //import org.springframework.security.core.parameters.P;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
@@ -25,6 +27,8 @@ import java.util.List;
 @Repository
 @Transactional
 public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
+    @Autowired
+    private ContentConverter contentConverter;
     @PersistenceContext
     private EntityManager entityManager;
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
@@ -65,143 +69,39 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
     //hàm tạo sản phẩm
     @Override
-    public void createProduct(ProductDetailDTO productNew, ProductsEntity productsEntity,ProductDescriptionEntity productDescriptionEntity) {
-        setDataProduct(productNew,productsEntity,productDescriptionEntity,1);
+    public void createProduct(ProductDetailDTO productNew, ProductsEntity productsEntity, ProductDescriptionEntity productDescriptionEntity, ContentEntity contentEntity) {
+        setDataProduct(productNew,productsEntity,productDescriptionEntity,contentEntity,1);
     }
     //hàm cập nhật sản phẩm
     @Override
-    public void updateProduct(ProductDetailDTO productUpdate, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity) {
-       setDataProduct(productUpdate,productsEntityById,productDescriptionEntity,2);
+    public void updateProduct(ProductDetailDTO productUpdate, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity) {
+       setDataProduct(productUpdate,productsEntityById,productDescriptionEntity,contentEntity,2);
     }
 
 
-    //CẦN CẢI TIẾN LOGIC VÀ TỐI ƯU HÓA CODE, GIẢM LƯỢNG CODE TRONG TƯƠNG LAI
-    //không đảm bảo khách hàng sẽ tìm kiếm theo các key chuẩn bị sẵn
+
     //Hàm tìm kiếm sản phẩm bằng key trên searchbar
     @Override
-    public List<Product_DisplayForHomePageDTO> findAllProductsByKey(Object key) {
-        // Chuyển đổi key thành chuỗi và tách giá trị cuối cùng
-        String[] parts = key.toString().trim().split(" ");
-        String columnValue = parts[parts.length - 1]; // Giá trị là phần cuối cùng
-        String columnName = String.join(" ", Arrays.copyOf(parts, parts.length - 1)).toLowerCase(); // Phần còn lại là tên cột
-        // Xây dựng truy vấn
-        String query = "SELECT p.ProductID , p.ProductName, p.Price, p.ImageURL " +
-                "FROM Products p " +
-                "JOIN ProductDescription pd ON p.ProductID = pd.ProductID " +
-                "JOIN Suppliers s ON p.SupplierID = s.SupplierID " +
-                "WHERE ";
+    public List<ProductDetailDTO> findAllProductsByKey(Object key) {
+        StringBuilder query = new StringBuilder("SELECT ProductID " +
+                " FROM Contens " +
+                "WHERE Content LIKE :key ");
+        Query queryNative = entityManager.createNativeQuery(query.toString());
+        queryNative.setParameter("key", "%"+key+"%");
+        List<Integer> listIdProductSearch = queryNative.getResultList();
 
-        // Thêm điều kiện tìm kiếm tương ứng với tên cột
-        switch (columnName) {
-            case "brand":
-                query += "LOWER(p.Brand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "hãng":
-                query += "LOWER(p.Brand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "model":
-                query += "LOWER(p.Model) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "mẫu":
-                query += "LOWER(p.Model) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "cpu technology":
-                query += "LOWER(pd.CPUtechnology) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "công nghệ cpu":
-                query += "LOWER(pd.CPUtechnology) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "cpu company":
-                query += "LOWER(pd.CPUcompany) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "công ty cung cấp cpu":
-                query += "LOWER(pd.CPUcompany) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "ram":
-                query += "LOWER(pd.RAMcapacity) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "dung lượng ram":
-                query += "LOWER(pd.RAMcapacity) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "color":
-                query += "LOWER(pd.Color) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "màu":
-                query += "LOWER(pd.Color) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "màu sắc":
-                query += "LOWER(pd.Color) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "material":
-                query += "LOWER(pd.Material) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "chất liệu":
-                query += "LOWER(pd.Material) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "làm bằng":
-                query += "LOWER(pd.Material) LIKE LOWER(CONCAT('%', :value, '%')) ";
-                break;
-            case "cpu type":
-                query += "LOWER(pd.CPUtype) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "kiểu cpu":
-                query += "LOWER(pd.CPUtype) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "Processor Cache":
-                query += "LOWER(pd.ProcessorCache) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "xử lý bộ nhớ tạm":
-                query += "LOWER(pd.ProcessorCache) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "vga brand":
-                query += "LOWER(pd.VGABrand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "hãng card đồ họa":
-                query += "LOWER(pd.VGABrand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "card đồ họa":
-                query += "LOWER(pd.VGABrand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "vga":
-                query += "LOWER(pd.VGABrand) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "ram speed":
-                query += "LOWER(pd.RAMspeed) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "ramspeed":
-                query += "LOWER(pd.RAMspeed) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "tốc độ ram":
-                query += "LOWER(pd.RAMspeed) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "number of onboard rAM":
-                query += "LOWER(pd.NumberOfOnboardRAM) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "số lượng khe ram tích hợp":
-                query += "LOWER(pd.NumberOfOnboardRAM) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            case "số khe ram":
-                query += "LOWER(pd.NumberOfOnboardRAM) LIKE LOWER(CONCAT('%',:value,'%')) ";
-                break;
-            default:
-                //nếu tên cột không hợp lệ, trả về danh sách rỗng hoặc thông báo lỗi
-                //nên trả về danh sách sản phẩm như ban đầu của trang chủ
-                return new ArrayList<>();
-        }
-        Query queryNative = entityManager.createNativeQuery(query);
-        queryNative.setParameter("value", columnValue);
-        List<Object[]> resultQuery = queryNative.getResultList();
-        List<Product_DisplayForHomePageDTO> productsEntityByNativeQuery = new ArrayList<>();
+        StringBuilder queryProduct = setQuery();
+        queryProduct.append(" AND p.productId in :listIdProductSearch ");
+        Query nativeQuery2 = entityManager.createNativeQuery(queryProduct.toString());
+        nativeQuery2.setParameter("listIdProductSearch", listIdProductSearch);
+        List<Object[]> resultQuery = nativeQuery2.getResultList();
+        List<ProductDetailDTO> listProductDetai = new ArrayList<>();
         for (Object[] rowOfResult : resultQuery) {
-            Product_DisplayForHomePageDTO dto = new Product_DisplayForHomePageDTO(
-                    (Integer) rowOfResult[0],
-                    (String) rowOfResult[1],
-                    (Float) rowOfResult[2],
-                    (String) rowOfResult[3]
-            );
-            productsEntityByNativeQuery.add(dto);
+            ProductDetailDTO dto = setConstructor(rowOfResult);
+            listProductDetai.add(dto);
         }
-        return productsEntityByNativeQuery;
+        return listProductDetai;
+
     }
 
     //thấy thông tin chi tiết danh sách các sản phẩm
@@ -235,7 +135,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
 
     //hàm set dữ liệu cho các biến
-    public void setDataProduct(ProductDetailDTO productNew, ProductsEntity productsEntity,ProductDescriptionEntity productDescriptionEntity,Integer task){
+    public void setDataProduct(ProductDetailDTO productNew, ProductsEntity productsEntity,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity,Integer task){
         // Kiểm tra nếu nhà cung cấp (Supplier) đã tồn tại trong cơ sở dữ liệu
         SuppliersEntity suppliersEntity = entityManager.find(SuppliersEntity.class, productNew.getSupplierId());
         // Nếu Supplier không tồn tại, có thể ném ra ngoại lệ hoặc xử lý khác
@@ -312,18 +212,22 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         productDescriptionEntity.setStorageInstructions(productNew.getStorageInstructions());
         productDescriptionEntity.setUserManual(productNew.getUserManual());
         productDescriptionEntity.setColor(productNew.getColor());
-        // Lưu đối tượng mô tả sản phẩm vào cơ sở dữ liệu
+
+        ContentEntity contentNew = contentConverter.toContentEntity(productNew,contentEntity);
+        contentNew.setProduct(productsEntity);
         //thêm mới
         if(task == 1){
             // Lưu cả sản phẩm và mô tả sản phẩm
             entityManager.persist(productsEntity);
             entityManager.persist(productDescriptionEntity);
+            entityManager.persist(contentNew);
         }
         //cập nhật
         else {
             // Lưu cả sản phẩm và mô tả sản phẩm
             entityManager.merge(productsEntity);
             entityManager.merge(productDescriptionEntity);
+            entityManager.merge(contentNew);
             // Flush để đảm bảo các thay đổi được đẩy vào cơ sở dữ liệu ngay lập tức
             entityManager.flush();
         }

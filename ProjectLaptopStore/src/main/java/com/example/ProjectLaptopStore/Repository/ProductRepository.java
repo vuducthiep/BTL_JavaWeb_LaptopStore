@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Transactional
-@Repository
 //sử dụng spring data jpa, và custom để lấy dữ liệu
 public interface ProductRepository extends JpaRepository<ProductsEntity,Integer>, ProductRepositoryCustom {
 //    List<ProductsEntity> findByProductNameContainingAndBrandContaining(String productName, String brand);

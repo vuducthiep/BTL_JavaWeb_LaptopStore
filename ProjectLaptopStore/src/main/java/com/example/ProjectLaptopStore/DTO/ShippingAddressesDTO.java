@@ -13,10 +13,10 @@ import lombok.experimental.FieldDefaults;
 @Builder
 public class ShippingAddressesDTO {
     int addressID;
-    int customerID;
     String address;
     String city;
     String district;
     String ward;
     String streetAddress;
+    String phoneNumber;
 }

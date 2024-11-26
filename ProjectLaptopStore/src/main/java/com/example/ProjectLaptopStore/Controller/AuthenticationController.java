@@ -67,7 +67,7 @@ public class AuthenticationController {
     JwtTokenUtil jwtTokenUtil;
 
     @PostMapping(value = "/token-valid")
-    public TokenValidDTO login(@RequestBody IntrospecTokenDTO token) throws ParseException, JOSEException {
+    public TokenValidDTO login(@RequestHeader("Authorization")String token) throws ParseException, JOSEException {
         var context = SecurityContextHolder.getContext();
         log.info(context.getAuthentication().getName());
         return jwtTokenUtil.validateToken(token);

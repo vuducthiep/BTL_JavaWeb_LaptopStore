@@ -167,7 +167,25 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         return listCustomerDTO;
 
     }
-
+    //sang fix hien thi
+//    @Override
+//    public List<CustomerDTO> getListCustomer() {
+//        StringBuilder query = new StringBuilder("Select u.UserID,c.CustomerID,u.FullName, u.Email, u.PhoneNumber \n" +
+//                "FROM Users u\n" +
+//                "JOIN Customers c ON u.UserID = c.UserID ");
+////        query.append(setQuery(" "," "));
+//        Query queryNative = entityManager.createNativeQuery(query.toString());
+//        List<Object[]> resultQuery = queryNative.getResultList();
+//        List<CustomerDTO> listCustomerDTO = new ArrayList<>();
+//        for(Object[] rowOfResult : resultQuery) {
+//            CustomerDTO dto = new CustomerDTO();
+//            dto.setFullName(rowOfResult[0].toString());
+//            dto.setEmail(rowOfResult[1].toString());
+//            dto.setPhoneNumber(rowOfResult[2].toString());
+//            listCustomerDTO.add(dto);
+//        }
+//        return listCustomerDTO;
+//    }
     @Override
     public List<CustomerDTO> getListCustomer() {
         StringBuilder query = new StringBuilder("Select ");

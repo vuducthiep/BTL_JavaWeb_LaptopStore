@@ -78,8 +78,8 @@ public class JwtTokenUtil {
     // Kiểm tra xem token có hợp lệ không (kiểm tra ngày hết hạn và chữ ký)
 
     // Kiểm tra token có hợp lệ không (không hết hạn và chữ ký đúng)
-    public TokenValidDTO validateToken(IntrospecTokenDTO token) throws JOSEException, ParseException {
-        var tk = token.getToken();
+    public TokenValidDTO validateToken(String token) throws JOSEException, ParseException {
+        var tk = token;
         JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
         SignedJWT signedJWT = SignedJWT.parse(tk);
         Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
@@ -102,6 +102,13 @@ public class JwtTokenUtil {
     public int getCartID(String token) {
         try {
             return extractClaims(token).get("id-cart", Integer.class);
+        } catch (SignatureException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getUserID(String token) {
+        try {
+            return extractClaims(token).get("id-user", Integer.class);
         } catch (SignatureException e) {
             throw new RuntimeException(e);
         }
@@ -131,6 +138,7 @@ public class JwtTokenUtil {
                 .claim("scope",role)
                 .claim("id-customer",id)
                 .claim("id-cart",cart.getCartID())
+                .claim("id-user",user.getUserID())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
