@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
 import com.nimbusds.jose.JOSEException;
 import org.springframework.data.domain.Page;
 
@@ -28,4 +29,6 @@ public interface UserService {
 
     // phan trang user
     Page<User_DTO> searchUser(int page, int size);
+
+    User_HomeResponseDTO userHomePage(String keyword);
 }

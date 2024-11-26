@@ -1,11 +1,17 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.UserAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.UserNotFoundException;
 import com.example.ProjectLaptopStore.Repository.UserRepository;
+import com.example.ProjectLaptopStore.Response.User_HomeResponseDTO;
+import com.example.ProjectLaptopStore.Service.ProductDescriptionService;
+import com.example.ProjectLaptopStore.Service.ProductService;
+import com.example.ProjectLaptopStore.Service.SuppliersService;
 import com.example.ProjectLaptopStore.Service.UserService;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.MACSigner;
@@ -19,6 +25,7 @@ import lombok.experimental.NonFinal;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -37,12 +44,22 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Component
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal=true)
 public class UserServiceImpl implements UserService {
+    @Autowired
+    private ProductDescriptionService productDescriptionService;
+
+    @Autowired
+    private SuppliersService suppliersService;
+
+
+    @Autowired
+    private ProductService productService;
 
     private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     UserRepository userRepository;
@@ -164,6 +181,39 @@ public class UserServiceImpl implements UserService {
         }
         Page<User_DTO> userDTOPage = new PageImpl<>(userDTOs);
         return userDTOPage;
+    }
+
+    @Override
+    public User_HomeResponseDTO userHomePage(String keyword) {
+        User_HomeResponseDTO homeInfor = new User_HomeResponseDTO();
+        try {
+            // Nếu keyword không được cung cấp (null), thì không thực hiện tìm kiếm sản phẩm
+            if (keyword != null || keyword != "") {
+                List<ProductDetailDTO> findProducsByKeyWord = productService.listSearchProductByKey(keyword);
+                homeInfor.setFindProductByKeyword(findProducsByKeyWord);
+                if(homeInfor.getFindProductByKeyword()==null || homeInfor.getFindProductByKeyword().isEmpty()){
+                    List<ProductDetailDTO> getProductForHomePage = productService.listProductDetail();
+                    homeInfor.setGetProductForHomePage(getProductForHomePage);
+                }
+            }
+            Map<Integer,String> getSuppliersCheckboxBtn = suppliersService.getSupplierForCheckbox();
+            Map<String,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
+            Map<String,String> getCPUTechnologyCheckbox = productDescriptionService.getCPUTechnologyForCheckbox();
+            Map<Integer,Integer> getRamCapacityCheckbox = productDescriptionService.getRamCapacityForCheckbox();
+            Map<String,String> getHardDriveCheckbox = productDescriptionService.getHardDriveForCheckbox();
+            Map<String,String> getCustomerDemandCheckbox = ProDescription_FindByUserDemand_Enum.typeUserDemand();
+            Map<String,String> getScreenSizeCheckbox = productDescriptionService.getScreensizeForCheckbox();
+            homeInfor.setGetSuppliersForCheckboxAndBtn(getSuppliersCheckboxBtn);
+            homeInfor.setGetPriceProductForCheckbox(getPriceCheckbox);
+            homeInfor.setGetCPUForCheckbox(getCPUTechnologyCheckbox);
+            homeInfor.setGetRamForCheckbox(getRamCapacityCheckbox);
+            homeInfor.setGetHardDriveForCheckbox(getHardDriveCheckbox);
+            homeInfor.setGetCustomerDemandForCheckBox(getCustomerDemandCheckbox);
+            homeInfor.setGetScreenSizeForCheckbox(getScreenSizeCheckbox);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return homeInfor;
     }
 
     // tao token

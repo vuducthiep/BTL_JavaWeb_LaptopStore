@@ -12,7 +12,7 @@ public class User_HomeResponseDTO {
     private List<ProductDetailDTO> findProductByKeyword;
     private List<ProductDetailDTO> getProductForHomePage;
     private Map<Integer,String> getSuppliersForCheckboxAndBtn;
-    private Map<List<Integer>,String> getPriceProductForCheckbox;
+    private Map<String,String> getPriceProductForCheckbox;
     private Map<String,String> getCPUForCheckbox;
     private Map<Integer,Integer> getRamForCheckbox;
     private Map<String,String> getHardDriveForCheckbox;
@@ -21,16 +21,16 @@ public class User_HomeResponseDTO {
 
     public User_HomeResponseDTO() {
     }
-//
-//    public User_HomeResponseDTO(List<Product_DisplayForHomePageDTO> findProductByKeyword, List<Product_DisplayForHomePageDTO> getProductForHomePage, Map<Integer, String> getSuppliersForCheckboxAndBtn, Map<List<Integer>, String> getPriceProductForCheckbox, Map<String, String> getCPUForCheckbox, Map<Integer, Integer> getRamForCheckbox, Map<String, String> getHardDriveForCheckbox, Map<String, String> getCustomerDemandForCheckBox, Map<String, String> getScreenSizeForCheckbox) {
-//        this.findProductByKeyword = findProductByKeyword;
-//        this.getProductForHomePage = getProductForHomePage;
-//        this.getSuppliersForCheckboxAndBtn = getSuppliersForCheckboxAndBtn;
-//        this.getPriceProductForCheckbox = getPriceProductForCheckbox;
-//        this.getCPUForCheckbox = getCPUForCheckbox;
-//        this.getRamForCheckbox = getRamForCheckbox;
-//        this.getHardDriveForCheckbox = getHardDriveForCheckbox;
-//        this.getCustomerDemandForCheckBox = getCustomerDemandForCheckBox;
-//        this.getScreenSizeForCheckbox = getScreenSizeForCheckbox;
-//    }
+
+    public User_HomeResponseDTO(List<ProductDetailDTO> findProductByKeyword, List<ProductDetailDTO> getProductForHomePage, Map<Integer, String> getSuppliersForCheckboxAndBtn, Map<String, String> getPriceProductForCheckbox, Map<String, String> getCPUForCheckbox, Map<Integer, Integer> getRamForCheckbox, Map<String, String> getHardDriveForCheckbox, Map<String, String> getCustomerDemandForCheckBox, Map<String, String> getScreenSizeForCheckbox) {
+        this.findProductByKeyword = findProductByKeyword;
+        this.getProductForHomePage = getProductForHomePage;
+        this.getSuppliersForCheckboxAndBtn = getSuppliersForCheckboxAndBtn;
+        this.getPriceProductForCheckbox = getPriceProductForCheckbox;
+        this.getCPUForCheckbox = getCPUForCheckbox;
+        this.getRamForCheckbox = getRamForCheckbox;
+        this.getHardDriveForCheckbox = getHardDriveForCheckbox;
+        this.getCustomerDemandForCheckBox = getCustomerDemandForCheckBox;
+        this.getScreenSizeForCheckbox = getScreenSizeForCheckbox;
+    }
 }
