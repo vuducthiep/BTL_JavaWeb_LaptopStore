@@ -228,7 +228,7 @@ public class UserController {
 
     //API tao don hang moi
     @PutMapping(value = "/user/mycart/create-order")
-    public ResponseEntity<?> createOrder(@RequestBody List<OrderDTO> dto,
+    public ResponseEntity<?> createOrder(@RequestBody OrderDTO dto,
                                          @RequestHeader("Authorization")String authorization){
         String token = authorization.substring("Bearer ".length());
         try {

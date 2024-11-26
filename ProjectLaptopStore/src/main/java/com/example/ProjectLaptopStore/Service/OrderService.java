@@ -20,5 +20,5 @@ public interface OrderService {
     // lay danh sach order theo customerID
     List<OrderDTO> getListOrderByCustomerID(int customerID);
 
-    void createOrder(List<OrderDTO> orderDTO,int id);
+    void createOrder(OrderDTO dto,int id);
 }
