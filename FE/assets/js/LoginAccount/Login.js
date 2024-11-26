@@ -1,12 +1,11 @@
 async function login(event) {
-  event.preventDefault(); // Ngăn form gửi yêu cầu mặc định
+  event.preventDefault(); 
 
-  // Lấy dữ liệu từ form
   const username = document.getElementById("loGin").value;
   const password = document.getElementById("passWord").value;
 
   try {
-    // Gửi yêu cầu POST đến API
+   
     const response = await fetch("http://localhost:8080/login", {
       method: "POST",
       headers: {
@@ -23,9 +22,8 @@ async function login(event) {
 
     // Kiểm tra trạng thái đăng nhập
     if (data.status) {
-      alert("Đăng nhập thành công!"); // Thông báo đăng nhập thành công
+      alert("Đăng nhập thành công!"); 
 
-      // In ra token
       console.log("Token nhận được từ server:", data.token);
 
       // Lưu token vào localStorage

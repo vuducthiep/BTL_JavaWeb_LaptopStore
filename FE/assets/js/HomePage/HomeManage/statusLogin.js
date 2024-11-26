@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.removeItem('id-cart')
         isLoggedIn = false;
         console.log('Token khi tao đã đăng xuất',localStorage.getItem('authToken'))
-        updateMenu(); // Cập nhật lại giao diện
+        updateMenu(); 
     });
 
     // Gọi hàm để cập nhật giao diện ngay khi trang load
