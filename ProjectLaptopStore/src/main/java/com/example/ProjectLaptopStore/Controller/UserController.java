@@ -233,4 +233,17 @@ public class UserController {
         orderService.createOrder(dto,customerID);
         return ResponseEntity.ok("Order created successfully");
     }
+
+    @PostMapping(value = "/user/mycart/addition-quantity")
+    public ResponseEntity<?> additionQuantity(@RequestParam("cartDetailID")int cartDetailID){
+            cartDetailService.additionQuantity(cartDetailID);
+            return ResponseEntity.ok("Addition quantity added successfully");
+    }
+
+    @PostMapping(value = "/user/mycart/subtraction-quantity")
+    public ResponseEntity<?> subtractionQuantity(@RequestParam("cartDetailID")int cartDetailID){
+        cartDetailService.subtractionQuantity(cartDetailID);
+        return ResponseEntity.ok("Subtraction quantity subtraction successfully");
+    }
+
 }

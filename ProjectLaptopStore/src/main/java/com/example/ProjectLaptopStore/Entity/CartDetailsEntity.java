@@ -21,7 +21,7 @@ public class CartDetailsEntity implements Serializable {
     private Integer quantity;
     @Column(name = "Price",precision = 10,scale = 2,nullable = false)
     private BigDecimal price;
-    @Column(name = "LineTotal",precision = 10,scale = 2)
+    @Column(name = "LineTotal",precision = 10,scale = 2,insertable = false,updatable = false,nullable = false)
     private BigDecimal lineTotal;
     @ManyToOne
     @JoinColumn(name = "ProductID")

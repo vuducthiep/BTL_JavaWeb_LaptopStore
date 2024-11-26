@@ -7,12 +7,14 @@ import com.example.ProjectLaptopStore.Repository.CartDetailRepository;
 import com.example.ProjectLaptopStore.Service.CartDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class CartDetailServiceImpl implements CartDetailService {
 
     @Autowired
@@ -50,5 +52,31 @@ public class CartDetailServiceImpl implements CartDetailService {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @Override
+    public void additionQuantity(int cartDetailID) {
+        CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(cartDetailID).orElse(null);
+        if (cartDetailsEntity != null) {
+            int quantity = cartDetailsEntity.getQuantity() + 1;
+            cartDetailsEntity.setQuantity(quantity);
+//            BigDecimal q = new BigDecimal(quantity);
+//            cartDetailsEntity.setLineTotal(q.multiply(cartDetailsEntity.getPrice()));
+            cartDetailRepository.save(cartDetailsEntity);
+        }
+        else throw new RuntimeException("cart detail not found");
+    }
+
+    @Override
+    public void subtractionQuantity(int cartDetailID) {
+        CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(cartDetailID).orElse(null);
+        if (cartDetailsEntity != null) {
+            int quantity = cartDetailsEntity.getQuantity() - 1;
+            cartDetailsEntity.setQuantity(quantity);
+//            BigDecimal q = new BigDecimal(quantity);
+//            cartDetailsEntity.setLineTotal(q.multiply(cartDetailsEntity.getPrice()));
+            cartDetailRepository.save(cartDetailsEntity);
+        }
+        else throw new RuntimeException("cart detail not found");
     }
 }

@@ -11,4 +11,8 @@ public interface CartDetailService {
 
     //xoa cartdetail
     void deleteCartDetail(int cartDetailID);
+
+    void additionQuantity(int cartDetailID);
+
+    void subtractionQuantity(int cartDetailID);
 }
