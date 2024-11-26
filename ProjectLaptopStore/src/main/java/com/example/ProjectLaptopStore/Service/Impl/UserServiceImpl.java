@@ -254,6 +254,7 @@ public class UserServiceImpl implements UserService {
                     homeInfor.setGetProductForHomePage(getProductForHomePage);
                 }
             }
+            List<Product_FindTopPurchasedProductsDTO> listOutstandingProduct = productService.findTopPurchasedProductAtService();
             Map<Integer,String> getSuppliersCheckboxBtn = suppliersService.getSupplierForCheckbox();
             Map<String,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
             Map<String,String> getCPUTechnologyCheckbox = productDescriptionService.getCPUTechnologyForCheckbox();
@@ -261,6 +262,7 @@ public class UserServiceImpl implements UserService {
             Map<String,String> getHardDriveCheckbox = productDescriptionService.getHardDriveForCheckbox();
             Map<String,String> getCustomerDemandCheckbox = ProDescription_FindByUserDemand_Enum.typeUserDemand();
             Map<String,String> getScreenSizeCheckbox = productDescriptionService.getScreensizeForCheckbox();
+            homeInfor.setGetOutstandingProducts(listOutstandingProduct);
             homeInfor.setGetSuppliersForCheckboxAndBtn(getSuppliersCheckboxBtn);
             homeInfor.setGetPriceProductForCheckbox(getPriceCheckbox);
             homeInfor.setGetCPUForCheckbox(getCPUTechnologyCheckbox);

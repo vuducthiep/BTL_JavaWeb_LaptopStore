@@ -67,7 +67,6 @@ public class UserController {
     public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
         User_HomeResponseDTO result = userService.userHomePage(keyword);
         return result;
-
     }
 
     // hien thi thong tin ca nhan
