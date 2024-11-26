@@ -13,10 +13,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   // Lấy dữ liệu sản phẩm từ API
-  fetch('http://localhost:3000/products')
+  fetch('http://localhost:8080/user/home/')
     .then(response => response.json())
     .then(data => {
-      let allProducts = data;
+      let allProducts = data.getProductForHomePage;
+      console.log(allProducts)
       window.CurrentProduct=allProducts;
       displayFeaturedProducts(allProducts);
 
@@ -33,16 +34,16 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('featured-item');
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.ProductID}">
+        <a class="product-link" href="product-details.html?id=${product.productId}">
           <div class="product-image">
-            <img src="${product.ImageURL}" alt="${product.ProductName}">
+            <img src="${product.imageUrl}" alt="${product.productName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.ProductName}</h3>
-            <p class="product-price">Giá: ${(product.Price * 1000000).toLocaleString('vi-VN')} VND</p>
+            <h3 class="product-title">${product.productName}</h3>
+            <p class="product-price">Giá: ${(product.price * 1000000).toLocaleString('vi-VN')} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+        <button class="compare-btn" onclick="addToCompare(${product.productId})">
           <div class="icon-circle">
             <i class="fas fa-plus"></i>
           </div>
@@ -61,16 +62,16 @@ document.addEventListener('DOMContentLoaded', function () {
       const productDiv = document.createElement('div');
       productDiv.classList.add('product-item');
       productDiv.innerHTML = `
-        <a class="product-link" href="product-details.html?id=${product.ProductID}">
+        <a class="product-link" href="product-details.html?id=${product.productId}">
           <div class="product-image">
-            <img src="${product.ImageURL}" alt="${product.ProductName}">
+            <img src="${product.imageUrl}" alt="${product.productName}">
           </div>
           <div class="product-info">
-            <h3 class="product-title">${product.ProductName}</h3>
-            <p class="product-price">Giá: ${(product.Price * 1000000).toLocaleString('vi-VN')} VND</p>
+            <h3 class="product-title">${product.productName}</h3>
+            <p class="product-price">Giá: ${(product.price * 1000000).toLocaleString('vi-VN')} VND</p>
           </div>
         </a>
-        <button class="compare-btn" onclick="addToCompare(${product.ProductID})">
+        <button class="compare-btn" onclick="addToCompare(${product.productId})">
           <div class="icon-circle">
             <i class="fas fa-plus"></i>
           </div>
