@@ -15,4 +15,6 @@ public interface ProductRepository extends JpaRepository<ProductsEntity,Integer>
     void deleteByProductIDIn(Long[] ids);
     List<ProductsEntity> findTop30ByOrderByReleaseDateDesc();
 //    List<ProductsEntity> findByProductIDIn(Long[] ids);
+    //hàm ấy các brand tồn tại
+
 }

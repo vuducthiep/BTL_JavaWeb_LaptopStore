@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -127,6 +129,17 @@ public class ProductServiceImpl implements ProductService {
             e.printStackTrace();
         }
         return result;
+    }
+
+    //hàm lấy nhà cung cấp cho checkbox homepage
+    @Override
+    public Map<Integer, String> getBrandForCheckbox() {
+        Map<Integer,String> productMap = new HashMap<>();
+        List<ProductsEntity> productsEntities = productRepository.findAll();
+        for (ProductsEntity productItem : productsEntities) {
+            productMap.put(productItem.getProductID(),productItem.getBrand());
+        }
+        return productMap;
     }
 
 

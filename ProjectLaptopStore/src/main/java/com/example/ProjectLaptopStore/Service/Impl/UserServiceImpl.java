@@ -242,7 +242,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User_HomeResponseDTO userHomePage(String keyword) {
+    public User_HomeResponseDTO userHomePage(Object keyword) {
         User_HomeResponseDTO homeInfor = new User_HomeResponseDTO();
         try {
             // Nếu keyword không được cung cấp (null), thì không thực hiện tìm kiếm sản phẩm
@@ -255,7 +255,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
             List<Product_FindTopPurchasedProductsDTO> listOutstandingProduct = productService.findTopPurchasedProductAtService();
-            Map<Integer,String> getSuppliersCheckboxBtn = suppliersService.getSupplierForCheckbox();
+            Map<Integer,String> getBrandCheckboxBtn = productService.getBrandForCheckbox();
             Map<String,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
             Map<String,String> getCPUTechnologyCheckbox = productDescriptionService.getCPUTechnologyForCheckbox();
             Map<Integer,Integer> getRamCapacityCheckbox = productDescriptionService.getRamCapacityForCheckbox();
@@ -263,7 +263,7 @@ public class UserServiceImpl implements UserService {
             Map<String,String> getCustomerDemandCheckbox = ProDescription_FindByUserDemand_Enum.typeUserDemand();
             Map<String,String> getScreenSizeCheckbox = productDescriptionService.getScreensizeForCheckbox();
             homeInfor.setGetOutstandingProducts(listOutstandingProduct);
-            homeInfor.setGetSuppliersForCheckboxAndBtn(getSuppliersCheckboxBtn);
+            homeInfor.setGetSuppliersForCheckboxAndBtn(getBrandCheckboxBtn);
             homeInfor.setGetPriceProductForCheckbox(getPriceCheckbox);
             homeInfor.setGetCPUForCheckbox(getCPUTechnologyCheckbox);
             homeInfor.setGetRamForCheckbox(getRamCapacityCheckbox);

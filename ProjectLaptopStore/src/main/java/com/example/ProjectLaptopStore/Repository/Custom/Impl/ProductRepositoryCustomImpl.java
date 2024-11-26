@@ -4,10 +4,13 @@ import com.example.ProjectLaptopStore.Convert.ContentConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
 import com.example.ProjectLaptopStore.Entity.ContentEntity;
+import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Repository.Custom.ProductRepositoryCustom;
+import com.example.ProjectLaptopStore.Repository.ProductRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
@@ -23,6 +26,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static org.apache.el.lang.ELArithmetic.isNumber;
+
 //sử dụng JDBC để lấy dữ liệu
 @Repository
 @Transactional
@@ -31,6 +36,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     private ContentConverter contentConverter;
     @PersistenceContext
     private EntityManager entityManager;
+
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
     @Override
     public List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered() {
@@ -83,25 +89,22 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     //Hàm tìm kiếm sản phẩm bằng key trên searchbar
     @Override
     public List<ProductDetailDTO> findAllProductsByKey(Object key) {
-        StringBuilder query = new StringBuilder("SELECT ProductID " +
-                " FROM Contens " +
-                "WHERE Content LIKE :key ");
-        Query queryNative = entityManager.createNativeQuery(query.toString());
-        queryNative.setParameter("key", "%"+key+"%");
-        List<Integer> listIdProductSearch = queryNative.getResultList();
-
-        StringBuilder queryProduct = setQuery();
-        queryProduct.append(" AND p.productId in :listIdProductSearch ");
-        Query nativeQuery2 = entityManager.createNativeQuery(queryProduct.toString());
-        nativeQuery2.setParameter("listIdProductSearch", listIdProductSearch);
-        List<Object[]> resultQuery = nativeQuery2.getResultList();
-        List<ProductDetailDTO> listProductDetai = new ArrayList<>();
+        StringBuilder queryCheck = checkKey(key);
+        if(queryCheck == null) {
+        return findByKeyWord(key);
+        }
+        Query nativeQuery = entityManager.createNativeQuery(queryCheck.toString());
+        if(queryCheck.toString().contains(":keyInt")){
+            Integer keyInt = Integer.parseInt((String) key);
+            nativeQuery.setParameter("keyInt", keyInt);
+        }
+        List<Object[]> resultQuery = nativeQuery.getResultList();
+        List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
         for (Object[] rowOfResult : resultQuery) {
             ProductDetailDTO dto = setConstructor(rowOfResult);
-            listProductDetai.add(dto);
+            listProductDetailDTO.add(dto);
         }
-        return listProductDetai;
-
+        return listProductDetailDTO;
     }
 
     //thấy thông tin chi tiết danh sách các sản phẩm
@@ -133,7 +136,36 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return productDetai;
     }
 
-
+    public StringBuilder checkKey(Object key){
+//        if(isNumber(key))
+        if(isNumber(key)){
+            StringBuilder query = setQuery();
+            query.append(" AND p.productId = :keyInt ");
+            return query;
+        }
+        for(String item : ProDescription_FindByUserDemand_Enum.toList()){
+            StringBuilder query = setQuery();
+            if(item.equals(key)){
+                if(key.equals("GAMING_DOHOA")) {
+                    query.append(" AND pd.vgaBrand like '%NVIDIA%'  ");
+                    return query;
+                }
+                if(key.equals("SINHVIEN_VANPHONG")) {
+                    query.append(" AND p.price <= 15000  ");
+                    return query;
+                }
+                if(key.equals("MONGNHE")) {
+                    query.append(" AND pd.productWeight < 1.50  ");
+                    return query;
+                }
+                if(key.equals("DOANHNHAN")) {
+                    query.append(" AND p.price > 15000 ");
+                    return query;
+                }
+            }
+        }
+        return null;
+    }
     //hàm set dữ liệu cho các biến
     public void setDataProduct(ProductDetailDTO productNew, ProductsEntity productsEntity,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity,Integer task){
         // Kiểm tra nếu nhà cung cấp (Supplier) đã tồn tại trong cơ sở dữ liệu
@@ -384,7 +416,26 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         );
         return dto;
     }
-
+    //hàm tìm kiếm bằng keyword ở searchbar
+    public List<ProductDetailDTO> findByKeyWord(Object key){
+        StringBuilder query = new StringBuilder("SELECT ProductID " +
+                " FROM Contens " +
+                "WHERE Content LIKE :key ");
+        Query queryNative = entityManager.createNativeQuery(query.toString());
+        queryNative.setParameter("key", "%"+key+"%");
+        List<Integer> listIdProductSearch = queryNative.getResultList();
+        StringBuilder queryProduct = setQuery();
+        queryProduct.append(" AND p.productId in :listIdProductSearch ");
+        Query nativeQuery2 = entityManager.createNativeQuery(queryProduct.toString());
+        nativeQuery2.setParameter("listIdProductSearch", listIdProductSearch);
+        List<Object[]> resultQuery = nativeQuery2.getResultList();
+        List<ProductDetailDTO> listProductDetai = new ArrayList<>();
+        for (Object[] rowOfResult : resultQuery) {
+            ProductDetailDTO dto = setConstructor(rowOfResult);
+            listProductDetai.add(dto);
+        }
+        return listProductDetai;
+    }
 
 // phan trang product
 //    @Override

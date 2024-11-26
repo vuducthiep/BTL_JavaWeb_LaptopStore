@@ -5,6 +5,7 @@ import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService();
@@ -17,4 +18,5 @@ public interface ProductService {
     Admin_ProductResponseDTO adminProduct();
     ProductDetailDTO getProductById(Integer id);
     Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct);
+    Map<Integer,String> getBrandForCheckbox();
 }
