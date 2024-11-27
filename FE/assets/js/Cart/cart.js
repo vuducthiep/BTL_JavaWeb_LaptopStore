@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //sẽ thay đổi sau
     // localStorage.setItem('authToken', token);
 
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTIyMzM0NDU1IiwiaWQtY3VzdG9tZXIiOjEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MSwiZXhwIjoxNzMyNjI4NDkwLCJpYXQiOjE3MzI2MjQ4OTB9.Tegm7Tt8AGD9olLV_T3DqC_DUh3vFQ6S2LJFPXzW0sm1UdynLY2COwuf0hjXhMNSPzjaN24DOQRyPMWeq3SEOA';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjMxMTE3ODkiLCJpZC1jdXN0b21lciI6MTEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MTEsImV4cCI6MTczMjY5NDQ1OCwiaWF0IjoxNzMyNjkwODU4LCJpZC11c2VyIjoyMn0.5MT20DyaiKayTdgqehGfHO5VXMDTLEOFNnLIzlQnQSzOusxb4cuNx_PeQFDBDhDyef1nmvw2gDOG049sdIWZFw';
     //lay dia chi
     fetch('http://localhost:8080/user/shipping-address', {
         method: 'GET', // Phương thức yêu cầu
@@ -158,6 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = ''; // Clear table
         products.forEach((product, index) => {
             const row = document.createElement('tr');
+            row.classList.add('product-row'); // Thêm class 'product-row'
+            row.dataset.cartDetailID = product.cartDetailID; // Lưu ID sản phẩm vào dataset
             row.innerHTML = `
                 <td><input type="checkbox" class="product-checkbox"></td>
                 <td>${index + 1}</td>
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="number" value="1" min="1" class="quantity-input">
                     <button class="quantity-btn increase">+</button>
                 </td>
-                <td class="item-total">${product.price.toLocaleString()} VNĐ</td>
+                <td class="item-total">${product.price.toLocaleString()} USD</td>
                 <td>
                     <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
                 </td>
@@ -244,7 +246,7 @@ function removeCartDetail(cartDetailID, token) {
         .then(data => {
             console.log(data);
             alert('Đã xóa thành công');
-            // Cập nhật lại giao diện, ví dụ xóa dòng trong bảng
+            // Cập nhật  lại giao diện, ví dụ xóa dòng trong bảng
             const rowToRemove = document.querySelector(`[data-id='${cartDetailID}']`).closest('tr');
             rowToRemove.remove();  // Xóa dòng trong bảng
         })

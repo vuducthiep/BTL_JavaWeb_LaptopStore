@@ -5,16 +5,18 @@ import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ProductService {
     List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService();
     void createNewProduct(ProductDetailDTO productCreate);
     void updateProduct(ProductDetailDTO productUpdate);
     void deleteProduct(Long[] ids);
-    List<ProductDetailDTO> listSearchProductByKey(Object key);
+    List<ProductDetailDTO> listSearchProductByKey(String key);
     List<ProductDetailDTO> listProductForHomePage();
     List<ProductDetailDTO> listProductDetail();
     Admin_ProductResponseDTO adminProduct();
-    ProductDetailDTO getProductById(Integer id);
-    Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct);
+    List<ProductDetailDTO> getProductById(List<Integer>  ids);
+    Admin_ProductDetailResponseDTO adminProductDetail(List<Integer>  idProducts);
+    Map<Integer,String> getBrandForCheckbox();
 }

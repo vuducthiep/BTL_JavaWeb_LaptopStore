@@ -12,8 +12,9 @@ public interface ProductRepositoryCustom {
     List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered();
     void createProduct(ProductDetailDTO productNew, ProductsEntity productsEntity, ProductDescriptionEntity productDescriptionEntity, ContentEntity contentEntity);
     void updateProduct(ProductDetailDTO updateProductDTO, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity);
-    List<ProductDetailDTO> findAllProductsByKey(Object key);
+    List<ProductDetailDTO> findAllProductsByKey(String key);
     List<ProductDetailDTO> listProductDetail();
-    ProductDetailDTO getOneProductDetail(Integer id);
+    List<ProductDetailDTO> getOneProductDetail(List<Integer>  id);
+
 //    Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize);
 }
