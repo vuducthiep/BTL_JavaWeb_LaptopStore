@@ -20,9 +20,13 @@ import io.jsonwebtoken.Jwts;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -35,6 +39,7 @@ import java.util.Map;
 //@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private ProductDescriptionService productDescriptionService;
     @Autowired
@@ -53,6 +58,8 @@ public class UserController {
     JwtTokenUtil jwtTokenUtil;
     @Autowired
     CartDetailService cartDetailService;
+
+
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
     public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
@@ -79,13 +86,14 @@ public class UserController {
 
     // API cap nhat thong tin user
     @PostMapping(value = "/user/update-infor")
-    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto,
-                                        @RequestHeader("Authorization") String authorization){
-        String token = authorization.substring("Bearer ".length());
-        int userID = jwtTokenUtil.getUserID(token);
+    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        int userID = userDetails.getId_User();
         userService.updateUser(dto,userID);
         return ResponseEntity.ok("User updated successfully");
     }
+
 
 
     //API hien thi danh sach order
