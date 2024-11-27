@@ -85,8 +85,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
        setDataProduct(productUpdate,productsEntityById,productDescriptionEntity,contentEntity,2);
     }
 
-
-
     //Hàm tìm kiếm sản phẩm bằng key trên searchbar
     @Override
     public List<ProductDetailDTO> findAllProductsByKey(String key) {
@@ -97,8 +95,6 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             System.out.println("key khong phai so");;
         }
         StringBuilder queryCheck = checkKey(key,keyTransfered);
-
-
         if(queryCheck == null) {
         return findByKeyWord(key);
         }
@@ -132,22 +128,24 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     }
 
     @Override
-    public ProductDetailDTO getOneProductDetail(Integer idProduct) {
+    public List<ProductDetailDTO> getOneProductDetail(List<Integer> idProducts) {
         StringBuilder query = setQuery();
-        query.append(" AND p.productId = :idProduct ");
+        query.append(" AND p.productId in (:idProducts) ");
+
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
-        nativeQuery.setParameter("idProduct", idProduct);
+        nativeQuery.setParameter("idProducts", idProducts);
+
         List<Object[]> resultQuery = nativeQuery.getResultList();
-        ProductDetailDTO productDetai = new ProductDetailDTO();
+        List<ProductDetailDTO> productDetai = new ArrayList<>();
+
         for (Object[] rowOfResult : resultQuery) {
-            productDetai = setConstructor(rowOfResult);
+            ProductDetailDTO product = setConstructor(rowOfResult);
+            productDetai.add(product);
         }
         return productDetai;
     }
 
     public StringBuilder checkKey(Object key,Integer keyTransfered){
-//        if(isNumber(key))
-
         if(keyTransfered!=null){
             StringBuilder query = setQuery();
             query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = :keyInt) ");

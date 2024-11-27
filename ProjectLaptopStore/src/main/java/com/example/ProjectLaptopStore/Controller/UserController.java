@@ -37,33 +37,22 @@ import java.util.Map;
 public class UserController {
     @Autowired
     private ProductDescriptionService productDescriptionService;
-
     @Autowired
     private SuppliersService suppliersService;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private ProductService productService;
-
-
     @Autowired
     OrderService orderService;
-
     @Autowired
     OrderDetailService orderDetailService;
-
     @Autowired
     private ShippingAddressesService shippingAddressesService;
-
     @Autowired
     JwtTokenUtil jwtTokenUtil;
-
     @Autowired
     CartDetailService cartDetailService;
-
-
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
     public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
@@ -71,6 +60,16 @@ public class UserController {
         return result;
     }
 
+    //API lấy thông tin sản phẩm chi tiết
+    @GetMapping(value = "/user/product")
+    public List<ProductDetailDTO> getProductDetail(@RequestParam List<Integer>  id){
+        return productService.getProductById(id);
+    }
+    //API lấy thông tin sản phẩm  để so sánh
+    @GetMapping(value = "/user/compare")
+    public List<ProductDetailDTO> getProductDetailCompare(@RequestParam List<Integer>  ids){
+        return productService.getProductById(ids);
+    }
     // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
     public User_DTO getMyInfor(){

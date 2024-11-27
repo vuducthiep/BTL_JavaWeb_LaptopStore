@@ -10,6 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Admin_ProductDetailResponseDTO {
-    ProductDetailDTO productDetail;
+    List<ProductDetailDTO> productDetail;
     List<SuppliersEntity> listSupplier;
 }
