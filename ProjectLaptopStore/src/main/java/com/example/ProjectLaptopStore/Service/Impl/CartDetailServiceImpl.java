@@ -21,6 +21,7 @@ public class CartDetailServiceImpl implements CartDetailService {
     CartDetailRepository cartDetailRepository;
 
 
+    // lay ra danh sach cartdetail ra gio hang
     @Override
     public List<CartDetailDTO> getAllCartDetails(int cartID) {
         List<Object[]> objects = cartDetailRepository.getListCartDetail(cartID);
@@ -39,6 +40,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         return rs;
     }
 
+    // xoa cartdetail
     @Override
     public void deleteCartDetail(int cartDetailID) {
         CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(cartDetailID).orElse(null);
@@ -54,6 +56,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         }
     }
 
+    // cap nhat so luong va so tien trong DB
     @Override
     public void additionQuantity(int cartDetailID) {
         CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(cartDetailID).orElse(null);
@@ -67,6 +70,7 @@ public class CartDetailServiceImpl implements CartDetailService {
         else throw new RuntimeException("cart detail not found");
     }
 
+    // cap nhat so luong va so tien trong DB
     @Override
     public void subtractionQuantity(int cartDetailID) {
         CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(cartDetailID).orElse(null);

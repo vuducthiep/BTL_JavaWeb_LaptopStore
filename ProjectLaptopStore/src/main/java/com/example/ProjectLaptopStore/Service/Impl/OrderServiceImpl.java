@@ -1,10 +1,7 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.Convert.Order_TotalAmountInMonthDTOConverter;
-import com.example.ProjectLaptopStore.DTO.OrderDTO;
-import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
-import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
-import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Entity.*;
 import com.example.ProjectLaptopStore.Entity.Enum.OrderStatus_Enum;
 import com.example.ProjectLaptopStore.Repository.*;
@@ -65,8 +62,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     CartDetailRepository CartDetailRepository;
+
     @Autowired
     private CartDetailRepository cartDetailRepository;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -124,53 +123,60 @@ public class OrderServiceImpl implements OrderService {
         return dto;
     }
 
+
     @Override
-    public void createOrder(List<OrderDTO> orderDTO,int id) {
-        if(orderDTO.size() == 0){
+    public void createOrder(OrderDTO dto,int id) {
+
+        // kiem tra neu khong co san pham trong gio hang thi Exception
+        if(dto.getOrderDetails().size() == 0){
             throw new RuntimeException("Create Order Failed");
         }
+        // tim kiem customer voi ID de them order
         CustomerEntity c = customerRepository.findById(id).orElse(null);
+
+        // neu customer khong tim thay => Exception
         if(c == null){
             throw new RuntimeException("Create Order Failed");
         }
-        for (OrderDTO order : orderDTO) {
-            PayMentMethodsEntity pm = paymentMethodRepository.findById(order.getPaymentMethodID()).orElse(null);
-            if(pm == null){
-                throw new RuntimeException("You must select payment method");
-            }
-            ShippingAddressEntity sa = shippingAddressesRepository.findById(order.getAddressID()).orElse(null);
-            if(sa == null){
-                throw new RuntimeException("you must select a shipping address");
-            }
 
-            OrdersEntity orderEntity = new OrdersEntity();
+        // tim kiem phuong thuc thanh toan
+        PayMentMethodsEntity pm = paymentMethodRepository.findById(dto.getPaymentMethodID()).orElse(null);
+        if(pm == null){
+            throw new RuntimeException("You must select payment method");
+        }
+        ShippingAddressEntity sa = shippingAddressesRepository.findById(dto.getAddressID()).orElse(null);
+        if(sa == null){
+            throw new RuntimeException("you must select a shipping address");
+        }
+
+
+
+        OrdersEntity order = new OrdersEntity();
+
+        order.setCustomer(c);
+        order.setOrderDate(new Date());
+        order.setTotalAmount(dto.getTotalAmount());
+        order.setShippingFee(new BigDecimal(35000));
+        order.setOrderStatus(OrderStatus_Enum.Confirmed);
+        order.setEstimatedDeliveryDate(dto.getEstimatedDeliveryDate());
+        order.setActualDeliveryDate(dto.getActualDeliveryDate());
+        order.setPayMentMethod(pm);
+        order.setShipAddress(sa);
+        entityManager.persist(order);
+        entityManager.flush();
+        for (OrderDetail_createOrderDTO orderdetail : dto.getOrderDetails()) {
+
             OrderDetailEntity orderDetailEntity = new OrderDetailEntity();
-
-            orderEntity.setCustomer(c);
-            orderEntity.setOrderDate(new Date());
-            orderEntity.setTotalAmount(order.getTotalAmount());
-            orderEntity.setShippingFee(new BigDecimal(35000));
-            orderEntity.setOrderStatus(OrderStatus_Enum.Confirmed);
-            orderEntity.setEstimatedDeliveryDate(order.getEstimatedDeliveryDate());
-            orderEntity.setActualDeliveryDate(order.getActualDeliveryDate());
-            orderEntity.setPayMentMethod(pm);
-            orderEntity.setShipAddress(sa);
-            entityManager.persist(orderEntity);
-            entityManager.flush();
-
-            CartDetailsEntity cartDetailsEntity = cartDetailRepository.findById(order.getCartDetailID()).orElse(null);
-            if(cartDetailsEntity == null){
-                throw new RuntimeException("You must select a cart detail");
+            ProductsEntity products = productRepository.findById(orderdetail.getProductID()).orElse(null);
+            if(products == null){
+                throw new RuntimeException("You must select a product to order");
             }
-            orderDetailEntity.setOrder(orderEntity);
-            orderDetailEntity.setProduct(cartDetailsEntity.getProduct());
-            orderDetailEntity.setQuantity(cartDetailsEntity.getQuantity());
-            orderDetailEntity.setPrice(cartDetailsEntity.getPrice());
-            orderDetailEntity.setLineTotal(cartDetailsEntity.getLineTotal());
+            orderDetailEntity.setOrder(order);
+            orderDetailEntity.setProduct(products);
+            orderDetailEntity.setQuantity(orderdetail.getQuantity());
+            orderDetailEntity.setPrice(orderdetail.getPrice());
             entityManager.persist(orderDetailEntity);
             entityManager.flush();
-
-            
         }
     }
 
