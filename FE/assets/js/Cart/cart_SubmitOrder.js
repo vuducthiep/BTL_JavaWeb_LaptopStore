@@ -1,14 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Lấy nút "Gửi đơn hàng"
     const submitButton = document.getElementById("btn-submit");
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTIyMzM0NDU1IiwiaWQtY3VzdG9tZXIiOjEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MSwiZXhwIjoxNzMyNjgyMjcxLCJpYXQiOjE3MzI2Nzg2NzF9.yWZ7WeDgtY80Rl4hMriHboHoXJd7rR1FppDltaVNJJFZyH83EFq_ed2DEBjKJl_nmKBmseXKdydqF-9_THq6ag';
-
-
-    // Thêm sự kiện click cho nút "Gửi đơn hàng"
+    // sẽ thay đổi sau
+    // localStorage.setItem('authToken', token);
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjMxMTE3ODkiLCJpZC1jdXN0b21lciI6MTEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MTEsImV4cCI6MTczMjY5NDQ1OCwiaWF0IjoxNzMyNjkwODU4LCJpZC11c2VyIjoyMn0.5MT20DyaiKayTdgqehGfHO5VXMDTLEOFNnLIzlQnQSzOusxb4cuNx_PeQFDBDhDyef1nmvw2gDOG049sdIWZFw';
     submitButton.addEventListener("click", async (event) => {
-        event.preventDefault(); // Ngăn gửi form mặc định
+        event.preventDefault();
 
-        // Kiểm tra dữ liệu
         const selectedAddress = document.querySelector('input[name="address"]:checked');
         if (!selectedAddress) {
             alert("Vui lòng chọn địa chỉ giao hàng.");
@@ -22,20 +19,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const totalAmountElement = document.getElementById("tien-phai-thanh-toan");
-        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" VND", "").replace(",", ""));
-        if (totalAmount <= 0) {
+        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" USD", "").replace(".", ""));
+        if (isNaN(totalAmount) || totalAmount <= 0) {
             alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
             return;
         }
 
-        // Thu thập thông tin sản phẩm
         const products = [];
         const productRows = document.querySelectorAll(".product-row");
         productRows.forEach(row => {
-            const checkbox = row.querySelector(".select-product");
+            const checkbox = row.querySelector(".product-checkbox");
             if (checkbox && checkbox.checked) {
-                const productID = row.dataset.productId;
-                const price = parseFloat(row.querySelector(".product-price").textContent.replace(",", ""));
+                const productID = row.dataset.cartDetailID;
+                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
                 const quantity = parseInt(row.querySelector(".quantity-input").value, 10);
                 if (productID && price > 0 && quantity > 0) {
                     products.push({ productID, price, quantity });
@@ -48,28 +44,34 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Tạo JSON để gửi
+        // Thêm thông báo xác nhận trước khi gửi đơn hàng
+        const confirmSubmit = confirm("Bạn có chắc chắn muốn gửi đơn hàng không?");
+        if (!confirmSubmit) {
+            return; // Nếu người dùng hủy, dừng lại và không gửi yêu cầu
+        }
+
         const orderData = {
-            orderDate: new Date().toISOString().split("T")[0], // Ngày hiện tại
+            orderDate: new Date().toISOString().split("T")[0],
             totalAmount: totalAmount,
-            estimatedDeliveryDate: new Date().toISOString().split("T")[0], // Ví dụ: cùng ngày
-            actualDeliveryDate: new Date().toISOString().split("T")[0], // Chưa có
-            paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2, // 1: Online, 2: Offline
-            addressID: selectedAddress.value, // ID địa chỉ
+            estimatedDeliveryDate: new Date().toISOString().split("T")[0],
+            actualDeliveryDate: new Date().toISOString().split("T")[0],
+            paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2,
+            addressID: selectedAddress.value,
             orderDetails: products,
         };
 
-        // Gửi API
         try {
-            const response = await fetch("http://localhost:3000/orders", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+            const response = await fetch("http://localhost:8080/user/mycart/create-order", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                },
                 body: JSON.stringify(orderData),
             });
 
             if (response.ok) {
                 alert("Đơn hàng đã được gửi thành công!");
-                // Xử lý logic sau khi gửi thành công (reload, chuyển trang, v.v.)
             } else {
                 alert("Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại!");
             }

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //sẽ thay đổi sau
     // localStorage.setItem('authToken', token);
 
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTIyMzM0NDU1IiwiaWQtY3VzdG9tZXIiOjEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MSwiZXhwIjoxNzMyNjg2MDA0LCJpYXQiOjE3MzI2ODI0MDR9.Ye8Qyu5edAN1pih8TAeO4bcTOthM8RoIRFUznZXUp5NaZS2DEWcf_Ag6-SsGwystPOhx9QNWsXxFr1DfGyKo-Q';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMjMxMTE3ODkiLCJpZC1jdXN0b21lciI6MTEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MTEsImV4cCI6MTczMjY5NDQ1OCwiaWF0IjoxNzMyNjkwODU4LCJpZC11c2VyIjoyMn0.5MT20DyaiKayTdgqehGfHO5VXMDTLEOFNnLIzlQnQSzOusxb4cuNx_PeQFDBDhDyef1nmvw2gDOG049sdIWZFw';
     //lay dia chi
     fetch('http://localhost:8080/user/shipping-address', {
         method: 'GET', // Phương thức yêu cầu
@@ -158,6 +158,8 @@ document.addEventListener('DOMContentLoaded', () => {
         tableBody.innerHTML = ''; // Clear table
         products.forEach((product, index) => {
             const row = document.createElement('tr');
+            row.classList.add('product-row'); // Thêm class 'product-row'
+            row.dataset.cartDetailID = product.cartDetailID; // Lưu ID sản phẩm vào dataset
             row.innerHTML = `
                 <td><input type="checkbox" class="product-checkbox"></td>
                 <td>${index + 1}</td>
@@ -170,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <input type="number" value="1" min="1" class="quantity-input">
                     <button class="quantity-btn increase">+</button>
                 </td>
-                <td class="item-total">${product.price.toLocaleString()} VNĐ</td>
+                <td class="item-total">${product.price.toLocaleString()} USD</td>
                 <td>
                     <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
                 </td>
