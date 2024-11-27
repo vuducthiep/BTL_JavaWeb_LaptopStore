@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDetailDTO> listSearchProductByKey(Object key) {
+    public List<ProductDetailDTO> listSearchProductByKey(String key) {
         List<ProductDetailDTO> result = productRepository.findAllProductsByKey(key);
         return result;
     }

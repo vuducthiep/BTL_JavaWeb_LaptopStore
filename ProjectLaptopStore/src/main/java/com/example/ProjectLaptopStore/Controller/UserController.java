@@ -64,7 +64,7 @@ public class UserController {
 
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
-    public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) Object keyword){
+    public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
         User_HomeResponseDTO result = userService.userHomePage(keyword);
         return result;
     }

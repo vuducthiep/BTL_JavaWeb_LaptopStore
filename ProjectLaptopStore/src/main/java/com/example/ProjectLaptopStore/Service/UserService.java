@@ -29,7 +29,7 @@ public interface UserService {
     Page<User_DTO> searchUser(int page, int size);
 
 
-    User_HomeResponseDTO userHomePage(Object keyword);
+    User_HomeResponseDTO userHomePage(String keyword);
 
     //thong tin user
     User_DTO UserInfor();

@@ -12,7 +12,7 @@ public interface ProductService {
     void createNewProduct(ProductDetailDTO productCreate);
     void updateProduct(ProductDetailDTO productUpdate);
     void deleteProduct(Long[] ids);
-    List<ProductDetailDTO> listSearchProductByKey(Object key);
+    List<ProductDetailDTO> listSearchProductByKey(String key);
     List<ProductDetailDTO> listProductForHomePage();
     List<ProductDetailDTO> listProductDetail();
     Admin_ProductResponseDTO adminProduct();

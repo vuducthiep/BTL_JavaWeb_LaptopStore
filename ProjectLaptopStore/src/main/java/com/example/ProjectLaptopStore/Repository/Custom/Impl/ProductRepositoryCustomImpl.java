@@ -26,6 +26,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import static java.util.regex.Pattern.matches;
 import static org.apache.el.lang.ELArithmetic.isNumber;
 
 //sử dụng JDBC để lấy dữ liệu
@@ -88,8 +89,16 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     //Hàm tìm kiếm sản phẩm bằng key trên searchbar
     @Override
-    public List<ProductDetailDTO> findAllProductsByKey(Object key) {
-        StringBuilder queryCheck = checkKey(key);
+    public List<ProductDetailDTO> findAllProductsByKey(String key) {
+        Integer keyTransfered=null;
+        if(isNumberInteger(key)){
+             keyTransfered = Integer.parseInt(key);
+        }else{
+            System.out.println("key khong phai so");;
+        }
+        StringBuilder queryCheck = checkKey(key,keyTransfered);
+
+
         if(queryCheck == null) {
         return findByKeyWord(key);
         }
@@ -136,11 +145,12 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return productDetai;
     }
 
-    public StringBuilder checkKey(Object key){
+    public StringBuilder checkKey(Object key,Integer keyTransfered){
 //        if(isNumber(key))
-        if(isNumber(key)){
+
+        if(keyTransfered!=null){
             StringBuilder query = setQuery();
-            query.append(" AND p.productId = :keyInt ");
+            query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = :keyInt) ");
             return query;
         }
         for(String item : ProDescription_FindByUserDemand_Enum.toList()){
@@ -166,6 +176,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         }
         return null;
     }
+    public boolean isNumberInteger(String key) {
+        return key != null && key.matches("\\d+");  // Kiểm tra chuỗi chỉ chứa các ký tự số
+    }
+
     //hàm set dữ liệu cho các biến
     public void setDataProduct(ProductDetailDTO productNew, ProductsEntity productsEntity,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity,Integer task){
         // Kiểm tra nếu nhà cung cấp (Supplier) đã tồn tại trong cơ sở dữ liệu

@@ -242,7 +242,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User_HomeResponseDTO userHomePage(Object keyword) {
+    public User_HomeResponseDTO userHomePage(String keyword) {
         User_HomeResponseDTO homeInfor = new User_HomeResponseDTO();
         try {
             // Nếu keyword không được cung cấp (null), thì không thực hiện tìm kiếm sản phẩm
