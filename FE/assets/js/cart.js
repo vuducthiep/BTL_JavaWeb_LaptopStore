@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //sẽ thay đổi sau
     // localStorage.setItem('authToken', token);
 
-    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTIyMzM0NDU1IiwiaWQtY3VzdG9tZXIiOjEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MSwiZXhwIjoxNzMyNjI4NDkwLCJpYXQiOjE3MzI2MjQ4OTB9.Tegm7Tt8AGD9olLV_T3DqC_DUh3vFQ6S2LJFPXzW0sm1UdynLY2COwuf0hjXhMNSPzjaN24DOQRyPMWeq3SEOA';
+    const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMTIyMzM0NDU1IiwiaWQtY3VzdG9tZXIiOjEsInNjb3BlIjoiY3VzdG9tZXIiLCJpc3MiOiJsYXB0b3BhYmMuY29tIiwiaWQtY2FydCI6MSwiZXhwIjoxNzMyNjg2MDA0LCJpYXQiOjE3MzI2ODI0MDR9.Ye8Qyu5edAN1pih8TAeO4bcTOthM8RoIRFUznZXUp5NaZS2DEWcf_Ag6-SsGwystPOhx9QNWsXxFr1DfGyKo-Q';
     //lay dia chi
     fetch('http://localhost:8080/user/shipping-address', {
         method: 'GET', // Phương thức yêu cầu
@@ -244,7 +244,7 @@ function removeCartDetail(cartDetailID, token) {
         .then(data => {
             console.log(data);
             alert('Đã xóa thành công');
-            // Cập nhật lại giao diện, ví dụ xóa dòng trong bảng
+            // Cập nhật  lại giao diện, ví dụ xóa dòng trong bảng
             const rowToRemove = document.querySelector(`[data-id='${cartDetailID}']`).closest('tr');
             rowToRemove.remove();  // Xóa dòng trong bảng
         })
