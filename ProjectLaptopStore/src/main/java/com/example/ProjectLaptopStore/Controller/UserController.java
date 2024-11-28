@@ -71,11 +71,13 @@ public class UserController {
     public List<ProductDetailDTO> getProductDetail(@RequestParam List<Integer>  id){
         return productService.getProductById(id);
     }
+
     //API lấy thông tin sản phẩm  để so sánh
     @GetMapping(value = "/user/compare")
     public List<ProductDetailDTO> getProductDetailCompare(@RequestParam List<Integer>  ids){
         return productService.getProductById(ids);
     }
+
     // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
     public User_DTO getMyInfor(){
@@ -98,8 +100,6 @@ public class UserController {
 //        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 //        return ResponseEntity.ok(userDetails);
 //    }
-
-
 
     //API hien thi danh sach order
     @GetMapping(value = "/user/orders/")
@@ -196,5 +196,13 @@ public class UserController {
         cartDetailService.subtractionQuantity(cartDetailID);
         return ResponseEntity.ok("Subtraction quantity subtraction successfully");
     }
-
+    //API thêm sản phẩm vào giỏ hàng
+    @PostMapping(value = "/user/product-add")
+    public ResponseEntity<?> addProduct(@RequestBody(required = true) int idProduct){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        int cartID = userDetails.getId_Cart();
+        cartDetailService.addProductToCart(3,idProduct);
+        return ResponseEntity.ok("Product added successfully");
+    }
 }
