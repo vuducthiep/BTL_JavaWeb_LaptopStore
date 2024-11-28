@@ -21,7 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -71,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDetailDTO> listSearchProductByKey(Object key) {
+    public List<ProductDetailDTO> listSearchProductByKey(String key) {
         List<ProductDetailDTO> result = productRepository.findAllProductsByKey(key);
         return result;
     }
@@ -110,21 +112,34 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDetailDTO getProductById(Integer id) {
-        return productRepository.getOneProductDetail(id);
+    public List<ProductDetailDTO> getProductById(List<Integer>  ids) {
+        return productRepository.getOneProductDetail(ids);
     }
 
     @Override
-    public Admin_ProductDetailResponseDTO adminProductDetail(Integer idProduct) {
+    public Admin_ProductDetailResponseDTO adminProductDetail(List<Integer>  idProducts) {
         Admin_ProductDetailResponseDTO result = new Admin_ProductDetailResponseDTO();
         try{
-            ProductDetailDTO productDetail = getProductById(idProduct);
+            List<ProductDetailDTO> productDetail = getProductById(idProducts);
             List<SuppliersEntity> listSupplier = suppliersService.getListSupplier();
             result.setProductDetail(productDetail);
             result.setListSupplier(listSupplier);
         }
         catch (Exception e){
             e.printStackTrace();
+        }
+        return result;
+    }
+
+    //hàm lấy nhà cung cấp cho checkbox homepage
+    @Override
+    public Map<Integer, String> getBrandForCheckbox() {
+        List<Object[]> resultQuery = productRepository.getListBrandForCheckBox();
+        Map<Integer, String> result = new HashMap<>();
+        for (Object[] rowOfResult : resultQuery) {
+            Integer idProduct = (Integer) rowOfResult[0];
+            String brand = (String) rowOfResult[1];
+            result.put(idProduct, brand);
         }
         return result;
     }
