@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Filters;
 
 import com.example.ProjectLaptopStore.DTO.CustomUserDetails;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
+import com.example.ProjectLaptopStore.Repository.UserRepository;
 import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -104,6 +106,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Autowired
+    UserRepository userRepository;
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
@@ -131,7 +135,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             int idCart = jwtTokenUtil.getCustomerID(token);
             int idCustomer = jwtTokenUtil.getCartID(token);
             String phoneNumber = jwtTokenUtil.extractPhone(token);
-
+            UserEntity user = userRepository.findAllByPhoneNumber(phoneNumber);
                 // Tải thông tin người dùng từ database (thường qua UserDetailsService)
 
                 // Kiểm tra token hợp lệ và chưa hết hạn
@@ -142,6 +146,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                     userDetails.setId_Customer(idCustomer);
                     userDetails.setId_Cart(idCart);
                     userDetails.setPhoneNumber(phoneNumber);
+                    userDetails.setAuthorities(new SimpleGrantedAuthority("ROLE_" + user.getUserType()));
 
                     // Thiết lập thông tin xác thực trong SecurityContext
                     UsernamePasswordAuthenticationToken authenticationToken =
@@ -160,8 +165,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private boolean isBypassToken(@NonNull HttpServletRequest request) {
         final List<Pair<String, String>> bypassTokens = Arrays.asList(
-                Pair.of(String.format("%s/register", "api"), "POST"),
-                Pair.of(String.format("%s/login", "api"), "POST")
+                Pair.of(String.format("/register", "api"), "POST"),
+                Pair.of(String.format("/login", "api"), "POST")
         );
         for (Pair<String, String> bypassToken : bypassTokens) {
             if (request.getServletPath().contains(bypassToken.getFirst()) &&
