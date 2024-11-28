@@ -70,7 +70,7 @@ public class JwtTokenUtil {
     // Lấy thông tin phone từ token (hoặc bất kỳ claim nào khác)
     public String extractPhone(String token) {
         try {
-            return extractClaims(token).get("phoneNumber", String.class);
+            return extractClaims(token).get("phone", String.class);
         } catch (SignatureException e) {
             throw new RuntimeException(e);
         }

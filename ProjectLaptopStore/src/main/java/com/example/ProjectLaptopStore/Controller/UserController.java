@@ -59,7 +59,6 @@ public class UserController {
     @Autowired
     CartDetailService cartDetailService;
 
-
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
     public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
@@ -95,6 +94,12 @@ public class UserController {
         userService.updateUser(dto,userID);
         return ResponseEntity.ok("User updated successfully");
     }
+//    @GetMapping(value = "/get")
+//    public ResponseEntity<CustomUserDetails> get(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        return ResponseEntity.ok(userDetails);
+//    }
 
     //API hien thi danh sach order
     @GetMapping(value = "/user/orders/")
