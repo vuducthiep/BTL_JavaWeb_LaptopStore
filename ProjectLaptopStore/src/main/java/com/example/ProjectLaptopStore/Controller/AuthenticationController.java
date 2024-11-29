@@ -59,7 +59,6 @@ public class AuthenticationController {
     // Dang nhap
     @PostMapping(value = "/login")
     public User_AuthenticationResponseDTO login(@RequestBody User_LoginDTO user) {
-
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
 

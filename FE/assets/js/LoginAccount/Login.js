@@ -43,7 +43,7 @@ async function login(event) {
       if (payload.scope === "admin") {
         // Nếu là admin, chuyển đến trang admin
         window.location.href =
-          "/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/AdminsManage/Dashboard.html";
+          "AdminsManage/Dashboard.html";
       } else if (payload.scope === "customer") {
         // Nếu là user, chuyển đến trang người dùng
         window.location.href =

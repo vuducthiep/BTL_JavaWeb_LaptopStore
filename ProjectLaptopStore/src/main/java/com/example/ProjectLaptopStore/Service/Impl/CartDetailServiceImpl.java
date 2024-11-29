@@ -23,6 +23,7 @@ public class CartDetailServiceImpl implements CartDetailService {
 
     @Autowired
     CartDetailRepository cartDetailRepository;
+    @Autowired
     private ProductRepository productRepository;
     @Autowired
     private CartRepository cartRepository;
@@ -92,8 +93,8 @@ public class CartDetailServiceImpl implements CartDetailService {
     }
 
     @Override
-    public void addProductToCart(int cartID, int productID) {
-        CartEntity cart = cartRepository.getCartByCustomerId(cartID);
+    public void addProductToCart(int customerID, int productID) {
+        CartEntity cart = cartRepository.getCartByCustomerId(customerID);
         CartDetailsEntity cartDetailsEntity = new CartDetailsEntity();
         ProductsEntity productsEntity = productRepository.findById(productID).get();
         if (cart != null) {
