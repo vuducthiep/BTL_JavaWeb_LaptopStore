@@ -253,14 +253,14 @@ public class UserServiceImpl implements UserService {
         User_HomeResponseDTO homeInfor = new User_HomeResponseDTO();
         try {
             // Nếu keyword không được cung cấp (null), thì không thực hiện tìm kiếm sản phẩm
-            if (keyword != null || keyword != "") {
-                List<ProductDetailDTO> findProducsByKeyWord = productService.listSearchProductByKey(keyword);
-                homeInfor.setFindProductByKeyword(findProducsByKeyWord);
-                if(homeInfor.getFindProductByKeyword()==null || homeInfor.getFindProductByKeyword().isEmpty()){
+//            if (keyword != null || keyword != "") {
+//                List<ProductDetailDTO> findProducsByKeyWord = productService.listSearchProductByKey(keyword);
+//                homeInfor.setFindProductByKeyword(findProducsByKeyWord);
+//                if(homeInfor.getFindProductByKeyword()==null || homeInfor.getFindProductByKeyword().isEmpty()){
                     List<ProductDetailDTO> getProductForHomePage = productService.listProductDetail();
                     homeInfor.setGetProductForHomePage(getProductForHomePage);
-                }
-            }
+//                }
+//            }
             List<Product_FindTopPurchasedProductsDTO> listOutstandingProduct = productService.findTopPurchasedProductAtService();
             Map<Integer,String> getBrandCheckboxBtn = productService.getBrandForCheckbox();
             Map<String,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
