@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Trang chủ Laptop Store</title>
+    <title>Danh sách sản phẩm</title>
 
     <link
       rel="stylesheet"
@@ -17,7 +17,7 @@
     />
 
     <!-- Link CSS -->
-    <link rel="stylesheet" href="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/css/home.css" />
+    <link rel="stylesheet" href="assets/css/home.css" />
   </head>
   <body>
     <header class="" style="background-color:rgba(241, 18, 18, 0.884);">
@@ -34,10 +34,10 @@
             </a>
           </div>
 
-                    <!-- Button thanh tìm kiếm -->
+          <!-- Button thanh tìm kiếm -->
           <div class="col-5">
-            <div class="search-form">
-              <form id="frm-search" name="search" action="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/product-list.html" method="GET">
+            <div class="seach-form">
+              <form id="frm-seach" name="seach" action="/tim">
                 <input
                   type="text"
                   placeholder="Bạn muốn tìm sản phẩm gì"
@@ -53,7 +53,6 @@
             </div>
           </div>
 
-
           <!-- Button infor User -->
           <div class="col-2">
             <div class="user-account" id="userAccount" tabindex="0">
@@ -62,14 +61,14 @@
                 style="width: 50px; height: 50px; font-size: 40px"
               ></i>
               <ul class="box-user" id="userMenu" style="display: none">
-                <li><a href="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/LoginAndRegister/login.html" id="loginLink">Đăng nhập</a></li>
+                <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
                 <li>
-                  <a href="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/My_Information/inforUserDetail_Main.html" id="userInfo" style="display: none"
+                  <a href="#" id="userInfo" style="display: none"
                     >Thông tin cá nhân
                   </a>
                 </li>
                 <li>
-                  <a href="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/My_Information/My_Order.html" id="orders" style="display: none">Đơn hàng</a>
+                  <a href="#" id="orders" style="display: none">Đơn hàng</a>
                 </li>
                 <li>
                   <a href="#" id="logout" style="display: none">Đăng xuất</a>
@@ -92,7 +91,7 @@
           <!-- Button giỏ hàng -->
           <div class="col">
             <div class="cart">
-              <a href="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/cart.html" id="cartLink">
+              <a href="cart.html" id="cartLink">
                 <!-- Thay '/cart' bằng đường dẫn giỏ hàng của bạn -->
                 <i
                   class="fa-solid fa-cart-shopping"
@@ -104,126 +103,28 @@
         </div>
       </div>
     </header>
-    <div class="container-large">
-      <div class="row banner-custom">
-        <div class="col-9 img-fluid-item1">
-          <img
-            src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_528ebfb982.png"
-            alt=""
-          />
-          <img
-            src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_da_sua_efb6c1eac3.png"
-            alt=""
-          />
-          <img
-            src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_ff386195e9.png"
-            alt=""
-          />
-          <img
-            src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_595dfea77b.png"
-            alt=""
-          />
-          <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
-          <a class="next" onclick="changeSlide(1)">&#10095;</a>
-        </div>
-      </div>
-    </div>
-
-    <div class="container"><div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-          <div class="carousel-item active">
-              <div class="d-flex justify-content-between">
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/133_logo_apple_a96d38701f.png" alt="Apple Logo" width="50">
-                      <span>Apple</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/Apple_macbook_cate_thumb_cbe3eadf9e.png" alt="Apple Macbook" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item ">
-                      <img src="https://cdn2.fptshop.com.vn/svg/1_logo_asus_62f06660f1.svg?w=48&q=100" alt="Asus Logo" width="50">
-                      <span>ASUS</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/Acer_cate_thumb_84b37b3b6f.png" alt="Asus Laptop" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/9_logo_acer_e50fcdd1b5.png" alt="Acer Logo" width="50">
-                      <span>Acer</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/Acer_cate_thumb_84b37b3b6f.png" alt="Acer Laptop" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/5_logo_hp_ff12ba7fcb.png" alt="HP Logo" width="50">
-                      <span>HP</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/hp_victus_cate_thumb_b1463370e0.png" alt="HP Laptop" width="70">
-                  </div>
-              </div>
-          </div>
-          <div class="carousel-item">
-              <div class="d-flex justify-content-between">
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item ">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/10_logo_msi_951916b801.png" alt="MSI Logo" width="50">
-                      <span >MSI</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/MSI_cate_thumb_5304a2fe0f.png" alt="MSI Laptop" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/4_logo_lenovo_327abc091e.png" alt="Lenovo Logo" width="50">
-                      <span>Lenovo</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/lenovo_legion_gaming_cate_thumb_190fd329d7.png" alt="Lenovo Laptop" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item">
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/2_logo_dell_73317f8e0f.png" alt="Dell Logo" width="50">
-                      <span>Dell</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/Dell_cate_thumb_ea17554f71.png" alt="Dell Laptop" width="70">
-                  </div>
-                  <div class="col-3 p-2 d-flex justify-content-between align-items-center custom-grid-item " >
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/48x0/filters:quality(100)/small/37_logo_gigabyte_e27dd2906a.png" alt="Gigabyte Logo" width="50">
-                      <span>Gigabyte</span>
-                      <img src="https://cdn2.fptshop.com.vn/unsafe/96x0/filters:quality(100)/Gigabyte_cate_thumb_4a11c32ab5.png" alt="Gigabyte Laptop" width="70">
-                  </div>
-              </div>
-          </div>  
-      </div>
-<div class="carousel-controls d-flex justify-content-between align-items-center">
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-  </button>
-</div>
-</div>
-
     <main>
       <section>
+        <h2 class="text-center">Tên sản phẩm tìm kiếm</h2>
         <div class="container mt-5">
-          <!-- Sản phẩm nổi bật -->
-          <div id="featured-products" class="mb-5">
-            <h2 class="text-center">Sản phẩm nổi bật</h2>
-            <div id="featured-products-list" class="row">
-              <!-- Các sản phẩm nổi bật sẽ được thêm vào đây -->
-            </div>
+          <div class="Banner">
+            <img id="Laptop-Gaming" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_f49ec311b6.png" alt="Laptop Gaming">
+            <img id="Laptop-VanPhong" src="https://cdn.tgdd.vn/News/1561630/laptopvanphongdangmua-1280x720.jpg" alt="Laptop Văn Phòng">
+            <img id="Laptop-MongNhe" src="https://phuongtin.vn/wp-content/uploads/2024/02/BANNER-LAPTOP-MONG-NHE-1400x482.jpg" alt="Laptop Mỏng Nhẹ">
+            <img id="Laptop-DoanhNhan" src="https://onlylap.vn/wp-content/uploads/2024/07/laptop-doanh-nhan-cover-web.webp" alt="Laptop Doanh Nhân">
+
+            <img id="Laptop-Acer" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_b7e9d6a5b4.png" alt="Laptop Acer">
+            <img id="Laptop-HP" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_fc902f2bd7.png" alt="Laptop HP">
+            <img id="Laptop-Asus" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_8666bcbf22.png" alt="Laptop Asus">
+            <img id="Laptop-Lenovo" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_147f411ad3.png" alt="Laptop Lenovo">
+            <img id="Laptop-MSI" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_5845698af8.png" alt="Laptop MSI">
+            <img id="Laptop-Dell" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_73d9aab89a.png" alt="Laptop Dell">
+            <img id="Laptop-Apple" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_fa2aec504a.png" alt="Laptop Apple">
+            <img id="Laptop-Gigabyte" src="https://cdn.ankhang.vn/media/banner/22_Nova405ae5989c219003c9cb9f7344c72b6.jpg" alt="Laptop Gigabyte">
           </div>
         </div>
-        <div class="container mt-5">
-           <!-- Danh mục sản phẩm -->
-           <div class="row mb-5" style="display: flex ;flex-wrap: wrap;gap: 2%;">
-            <div class="col-3 d-flex justify-content-center align-items-center  custom-grid-item">
-              <img src="https://cdn2.fptshop.com.vn/unsafe/64x0/filters:quality(100)/Gaming_do_hoa_cate_thumb_a6a745b7ed.png" alt="">
-              <span>Gaming - Đồ họa</span>
-            </div>
-            <div class="col-3 d-flex justify-content-center align-items-center  custom-grid-item">
-              <img src="https://cdn2.fptshop.com.vn/unsafe/64x0/filters:quality(100)/Sinh_vien_van_phong_cate_thumb_b3d4859418.png" alt="">
-              <span>Sinh viên - Văn phòng</span>
-            </div>
-            <div class="col-3 d-flex justify-content-center align-items-center  custom-grid-item">
-              <img src="https://cdn2.fptshop.com.vn/unsafe/64x0/filters:quality(100)/Mong_nhe_cate_thumb_0ecf5ddc73.png" alt="">
-              <span>Mỏng nhẹ</span>
-            </div>
-            <div class="col-3 d-flex justify-content-center align-items-center  custom-grid-item">
-              <img src="https://cdn2.fptshop.com.vn/unsafe/64x0/filters:quality(100)/Doanh_nhan_cate_thumb_f47056c47e.png" alt="">
-              <span>Doanh nhân</span>
-            </div>
-          </div>
-
+        
+        <div id="searchResults"></div>
           
 
           <div class="row">
@@ -356,7 +257,7 @@
                   <div id="regular-products">
                       <div >
                         
-                        <h2 class="text-center">Sản phẩm khác</h2>
+                        
                         
                         <div class="product-sort d-flex justify-content-between">
                           <h5>Kết quả tìm thấy <span></span></h5>
@@ -471,12 +372,15 @@
       crossorigin="anonymous"
     ></script>
     <!-- Bootrap js -->
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/homepage.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/filter.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/ListCompareNav.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/sidebar.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/sortListProduct.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/statusLogin.js"></script>
-    <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/findListProducts/find.js"></script>
+    <!-- <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/homepage.js"></script> -->
+    <script src="assets/js/HomePage/HomeManage/filter.js"></script>
+    <script src="assets/js/HomePage/HomeManage/ListCompareNav.js"></script>
+    <!-- <script src="/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/assets/js/HomePage/HomeManage/sidebar.js"></script> -->
+    <script src="assets/js/HomePage/HomeManage/sortListProduct.js"></script>
+    <script src="assets/js/HomePage/HomeManage/statusLogin.js"></script>
+    <script src="assets/js/HomePage/findListProducts/ProductList.js"></script>
+    <script src="assets/js/HomePage/findListProducts/BannerFind.js"></script>
+    <link rel="stylesheet" href="assets/js/HomePage/findListProducts/ProductList.css">
+    
   </body>
 </html>
