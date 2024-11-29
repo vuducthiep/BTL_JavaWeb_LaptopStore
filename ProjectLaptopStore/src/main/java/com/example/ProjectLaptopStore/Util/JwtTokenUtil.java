@@ -128,13 +128,16 @@ public class JwtTokenUtil {
     public String generateToken(UserEntity user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
         CustomerEntity customer = customerRepository.getCustomerID(user.getUserID());
-        CartEntity cart = new CartEntity();
+        CartEntity cart;
+        int idcart = 0;
         int id = 0;
         if(customer != null) {
             id = customer.getCustomerID();
             cart = CartRepository.getCartByCustomerId(id);
+            if(cart != null) {
+                idcart = cart.getCartID();
+            }
         }
-
         String role;
         if(user.getUserType().equals(User_Enum.customer)) {
             role = "customer";
@@ -148,7 +151,7 @@ public class JwtTokenUtil {
                 .issueTime(new Date())
                 .claim("scope",role)
                 .claim("id-customer",id)
-                .claim("id-cart",cart.getCartID())
+                .claim("id-cart",idcart)
                 .claim("id-user",user.getUserID())
                 .claim("phone",user.getPhoneNumber())
                 .expirationTime(new Date(

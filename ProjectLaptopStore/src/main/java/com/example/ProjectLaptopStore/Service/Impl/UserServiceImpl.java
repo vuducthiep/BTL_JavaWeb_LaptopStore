@@ -109,7 +109,14 @@ public class UserServiceImpl implements UserService {
     public void createUser(User_RegisterDTO user) {
         if(userRepository.existsByPhoneNumber(user.getPhoneNumber())) {
             try {
-                throw new UserAlreadyExistsException("User already exists");
+                throw new PhoneNumberAlreadyExistsException("Your phone number already exists");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        if(userRepository.existsByEmail(user.getEmail())) {
+            try {
+                throw new EmailAlreadyExistsException("Your email already exists");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

@@ -58,8 +58,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
             // Giải mã token và lấy các giá trị
             int idUser = jwtTokenUtil.getUserID(token);
-            int idCart = jwtTokenUtil.getCustomerID(token);
-            int idCustomer = jwtTokenUtil.getCartID(token);
+            int idCart = jwtTokenUtil.getCartID(token);
+            int idCustomer = jwtTokenUtil.getCustomerID(token);
+
             String phoneNumber = jwtTokenUtil.extractPhone(token);
             UserEntity user = userRepository.findAllByPhoneNumber(phoneNumber);
                 // Tải thông tin người dùng từ database (thường qua UserDetailsService)
