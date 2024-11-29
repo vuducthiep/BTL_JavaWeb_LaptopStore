@@ -16,7 +16,7 @@ public interface UserService {
     void createUser(User_RegisterDTO user) ;
 
     //update user
-    void updateUser(User_UpdateUserDTO dto,int userID);
+    void updateUser(User_UpdateUserDTO dto);
 
     //xoa user
     void deleteUser(String phoneNumber);
@@ -32,6 +32,6 @@ public interface UserService {
     User_HomeResponseDTO userHomePage(String keyword);
 
     //thong tin user
-    User_DTO UserInfor();
+    User_DTO UserInfor(int id);
 
 }

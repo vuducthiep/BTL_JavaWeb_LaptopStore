@@ -19,5 +19,5 @@ public interface OrderService {
 
 
     // tao moi don hang
-    void createOrder(OrderDTO dto,int id);
+    void createOrder(OrderDTO dto);
 }

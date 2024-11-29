@@ -15,6 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class OrderDTO {
+    int customerID;
     private Date orderDate;
     private BigDecimal totalAmount;
     private BigDecimal shippingFee;

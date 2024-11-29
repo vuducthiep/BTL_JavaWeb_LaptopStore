@@ -45,7 +45,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -64,6 +63,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal=true)
 public class UserServiceImpl implements UserService {
+    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
     @Autowired
     private ProductDescriptionService productDescriptionService;
 
@@ -85,6 +85,8 @@ public class UserServiceImpl implements UserService {
 
     EntityManager entityManager;
 //    private final Authentication authentication;
+
+    JwtTokenUtil jwtTokenUtil;
     @NonFinal
     @Value("${jwt.signerKey}")
     protected  String SIGNER_KEY;
@@ -151,8 +153,8 @@ public class UserServiceImpl implements UserService {
     //update user
     @Transactional
     @Override
-    public void updateUser(User_UpdateUserDTO user,int userID) {
-            UserEntity entity = userRepository.findById(userID).orElse(null);
+    public void updateUser(User_UpdateUserDTO user) {
+            UserEntity entity = userRepository.findById(user.getUserID()).orElse(null);
             if(entity == null) {
                 throw new UserNotFoundException("User not found");
             }
@@ -287,11 +289,11 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public User_DTO UserInfor() {
-        var contex = SecurityContextHolder.getContext();
-        CustomUserDetails customUserDetails = (CustomUserDetails) contex.getAuthentication().getPrincipal();
-        int id = customUserDetails.getId_User();
+    public User_DTO UserInfor(int id) {
         UserEntity user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            throw new UserNotFoundException("User not found");
+        }
         User_DTO userDTO = modelMapper.map(user,User_DTO.class);
         return userDTO;
     }
