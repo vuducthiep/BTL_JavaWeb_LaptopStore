@@ -113,14 +113,14 @@ public class OrderServiceImpl implements OrderService {
 
 
     @Override
-    public void createOrder(OrderDTO dto,int id) {
+    public void createOrder(OrderDTO dto) {
 
         // kiem tra neu khong co san pham trong gio hang thi Exception
         if(dto.getOrderDetails().size() == 0){
             throw new RuntimeException("Create Order Failed");
         }
         // tim kiem customer voi ID de them order
-        CustomerEntity c = customerRepository.findById(id).orElse(null);
+        CustomerEntity c = customerRepository.findById(dto.getCustomerID()).orElse(null);
 
         // neu customer khong tim thay => Exception
         if(c == null){

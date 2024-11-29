@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -63,15 +62,9 @@ public class AuthenticationController {
 
         return userService.Authenticate(user.getPhoneNumber(), user.getPassword());
     }
-    @Autowired
-    JwtTokenUtil jwtTokenUtil;
 
-    @PostMapping(value = "/token-valid")
-    public TokenValidDTO login(@RequestHeader("Authorization")String token) throws ParseException, JOSEException {
-        var context = SecurityContextHolder.getContext();
-        log.info(context.getAuthentication().getName());
-        return jwtTokenUtil.validateToken(token);
-    }
+
+
 
 
 }

@@ -21,7 +21,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.SignatureException;
@@ -179,11 +178,6 @@ public class JwtTokenUtil {
         return expirationDate.before(new Date());
     }
 
-    public boolean validateToken(String token, UserDetails userDetails) {
-        String phoneNumber = extractPhone(token);
-        return (phoneNumber.equals(userDetails.getUsername()))
-                && !isTokenExpired(token); //check hạn của token
-    }
 }
 
 

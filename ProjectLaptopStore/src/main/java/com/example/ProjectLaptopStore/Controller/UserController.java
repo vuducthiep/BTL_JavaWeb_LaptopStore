@@ -25,9 +25,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -80,18 +77,15 @@ public class UserController {
 
     // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
-    public User_DTO getMyInfor(){
-        User_DTO dto = userService.UserInfor();
+    public User_DTO getMyInfor(@RequestParam(value = "id")int id){
+        User_DTO dto = userService.UserInfor(id);
         return  dto;
     }
 
     // API cap nhat thong tin user
     @PostMapping(value = "/user/update-infor")
     public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        int userID = userDetails.getId_User();
-        userService.updateUser(dto,userID);
+        userService.updateUser(dto);
         return ResponseEntity.ok("User updated successfully");
     }
 //    @GetMapping(value = "/get")
@@ -118,19 +112,14 @@ public class UserController {
 
     // API lay danh sach Shipping address
     @GetMapping(value = "/user/shipping-address")
-    public List<ShippingAddressesDTO> getShippingAddresses(@RequestHeader("Authorization")String authorization){
-        String token = authorization.substring("Bearer ".length());
-        int customerID = jwtTokenUtil.getCustomerID(token);
+    public List<ShippingAddressesDTO> getShippingAddresses(@RequestParam(value = "customerID")int customerID){
         List<ShippingAddressesDTO> rs = shippingAddressesService.getAllShippingAddresses(customerID);
         return rs;
     }
 
     // API them dia chi nhan hang
-    @PostMapping(value = "/user/add-shipping-address")
-    public ResponseEntity<?> addShippingAddress(@RequestHeader("Authorization")String authorization,
-                                                    @RequestBody ShippingAddressesDTO dto){
-        String token = authorization.substring("Bearer ".length());
-        int customerID = jwtTokenUtil.getCustomerID(token);
+    @PostMapping(value = "/user/add-shipping-address/{customerID}")
+    public ResponseEntity<?> addShippingAddress(@RequestBody ShippingAddressesDTO dto,@PathVariable(value = "customerID")int customerID){
         shippingAddressesService.addShippingAddresses(dto,customerID);
         return ResponseEntity.ok("Shipping address added successfully");
     }
@@ -151,9 +140,7 @@ public class UserController {
 
     // API lay ra cartdetail
     @GetMapping(value = "/user/mycart/cart-detail")
-    public List<CartDetailDTO> getCartDetail(@RequestHeader("Authorization")String authorization){
-        String token = authorization.substring("Bearer ".length());
-        int cartID = jwtTokenUtil.getCartID(token);
+    public List<CartDetailDTO> getCartDetail(@RequestParam(name = "cartID")int cartID){
         List<CartDetailDTO> rs = cartDetailService.getAllCartDetails(cartID);
         return rs;
     }
@@ -167,35 +154,12 @@ public class UserController {
 
     //API tao don hang moi
     @PutMapping(value = "/user/mycart/create-order")
-    public ResponseEntity<?> createOrder(@RequestBody OrderDTO dto,
-                                         @RequestHeader("Authorization")String authorization){
-        String token = authorization.substring("Bearer ".length());
-        try {
-            TokenValidDTO valid = jwtTokenUtil.validateToken(token);
-            if(!valid.isValid())
-                return ResponseEntity.badRequest().body(valid);
-        } catch (JOSEException e) {
-            throw new RuntimeException(e);
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
-        int customerID = jwtTokenUtil.getCustomerID(token);
-        orderService.createOrder(dto,customerID);
+    public ResponseEntity<?> createOrder(@RequestBody OrderDTO dto){
+        orderService.createOrder(dto);
         return ResponseEntity.ok("Order created successfully");
     }
 
 
-    @PostMapping(value = "/user/mycart/addition-quantity")
-    public ResponseEntity<?> additionQuantity(@RequestParam("cartDetailID")int cartDetailID){
-            cartDetailService.additionQuantity(cartDetailID);
-            return ResponseEntity.ok("Addition quantity added successfully");
-    }
-
-    @PostMapping(value = "/user/mycart/subtraction-quantity")
-    public ResponseEntity<?> subtractionQuantity(@RequestParam("cartDetailID")int cartDetailID){
-        cartDetailService.subtractionQuantity(cartDetailID);
-        return ResponseEntity.ok("Subtraction quantity subtraction successfully");
-    }
     //API thêm sản phẩm vào giỏ hàng
     @PostMapping(value = "/user/product-add")
     public ResponseEntity<?> addProduct(@RequestBody(required = true) int idProduct){
