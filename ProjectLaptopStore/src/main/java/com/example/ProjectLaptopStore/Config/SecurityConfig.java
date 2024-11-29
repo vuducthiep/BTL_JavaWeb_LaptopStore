@@ -12,6 +12,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -60,11 +62,15 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request ->
                 request
                         .requestMatchers(HttpMethod.POST, "/register","/token-valid","/login").permitAll()
-//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("ROLE_customer")
-//                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.GET,"/user/profile/").hasAnyAuthority("SCOPE_user", "SCOPE_admin")
+                        .requestMatchers(HttpMethod.GET, "/user/home/","/user/product","/user/compare").permitAll()
+//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.POST,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.PUT,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.DELETE,"/user/**").hasAnyAuthority("ROLE_customer")
 //                        .anyRequest().authenticated()
                         .anyRequest().permitAll()
         );
