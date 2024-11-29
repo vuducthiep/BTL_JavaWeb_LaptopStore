@@ -282,8 +282,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User_DTO UserInfor() {
         var contex = SecurityContextHolder.getContext();
-//        String phone = contex.getAuthentication().getName();
-//        UserEntity user = userRepository.findAllByPhoneNumber(phone);
         CustomUserDetails customUserDetails = (CustomUserDetails) contex.getAuthentication().getPrincipal();
         int id = customUserDetails.getId_User();
         UserEntity user = userRepository.findById(id).orElse(null);
