@@ -97,7 +97,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of("/login", "POST"),   // Đăng nhập
                 Pair.of("/user/home/", "GET"),   // Kiểm tra sức khỏe server
                 Pair.of("/user/product", "GET"), // Endpoint public khác
-                Pair.of("/user/compare", "GET")
+                Pair.of("/user/compare", "GET"),
+                Pair.of("/v2/api-docs", "GET"),         // Swagger API docs
+                Pair.of("/swagger-resources/**", "GET"), // Swagger resources
+                Pair.of("/swagger-ui/index.html", "GET"),       // Swagger UI
+                Pair.of("/webjars/**", "GET")
         );
 
         // Kiểm tra xem request có khớp với danh sách bypass không

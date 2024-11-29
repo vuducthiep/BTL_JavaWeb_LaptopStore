@@ -59,6 +59,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(request ->
                 request
+                        .requestMatchers(HttpMethod.GET, "/v2/api-docs", "/swagger-resources/**", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html").permitAll()
                         .requestMatchers(HttpMethod.POST, "/register","/token-valid","/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user/home/","/user/product","/user/compare").permitAll()
 //                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("ROLE_admin")
