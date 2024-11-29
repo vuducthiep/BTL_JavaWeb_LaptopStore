@@ -163,10 +163,10 @@ public class UserController {
     //API thêm sản phẩm vào giỏ hàng
     @PostMapping(value = "/user/product-add")
     public ResponseEntity<?> addProduct(@RequestBody Integer idProduct){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-        int customerID = userDetails.getId_Customer();
-        cartDetailService.addProductToCart(customerID,idProduct);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        int customerID = userDetails.getId_Customer();
+//        cartDetailService.addProductToCart(customerID,idProduct);
         return ResponseEntity.ok("Product added successfully");
     }
 
