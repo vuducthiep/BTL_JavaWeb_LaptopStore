@@ -47,7 +47,7 @@ async function login(event) {
       } else if (payload.scope === "customer") {
         // Nếu là user, chuyển đến trang người dùng
         window.location.href =
-          "/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/HomePage/index.html";
+          "index.html";
       } else {
         // Vai trò không xác định
         alert("Vai trò không hợp lệ!");
