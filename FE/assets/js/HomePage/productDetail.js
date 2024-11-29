@@ -1,53 +1,55 @@
 document.addEventListener('DOMContentLoaded', function () {
-  // Lấy ProductID từ URL
-  const params = new URLSearchParams(window.location.search);
-  const productId = params.get('id'); // Lấy giá trị của tham số id từ URL
-
-  if (productId) {
-    // Gọi API để lấy tất cả sản phẩm
-    fetch('http://localhost:3000/products')
-      .then(response => response.json())
-      .then(products => {
-        // Tìm sản phẩm có ProductID khớp với giá trị từ URL
-        const product = products.find(item => item.ProductID === Number(productId));
-
-        if (product) {
-          // Hiển thị thông tin chi tiết sản phẩm
+    // Lấy ProductID từ URL
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id'); // Lấy giá trị của tham số id từ URL
+    const apiUrl = `http://localhost:8080/user/product?id=${productId}`;
+    if (productId) {
+      // Gọi API để lấy tất cả sản phẩm
+      fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+          // Tìm sản phẩm có ProductID khớp với giá trị từ URL
+          const product = data[0];
+          console.log('thông tin sản phẩm ', product);
           displayProductDetails(product);
-        } else {
-          console.error('Product not found');
-        }
-      })
-      .catch(error => console.error('Error fetching product details:', error));
+          displayProductDescriptions(product)
+        })
+        .catch(error => console.error('Error fetching product details:', error));
+    }
+  }); // Đóng hàm addEventListener
+  
 
-    // Gọi API để lấy thông số sản phẩm
-    fetch('http://localhost:3000/productDescriptions')
-      .then(response => response.json())
-      .then(productDescriptions => {
-        // Tìm thông số sản phẩm có ProductID khớp với giá trị từ URL
-        const productDescription = productDescriptions.find(item => item.ProductID === Number(productId));
-
-        if (productDescription) {
-          // Hiển thị thông số sản phẩm
-          displayProductDescriptions(productDescription);
-        } else {
-          console.error('Product description not found');
-        }
-      })
-      .catch(error => console.error('Error fetching product descriptions:', error));
-  } else {
-    console.error('Product ID not found in URL');
-  }
-
-  function displayProductDetails(product) {
-    document.getElementById('product-name').textContent = product.ProductName;
-    document.getElementById('product-name-breadcrumb').textContent = product.ProductName; // Hiển thị tên trong breadcrumb
-    document.getElementById('product-image').src = product.ImageURL;
+function displayProductDetails(product) {
+    document.getElementById('product-name').textContent = product.productName;
+    document.getElementById('product-name-breadcrumb').textContent = product.productName; // Hiển thị tên trong breadcrumb
+    document.getElementById('product-image').src = product.imageUrl;
     document.getElementById('product-status').textContent = "Tình Trạng: Còn hàng"; // Sửa lại id ở đây
-    document.getElementById('product-price').textContent = `Giá: ${(product.Price *1000000).toLocaleString('vi-VN')} VND`;
+    document.getElementById('product-price').textContent = `Giá: ${(product.price *1000000).toLocaleString('vi-VN')} VND`;
   }
 
-  function displayProductDescriptions(productDescription) {
+function displayProductDescriptions(productDescription) {
+    const tableBody = document.querySelector('#highlight-specs tbody');
+    tableBody.innerHTML = '';
+
+  // Thêm các thông số vào bảng
+  tableBody.innerHTML += `
+    <tr>
+      <td>Công nghệ CPU</td>
+      <td>${productDescription.cpuCompany}</td>
+    </tr>
+    <tr>
+      <td>Dung lượng RAM</td>
+      <td>${productDescription.ramCapacity} GB</td>
+    </tr>
+    <tr>
+      <td>Card đồ họa</td>
+      <td>${productDescription.vgaFullName}</td>
+    </tr>
+    <tr>
+      <td>Kích thước màn hình</td>
+      <td>${productDescription.screenSize} inch</td>
+    </tr>
+  `;
     const specsTable = document.getElementById('all-specs');
             specsTable.innerHTML = ''; // Xóa nội dung cũ
 
@@ -60,23 +62,50 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tr>
                 <tr class="cpu hidden">
                     <td>Hãng CPU</td>
-                    <td>${productDescription.CPUcompany}</td>
+                    <td>${productDescription.cpuCompany}</td>
                 </tr>
                 <tr class="cpu hidden">
                     <td>Công nghệ CPU</td>
-                    <td>${productDescription.CPUtechnology}</td>
+                    <td>${productDescription.cpuTechnology}</td>
                 </tr>
                 <tr class="cpu hidden">
                     <td>Loại CPU</td>
-                    <td>${productDescription.CPUtype}</td>
+                    <td>${productDescription.cpuType}</td>
                 </tr>
                 <tr class="cpu hidden">
                     <td>Tốc độ CPU (tối thiểu)</td>
-                    <td>${productDescription.MinimumCPUspeed} GHz</td>
+                    <td>${productDescription.minimumCPUspeed} GHz</td>
                 </tr>
                 <tr class="cpu hidden">
                     <td>Tốc độ CPU (tối đa)</td>
-                    <td>${productDescription.MaximunSpeed} GHz</td>
+                    <td>${productDescription.maximunSpeed} GHz</td>
+                </tr>
+                <tr class="cpu hidden">
+                    <td>Nhân CPU</td>
+                    <td>${productDescription.multiplier} GHz</td>
+                </tr>
+                 <tr class="cpu hidden">
+                    <td>Bộ nhớ đệm</td>
+                    <td>${productDescription.processorCache} GHz</td>
+                </tr>
+
+                 <!-- Mục Đồ họa -->
+                <tr class="section-title" data-toggle="graphics">
+                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                        Đồ họa <span class="arrow" data-direction="down">▼</span>
+                    </td>
+                </tr> 
+                <tr class="graphics hidden">
+                    <td>Loại RAM</td>
+                    <td>${productDescription.RAMType}</td>
+                </tr>
+                <tr class="graphics hidden">
+                    <td>Tốc độ RAM</td>
+                    <td>${productDescription.RAMspeed}</td>
+                </tr>
+                <tr class="graphics hidden">
+                    <td>Dung lượng RAM</td>
+                    <td>${productDescription.RAMcapacity} GB</td>
                 </tr>
 
                 <!-- Mục RAM -->
@@ -201,7 +230,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 </tr>
             `;
   }
-});
 
  // Hàm để hiển thị thông số nổi bật
         function showHighlightSpecs() {
