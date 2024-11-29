@@ -2,7 +2,9 @@
 package com.example.ProjectLaptopStore.Config;
 
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
+import com.example.ProjectLaptopStore.Repository.UserRepository;
 import jakarta.security.auth.message.callback.SecretKeyCallback;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +13,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
@@ -27,6 +32,8 @@ import javax.swing.*;
 @EnableAutoConfiguration
 @EnableMethodSecurity
 public class SecurityConfig {
+
+
     //    private String[] GET_admin = {
 //            "/admin/sellproduct/","/admin/totalmount/","/admin/totalcustomer/",
 //            "/admin/totalcustomer/","/admin/newcustomer/","/admin/countcustomer/",
@@ -53,11 +60,15 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(request ->
                 request
                         .requestMatchers(HttpMethod.POST, "/register","/token-valid","/login").permitAll()
-//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("ROLE_customer")
-//                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("SCOPE_admin")
-//                        .requestMatchers(HttpMethod.GET,"/user/profile/").hasAnyAuthority("SCOPE_user", "SCOPE_admin")
+                        .requestMatchers(HttpMethod.GET, "/user/home/","/user/product","/user/compare").permitAll()
+//                        .requestMatchers(HttpMethod.GET,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.POST,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.DELETE,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.PUT,"/admin/**").hasAnyAuthority("ROLE_admin")
+//                        .requestMatchers(HttpMethod.GET,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.POST,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.PUT,"/user/**").hasAnyAuthority("ROLE_customer")
+//                        .requestMatchers(HttpMethod.DELETE,"/user/**").hasAnyAuthority("ROLE_customer")
 //                        .anyRequest().authenticated()
                         .anyRequest().permitAll()
         );

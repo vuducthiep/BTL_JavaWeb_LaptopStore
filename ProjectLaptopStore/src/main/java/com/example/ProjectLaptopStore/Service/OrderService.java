@@ -17,8 +17,7 @@ public interface OrderService {
     BigDecimal getTotalAmountOnline();
     BigDecimal getTotalAmountOffline();
 
-    // lay danh sach order theo customerID
-    List<OrderDTO> getListOrderByCustomerID(int customerID);
 
+    // tao moi don hang
     void createOrder(OrderDTO dto,int id);
 }

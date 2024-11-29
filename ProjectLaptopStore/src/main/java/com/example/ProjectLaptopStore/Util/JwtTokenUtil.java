@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.SignatureException;
@@ -99,6 +100,16 @@ public class JwtTokenUtil {
                 .build();
     }
 
+    public boolean CheckValidateToken(String token) throws JOSEException, ParseException {
+        var tk = token;
+        JWSVerifier verifier = new MACVerifier(SIGNER_KEY.getBytes());
+        SignedJWT signedJWT = SignedJWT.parse(tk);
+        Date expirationTime = signedJWT.getJWTClaimsSet().getExpirationTime();
+        var verified = signedJWT.verify(verifier);
+        boolean ms = verified && expirationTime.after(new Date());
+
+        return ms;
+    }
     public int getCartID(String token) {
         try {
             return extractClaims(token).get("id-cart", Integer.class);
@@ -117,13 +128,16 @@ public class JwtTokenUtil {
     public String generateToken(UserEntity user){
         JWSHeader jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
         CustomerEntity customer = customerRepository.getCustomerID(user.getUserID());
-        CartEntity cart = new CartEntity();
+        CartEntity cart;
+        int idcart = 0;
         int id = 0;
         if(customer != null) {
             id = customer.getCustomerID();
             cart = CartRepository.getCartByCustomerId(id);
+            if(cart != null) {
+                idcart = cart.getCartID();
+            }
         }
-
         String role;
         if(user.getUserType().equals(User_Enum.customer)) {
             role = "customer";
@@ -137,8 +151,9 @@ public class JwtTokenUtil {
                 .issueTime(new Date())
                 .claim("scope",role)
                 .claim("id-customer",id)
-                .claim("id-cart",cart.getCartID())
+                .claim("id-cart",idcart)
                 .claim("id-user",user.getUserID())
+                .claim("phone",user.getPhoneNumber())
                 .expirationTime(new Date(
                         Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
                 ))
@@ -152,6 +167,22 @@ public class JwtTokenUtil {
             log.error(e.getMessage() + "Can not create token");
             throw new RuntimeException(e);
         }
+    }
+
+    public boolean isTokenExpired(String token) {
+        Date expirationDate = null;
+        try {
+            expirationDate = this.extractClaims(token).getExpiration();
+        } catch (SignatureException e) {
+            throw new RuntimeException(e);
+        }
+        return expirationDate.before(new Date());
+    }
+
+    public boolean validateToken(String token, UserDetails userDetails) {
+        String phoneNumber = extractPhone(token);
+        return (phoneNumber.equals(userDetails.getUsername()))
+                && !isTokenExpired(token); //check hạn của token
     }
 }
 

@@ -20,9 +20,14 @@ import io.jsonwebtoken.Jwts;
 
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.NonFinal;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -30,11 +35,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 @RequiredArgsConstructor
 //@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 @RestController
 public class UserController {
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
     private ProductDescriptionService productDescriptionService;
     @Autowired
@@ -53,6 +58,7 @@ public class UserController {
     JwtTokenUtil jwtTokenUtil;
     @Autowired
     CartDetailService cartDetailService;
+
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
     public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
@@ -65,11 +71,13 @@ public class UserController {
     public List<ProductDetailDTO> getProductDetail(@RequestParam List<Integer>  id){
         return productService.getProductById(id);
     }
+
     //API lấy thông tin sản phẩm  để so sánh
     @GetMapping(value = "/user/compare")
     public List<ProductDetailDTO> getProductDetailCompare(@RequestParam List<Integer>  ids){
         return productService.getProductById(ids);
     }
+
     // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
     public User_DTO getMyInfor(){
@@ -79,14 +87,19 @@ public class UserController {
 
     // API cap nhat thong tin user
     @PostMapping(value = "/user/update-infor")
-    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto,
-                                        @RequestHeader("Authorization") String authorization){
-        String token = authorization.substring("Bearer ".length());
-        int userID = jwtTokenUtil.getUserID(token);
+    public ResponseEntity<?> updateUser(@RequestBody(required = true) User_UpdateUserDTO dto){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+        int userID = userDetails.getId_User();
         userService.updateUser(dto,userID);
         return ResponseEntity.ok("User updated successfully");
     }
-
+//    @GetMapping(value = "/get")
+//    public ResponseEntity<CustomUserDetails> get(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        return ResponseEntity.ok(userDetails);
+//    }
 
     //API hien thi danh sach order
     @GetMapping(value = "/user/orders/")
@@ -171,6 +184,7 @@ public class UserController {
         return ResponseEntity.ok("Order created successfully");
     }
 
+
     @PostMapping(value = "/user/mycart/addition-quantity")
     public ResponseEntity<?> additionQuantity(@RequestParam("cartDetailID")int cartDetailID){
             cartDetailService.additionQuantity(cartDetailID);
@@ -182,5 +196,13 @@ public class UserController {
         cartDetailService.subtractionQuantity(cartDetailID);
         return ResponseEntity.ok("Subtraction quantity subtraction successfully");
     }
-
+    //API thêm sản phẩm vào giỏ hàng
+    @PostMapping(value = "/user/product-add")
+    public ResponseEntity<?> addProduct(@RequestBody(required = true) int idProduct){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
+//        int cartID = userDetails.getId_Cart();
+        cartDetailService.addProductToCart(3,idProduct);
+        return ResponseEntity.ok("Product added successfully");
+    }
 }
