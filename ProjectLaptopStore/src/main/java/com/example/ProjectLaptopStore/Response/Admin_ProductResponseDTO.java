@@ -12,6 +12,6 @@ import java.util.List;
 @Setter
 public class Admin_ProductResponseDTO {
     List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart;
-    List<Product_FindTopPurchasedProductsDTO> listTopProductSell;
+    List<ProductDetailDTO> listTopProductSell;
     List<ProductDetailDTO> listProductDetail;
 }

@@ -16,7 +16,7 @@ public class Admin_DashBoardResponseDTO {
     private List<Customer_CountNewCustomerPerMonthDTO> newCustomerPerMonthMap;
     private List<Order_CountTotalAmountDTO> totalAmountPerMonthMap;
     private List<OrderDetail_CountQuantityProductPerMonthDTO> totalQuantitySellProductPerMonthMap;
-    private List<Product_FindTopPurchasedProductsDTO> topPurchasedProductInMonth;
+    private List<ProductDetailDTO> topPurchasedProductInMonth;
     private List<CustomerDTO> topCustomerInMonth;
 
     public Admin_DashBoardResponseDTO() {

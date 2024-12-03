@@ -45,8 +45,8 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private Product_DisplayForHomePageConverter productDisplayForHomePageConverter;
     @Override
-    public List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService() {
-        List<Product_FindTopPurchasedProductsDTO> result = productRepository.findAllProductsWithTotalQuantityOrdered();
+    public List<ProductDetailDTO> findTopPurchasedProductAtService() {
+        List<ProductDetailDTO> result = productRepository.findAllProductsWithTotalQuantityOrdered();
         return result;
     }
 
@@ -100,7 +100,7 @@ public class ProductServiceImpl implements ProductService {
         Admin_ProductResponseDTO result = new Admin_ProductResponseDTO();
         try {
             List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart = orderDetailRepository.listCountQuantityProductPerMonth();
-            List<Product_FindTopPurchasedProductsDTO> listTopProductSell = productRepository.findAllProductsWithTotalQuantityOrdered();
+            List<ProductDetailDTO> listTopProductSell = productRepository.findAllProductsWithTotalQuantityOrdered();
             List<ProductDetailDTO> listProduct = listProductDetail();
             result.setQuantityProductForChart(quantityProductForChart);
             result.setListTopProductSell(listTopProductSell);

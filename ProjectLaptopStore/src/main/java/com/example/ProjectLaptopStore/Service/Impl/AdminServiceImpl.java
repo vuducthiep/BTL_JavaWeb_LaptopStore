@@ -59,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
             List<Customer_CountNewCustomerPerMonthDTO> newCustomerForChart = customerService.listCountNewCustomerPerMonth();
             List<Order_CountTotalAmountDTO> totalAmountForChart = orderService.listCountTotalAmountAtService();
             List<OrderDetail_CountQuantityProductPerMonthDTO> quantityProductForChart = orderDetailService.listCountQuantityProductPerMonth();
-            List<Product_FindTopPurchasedProductsDTO> listTopProductSell = productService.findTopPurchasedProductAtService();
+            List<ProductDetailDTO> listTopProductSell = productService.findTopPurchasedProductAtService();
             List<CustomerDTO> listTopCustomer = customerRepository.listTopCustomerInMonth();
             adminInfo.setQuantitySellProductCurrentMonth(productSellInMonth);
             adminInfo.setTotalCustomerInCurrentMonth(totalCustomerInMonth);
