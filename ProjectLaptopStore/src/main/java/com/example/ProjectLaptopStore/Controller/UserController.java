@@ -59,9 +59,15 @@ public class UserController {
 
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home/")
-    public User_HomeResponseDTO getHomePage(@RequestParam(value = "keyword",required = false) String keyword){
-        User_HomeResponseDTO result = userService.userHomePage(keyword);
+    public User_HomeResponseDTO getHomePage(){
+        User_HomeResponseDTO result = userService.userHomePage();
         return result;
+    }
+
+    //API tìm kiếm bằng từ khóa,hãng,nhu cầu
+    @GetMapping(value = "/user/product/")
+    public List<ProductDetailDTO> getProductsSearch(@RequestParam String keyword){
+        return productService.listSearchProductByKey(keyword);
     }
 
     //API lấy thông tin sản phẩm chi tiết
