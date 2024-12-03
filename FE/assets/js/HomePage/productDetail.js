@@ -24,7 +24,7 @@ function displayProductDetails(product) {
     document.getElementById('product-name-breadcrumb').textContent = product.productName; // Hiển thị tên trong breadcrumb
     document.getElementById('product-image').src = product.imageUrl;
     document.getElementById('product-status').textContent = "Tình Trạng: Còn hàng"; // Sửa lại id ở đây
-    document.getElementById('product-price').textContent = `Giá: ${(product.price *1000000).toLocaleString('vi-VN')} VND`;
+    document.getElementById('product-price').textContent = `Giá: ${(product.price).toLocaleString('vi-VN')} VND`;
   }
 
 function displayProductDescriptions(productDescription) {
@@ -89,24 +89,35 @@ function displayProductDescriptions(productDescription) {
                     <td>${productDescription.processorCache} GHz</td>
                 </tr>
 
+
+
                  <!-- Mục Đồ họa -->
                 <tr class="section-title" data-toggle="graphics">
                     <td colspan="2" style="font-weight: bold; cursor: pointer;">
                         Đồ họa <span class="arrow" data-direction="down">▼</span>
                     </td>
                 </tr> 
+
                 <tr class="graphics hidden">
-                    <td>Loại RAM</td>
-                    <td>${productDescription.RAMType}</td>
+                    <td>Hãng (Card Oboard)</td>
+                    <td>${productDescription.brandCardOboard}</td>
+                </tr>
+
+                <tr class="graphics hidden">
+                    <td>Model (Card Oboard)</td>
+                    <td>${productDescription.modelCardOboard}</td>
+                </tr>
+
+                <tr class="graphics hidden">
+                    <td>Tên đầy đủ (Card onbroad)</td>
+                    <td>${productDescription.fullNameCardOboard}</td>
                 </tr>
                 <tr class="graphics hidden">
-                    <td>Tốc độ RAM</td>
-                    <td>${productDescription.RAMspeed}</td>
+                    <td>Card VGA</td>
+                    <td>${productDescription.vgaFullName}</td>
                 </tr>
-                <tr class="graphics hidden">
-                    <td>Dung lượng RAM</td>
-                    <td>${productDescription.RAMcapacity} GB</td>
-                </tr>
+
+               
 
                 <!-- Mục RAM -->
                 <tr class="section-title" data-toggle="ram">
@@ -115,16 +126,32 @@ function displayProductDescriptions(productDescription) {
                     </td>
                 </tr>
                 <tr class="ram hidden">
+                    <td>Dung lượng RAM</td>
+                    <td>${productDescription.ramCapacity} GB</td>
+                </tr>
+                <tr class="ram hidden">
                     <td>Loại RAM</td>
-                    <td>${productDescription.RAMType}</td>
+                    <td>${productDescription.ramType}</td>
                 </tr>
                 <tr class="ram hidden">
                     <td>Tốc độ RAM</td>
-                    <td>${productDescription.RAMspeed}</td>
+                    <td>${productDescription.ramSpeed}</td>
                 </tr>
+
+
+                 <tr class="ram hidden">
+                    <td>Số khe cắm rời</td>
+                    <td>${productDescription.numberOfRemovableSlots} </td>
+                </tr>
+
                 <tr class="ram hidden">
-                    <td>Dung lượng RAM</td>
-                    <td>${productDescription.RAMcapacity} GB</td>
+                    <td>Số RAM onboard</td>
+                    <td>${productDescription.numberOfOnboardRAM} </td>
+                </tr>
+
+                <tr class="ram hidden">
+                    <td>Hỗ trợ RAM tối đa</td>
+                    <td>${productDescription.maximumRAMSupport} GB </td>
                 </tr>
 
                 <!-- Mục Lưu trữ -->
@@ -134,21 +161,30 @@ function displayProductDescriptions(productDescription) {
                     </td>
                 </tr>
                 <tr class="storage hidden">
-                    <td>Loại ổ cứng</td>
-                    <td>SSD</td>
+                    <td>Kiểu ổ cứng</td>
+                    <td>${productDescription.hardDriveType}</td>
                 </tr>
+
+                <tr class="storage hidden">
+                    <td>Kiểu ổ cứng</td>
+                    <td>${productDescription.totalSSDHDDSlots}</td>
+                </tr>
+
+                <tr class="storage hidden">
+                    <td>Số khe SSD/HDD còn lại</td>
+                    <td>${productDescription.numberOfSSDHDDSlotsRemaining}</td>
+                </tr>
+
+                <tr class="storage hidden">
+                    <td>Dung lượng nâng cấp tối đa ổ cứng</td>
+                    <td>${productDescription.maximumHardDriveUpgradeCapacity}</td>
+                </tr>
+
                 <tr class="storage hidden">
                     <td>Dung lượng ổ cứng</td>
-                    <td>${productDescription.Capacity} GB</td>
+                    <td>${productDescription.capacity} GB</td>
                 </tr>
-                <tr class="storage hidden">
-                    <td>Số khe ổ cứng SSD/HDD</td>
-                    <td>${productDescription.TotalSSDHDDSlots}</td>
-                </tr>
-                <tr class="storage hidden">
-                    <td>Số khe còn lại</td>
-                    <td>${productDescription.NumberOfSSDHDDSlotsRemaining}</td>
-                </tr>
+              
 
                 <!-- Mục Màn hình -->
                 <tr class="section-title" data-toggle="screen">
@@ -158,15 +194,47 @@ function displayProductDescriptions(productDescription) {
                 </tr>
                 <tr class="screen hidden">
                     <td>Kích thước màn hình</td>
-                    <td>${productDescription.ScreenSize} inch</td>
+                    <td>${productDescription.screenSize} inch</td>
                 </tr>
                 <tr class="screen hidden">
-                    <td>Công nghệ hiển thị</td>
-                    <td>${productDescription.DisplayTechnology}</td>
+                    <td>Công nghệ màn hình</td>
+                    <td>${productDescription.displayTechnology}</td>
                 </tr>
                 <tr class="screen hidden">
                     <td>Độ phân giải</td>
-                    <td>${productDescription.Resolution}</td>
+                    <td>${productDescription.resolution}</td>
+                </tr>
+               
+
+                <tr class="screen hidden">
+                    <td>Loại màn hình</td>
+                    <td>${productDescription.screenType}</td>
+                </tr>
+
+                <tr class="screen hidden">
+                    <td>Tần số quét</td>
+                    <td>${productDescription.scanningFrequency}</td>
+                </tr>
+
+                
+                <tr class="screen hidden">
+                    <td>Tấm nền</td>
+                    <td>${productDescription.basePlate}</td>
+                </tr>
+
+                <tr class="screen hidden">
+                    <td>Độ sáng</td>
+                    <td>${productDescription.brightness}</td>
+                </tr>
+
+                <tr class="screen hidden">
+                    <td>Độ phủ màu</td>
+                    <td>${productDescription.colorCoverage}</td>
+                </tr>
+
+                <tr class="screen hidden">
+                    <td>Tỷ lệ màn hình</td>
+                    <td>${productDescription.screenRatio}</td>
                 </tr>
 
                 <!-- Mục Giao tiếp và kết nối -->
@@ -177,15 +245,20 @@ function displayProductDescriptions(productDescription) {
                 </tr>
                 <tr class="connectivity hidden">
                     <td>Cổng giao tiếp</td>
-                    <td>${productDescription.CommunicationPort}</td>
+                    <td>${productDescription.communicationPort}</td>
                 </tr>
                 <tr class="connectivity hidden">
                     <td>Wi-Fi</td>
-                    <td>${productDescription.Wifi}</td>
+                    <td>${productDescription.wifi}</td>
                 </tr>
                 <tr class="connectivity hidden">
                     <td>Bluetooth</td>
-                    <td>${productDescription.Bluetooth}</td>
+                    <td>${productDescription.bluetooth}</td>
+                </tr>
+
+                <tr class="connectivity hidden">
+                    <td>Webcam</td>
+                    <td>${productDescription.webcam}</td>
                 </tr>
 
                 <!-- Mục Hệ điều hành -->
@@ -196,7 +269,11 @@ function displayProductDescriptions(productDescription) {
                 </tr>
                 <tr class="os hidden">
                     <td>Tên hệ điều hành</td>
-                    <td>${productDescription.OS}</td>
+                    <td>${productDescription.os}</td>
+                </tr>
+                <tr class="os hidden">
+                    <td>Version</td>
+                    <td>${productDescription.version}</td>
                 </tr>
 
                 <!-- Mục Bảo mật -->
@@ -207,26 +284,121 @@ function displayProductDescriptions(productDescription) {
                 </tr>
                 <tr class="security hidden">
                     <td>Bảo mật hệ thống</td>
-                    <td>Windows Hello</td>
+                    <td>${productDescription.security}</td>
                 </tr>
 
-                <!-- Mục Thông tin sản phẩm -->
+                <!-- Mục  Bàn phím & TouchPad -->
+                <tr class="section-title" data-toggle="Keyboard-TouchPad">
+                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                        Bàn phím & TouchPad <span class="arrow" data-direction="down">▼</span>
+                    </td>
+                </tr>
+
+                <tr class="Keyboard-TouchPad hidden">
+                    <td>Kiểu bàn phím</td>
+                    <td>${productDescription.keyboardType}</td>
+                </tr>
+
+                <tr class="Keyboard-TouchPad hidden">
+                    <td>Bàn phím số</td>
+                    <td>${productDescription.numericKeypad}</td>
+                </tr>
+
+                <tr class="Keyboard-TouchPad hidden">
+                    <td>Đèn bàn phím</td>
+                    <td>${productDescription.keyboardLight}</td>
+                </tr>
+
+                 <tr class="Keyboard-TouchPad hidden">
+                    <td>TouchPad</td>
+                    <td>${productDescription.touchPad}</td>
+                </tr>
+
+                <!-- Mục  Thông tin pin & sạc -->
+                <tr class="section-title" data-toggle="Battery-charging">
+                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                        Thông tin pin & sạc<span class="arrow" data-direction="down">▼</span>
+                    </td>
+                </tr>
+
+                <tr class="Battery-charging hidden">
+                    <td>Loại pin</td>
+                    <td>${productDescription.batteryType}</td>
+                </tr>
+
+                 <tr class="Battery-charging hidden">
+                    <td>Dung lượng pin</td>
+                    <td>${productDescription.batteryCapacity} mAh</td>
+                </tr>
+
+                 <tr class="Battery-charging hidden">
+                    <td>Power Supply</td>
+                    <td>${productDescription.powerSupply}</td>
+                </tr>
+
+                <!-- Mục Phụ kiện trong hộp -->
+                <tr class="section-title" data-toggle="Accessories-in-the-box">
+                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                        Phụ kiện trong hộp <span class="arrow" data-direction="down">▼</span>
+                    </td>
+                </tr>
+                <tr class="Accessories-in-the-box hidden">
+                    <td>Phụ kiện trong hộp</td>
+                    <td>${productDescription.accessoriesInTheBox}</td>
+                </tr>
+
+                <!-- Mục Thiết kế và trọng lượng -->
+                <tr class="section-title" data-toggle="Design-weight">
+                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                        Thiết kế và trọng lượng <span class="arrow" data-direction="down">▼</span>
+                    </td>
+                </tr>
+                <tr class="Design-weight hidden">
+                    <td>Kích thước</td>
+                    <td>${productDescription.size}</td>
+                </tr>
+
+                <tr class="Design-weight hidden">
+                    <td>Trọng lượng sản phẩm</td>
+                    <td>${productDescription.productWeight}</td>
+                </tr>
+
+                <tr class="Design-weight hidden">
+                    <td>Chất liệu</td>
+                    <td>${productDescription.material}</td>
+                </tr>
+
+                <!-- Mục Thông tin hàng hóa -->
                 <tr class="section-title" data-toggle="product-info">
                     <td colspan="2" style="font-weight: bold; cursor: pointer;">
-                        Thông tin sản phẩm <span class="arrow" data-direction="down">▼</span>
+                        Thông tin hàng hóa <span class="arrow" data-direction="down">▼</span>
                     </td>
                 </tr>
                 <tr class="product-info hidden">
-                    <td>Mã sản phẩm</td>
-                    <td>${productDescription.ProductID}</td>
+                    <td>P/N</td>
+                    <td>${productDescription.pnProductCode}</td>
+                </tr>
+
+                <tr class="product-info hidden">
+                    <td>Xuất xứ</td>
+                    <td>${productDescription.origin}</td>
                 </tr>
                 <tr class="product-info hidden">
                     <td>Thời gian bảo hành</td>
-                    <td>${productDescription.WarrantyPeriodMonths} tháng</td>
+                    <td>${productDescription.warrantyPeriodMonths} tháng</td>
+                </tr>
+
+                <tr class="product-info hidden">
+                    <td>Hướng dẫn bảo quản</td>
+                    <td>${productDescription.storageInstructions} </td>
+                </tr>
+                <tr class="product-info hidden">
+                    <td>Hướng dẫn sử dụng</td>
+                    <td>${productDescription.userManual} </td>
                 </tr>
                 <tr class="product-info hidden">
                     <td>Màu sắc</td>
-                    <td>${productDescription.Color}</td>
+                    <td>${productDescription.color}</td>
                 </tr>
             `;
   }
