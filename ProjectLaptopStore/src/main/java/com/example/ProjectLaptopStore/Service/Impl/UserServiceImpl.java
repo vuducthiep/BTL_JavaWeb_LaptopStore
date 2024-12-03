@@ -256,7 +256,7 @@ public class UserServiceImpl implements UserService {
         try {
             List<ProductDetailDTO> getProductForHomePage = productService.listProductDetail();
             homeInfor.setGetProductForHomePage(getProductForHomePage);
-            List<Product_FindTopPurchasedProductsDTO> listOutstandingProduct = productService.findTopPurchasedProductAtService();
+            List<ProductDetailDTO> listOutstandingProduct = productService.findTopPurchasedProductAtService();
             Map<Integer,String> getBrandCheckboxBtn = productService.getBrandForCheckbox();
             Map<String,String> getPriceCheckbox = Product_FindProductsByPriceRange_Enum.getPriceRanges();
             Map<String,String> getCPUTechnologyCheckbox = productDescriptionService.getCPUTechnologyForCheckbox();

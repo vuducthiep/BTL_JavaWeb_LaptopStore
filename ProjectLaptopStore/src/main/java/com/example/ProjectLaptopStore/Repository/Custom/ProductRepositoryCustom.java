@@ -9,7 +9,7 @@ import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import java.util.List;
 
 public interface ProductRepositoryCustom {
-    List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered();
+    List<ProductDetailDTO> findAllProductsWithTotalQuantityOrdered();
     void createProduct(ProductDetailDTO productNew, ProductsEntity productsEntity, ProductDescriptionEntity productDescriptionEntity, ContentEntity contentEntity);
     void updateProduct(ProductDetailDTO updateProductDTO, ProductsEntity productsEntityById,ProductDescriptionEntity productDescriptionEntity,ContentEntity contentEntity);
     List<ProductDetailDTO> findAllProductsByKey(String key);

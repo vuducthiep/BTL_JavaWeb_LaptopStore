@@ -90,8 +90,8 @@ public class AdminControllerTest {
 
     //API lấy top sản phẩm
     @GetMapping(value = "/admin/topproduct/")
-    public List<Product_FindTopPurchasedProductsDTO> TopProduct(){
-        List<Product_FindTopPurchasedProductsDTO> result = productService.findTopPurchasedProductAtService();
+    public List<ProductDetailDTO> TopProduct(){
+        List<ProductDetailDTO> result = productService.findTopPurchasedProductAtService();
         return result;
     }
 

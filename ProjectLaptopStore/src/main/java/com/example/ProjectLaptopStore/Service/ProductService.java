@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ProductService {
-    List<Product_FindTopPurchasedProductsDTO> findTopPurchasedProductAtService();
+    List<ProductDetailDTO> findTopPurchasedProductAtService();
     void createNewProduct(ProductDetailDTO productCreate);
     void updateProduct(ProductDetailDTO productUpdate);
     void deleteProduct(Long[] ids);

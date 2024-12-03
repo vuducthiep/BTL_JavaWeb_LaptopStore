@@ -40,39 +40,18 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
     @Override
-    public List<Product_FindTopPurchasedProductsDTO> findAllProductsWithTotalQuantityOrdered() {
-        String query = "SELECT p.ProductID ,p.ProductName, p.Brand, p.Model, p.Price, p.StockQuantity, " +
-                "p.WarrantyPeriod, p.ImageURL, COALESCE(SUM(od.Quantity), 0) AS quantityOrdered ,COALESCE(SUM(od.LineTotal), 0) AS lineTotal " +
-                "FROM Products p " +
-                "JOIN OrderDetails od ON p.ProductID = od.ProductID " +
-                "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
-                "JOIN Orders o on o.OrderID =  od.OrderID " +
-                "WHERE s.Status = 'active' and " +
-                "MONTH(o.OrderDate) = MONTH(CURDATE()) " +
-                "GROUP BY p.ProductID " +
-                "ORDER BY lineTotal DESC";
-        Query nativeQuery = entityManager.createNativeQuery(query);// ko cần truyền DTO.class
-        List<Object[]> results = nativeQuery.getResultList();
-        //set thủ công
-        List<Product_FindTopPurchasedProductsDTO> dtoList = new ArrayList<>();
-        for (Object[] result : results) {
-            Product_FindTopPurchasedProductsDTO dto = new Product_FindTopPurchasedProductsDTO(
-                    (Integer) result[0],
-                    (String) result[1],  // productName
-                    (String) result[2],  // brand
-                    (String) result[3],  // model
-                    (Float) result[4],   // price
-                    (Integer) result[5], // stockQuantity
-                    (Integer) result[6], // warrantyPeriod
-                    (String) result[7],  // imageURL
-                    ((Number) result[8]).longValue(),  // quantityOrdered
-                    (BigDecimal) result[9] //lineTotal
-            );
-            dtoList.add(dto);
+    public List<ProductDetailDTO> findAllProductsWithTotalQuantityOrdered() {
+        StringBuilder query = setQuery();
+        query.append(" ORDER BY p.price desc " +
+                "LIMIT 10 ");
+        Query nativeQuery = entityManager.createNativeQuery(query.toString());
+        List<Object[]> resultQuery = nativeQuery.getResultList();
+        List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
+        for (Object[] rowOfResult : resultQuery) {
+            ProductDetailDTO dto = setConstructor(rowOfResult);
+            listProductDetailDTO.add(dto);
         }
-        return dtoList;
-
-
+        return listProductDetailDTO;
     }
     //hàm tạo sản phẩm
     @Override
@@ -174,6 +153,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         }
         return null;
     }
+
     public boolean isNumberInteger(String key) {
         return key != null && key.matches("\\d+");  // Kiểm tra chuỗi chỉ chứa các ký tự số
     }
