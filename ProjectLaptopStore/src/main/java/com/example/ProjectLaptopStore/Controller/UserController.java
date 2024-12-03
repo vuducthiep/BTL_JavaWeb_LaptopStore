@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -162,11 +163,11 @@ public class UserController {
 
     //API thêm sản phẩm vào giỏ hàng
     @PostMapping(value = "/user/product-add")
-    public ResponseEntity<?> addProduct(@RequestBody Integer idProduct){
+    public ResponseEntity<?> addProduct(@RequestBody Cart_AddProductToCartDTO dto){
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 //        int customerID = userDetails.getId_Customer();
-//        cartDetailService.addProductToCart(customerID,idProduct);
+        cartDetailService.addProductToCart(dto.getCustomerID(),dto.getProductID());
         return ResponseEntity.ok("Product added successfully");
     }
 
