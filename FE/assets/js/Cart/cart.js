@@ -4,15 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalElement = document.querySelector('.total-amount');
     const selectAllCB = document.getElementById('selectAll');
     //sẽ thay đổi sau
-    const token = localStorage.getItem('authToken');
+    const idCart = localStorage.getItem('id-cart');
+    const idCustomer = localStorage.getItem('id-customer');
+    const idUser = localStorage.getItem('id-user');
 
     //lay dia chi
-    fetch('http://localhost:8080/user/shipping-address', {
+    fetch(`http://localhost:8080/user/shipping-address?customerID=${idCustomer}`, {
         method: 'GET', // Phương thức yêu cầu
-        headers: {
-            'Authorization': `Bearer ${token}`, // Gửi token qua header Authorization
-            'Content-Type': 'application/json', // Định dạng dữ liệu
-        },
     })
     .then(response => {
         if (!response.ok) {
@@ -132,12 +130,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     async function fetchProducts() {
-        const apiUrl = 'http://localhost:8080/user/mycart/cart-detail';        
+        const apiUrl = `http://localhost:8080/user/mycart/cart-detail?cartID=${idCart}`;        
         try {
             const response = await fetch(apiUrl, {
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
+                
             });
             if (!response.ok) throw new Error('Failed to fetch products');
             const products = await response.json();
@@ -165,13 +161,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>
                     ${product.productName}
                 </td>
-                <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} USD</td>
+                <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
                 <td>
                     <button class="quantity-btn decrease">-</button>
                     <input type="number" value="1" min="1" class="quantity-input">
                     <button class="quantity-btn increase">+</button>
                 </td>
-                <td class="item-total">${product.price.toLocaleString()} USD</td>
+                <td class="item-total">${product.price.toLocaleString()} VND</td>
                 <td>
                     <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
                 </td>
@@ -211,53 +207,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateTotal();
             });
         });
-        // Sự kiện để xóa sản phẩm trong giỏ hàng
-    document.querySelectorAll('.remove-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            const cartDetailID = this.getAttribute('data-id');  // Lấy cartDetailID từ thuộc tính data-id
-            removeCartDetail(cartDetailID, token);  // Gọi hàm xóa sản phẩm
-            
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const cartDetailID = this.getAttribute('data-id'); // Lấy cartDetailID từ thuộc tính data-id
+                if (cartDetailID) {
+                    removeCartDetail(cartDetailID); // Gọi hàm xóa sản phẩm
+                } else {
+                    console.error('Không tìm thấy cartDetailID cho nút xóa');
+                }
+            });
         });
-    });
-
+        
         // Hàm xóa sản phẩm khỏi giỏ hàng
-        // Hàm xóa sản phẩm khỏi giỏ hàng
-function removeCartDetail(cartDetailID, token) {
-    // Hiển thị hộp thoại xác nhận
-    const confirmDelete = confirm('Có chắc chắn muốn xóa sản phẩm này không?');
-
-    if (confirmDelete) {
-        const url = `http://localhost:8080/user/mycart/remove-cartdetail?cartDetailID=${cartDetailID}`;
-    
-        fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            },
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json();
+        function removeCartDetail(cartDetailID) {
+            const confirmDelete = confirm('Có chắc chắn muốn xóa sản phẩm này không?');
+        
+            if (confirmDelete) {
+                const url = `http://localhost:8080/user/mycart/remove-cartdetail?cartDetailID=${cartDetailID}`;
+                fetch(url, {
+                    method: 'DELETE',
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json().catch(() => {
+                            throw new Error('Dữ liệu trả về không phải JSON');
+                        });
+                    } else {
+                        throw new Error('Không thể xóa sản phẩm ra khỏi giỏ hàng');
+                    }
+                })
+                .then(data => {
+                    console.log(data);
+                    alert('Đã xóa thành công');
+                    const rowToRemove = document.querySelector(`[data-id='${cartDetailID}']`)?.closest('tr');
+                    if (rowToRemove) {
+                        rowToRemove.remove(); // Xóa dòng trong bảng
+                    } else {
+                        console.error('Không tìm thấy dòng cần xóa');
+                    }
+                })
+                .catch(error => {
+                    console.error('Lỗi:', error);
+                    alert('Xóa thành công, vui lòng load lại trang');
+                });
             } else {
-                throw new Error('Không thể xóa sản phẩm ra khỏi giỏ hàng');
+                console.log('Hành động xóa bị hủy bỏ');
             }
-        })
-        .then(data => {
-            console.log(data);
-            alert('Đã xóa thành công');
-            // Cập nhật  lại giao diện, ví dụ xóa dòng trong bảng
-            const rowToRemove = document.querySelector(`[data-id='${cartDetailID}']`).closest('tr');
-            rowToRemove.remove();  // Xóa dòng trong bảng
-        })
-        .catch(error => {
-            console.error('Lỗi:', error);
-            //  
-        });
-    } else {
-        console.log('Hành động xóa bị hủy bỏ');
-    }
-    
-}
+        }
+        
 
         
 
@@ -297,8 +294,8 @@ function removeCartDetail(cartDetailID, token) {
             }
         });
 
-        totalPriceElement.textContent = totalPrice.toLocaleString() + ' USD';
-        totalElement.textContent = totalPrice.toLocaleString() + ' USD';
+        totalPriceElement.textContent = totalPrice.toLocaleString() + ' VND';
+        totalElement.textContent = totalPrice.toLocaleString() + ' VND';
     }
 
     // Select all checkboxes
