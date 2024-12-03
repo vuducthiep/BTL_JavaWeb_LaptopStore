@@ -1,16 +1,11 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
 import com.example.ProjectLaptopStore.DTO.*;
-import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
-import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
+import com.example.ProjectLaptopStore.Entity.Enum.*;
 
 import com.example.ProjectLaptopStore.Entity.CartEntity;
 import com.example.ProjectLaptopStore.Entity.CustomerEntity;
-import com.example.ProjectLaptopStore.Entity.Enum.CardStatus_Enum;
-import com.example.ProjectLaptopStore.Entity.Enum.Customer_Enum;
-import com.example.ProjectLaptopStore.Entity.Enum.Status_Enum;
 
-import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
 import com.example.ProjectLaptopStore.Entity.UserEntity;
 import com.example.ProjectLaptopStore.Exception.EmailAlreadyExistsException;
 import com.example.ProjectLaptopStore.Exception.PhoneNumberAlreadyExistsException;
@@ -263,7 +258,7 @@ public class UserServiceImpl implements UserService {
             Map<Integer,Integer> getRamCapacityCheckbox = productDescriptionService.getRamCapacityForCheckbox();
             Map<String,String> getHardDriveCheckbox = productDescriptionService.getHardDriveForCheckbox();
             Map<String,String> getCustomerDemandCheckbox = ProDescription_FindByUserDemand_Enum.typeUserDemand();
-            Map<String,String> getScreenSizeCheckbox = productDescriptionService.getScreensizeForCheckbox();
+            Map<String,String> getScreenSizeCheckbox = ProDescription_ScreenSize_Enum.getScreenSize();
             homeInfor.setGetOutstandingProducts(listOutstandingProduct);
             homeInfor.setGetSuppliersForCheckboxAndBtn(getBrandCheckboxBtn);
             homeInfor.setGetPriceProductForCheckbox(getPriceCheckbox);

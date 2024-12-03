@@ -41,9 +41,10 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
     @Override
     public List<ProductDetailDTO> findAllProductsWithTotalQuantityOrdered() {
-        StringBuilder query = setQuery();
-        query.append(" ORDER BY p.price desc " +
-                "LIMIT 10 ");
+        String addCount = " , COUNT(od.ProductID) AS totalProduct ";
+        String addJoin = " JOIN OrderDetails od ON od.ProductID = p.ProductID ";
+        StringBuilder query = setQuery(addCount,addJoin);
+        query.append(setQueryGroupBy());
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
         List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
@@ -94,7 +95,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     //thấy thông tin chi tiết danh sách các sản phẩm
     @Override
     public List<ProductDetailDTO> listProductDetail() {
-        StringBuilder query = setQuery();
+        StringBuilder query = setQuery("","");
         query.append(" ORDER BY p.productId desc ");
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
@@ -108,7 +109,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     @Override
     public List<ProductDetailDTO> getOneProductDetail(List<Integer> idProducts) {
-        StringBuilder query = setQuery();
+        StringBuilder query = setQuery("","");
         query.append(" AND p.productId in (:idProducts) ");
 
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
@@ -126,12 +127,12 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
 
     public StringBuilder checkKey(Object key,Integer keyTransfered){
         if(keyTransfered!=null){
-            StringBuilder query = setQuery();
+            StringBuilder query = setQuery("","");
             query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = :keyInt) ");
             return query;
         }
         for(String item : ProDescription_FindByUserDemand_Enum.toList()){
-            StringBuilder query = setQuery();
+            StringBuilder query = setQuery("","");
             if(item.equals(key)){
                 if(key.equals("GAMING_DOHOA")) {
                     query.append(" AND pd.vgaBrand like '%NVIDIA%'  ");
@@ -257,7 +258,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         }
     }
     //hàm tạo query lấy thông tin bảng product productdes
-    public StringBuilder setQuery(){
+    public StringBuilder setQuery(String addCount,String addJoin){
         StringBuilder query = new StringBuilder("SELECT \n" +
                 "    p.supplierId,\n" +
                 "    p.productId,\n" +
@@ -327,10 +328,12 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 "    pd.storageInstructions,\n" +
                 "    pd.userManual,\n" +
                 "    pd.color\n" +
-                "FROM Products p\n" +
-                "JOIN ProductDescription pd ON p.productId = pd.productId " +
-                "JOIN Suppliers s on s.SupplierID = p.SupplierID " +
-                "WHERE s.Status = 'active'" +
+                addCount+
+                " FROM Products p\n" +
+                " JOIN ProductDescription pd ON p.productId = pd.productId " +
+                " JOIN Suppliers s on s.SupplierID = p.SupplierID " +
+                addJoin+
+                " WHERE s.Status = 'active'" +
                 " ");
         return query;
     }
@@ -416,7 +419,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         Query queryNative = entityManager.createNativeQuery(query.toString());
         queryNative.setParameter("key", "%"+key+"%");
         List<Integer> listIdProductSearch = queryNative.getResultList();
-        StringBuilder queryProduct = setQuery();
+        StringBuilder queryProduct = setQuery("","");
         queryProduct.append(" AND p.productId in :listIdProductSearch ");
         Query nativeQuery2 = entityManager.createNativeQuery(queryProduct.toString());
         nativeQuery2.setParameter("listIdProductSearch", listIdProductSearch);
@@ -428,7 +431,24 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         }
         return listProductDetai;
     }
-
+    //hàm set group by
+    public StringBuilder setQueryGroupBy(){
+        StringBuilder query = new StringBuilder(" GROUP BY " +
+                "    p.supplierId, p.productId, pd.productDescriptionId, p.productName, p.brand, p.model, p.price, \n" +
+                "    p.stockQuantity, p.releaseDate, p.warrantyPeriod, p.imageUrl, pd.cpuCompany, pd.cpuTechnology, \n" +
+                "    pd.cpuType, pd.minimumCPUspeed, pd.maximunSpeed, pd.multiplier, pd.processorCache, pd.brandCardOboard,\n" +
+                "    pd.modelCardOboard, pd.fullNameCardOboard, pd.vgaBrand, pd.vgaFullName, pd.ramCapacity, pd.ramType, \n" +
+                "    pd.ramSpeed, pd.numberOfRemovableSlots, pd.numberOfOnboardRAM, pd.maximumRAMSupport, pd.hardDriveType, \n" +
+                "    pd.totalSSDHDDSlots, pd.numberOfSSDHDDSlotsRemaining, pd.maximumHardDriveUpgradeCapacity, pd.ssdType,\n" +
+                "    pd.capacity, pd.screenSize, pd.displayTechnology, pd.resolution, pd.screenType, pd.scanningFrequency, \n" +
+                "    pd.basePlate, pd.brightness, pd.colorCoverage, pd.screenRatio, pd.communicationPort, pd.wifi, pd.bluetooth, \n" +
+                "    pd.webcam, pd.os, pd.version, pd.security, pd.keyboardType, pd.numericKeypad, pd.keyboardLight, pd.touchPad, \n" +
+                "    pd.batteryType, pd.batteryCapacity, pd.powerSupply, pd.accessoriesInTheBox, pd.size, pd.productWeight, \n" +
+                "    pd.material, pd.pn, pd.origin, pd.warrantyPeriodMonths, pd.storageInstructions, pd.userManual, pd.color\n" +
+                " Order by totalProduct desc " +
+                " LIMIT 10 ;");
+        return query;
+    }
 // phan trang product
 //    @Override
 //    public Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize) {

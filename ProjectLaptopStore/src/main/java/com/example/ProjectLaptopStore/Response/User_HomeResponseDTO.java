@@ -24,16 +24,4 @@ public class User_HomeResponseDTO {
     public User_HomeResponseDTO() {
     }
 
-    public User_HomeResponseDTO(List<ProductDetailDTO> findProductByKeyword, List<ProductDetailDTO> getProductForHomePage, List<ProductDetailDTO> getOutstandingProducts, Map<Integer, String> getSuppliersForCheckboxAndBtn, Map<String, String> getPriceProductForCheckbox, Map<String, String> getCPUForCheckbox, Map<Integer, Integer> getRamForCheckbox, Map<String, String> getHardDriveForCheckbox, Map<String, String> getCustomerDemandForCheckBox, Map<String, String> getScreenSizeForCheckbox) {
-        this.findProductByKeyword = findProductByKeyword;
-        this.getProductForHomePage = getProductForHomePage;
-        this.getOutstandingProducts = getOutstandingProducts;
-        this.getSuppliersForCheckboxAndBtn = getSuppliersForCheckboxAndBtn;
-        this.getPriceProductForCheckbox = getPriceProductForCheckbox;
-        this.getCPUForCheckbox = getCPUForCheckbox;
-        this.getRamForCheckbox = getRamForCheckbox;
-        this.getHardDriveForCheckbox = getHardDriveForCheckbox;
-        this.getCustomerDemandForCheckBox = getCustomerDemandForCheckBox;
-        this.getScreenSizeForCheckbox = getScreenSizeForCheckbox;
-    }
 }
