@@ -50,18 +50,18 @@ function compareProducts() {
       document.getElementById('toggle-arrow').style.display = 'inline'; // Hiện mũi tên
   
       // Lấy toàn bộ sản phẩm từ API
-      fetch('http://localhost:3000/products')
+      fetch('http://localhost:8080/user/home/')
         .then(response => response.json())
-        .then(products => {
+        .then(data => {
           comparedProducts.forEach(productId => {
-            const product = products.find(item => item.ProductID === productId);
+            const product = data.getProductForHomePage.find(item => item.productId === productId);
             if (product) {
               const productItem = document.createElement('div');
               productItem.classList.add('compare-item');
               productItem.innerHTML = `
                 <div class="compare-product-image">
-                  <img src="${product.ImageURL}" alt="${product.ProductName}">
-                   <span>${product.ProductName}</span>
+                  <img src="${product.imageUrl}" alt="${product.productName}">
+                   <span>${product.productName}</span>
                 </div>
                 <div class="compare-product-info">
                  

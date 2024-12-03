@@ -102,28 +102,29 @@
         </div>
         <div class="container">
           <div class="row">
-            <div class="col-4  content-compare">
+            <div class="col-4 content-compare">
               <span>So sánh sản phẩm</span>
               <span id="product1__name"></span>
               <span>+</span>
               <span id="product2__name"></span>
             </div>
             <div class="col-4 item-compare">
-              <img class="product__image" src="" alt="Sản phẩm 1">
-              <div class="product__name">Tên sản phẩm 1</div>
-              <div class="product__price">Giá sản phẩm 1</div>
+              <img class="product__image" src="" alt="Sản phẩm 1" id="product1__image">
+              <div class="product__name" id="product1__productName">Tên sản phẩm 1</div>
+              <div class="product__price" id="product1__price">Giá sản phẩm 1</div>
               <button>Thêm vào giỏ hàng</button>
-              <span>X</span>
+              <span id="product1__remove">X</span>
             </div>
             <div class="col-4 item-compare">
-              <img class="product__image" src="" alt="Sản phẩm 2">
-              <div class="product__name">Tên sản phẩm 2</div>
-              <div class="product__price">Giá sản phẩm 2</div>
+              <img class="product__image" src="" alt="Sản phẩm 2" id="product2__image">
+              <div class="product__name" id="product2__productName">Tên sản phẩm 2</div>
+              <div class="product__price" id="product2__price">Giá sản phẩm 2</div>
               <button>Thêm vào giỏ hàng</button>
-              <span>X</span>
+              <span id="product2__remove">X</span>
             </div>
           </div>
         </div>
+        
 
         <div class="col-12">
           <div class="specs-toggle d-flex">
@@ -140,9 +141,8 @@
             <thead>
               <tr>
                 <th>Thông số</th>
-                <th>Sản phẩm 1</th>
-               
-                <th>Sản phẩm 2</th>
+                <th id="header__product1">Sản phẩm 1</th>
+                <th id="header__product2">Sản phẩm 2</th>
               </tr>
             </thead>
             <tbody>
@@ -178,9 +178,8 @@
             <thead>
               <tr>
                 <th>Thông số</th>
-                <th>Sản phẩm 1</th>
-                
-                <th>Sản phẩm 2</th>
+                <th id="All-header__product1">Sản phẩm 1</th>
+                <th id="All-header__product2">Sản phẩm 2</th>
               </tr>
             </thead>
             <tbody>
