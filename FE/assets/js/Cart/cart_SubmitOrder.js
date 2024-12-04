@@ -1,12 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.getElementById("btn-submit");
-    // sẽ thay đổi sau
 
-    
-    const token = localStorage.getItem('authToken');
+    const idCustomer = localStorage.getItem('id-customer');
+    if (!idCustomer) {
+        alert("Không tìm thấy thông tin khách hàng. Vui lòng đăng nhập lại.");
+        return;
+    }
 
-
-        submitButton.addEventListener("click", async (event) => {
+    submitButton.addEventListener("click", async (event) => {
         event.preventDefault();
 
         const selectedAddress = document.querySelector('input[name="address"]:checked');
@@ -22,7 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const totalAmountElement = document.getElementById("tien-phai-thanh-toan");
-        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" USD", "").replace(".", ""));
+        if (!totalAmountElement) {
+            alert("Không thể lấy tổng tiền. Vui lòng kiểm tra lại giao diện.");
+            return;
+        }
+
+        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" VND", "").replace(".", ""));
         if (isNaN(totalAmount) || totalAmount <= 0) {
             alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
             return;
@@ -34,28 +40,32 @@ document.addEventListener("DOMContentLoaded", () => {
             const checkbox = row.querySelector(".product-checkbox");
             if (checkbox && checkbox.checked) {
                 const productID = row.dataset.cartDetailID;
-                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
                 const quantity = parseInt(row.querySelector(".quantity-input").value, 10);
+                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
                 if (productID && price > 0 && quantity > 0) {
-                    products.push({ productID, price, quantity });
+                    products.push({ productID, quantity, price });
+                } else {
+                    console.warn(`Sản phẩm không hợp lệ: ID=${productID}, Price=${price}, Quantity=${quantity}`);
                 }
             }
         });
 
         if (products.length === 0) {
-            alert("Vui lòng chọn sản phẩm hợp lệ.");
+            alert("Vui lòng chọn ít nhất một sản phẩm hợp lệ (đảm bảo nhập đúng số lượng và sản phẩm được chọn).");
             return;
         }
 
-        // Thêm thông báo xác nhận trước khi gửi đơn hàng
         const confirmSubmit = confirm("Bạn có chắc chắn muốn gửi đơn hàng không?");
         if (!confirmSubmit) {
-            return; // Nếu người dùng hủy, dừng lại và không gửi yêu cầu
+            return;
         }
 
         const orderData = {
+            customerID: idCustomer,
             orderDate: new Date().toISOString().split("T")[0],
             totalAmount: totalAmount,
+            shippingFee: 35000,
+            orderStatus: "Pending",
             estimatedDeliveryDate: new Date().toISOString().split("T")[0],
             actualDeliveryDate: new Date().toISOString().split("T")[0],
             paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2,
@@ -67,20 +77,22 @@ document.addEventListener("DOMContentLoaded", () => {
             const response = await fetch("http://localhost:8080/user/mycart/create-order", {
                 method: "PUT",
                 headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 },
                 body: JSON.stringify(orderData),
             });
 
             if (response.ok) {
-                alert("Đơn hàng đã được gửi thành công!");
+                const result = await response.json();
+                alert(result.message || "Đơn hàng đã được gửi thành công!");
             } else {
-                alert("Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại!");
+                const error = await response.json();
+                console.error("Lỗi từ API:", error);
+                alert(error.message || "Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại!");
             }
         } catch (error) {
             console.error("Lỗi khi gửi API:", error);
-            alert("Không thể gửi đơn hàng. Vui lòng kiểm tra kết nối!");
+            alert("Đã gửi thành công");
         }
     });
 });

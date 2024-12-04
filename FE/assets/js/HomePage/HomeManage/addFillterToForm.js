@@ -26,13 +26,42 @@ fetch(apiUrl)
     .then(response => response.json())
     .then(data => {
         // Thêm mục vào từng bộ lọc
-        addFilterItems('brand-filter', Object.entries(data.getSuppliersForCheckboxAndBtn).map(([key, value]) => ({ id: key, name: value })), 'id', 'name');
-        addFilterItems('price-filter', Object.entries(data.getPriceProductForCheckbox).map(([key, value]) => ({ id: key, name: value })), 'id', 'name');
-        addFilterItems('cpu-filter', Object.keys(data.getCPUForCheckbox), 'value', 'value');
-        addFilterItems('ram-filter', Object.keys(data.getRamForCheckbox), 'value', 'value');
-        addFilterItems('storage-filter', Object.keys(data.getHardDriveForCheckbox), 'value', 'value');
-        addFilterItems('usage-filter', Object.entries(data.getCustomerDemandForCheckBox).map(([key, value]) => ({ id: key, name: value })), 'id', 'name');
-        addFilterItems('screen-size-filter', Object.keys(data.getScreenSizeForCheckbox), 'value', 'value');
+        addFilterItems(
+            'brand-filter', 
+            Object.entries(data.getSuppliersForCheckboxAndBtn).map(([key, value]) => ({ id: key, name: value })), 
+            'id', 
+            'name'
+        );
+        addFilterItems(
+            'price-filter', 
+            Object.entries(data.getPriceProductForCheckbox).map(([key, value]) => ({ id: key, name: value })), 
+            'id', 
+            'name'
+        );
+        addFilterItems(
+            'cpu-filter', 
+            Object.keys(data.getCPUForCheckbox).map(value => ({ id: value, name: value })), 
+            'id', 
+            'name'
+        );
+        addFilterItems(
+            'ram-filter', 
+            Object.keys(data.getRamForCheckbox).map(value => ({ id: value, name: value })), 
+            'id', 
+            'name'
+        );
+        addFilterItems(
+            'storage-filter', 
+            Object.keys(data.getHardDriveForCheckbox).map(value => ({ id: value, name: value })), 
+            'id', 
+            'name'
+        );
+        addFilterItems(
+            'screen-size-filter', 
+            Object.entries(data.getScreenSizeForCheckbox).map(([key, value]) => ({ id: key, name: value })), 
+            'id', 
+            'name'
+        );
     })
     .catch(error => console.error('Lỗi khi lấy dữ liệu từ API:', error));
 
