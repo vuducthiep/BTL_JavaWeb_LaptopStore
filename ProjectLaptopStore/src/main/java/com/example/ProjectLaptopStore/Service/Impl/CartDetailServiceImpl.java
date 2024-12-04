@@ -38,10 +38,11 @@ public class CartDetailServiceImpl implements CartDetailService {
             CartDetailDTO dto = CartDetailDTO.builder()
                     .cartDetailID((int)o[0])
                     .productId((int) o[1])
-                    .productName((String) o[2])
-                    .price((BigDecimal) o[3])
-                    .quantity((int) o[4])
-                    .lineTotal((BigDecimal) o[5])
+                    .productImage((String) o[2])
+                    .productName((String) o[3])
+                    .price((BigDecimal) o[4])
+                    .quantity((int) o[5])
+                    .lineTotal((BigDecimal) o[6])
                     .build();
             rs.add(dto);
         }
