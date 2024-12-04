@@ -1,5 +1,5 @@
 // URL API của bạn
-const apiUrl = "http://localhost:8080/user/home/";
+const apiUrl = "http://localhost:8080/user/home";
 
 // Hàm để thêm các mục vào một nhóm bộ lọc
 function addFilterItems(filterGroupId, items, valueKey, labelKey) {
