@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <input type="number" value="${product.quantity}" min="1" class="quantity-input">
             <button class="quantity-btn increase">+</button>
         </td>
-        <td class="item-total">${product.price.toLocaleString()} VND</td>
+        <td class="item-total">${product.lineTotal.toLocaleString()} VND</td>
         <td>
             <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
         </td>
