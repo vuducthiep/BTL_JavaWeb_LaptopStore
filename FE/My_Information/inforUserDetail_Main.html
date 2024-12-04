@@ -17,7 +17,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="assets/css/home.css" />
+        <link rel="stylesheet" href="../assets/css/home.css" />
         <link rel="stylesheet" href="../assets/css/inforUserDetail_Main.css">
       </head>
 <body>
@@ -121,11 +121,11 @@
                     <i class="fa-solid fa-circle-user"
                     style="font-size: 220%;"></i>
                     <div class="inner-user-box">
-                        <div class="inner-user-name">
-                            Le Minh Quang
+                        <div id="inner-user-name">
+                            Tên khách hàng
                         </div>
-                        <div class="inner-user-phoneNumber">
-                            012345678
+                        <div id="inner-user-phoneNumber">
+                            Số khách hàng
                         </div>
                     </div>
                     <a href="inforUserDetail.html" style="text-decoration: none;">Xem hồ sơ</a>
@@ -163,17 +163,17 @@
 
                     <div class="box-content-item">
                         <label for="">Họ và tên :</label>
-                        <p id="infor-name">Le Minh Quang</p>
+                        <p id="infor-name">Tên khách hàng</p>
                     </div>
 
                     <div class="box-content-item">
                         <label for="">Số điện thoại :</label>
-                        <p id="infor-phoneNumber">012345678</p>
+                        <p id="infor-phoneNumber">Số khách hàng</p>
                     </div>
 
                     <div class="box-content-item">
                         <label for="">Email :</label>
-                        <p id="infor-email">lmq@gmail.com</p>
+                        <p id="infor-email">customer@gmail.com</p>
                     </div>
 
                     <!-- <div class="box-content-item">
@@ -232,7 +232,7 @@
                             </div>
                             <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                              <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                              <button type="button" class="btn btn-primary" onclick="handleUpdateInfor()">Lưu thay đổi</button>
                             </div>
                           </div>
                         </div>
