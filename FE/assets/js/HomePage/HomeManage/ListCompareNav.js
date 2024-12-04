@@ -50,7 +50,7 @@ function compareProducts() {
       document.getElementById('toggle-arrow').style.display = 'inline'; // Hiện mũi tên
   
       // Lấy toàn bộ sản phẩm từ API
-      fetch('http://localhost:8080/user/home/')
+      fetch('http://localhost:8080/user/home')
         .then(response => response.json())
         .then(data => {
           comparedProducts.forEach(productId => {

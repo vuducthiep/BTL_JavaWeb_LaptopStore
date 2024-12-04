@@ -39,7 +39,7 @@ function renderCustomerDemand(customerDemandData) {
       console.log("ID được chọn:", selectedId);
 
       // Gọi API hoặc chuyển màn khác với `selectedId`
-      window.location.href = `product-list.html?category=${selectedId}`;
+      window.location.href = `product-list.html?q=${selectedId}`;
     });
 
     // Thêm vào container
