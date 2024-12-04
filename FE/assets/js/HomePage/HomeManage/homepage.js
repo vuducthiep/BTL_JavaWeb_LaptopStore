@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Hàm khởi tạo
   const initialize = async () => {
     try {
-      const response = await fetch('http://localhost:8080/user/home/');
+      const response = await fetch('http://localhost:8080/user/home');
       const data = await response.json();
 
       allProducts = data.getProductForHomePage || [];

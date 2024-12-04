@@ -86,7 +86,7 @@ public class UserController {
 
     // hien thi thong tin ca nhan
     @GetMapping(value = "/user/myInfor")
-    public User_DTO getMyInfor(@RequestParam(value = "id")int id){
+    public User_DTO getMyInfor(@RequestParam(value = "id")int id ){
         User_DTO dto = userService.UserInfor(id);
         return  dto;
     }

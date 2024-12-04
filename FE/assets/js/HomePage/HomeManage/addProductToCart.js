@@ -4,13 +4,6 @@ function getProductIDFromURL() {
     return urlParams.get('id'); // Lấy giá trị của tham số "id"
 }
 
-// Lấy customerID từ localStorage
-const customerID = localStorage.getItem('id-customer');
-if (!customerID) {
-    alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
-    throw new Error("Không tìm thấy ID khách hàng trong localStorage");
-}
-
 // Hàm thêm sản phẩm vào giỏ hàng
 function addToCart(customerID, productID) {
     const apiUrl = "http://localhost:8080/user/product-add";
@@ -30,7 +23,7 @@ function addToCart(customerID, productID) {
         if (!response.ok) {
             throw new Error(`Lỗi API: ${response.statusText}`);
         }
-        return response.json();
+        return response.text();
     })
     .then(data => {
         console.log('Thêm vào giỏ hàng thành công:', data);
@@ -49,5 +42,14 @@ document.getElementById('add-to-cart').addEventListener('click', function() {
         alert("Không tìm thấy ID sản phẩm!");
         return;
     }
-    addToCart(customerID, productID); // Gọi hàm thêm sản phẩm vào giỏ hàng
+
+    // Kiểm tra customerID từ localStorage
+    const customerID = localStorage.getItem('id-customer');
+    if (!customerID) {
+        alert("Bạn cần đăng nhập để thêm sản phẩm vào giỏ hàng!");
+        return;
+    }
+
+    // Gọi hàm thêm sản phẩm vào giỏ hàng
+    addToCart(customerID, productID);
 });
