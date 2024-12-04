@@ -158,23 +158,23 @@ document.addEventListener('DOMContentLoaded', () => {
             row.classList.add('product-row'); // Thêm class 'product-row'
             row.dataset.cartDetailID = product.cartDetailID; // Lưu ID sản phẩm vào dataset
             row.innerHTML = `
-                <td><input type="checkbox" class="product-checkbox"></td>
-                <td>${index + 1}</td>
-                <td>${product.productName}</td>
-                <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
-                <td>
-                    <button class="quantity-btn decrease">-</button>
-                    <input type="number" value="1" min="1" class="quantity-input">
-                    <button class="quantity-btn increase">+</button>
-                </td>
-                <td class="item-total">${product.price.toLocaleString()} VND</td>
-                <td>
-                    <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
-                </td>
-                <td>
-                    <button class="view-details-btn" data-id="${product.productId}">Xem Chi Tiết</button>
-                </td>
-            `;
+        <td><input type="checkbox" class="product-checkbox"></td>
+        <td>${index + 1}</td>
+        <td>${product.productName}</td>
+        <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
+        <td>
+            <button class="quantity-btn decrease">-</button>
+            <input type="number" value="${product.quantity}" min="1" class="quantity-input">
+            <button class="quantity-btn increase">+</button>
+        </td>
+        <td class="item-total">${product.price.toLocaleString()} VND</td>
+        <td>
+            <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
+        </td>
+        <td>
+            <button class="view-details-btn" data-id="${product.productId}">Xem Chi Tiết</button>
+        </td>
+    `;
 
             tableBody.appendChild(row);
         });
