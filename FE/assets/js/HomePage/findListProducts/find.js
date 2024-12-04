@@ -5,7 +5,7 @@ function searchProducts(event) {
     
     if (query) {
       // Chuyển hướng sang trang product-list.html và truyền từ khóa tìm kiếm qua URL
-      window.location.href = `/Laptop-Store/BTL-TTCSN-20241IT6040001-NHOM7/FE/product_list/product-list.html?q=${encodeURIComponent(query)}`;
+      window.location.href = `product-list.html?q=${encodeURIComponent(query)}`;
     }
   }
   
