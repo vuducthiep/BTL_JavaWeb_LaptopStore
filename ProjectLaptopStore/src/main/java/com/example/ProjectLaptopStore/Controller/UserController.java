@@ -97,27 +97,20 @@ public class UserController {
         userService.updateUser(dto);
         return ResponseEntity.ok("User updated successfully");
     }
-//    @GetMapping(value = "/get")
-//    public ResponseEntity<CustomUserDetails> get(){
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
-//        return ResponseEntity.ok(userDetails);
-//    }
 
-    //API hien thi danh sach order
-    @GetMapping(value = "/user/orders/")
-    public List<OrderDetail_displayForStatusDTO> getOrders(@RequestParam(name = "customerID")int customerID){
-        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.listDisplayForStatus(customerID);
+    @GetMapping(value = "/user/my-orders")
+    public List<Order_OrderDetailDTO> getOrder(@RequestParam(name = "customerID")int customerID){
+        List<Order_OrderDetailDTO> rs = orderService.ListOrderDetail(customerID);
         return rs;
     }
 
-
-    // API hien thi danh sach order theo status
-    @GetMapping(value = "/user/orders/status")
-    public List<OrderDetail_displayForStatusDTO> displayOrderDetalByStatus(@RequestParam(name = "status")String status){
-        List<OrderDetail_displayForStatusDTO> rs = orderDetailService.displayForStatus(status);
+    @GetMapping(value = "/user/my-orders/")
+    public List<Order_OrderDetailDTO> getOrderByStatus(@RequestParam(name = "customerID")int customerID,
+                                               @RequestParam(name = "status")String status){
+        List<Order_OrderDetailDTO> rs = orderService.ListOrderDetailByStatus(customerID,status);
         return rs;
     }
+
 
     // API lay danh sach Shipping address
     @GetMapping(value = "/user/shipping-address")

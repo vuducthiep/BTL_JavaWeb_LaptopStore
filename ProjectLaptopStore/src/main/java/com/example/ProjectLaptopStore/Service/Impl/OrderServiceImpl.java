@@ -68,6 +68,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderDetailRepository orderDetailRepository;
 
     @Override
     public BigDecimal getTotalAmountInMountAtService() {
@@ -185,6 +187,57 @@ public class OrderServiceImpl implements OrderService {
             entityManager.persist(orderDetailEntity);
             entityManager.flush();
         }
+    }
+
+    @Override
+    public List<Order_OrderDetailDTO> ListOrderDetail(int id) {
+        // danh sach id cua order
+        List<Integer> ids = orderRepository.findOrderIDByCustomerID(id);
+        List<Order_OrderDetailDTO> result = new ArrayList<>();
+        for (Integer i : ids) {
+            List<Object[]> od = orderDetailRepository.getOrderDetail(i);
+            List<OrderDetail_displayForStatusDTO> orderDetail = new ArrayList<>();
+            for (Object[] o : od) {
+                OrderDetail_displayForStatusDTO dto2 = OrderDetail_displayForStatusDTO.builder()
+                        .imageURL((String) o[0])
+                        .productName((String) o[1])
+                        .quantity((int)o[2])
+                        .lineTotal((BigDecimal) o[3])
+                        .build();
+                orderDetail.add(dto2);
+            }
+            Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
+            dto.setOrderdetail(orderDetail);
+            if(dto.getOrderdetail().size() != 0){
+                result.add(dto);
+            }
+        }
+        return  result;
+    }
+
+    @Override
+    public List<Order_OrderDetailDTO> ListOrderDetailByStatus(int customerID, String status) {
+        List<Integer> ids = orderRepository.findOrderIDByCustomerID(customerID);
+        List<Order_OrderDetailDTO> result = new ArrayList<>();
+        for (Integer i : ids) {
+            List<Object[]> od = orderDetailRepository.SearchOrderDetailByStatus(i,status);
+            List<OrderDetail_displayForStatusDTO> orderDetail = new ArrayList<>();
+            for (Object[] o : od) {
+                OrderDetail_displayForStatusDTO dto2 = OrderDetail_displayForStatusDTO.builder()
+                        .imageURL((String) o[0])
+                        .productName((String) o[1])
+                        .quantity((int)o[2])
+                        .lineTotal((BigDecimal) o[3])
+                        .build();
+                orderDetail.add(dto2);
+            }
+            Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
+            dto.setOrderdetail(orderDetail);
+            if(dto.getOrderdetail().size() != 0){
+                result.add(dto);
+            }
+        }
+        return  result;
     }
 
 

@@ -28,39 +28,4 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return result;
     }
 
-    @Override
-    public List<OrderDetail_displayForStatusDTO> listDisplayForStatus(int orderID) {
-        List<Object[]> ob = orderDetailRepository.getOrderDetail(orderID);
-        List<OrderDetail_displayForStatusDTO> result = new ArrayList<>();
-        for (Object[] o : ob) {
-            OrderDetail_displayForStatusDTO dto = OrderDetail_displayForStatusDTO.builder()
-                    .orderId((int) o[0])
-                    .productId((int) o[1])
-                    .productName((String) o[2])
-                    .price((BigDecimal) o[3])
-                    .imageURL((String) o[4])
-                    .build();
-            result.add(dto);
-
-        }
-        return result;
-    }
-
-    @Override
-    public List<OrderDetail_displayForStatusDTO> displayForStatus(String status) {
-        List<Object[]> ob = orderDetailRepository.SearchOrderDetailByStatus(status);
-        List<OrderDetail_displayForStatusDTO> result = new ArrayList<>();
-        for (Object[] o : ob) {
-            OrderDetail_displayForStatusDTO dto = OrderDetail_displayForStatusDTO.builder()
-                    .orderId((int) o[0])
-                    .productId((int) o[1])
-                    .productName((String) o[2])
-                    .price((BigDecimal) o[3])
-                    .imageURL((String) o[4])
-                    .build();
-            result.add(dto);
-
-        }
-        return result;
-    }
 }

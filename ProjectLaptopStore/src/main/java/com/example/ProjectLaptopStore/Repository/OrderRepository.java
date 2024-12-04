@@ -45,5 +45,6 @@ public interface OrderRepository extends JpaRepository<OrdersEntity, Integer> , 
     @Query(value = "SELECT * FROM Orders o WHERE o.OrderID = :orderID",nativeQuery = true)
     OrdersEntity findByOrderID(@Param("orderID") int orderID);
 
-
+    @Query(value = "SELECT o.OrderID FROM Orders o WHERE o.CustomerID = :customerID",nativeQuery = true)
+    List<Integer> findOrderIDByCustomerID(@Param("customerID") int customerID);
 }
