@@ -11,7 +11,7 @@ public interface PromotionRepository extends JpaRepository<PromotionEntity,Integ
     List<PromotionEntity> getAllBy();
 
     @Query(value = "SELECT * FROM Promotions p " +
-            "WHERE p.PromotionName LIKE %:name%", nativeQuery = true)
+            "WHERE p.PromotionName LIKE :name", nativeQuery = true)
     List<PromotionEntity> getPromotionByPromotionName(@Param("name") String name);
 
     @Query(value = "SELECT p.ProductID, \n" +

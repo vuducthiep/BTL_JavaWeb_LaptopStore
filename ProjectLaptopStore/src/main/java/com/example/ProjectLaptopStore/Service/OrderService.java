@@ -1,9 +1,6 @@
 package com.example.ProjectLaptopStore.Service;
 
-import com.example.ProjectLaptopStore.DTO.OrderDTO;
-import com.example.ProjectLaptopStore.DTO.Order_CountTotalAmountDTO;
-import com.example.ProjectLaptopStore.DTO.Order_InvoiceDetailDTO;
-import com.example.ProjectLaptopStore.DTO.Order_ListBillDTO;
+import com.example.ProjectLaptopStore.DTO.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,4 +17,11 @@ public interface OrderService {
 
     // tao moi don hang
     void createOrder(OrderDTO dto);
+
+    //hien thi cac don hang
+    List<Order_OrderDetailDTO> ListOrderDetail(int id);
+
+    //hien thi don hang theo status
+    List<Order_OrderDetailDTO> ListOrderDetailByStatus(int customerID, String status);
+
 }

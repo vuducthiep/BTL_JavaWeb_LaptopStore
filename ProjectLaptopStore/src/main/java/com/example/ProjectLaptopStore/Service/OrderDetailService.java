@@ -9,9 +9,4 @@ public interface OrderDetailService {
     List<OrderDetail_CountQuantityProductPerMonthDTO> listCountQuantityProductPerMonth();
     Integer getQuantityProductCurrentMonthAtService();
 
-    //lay danh sach orderdetail
-    List<OrderDetail_displayForStatusDTO> listDisplayForStatus(int orderID);
-
-    //hien thi orderdetail theo Status
-    List<OrderDetail_displayForStatusDTO> displayForStatus(String status);
 }

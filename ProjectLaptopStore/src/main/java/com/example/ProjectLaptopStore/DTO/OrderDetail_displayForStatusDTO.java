@@ -10,11 +10,10 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 public class OrderDetail_displayForStatusDTO {
-    private int orderId;
-    private int productId;
-    private String productName;
-    private BigDecimal price;
     private String imageURL;
+    private String productName;
+    private int quantity;
+    private BigDecimal lineTotal;
 
 
 }
