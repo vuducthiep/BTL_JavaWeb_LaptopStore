@@ -545,3 +545,25 @@ label {
   margin-right: 8px; /* Khoảng cách giữa checkbox và chữ */
   transform: scale(1.2); /* Phóng to checkbox */
 }
+/* Định dạng container của hình ảnh và tên */
+.product-info {
+  display: flex; /* Sử dụng flexbox để sắp xếp ngang */
+  align-items: center; /* Căn chỉnh trung tâm theo chiều dọc */
+  gap: 10px; /* Khoảng cách giữa hình ảnh và tên */
+}
+
+/* Định dạng hình ảnh cơ bản */
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 5px; /* Bo góc nhẹ */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+}
+
+/* Hiệu ứng hover */
+.product-image:hover {
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng đổ bóng */
+  
+}

@@ -160,7 +160,12 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
         <td><input type="checkbox" class="product-checkbox"></td>
         <td>${index + 1}</td>
-        <td>${product.productName}</td>
+        <td>
+            <div class="product-info">
+                <img src="${product.productImage}" alt="${product.productName}" class="product-image">
+                <span>${product.productName}</span>
+            </div>
+        </td>
         <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
         <td>
             <button class="quantity-btn decrease">-</button>
