@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 import com.example.ProjectLaptopStore.Convert.ContentConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_ProductSearchCheckBoxDTO;
 import com.example.ProjectLaptopStore.Entity.ContentEntity;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
 import com.example.ProjectLaptopStore.Entity.Enum.Product_FindProductsByPriceRange_Enum;
@@ -20,6 +21,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -123,6 +125,20 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             productDetai.add(product);
         }
         return productDetai;
+    }
+
+    @Override
+    public List<ProductDetailDTO> getProductDetailByCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO) {
+        StringBuilder query = setQuery("","");
+        query.append(setQueryCheckbox(productSearchCheckBoxDTO));
+        Query nativeQuery = entityManager.createNativeQuery(query.toString());
+        List<Object[]> resultQuery = nativeQuery.getResultList();
+        List<ProductDetailDTO> listProductDetailDTO = new ArrayList<>();
+        for (Object[] rowOfResult : resultQuery) {
+            ProductDetailDTO dto = setConstructor(rowOfResult);
+            listProductDetailDTO.add(dto);
+        }
+        return listProductDetailDTO;
     }
 
     public StringBuilder checkKey(Object key,Integer keyTransfered){
@@ -449,6 +465,85 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 " LIMIT 10 ;");
         return query;
     }
+    //hàm nối query tìm bằng checkbox
+    public StringBuilder setQueryCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO){
+        StringBuilder query = new StringBuilder(" ");
+        try {
+            Field[] fields = Product_ProductSearchCheckBoxDTO.class.getDeclaredFields();
+            for (Field item : fields){
+                item.setAccessible(true);
+                String fieldName = item.getName();
+                Object value = item.get(productSearchCheckBoxDTO);
+                //tìm kiếm bằng giá
+                if(fieldName.equals("price") && value != null){
+                    switch (value.toString()) {
+                        case "BETWEEN_15_AND_20":
+                            query.append(" AND p.price BETWEEN 15000000 AND 20000000 ");
+                            break;
+                        case "BETWEEN_10_AND_15":
+                            query.append(" AND p.price BETWEEN 10000000 AND 15000000 ");
+                            break;
+                        case "BELOW_10":
+                            query.append(" AND p.price < 10000000 ");
+                            break;
+                        case "BETWEEN_25_AND_30":
+                            query.append(" AND p.price BETWEEN 25000000 AND 30000000 ");
+                            break;
+                        case "ABOVE_30":
+                            query.append(" AND p.price > 30000000 ");
+                            break;
+                        case "BETWEEN_20_AND_25":
+                            query.append(" AND p.price BETWEEN 20000000 AND 25000000 ");
+                            break;
+                        default:
+                            // Trường hợp không có giá trị phù hợp
+                            query.append(" ");
+                            break;
+                    }
+                }
+                //tìm kiếm bằng brand
+                if(fieldName.equals("idBrand") && value != null){
+                    query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = ").append(value).append(" ) ");
+                }
+                //tìm kiếm bằng CPU
+                if(fieldName.equals("cpu") && value != null){
+                    query.append(" and pd.cpuTechnology like '%").append(value).append("%' ");
+                }
+                //tìm kiếm bằng
+                if(fieldName.equals("ram") && value != null){
+                    query.append(" and pd.ramCapacity = ").append(value).append(" ");
+                }
+                //tìm kiếm bằng harddrive
+                if(fieldName.equals("hardDrive") && value != null){
+                    query.append(" and pd.hardDriveType like '%").append(value).append("%' ");
+                }
+                //tìm kiếm bằng screensize
+                if(fieldName.equals("screenSize") && value != null){
+                    switch (value.toString()) {
+                        case "BETWEEN_1517":
+                            query.append(" AND pd.screenSize BETWEEN 15 AND 17 ");
+                            break;
+                        case "BETWEEN_1415":
+                            query.append(" AND pd.screenSize BETWEEN 14 AND 15 ");
+                            break;
+                        case "BELOW_14":
+                            query.append(" AND pd.screenSize < 14 ");
+                            break;
+                        default:
+                            // Trường hợp không có giá trị phù hợp
+                            query.append(" ");
+                            break;
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return query;
+    }
+
+
+
 // phan trang product
 //    @Override
 //    public Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize) {

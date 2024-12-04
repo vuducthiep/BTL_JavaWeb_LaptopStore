@@ -58,24 +58,26 @@ public class UserController {
     CartDetailService cartDetailService;
 
     //API lấy thông tin cho homepage
-    @GetMapping(value = "/user/home/")
+    @GetMapping(value = "/user/home")
     public User_HomeResponseDTO getHomePage(){
         User_HomeResponseDTO result = userService.userHomePage();
         return result;
     }
-
     //API tìm kiếm bằng từ khóa,hãng,nhu cầu
-    @GetMapping(value = "/user/product/")
+    @GetMapping(value = "/user/search")
     public List<ProductDetailDTO> getProductsSearch(@RequestParam String keyword){
         return productService.listSearchProductByKey(keyword);
     }
-
+    //API tìm bằng checkbox
+    @GetMapping(value = "/user/home/")
+    public List<ProductDetailDTO> listProductSearchCheckbox(@RequestParam Map<String, Object> searchMap){
+        return productService.getProductByCheckbox(searchMap);
+    }
     //API lấy thông tin sản phẩm chi tiết
     @GetMapping(value = "/user/product")
     public List<ProductDetailDTO> getProductDetail(@RequestParam List<Integer>  id){
         return productService.getProductById(id);
     }
-
     //API lấy thông tin sản phẩm  để so sánh
     @GetMapping(value = "/user/compare")
     public List<ProductDetailDTO> getProductDetailCompare(@RequestParam List<Integer>  ids){
@@ -165,7 +167,6 @@ public class UserController {
         orderService.createOrder(dto);
         return ResponseEntity.ok("Order created successfully");
     }
-
 
     //API thêm sản phẩm vào giỏ hàng
     @PostMapping(value = "/user/product-add")
