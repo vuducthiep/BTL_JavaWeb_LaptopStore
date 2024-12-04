@@ -181,16 +181,6 @@
                       </div>
                     </div>
             
-                    <div class="filter-group">
-                      <h4>
-                        Card đồ họa: 
-                        <button type="button" class="toggle-btn" onclick="toggleFilter('gpu-filter')">▼</button>
-                      </h4>
-                      <div class="filter-items" id="gpu-filter" style="display: none;">
-                        <label><input type="checkbox" name="gpu" value="nvidia"> NVIDIA</label><br>
-                        <label><input type="checkbox" name="gpu" value="amd"> AMD</label><br>
-                      </div>
-                    </div>
             
                     <div class="filter-group">
                       <h4>
@@ -208,9 +198,9 @@
                     <div class="filter-group">
                       <h4>
                         Ổ cứng: 
-                        <button type="button" class="toggle-btn" onclick="toggleFilter('storage-filter')">▼</button>
+                        <button type="button" class="toggle-btn" onclick="toggleFilter('hardrive-filter')">▼</button>
                       </h4>
-                      <div class="filter-items" id="storage-filter" style="display: none;">
+                      <div class="filter-items" id="hardrive-filter" style="display: none;">
                         <label><input type="checkbox" name="storage" value="1"> 1 TB</label><br>
                         <label><input type="checkbox" name="storage" value="512"> 512 GB</label><br>
                         <label><input type="checkbox" name="storage" value="256"> 256 GB</label><br>
@@ -219,18 +209,6 @@
                     </div>
             
                     
-                    <div class="filter-group">
-                      <h4>
-                        Nhu cầu: 
-                        <button type="button" class="toggle-btn" onclick="toggleFilter('usage-filter')">▼</button>
-                      </h4>
-                      <div class="filter-items" id="usage-filter" style="display: none;">
-                        <label><input type="checkbox" name="usage" value="gaming"> Gaming - Đồ họa</label><br>
-                        <label><input type="checkbox" name="usage" value="office"> Sinh viên - Văn phòng </label><br>
-                        <label><input type="checkbox" name="usage" value="design"> Mỏng nhẹ</label><br>
-                        <label><input type="checkbox" name="usage" value="education"> Doanh nhân</label><br>
-                      </div>
-                    </div>
             
                     <div class="filter-group">
                       <h4>
@@ -265,8 +243,6 @@
                             <span>Sắp sếp theo</span>
                             <select id="sort-options">
                               <option value="default">Mặc định</option>
-                              <option value="name-asc">Tên từ A-Z</option>
-                              <option value="name-desc">Tên từ Z-A</option>
                               <option value="price-asc">Giá: Tăng dần</option>
                               <option value="price-desc">Giá: Giảm dần</option>
                             </select>

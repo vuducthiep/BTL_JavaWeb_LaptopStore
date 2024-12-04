@@ -1,4 +1,3 @@
-// URL API của bạn
 const apiUrl = "http://localhost:8080/user/home";
 
 // Hàm để thêm các mục vào một nhóm bộ lọc
@@ -10,8 +9,8 @@ function addFilterItems(filterGroupId, items, valueKey, labelKey) {
     filterGroup.innerHTML = '';
 
     items.forEach(item => {
-        const value = item[valueKey] || item;
-        const label = item[labelKey] || item;
+        const value = item[valueKey]; // Dùng giá trị key từ API
+        const label = item[labelKey]; // Dùng giá trị label từ API
         const checkbox = `
             <label>
                 <input type="checkbox" name="${filterGroupId}" value="${value}"> ${label}
@@ -40,19 +39,19 @@ fetch(apiUrl)
         );
         addFilterItems(
             'cpu-filter', 
-            Object.keys(data.getCPUForCheckbox).map(value => ({ id: value, name: value })), 
+            Object.entries(data.getCPUForCheckbox).map(([key, value]) => ({ id: key, name: value })), 
             'id', 
             'name'
         );
         addFilterItems(
             'ram-filter', 
-            Object.keys(data.getRamForCheckbox).map(value => ({ id: value, name: value })), 
+            Object.entries(data.getRamForCheckbox).map(([key, value]) => ({ id: key, name: value })), 
             'id', 
             'name'
         );
         addFilterItems(
-            'storage-filter', 
-            Object.keys(data.getHardDriveForCheckbox).map(value => ({ id: value, name: value })), 
+            'hardrive-filter', 
+            Object.entries(data.getHardDriveForCheckbox).map(([key, value]) => ({ id: key, name: value })), 
             'id', 
             'name'
         );
@@ -72,5 +71,3 @@ function toggleFilter(filterId) {
         filterElement.style.display = filterElement.style.display === 'none' ? 'block' : 'none';
     }
 }
-
-
