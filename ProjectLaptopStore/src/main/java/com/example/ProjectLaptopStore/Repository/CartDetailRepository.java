@@ -10,7 +10,7 @@ import java.util.List;
 public interface CartDetailRepository extends JpaRepository<CartDetailsEntity,Integer> {
 
     // lay danh sach cartdetail
-    @Query(value = "SELECT cd.CartDetailsID,p.ProductID, p.ProductName, cd.Price, cd.Quantity, cd.LineTotal " +
+    @Query(value = "SELECT cd.CartDetailsID,p.ProductID,p.ImageURL, p.ProductName, cd.Price, cd.Quantity, cd.LineTotal " +
             "FROM cartdetails cd " +
             "JOIN products p ON p.ProductID = cd.ProductID " +
             "WHERE cd.CartID = :cartID",nativeQuery = true)
