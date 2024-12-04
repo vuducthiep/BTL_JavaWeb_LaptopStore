@@ -172,6 +172,13 @@ th, td {
     border: 1px solid #ddd;
     padding: 8px;
     text-align: left;
+
+    overflow-wrap: break-word; /* Tự xuống dòng khi nội dung quá dài */
+    word-wrap: break-word; /* Hỗ trợ cho trình duyệt cũ */
+    word-break: break-word; /* Tự ngắt từ dài */
+    text-align: left; /* Canh trái nội dung */
+    padding: 5px; /* Thêm khoảng cách trong ô */
+    border: 1px solid #ddd; /* Viền giữa các ô */
 }
 
 th {
@@ -545,12 +552,7 @@ label {
   margin-right: 8px; /* Khoảng cách giữa checkbox và chữ */
   transform: scale(1.2); /* Phóng to checkbox */
 }
-/* Định dạng container của hình ảnh và tên */
-.product-info {
-  display: flex; /* Sử dụng flexbox để sắp xếp ngang */
-  align-items: center; /* Căn chỉnh trung tâm theo chiều dọc */
-  gap: 10px; /* Khoảng cách giữa hình ảnh và tên */
-}
+
 
 /* Định dạng hình ảnh cơ bản */
 .product-image {
@@ -559,6 +561,10 @@ label {
   object-fit: cover;
   border-radius: 5px; /* Bo góc nhẹ */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hiệu ứng mượt */
+
+  flex-shrink: 0; /* Đảm bảo hình ảnh không co lại */
+  object-fit: cover; /* Đảm bảo hình ảnh vừa khung */
+  border-radius: 5px;
 }
 
 /* Hiệu ứng hover */
@@ -566,4 +572,25 @@ label {
   transform: scale(1.1); /* Phóng to nhẹ khi hover */
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng đổ bóng */
   
+}
+
+
+/* Giới hạn chiều rộng cụ thể cho từng cột (tuỳ chỉnh theo nhu cầu) */
+td:nth-child(3) { /* Cột chứa tên sản phẩm */
+  width: 40%; /* Cố định chiều rộng cột tên */
+}
+
+/* Hình ảnh trong bảng */
+.product-info {
+  display: flex; /* Xếp hình ảnh và tên sản phẩm theo hàng ngang */
+  align-items: center; /* Canh giữa theo chiều dọc */
+  gap: 5px; /* Khoảng cách giữa hình và tên */
+}
+
+
+/* Dòng chữ */
+.product-info span {
+  display: block;
+  white-space: normal; /* Cho phép nội dung xuống dòng */
+  overflow: hidden;
 }
