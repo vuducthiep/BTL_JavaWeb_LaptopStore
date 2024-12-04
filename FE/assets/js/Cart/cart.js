@@ -3,6 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const totalPriceElement = document.querySelector('.total-price');
     const totalElement = document.querySelector('.total-amount');
     const selectAllCB = document.getElementById('selectAll');
+    const detailButtons = document.querySelectorAll('.view-details-btn');
+
     //sẽ thay đổi sau
     const idCart = localStorage.getItem('id-cart');
     const idCustomer = localStorage.getItem('id-customer');
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    
+
     
     // lay dia chi tu api
     // async function loadPaymentMethods() {
@@ -158,9 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
             row.innerHTML = `
                 <td><input type="checkbox" class="product-checkbox"></td>
                 <td>${index + 1}</td>
-                <td>
-                    ${product.productName}
-                </td>
+                <td>${product.productName}</td>
                 <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
                 <td>
                     <button class="quantity-btn decrease">-</button>
@@ -172,14 +172,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
                 </td>
                 <td>
-                    <button class="view-details-btn">Xem Chi Tiết</button>
+                    <button class="view-details-btn" data-id="${product.productId}">Xem Chi Tiết</button>
                 </td>
             `;
+
             tableBody.appendChild(row);
         });
 
         initializeRowEvents();
     }
+
+            
     
 
     // Initialize row events
@@ -254,15 +257,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Hành động xóa bị hủy bỏ');
             }
         }
-        
-
-        
-
-
 
         // Product checkbox events
         document.querySelectorAll('.product-checkbox').forEach(checkbox => {
             checkbox.addEventListener('change', updateTotal);
+        });
+
+            // Sự kiện cho nút "Xem Chi Tiết"
+        document.querySelectorAll('.view-details-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const productId = this.getAttribute('data-id');
+                console.log(`Navigating to details for product ID: ${productId}`);
+                window.location.href = `product-details.html?id=${productId}`;
+            });
         });
     }
     
