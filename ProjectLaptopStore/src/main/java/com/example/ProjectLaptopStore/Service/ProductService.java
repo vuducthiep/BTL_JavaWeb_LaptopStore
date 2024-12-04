@@ -19,4 +19,5 @@ public interface ProductService {
     List<ProductDetailDTO> getProductById(List<Integer>  ids);
     Admin_ProductDetailResponseDTO adminProductDetail(List<Integer>  idProducts);
     Map<Integer,String> getBrandForCheckbox();
+    List<ProductDetailDTO> getProductByCheckbox(Map<String,Object> params);
 }

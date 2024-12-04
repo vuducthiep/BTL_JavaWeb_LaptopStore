@@ -1,5 +1,6 @@
 package com.example.ProjectLaptopStore.Service.Impl;
 
+import com.example.ProjectLaptopStore.Convert.ProductCheckboxConverter;
 import com.example.ProjectLaptopStore.Convert.Product_DisplayForHomePageConverter;
 import com.example.ProjectLaptopStore.Convert.Product_SearchBuilderConverter;
 import com.example.ProjectLaptopStore.DTO.*;
@@ -44,6 +45,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDescriptionRepository productDescriptionRepository;
     @Autowired
     private Product_DisplayForHomePageConverter productDisplayForHomePageConverter;
+    @Autowired
+    private ProductCheckboxConverter productCheckboxConverter;
     @Override
     public List<ProductDetailDTO> findTopPurchasedProductAtService() {
         List<ProductDetailDTO> result = productRepository.findAllProductsWithTotalQuantityOrdered();
@@ -142,6 +145,13 @@ public class ProductServiceImpl implements ProductService {
             result.put(idProduct, brand);
         }
         return result;
+    }
+
+    @Override
+    public List<ProductDetailDTO> getProductByCheckbox(Map<String, Object> params) {
+        Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO = productCheckboxConverter.toProductCheckboxBuilder(params);
+        List<ProductDetailDTO> listProduct = productRepository.getProductDetailByCheckbox(productSearchCheckBoxDTO);
+        return listProduct;
     }
 
 
