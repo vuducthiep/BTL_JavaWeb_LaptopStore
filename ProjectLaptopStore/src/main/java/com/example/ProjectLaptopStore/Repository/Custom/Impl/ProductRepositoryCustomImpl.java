@@ -584,7 +584,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                         }
 
                         if (fieldName.equals("idBrand") && singleValue != null) {
-                            query.append(" p.brand = '").append(singleValue).append("' ");
+                            query.append(" p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = ").append(singleValue).append(" ) ");
                         }
 
                         if (fieldName.equals("cpu") && singleValue != null) {
