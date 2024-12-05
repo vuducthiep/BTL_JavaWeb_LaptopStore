@@ -39,11 +39,38 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
+function renderOrders(order) {
+    var listOrderBlock = document.querySelector("#list-orders")
+
+    var htmls = order.map(function(order){
+        return `
+            <li class="order-item-">
+                    <div class="Cell-Order d-flex justify-content-between align-items-center">
+                      <div class="block-image-name-quantity-Order d-flex justify-content-between align-items-center">
+                        <div class="order-image">
+                            <img src="${order.imageURL}" alt="Ảnh order">
+                        </div> 
+                        <div class="order-infor">
+                            <h6 class="order-product-name">${order.productName}</h6>
+                            <h6 class="order-quantity">${order.quantity}</h6>
+                        </div>
+                      </div>
+
+                      <div class="block-Linetotal-Order">
+                        <h6 class="order-Linetotal">${order.lineTotal}<span>VNĐ</span></h6>
+                      </div>
+                    </div>
+            </li>
+        `
+    })
+
+    listOrderBlock.innerHTML = htmls.join("");
+}
 
 try {
     // Thêm tham số id-user vào URL
     const cusID = tokenRequest['id-customer'];
-    fetch(`http://localhost:8080/user/orders/?customerID=${cusID}`, {
+    fetch(`http://localhost:8080/user/my-orders?customerID=${cusID}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -53,6 +80,7 @@ try {
     .then(response => response.json())
     .then(function(data){
         console.log("Đơn hàng của tôi : " , data)
+        var orders = data;
     })
     ;
 } catch(err) {
