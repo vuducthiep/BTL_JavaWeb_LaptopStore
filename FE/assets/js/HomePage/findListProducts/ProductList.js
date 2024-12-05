@@ -22,6 +22,7 @@ async function fetchSearchResults() {
     if (!response.ok) throw new Error("Lỗi khi gọi API tìm kiếm");
 
     allProducts = await response.json();
+    console.log('Danh sách sản phẩm bằng tìm kiếm :',allProducts)
     displayProducts(allProducts);
   } catch (error) {
     console.error("Có lỗi xảy ra:", error);
@@ -73,28 +74,30 @@ function getSelectedCheckboxes(groupName) {
   return Array.from(checkboxes).map(checkbox => checkbox.value);
 }
 
-// Tạo URL API dựa trên các bộ lọc
-function buildFilterApiUrl() {
-  const APIfilter = "http://localhost:8080/user/home/";
-  const params = new URLSearchParams();
+  // Hàm xây dựng URL API với bộ lọc
+  function buildFilterApiUrl() {
+    const apiUrl = "http://localhost:8080/user/home";
+    const params = new URLSearchParams();
 
-  const filters = {
-    'brand-filter': 'idBrand',
-    'price-filter': 'price',
-    'cpu-filter': 'cpu',
-    'ram-filter': 'ram',
-    'hardrive-filter': 'hardDrive',
-    'screen-size-filter': 'screenSize'
-  };
+    const brands = getSelectedCheckboxes('brand-filter');
+    brands.forEach(brand => params.append('idBrand', brand));
 
-  Object.entries(filters).forEach(([filterName, paramName]) => {
-    const selectedValues = getSelectedCheckboxes(filterName);
-    if (selectedValues.length) {
-      params.append(paramName, selectedValues.join(','));
-    }
-  });
+    const prices = getSelectedCheckboxes('price-filter');
+    prices.forEach(price => params.append('price', price));
 
-  return `${APIfilter}?${params.toString()}`;
+    const cpus = getSelectedCheckboxes('cpu-filter');
+    cpus.forEach(cpu => params.append('cpu', cpu));
+
+    const rams = getSelectedCheckboxes('ram-filter');
+    rams.forEach(ram => params.append('ram', ram));
+
+    const storages = getSelectedCheckboxes('hardrive-filter');
+    storages.forEach(storage => params.append('hardDrive', storage));
+
+    const screenSizes = getSelectedCheckboxes('screen-size-filter');
+    screenSizes.forEach(screenSize => params.append('screenSize', screenSize));
+
+    return `${apiUrl}/?${params.toString()}`;
 }
 
 // Hàm gọi API lọc và hiển thị sản phẩm
@@ -105,6 +108,7 @@ async function fetchFilteredProducts() {
     if (!response.ok) throw new Error("Lỗi khi gọi API lọc");
 
     allProducts = await response.json();
+    console.log('Danh sách sản phẩm khi dùng bộ lọc :',allProducts)
     displayProducts(allProducts);
   } catch (error) {
     console.error("Có lỗi xảy ra:", error);

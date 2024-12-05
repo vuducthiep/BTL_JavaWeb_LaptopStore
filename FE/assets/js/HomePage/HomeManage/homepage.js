@@ -158,25 +158,26 @@ const loadMoreProducts = () => {
     const params = new URLSearchParams();
 
     const brands = getSelectedCheckboxes('brand-filter');
-    if (brands.length) params.append('idBrand', brands.join(','));
+    brands.forEach(brand => params.append('idBrand', brand));
 
     const prices = getSelectedCheckboxes('price-filter');
-    if (prices.length) params.append('price', prices.join(','));
+    prices.forEach(price => params.append('price', price));
 
     const cpus = getSelectedCheckboxes('cpu-filter');
-    if (cpus.length) params.append('cpu', cpus.join(','));
+    cpus.forEach(cpu => params.append('cpu', cpu));
 
     const rams = getSelectedCheckboxes('ram-filter');
-    if (rams.length) params.append('ram', rams.join(','));
+    rams.forEach(ram => params.append('ram', ram));
 
     const storages = getSelectedCheckboxes('hardrive-filter');
-    if (storages.length) params.append('hardDrive', storages.join(','));
+    storages.forEach(storage => params.append('hardDrive', storage));
 
     const screenSizes = getSelectedCheckboxes('screen-size-filter');
-    if (screenSizes.length) params.append('screenSize', screenSizes.join(','));
+    screenSizes.forEach(screenSize => params.append('screenSize', screenSize));
 
     return `${apiUrl}/?${params.toString()}`;
-  }
+}
+
 
   // Xử lý sự kiện submit form lọc
   document.getElementById('filter-form').addEventListener('submit', function (event) {
