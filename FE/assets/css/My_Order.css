@@ -120,3 +120,45 @@ ul.breadcrumb {
 
 
 /* End khối quản lý đơn hàng của tôi */
+
+/* Thanh điều hướng */
+#filter-nav {
+    display: flex;
+    justify-content: space-between;  /* Dàn trải đều các phần tử */
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+#filter-nav .nav-item {
+    flex: 1;  /* Mỗi phần tử chiếm 1 phần không gian đều nhau */
+    text-align: center;  /* Căn giữa các button */
+}
+
+#filter-nav .nav-item button {
+    width: 100%;  /* Đảm bảo button chiếm toàn bộ không gian của nav-item */
+    padding: 10px;  /* Tăng kích thước cho button */
+    border: 1px solid #ccc;  /* Viền cho button */
+    background-color: #f8f9fa;  /* Màu nền nhẹ */
+    cursor: pointer;  /* Con trỏ chuột */
+    font-size: 14px;  /* Kích thước chữ */
+}
+
+#filter-nav .nav-item button:hover {
+    background-color: #007bff;  /* Màu nền khi hover */
+    color: white;  /* Màu chữ khi hover */
+}
+
+/* End thanh điều hướng */
+
+/* Ảnh product */
+.order-image img {
+    width: 15%;
+    height: 15%;
+    float: left;
+}
+
+.order-item {
+    margin-top: 2%;
+}
+/* End ảnh product */

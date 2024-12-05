@@ -14,6 +14,20 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
+// Hiển thị thông tin cá nhân
+fetch(`http://localhost:8080/user/myInfor?id=${tokenRequest['id-user']}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${tokenRequest}`, // Gửi token trong header
+    },
+  })
+  .then(response => response.json())
+  .then(function(data){
+    console.log(data);
+    document.getElementById("inner-user-name").innerHTML = data.fullName
+    document.getElementById("inner-user-phoneNumber").innerHTML = data.phoneNumber
+  });
 
 try {
     // Thêm tham số id-user vào URL
