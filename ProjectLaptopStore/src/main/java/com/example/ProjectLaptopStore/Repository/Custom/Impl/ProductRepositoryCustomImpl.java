@@ -466,82 +466,168 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         return query;
     }
     //hàm nối query tìm bằng checkbox
-    public StringBuilder setQueryCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO){
+//    public StringBuilder setQueryCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO){
+//        StringBuilder query = new StringBuilder(" ");
+//        try {
+//            Field[] fields = Product_ProductSearchCheckBoxDTO.class.getDeclaredFields();
+//            for (Field item : fields){
+//                item.setAccessible(true);
+//                String fieldName = item.getName();
+//                Object value = item.get(productSearchCheckBoxDTO);
+//                //tìm kiếm bằng giá
+//                if(fieldName.equals("price") && value != null){
+//                    switch (value.toString()) {
+//                        case "BETWEEN_15_AND_20":
+//                            query.append(" AND p.price BETWEEN 15000000 AND 20000000 ");
+//                            break;
+//                        case "BETWEEN_10_AND_15":
+//                            query.append(" AND p.price BETWEEN 10000000 AND 15000000 ");
+//                            break;
+//                        case "BELOW_10":
+//                            query.append(" AND p.price < 10000000 ");
+//                            break;
+//                        case "BETWEEN_25_AND_30":
+//                            query.append(" AND p.price BETWEEN 25000000 AND 30000000 ");
+//                            break;
+//                        case "ABOVE_30":
+//                            query.append(" AND p.price > 30000000 ");
+//                            break;
+//                        case "BETWEEN_20_AND_25":
+//                            query.append(" AND p.price BETWEEN 20000000 AND 25000000 ");
+//                            break;
+//                        default:
+//                            // Trường hợp không có giá trị phù hợp
+//                            query.append(" ");
+//                            break;
+//                    }
+//                }
+//                //tìm kiếm bằng brand
+//                if(fieldName.equals("idBrand") && value != null){
+//                    query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = ").append(value).append(" ) ");
+//                }
+//                //tìm kiếm bằng CPU
+//                if(fieldName.equals("cpu") && value != null){
+//                    query.append(" and pd.cpuTechnology like '%").append(value).append("%' ");
+//                }
+//                //tìm kiếm bằng
+//                if(fieldName.equals("ram") && value != null){
+//                    query.append(" and pd.ramCapacity = ").append(value).append(" ");
+//                }
+//                //tìm kiếm bằng harddrive
+//                if(fieldName.equals("hardDrive") && value != null){
+//                    query.append(" and pd.hardDriveType like '%").append(value).append("%' ");
+//                }
+//                //tìm kiếm bằng screensize
+//                if(fieldName.equals("screenSize") && value != null){
+//                    switch (value.toString()) {
+//                        case "BETWEEN_1517":
+//                            query.append(" AND pd.screenSize BETWEEN 15 AND 17 ");
+//                            break;
+//                        case "BETWEEN_1415":
+//                            query.append(" AND pd.screenSize BETWEEN 14 AND 15 ");
+//                            break;
+//                        case "BELOW_14":
+//                            query.append(" AND pd.screenSize < 14 ");
+//                            break;
+//                        default:
+//                            // Trường hợp không có giá trị phù hợp
+//                            query.append(" ");
+//                            break;
+//                    }
+//                }
+//            }
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return query;
+//    }
+
+    public StringBuilder setQueryCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO) {
         StringBuilder query = new StringBuilder(" ");
         try {
             Field[] fields = Product_ProductSearchCheckBoxDTO.class.getDeclaredFields();
-            for (Field item : fields){
+            for (Field item : fields) {
                 item.setAccessible(true);
                 String fieldName = item.getName();
                 Object value = item.get(productSearchCheckBoxDTO);
-                //tìm kiếm bằng giá
-                if(fieldName.equals("price") && value != null){
-                    switch (value.toString()) {
-                        case "BETWEEN_15_AND_20":
-                            query.append(" AND p.price BETWEEN 15000000 AND 20000000 ");
-                            break;
-                        case "BETWEEN_10_AND_15":
-                            query.append(" AND p.price BETWEEN 10000000 AND 15000000 ");
-                            break;
-                        case "BELOW_10":
-                            query.append(" AND p.price < 10000000 ");
-                            break;
-                        case "BETWEEN_25_AND_30":
-                            query.append(" AND p.price BETWEEN 25000000 AND 30000000 ");
-                            break;
-                        case "ABOVE_30":
-                            query.append(" AND p.price > 30000000 ");
-                            break;
-                        case "BETWEEN_20_AND_25":
-                            query.append(" AND p.price BETWEEN 20000000 AND 25000000 ");
-                            break;
-                        default:
-                            // Trường hợp không có giá trị phù hợp
-                            query.append(" ");
-                            break;
+
+                // Kiểm tra nếu value là List và không rỗng
+                if (value instanceof List<?> values && !values.isEmpty()) {
+                    query.append(" AND (");
+
+                    for (int i = 0; i < values.size(); i++) {
+                        Object singleValue = values.get(i);
+
+                        if (fieldName.equals("price") && singleValue != null) {
+                            switch (singleValue.toString()) {
+                                case "BETWEEN_15_AND_20":
+                                    query.append(" p.price BETWEEN 15000000 AND 20000000 ");
+                                    break;
+                                case "BETWEEN_10_AND_15":
+                                    query.append(" p.price BETWEEN 10000000 AND 15000000 ");
+                                    break;
+                                case "BELOW_10":
+                                    query.append(" p.price < 10000000 ");
+                                    break;
+                                case "BETWEEN_25_AND_30":
+                                    query.append(" p.price BETWEEN 25000000 AND 30000000 ");
+                                    break;
+                                case "ABOVE_30":
+                                    query.append(" p.price > 30000000 ");
+                                    break;
+                                case "BETWEEN_20_AND_25":
+                                    query.append(" p.price BETWEEN 20000000 AND 25000000 ");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        if (fieldName.equals("idBrand") && singleValue != null) {
+                            query.append(" p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = ").append(singleValue).append(" ) ");
+                        }
+
+                        if (fieldName.equals("cpu") && singleValue != null) {
+                            query.append(" pd.cpuTechnology LIKE '%").append(singleValue).append("%' ");
+                        }
+
+                        if (fieldName.equals("ram") && singleValue != null) {
+                            query.append(" pd.ramCapacity = ").append(singleValue).append(" ");
+                        }
+
+                        if (fieldName.equals("hardDrive") && singleValue != null) {
+                            query.append(" pd.hardDriveType LIKE '%").append(singleValue).append("%' ");
+                        }
+
+                        if (fieldName.equals("screenSize") && singleValue != null) {
+                            switch (singleValue.toString()) {
+                                case "BETWEEN_1517":
+                                    query.append(" pd.screenSize BETWEEN 15 AND 17 ");
+                                    break;
+                                case "BETWEEN_1415":
+                                    query.append(" pd.screenSize BETWEEN 14 AND 15 ");
+                                    break;
+                                case "BELOW_14":
+                                    query.append(" pd.screenSize < 14 ");
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        if (i < values.size() - 1) {
+                            query.append(" OR ");
+                        }
                     }
-                }
-                //tìm kiếm bằng brand
-                if(fieldName.equals("idBrand") && value != null){
-                    query.append(" and p.brand in (SELECT p2.brand FROM Products p2 WHERE p2.productId = ").append(value).append(" ) ");
-                }
-                //tìm kiếm bằng CPU
-                if(fieldName.equals("cpu") && value != null){
-                    query.append(" and pd.cpuTechnology like '%").append(value).append("%' ");
-                }
-                //tìm kiếm bằng
-                if(fieldName.equals("ram") && value != null){
-                    query.append(" and pd.ramCapacity = ").append(value).append(" ");
-                }
-                //tìm kiếm bằng harddrive
-                if(fieldName.equals("hardDrive") && value != null){
-                    query.append(" and pd.hardDriveType like '%").append(value).append("%' ");
-                }
-                //tìm kiếm bằng screensize
-                if(fieldName.equals("screenSize") && value != null){
-                    switch (value.toString()) {
-                        case "BETWEEN_1517":
-                            query.append(" AND pd.screenSize BETWEEN 15 AND 17 ");
-                            break;
-                        case "BETWEEN_1415":
-                            query.append(" AND pd.screenSize BETWEEN 14 AND 15 ");
-                            break;
-                        case "BELOW_14":
-                            query.append(" AND pd.screenSize < 14 ");
-                            break;
-                        default:
-                            // Trường hợp không có giá trị phù hợp
-                            query.append(" ");
-                            break;
-                    }
+
+                    query.append(")");
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return query;
     }
-
 
 
 // phan trang product
