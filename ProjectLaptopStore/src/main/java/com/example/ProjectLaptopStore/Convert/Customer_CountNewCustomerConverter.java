@@ -10,10 +10,10 @@ import java.util.Map;
 @Component
 public class Customer_CountNewCustomerConverter {
     public CustomerSearchBuilder toCustomerSearchBuilder(Map<String, Object> params) {
-        CustomerSearchBuilder customerSearchBuilder = new CustomerSearchBuilder.Builder()
-                .setDateRegisterFrom(MapUtil.getObject(params,"dateRegisterFrom", Date.class))
-                .setDateRegisterTo(MapUtil.getObject(params,"dateRegisterTo", Date.class))
-                .build();
-        return customerSearchBuilder;
+        CustomerSearchBuilder customerSearchBuilder = new CustomerSearchBuilder.Builder().build();
+//                .setDateRegisterFrom(MapUtil.getObject(params,"dateRegisterFrom", Date.class))
+//                .setDateRegisterTo(MapUtil.getObject(params,"dateRegisterTo", Date.class))
+//                .build();
+        return null;
     }
 }
