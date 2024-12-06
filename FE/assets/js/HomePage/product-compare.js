@@ -26,6 +26,14 @@ if (product1ID && product2ID) {
             document.getElementById('product2__image').src = product2.imageUrl;
             document.getElementById('product2__productName').textContent = product2.productName;
             document.getElementById('product2__price').textContent = `$${product2.price}`;
+
+             // Gắn ID sản phẩm vào nút "Thêm vào giỏ hàng"
+             const addToCartButton1 = document.getElementById('add-to-cart-product1');
+             const addToCartButton2 = document.getElementById('add-to-cart-product2');
+ 
+             // Gán ID của sản phẩm vào nút
+             addToCartButton1.setAttribute('data-product-id', product1.productId);
+             addToCartButton2.setAttribute('data-product-id', product2.productId);
             displayProductDescriptions(product1,product2)
             updateProductComparison(product1,product2)
         })

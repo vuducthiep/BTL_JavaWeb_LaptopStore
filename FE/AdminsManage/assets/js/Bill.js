@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const totalAmountPayOffline = data.totalAmountPayOffline;
   
         
-        document.querySelector(".totalAmountPayOnline").innerHTML = `$${totalAmountPayOnline}`;
-        document.querySelector(".totalAmountPayOffline").innerHTML = `$${totalAmountPayOffline}`;
+        document.querySelector(".totalAmountPayOnline").innerHTML = `${totalAmountPayOnline.toLocaleString()} VND`;
+        document.querySelector(".totalAmountPayOffline").innerHTML = `${totalAmountPayOffline.toLocaleString()} VND`;
   
         const invoiceDetails = data.listInvoiceDetail;
         
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
               <small id="order-id">${invoice.orderId}</small>
             </div>
             <div id="Total-Amount">
-              $${invoice.totalAmount}
+              ${invoice.totalAmount.toLocaleString()} VND
             </div>
           `;
   
@@ -41,15 +41,20 @@ document.addEventListener("DOMContentLoaded", function () {
         invoiceDetails.forEach(invoice => {
           const invoiceItem = document.createElement("div");
           invoiceItem.classList.add("invoice-item");
-  
+          
           invoiceItem.innerHTML = `
             <h6>Order ID: ${invoice.orderId}</h6>
             <p><strong>Customer:</strong> ${invoice.fullName}</p>
+            <p><strong>Quốc gia:</strong> ${invoice.shippingAddress}</p>
+            <p><strong>Thành Phố:</strong> ${invoice.shippingCity}</p>
+            <p><strong>Quận huyện:</strong> ${invoice.shippingDistrict}</p>
+            <p><strong>Phường xã:</strong> ${invoice.shippingWard}</p>
+            <p><strong>Số Đường:</strong> ${invoice.shippingStreet}</p>
             <p><strong>Product:</strong> ${invoice.productName} (${invoice.model})</p>
-            <p><strong>Price:</strong> $${invoice.price}</p>
+            <p><strong>Price:</strong> ${invoice.price.toLocaleString()} VND</p>
             <p><strong>Quantity:</strong> ${invoice.quantity}</p>
-            <p><strong>Total Amount:</strong> $${invoice.totalAmount}</p>
-            <p><strong>Shipping Fee:</strong> $${invoice.shippingFee}</p>
+            <p><strong>Total Amount:</strong> ${invoice.totalAmount.toLocaleString()} VND</p>
+            <p><strong>Shipping Fee:</strong> ${invoice.shippingFee.toLocaleString()} VND</p>
             <p><strong>Estimated Delivery Date:</strong> ${invoice.estimatedDeliveryDate}</p>
             <p><strong>Status:</strong> ${invoice.orderStatus}</p>
             <hr>

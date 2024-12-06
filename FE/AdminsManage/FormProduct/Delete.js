@@ -1,23 +1,27 @@
-// Hàm xóa sản phẩm
-async function deleteProduct(productId) {
-    try {
-      const response = await fetch(`http://localhost:8080/admin/product/${productId}`, {
-        method: 'DELETE',
-      });
-  
-      // Kiểm tra nếu phản hồi hợp lệ
-      if (!response.ok) {
-        throw new Error('Failed to delete product');
-      }
-  
-      // Nếu xóa thành công, cập nhật lại danh sách sản phẩm
-      alert('Sản phẩm đã được xóa thành công!');
-      
-      // Gọi lại hàm fetch để lấy lại dữ liệu sản phẩm mới
-      fetchProductData();
-    } catch (error) {
-      console.error('Error deleting product:', error);
-      alert('Xóa sản phẩm thất bại!');
-    }
+async function deleteSelectedProducts() {
+  const checkboxes = document.querySelectorAll('.product-checkbox:checked'); // Lấy tất cả các checkbox được chọn
+  const selectedProductIds = Array.from(checkboxes).map(checkbox => checkbox.value); // Lấy giá trị ID sản phẩm
+
+  if (selectedProductIds.length === 0) {
+    alert('Vui lòng chọn ít nhất một sản phẩm để xóa.');
+    return;
   }
-  
+
+  try {
+    // Gửi API xóa nhiều sản phẩm
+    const response = await fetch(`http://localhost:8080/admin/product/${selectedProductIds.join(',')}`, {
+      method: 'DELETE',
+    });
+
+    // Kiểm tra nếu phản hồi hợp lệ
+    if (!response.ok) {
+      throw new Error('Failed to delete selected products');
+    }
+
+    alert('Các sản phẩm đã được xóa thành công!');
+    fetchProductData(); // Cập nhật danh sách sản phẩm sau khi xóa
+  } catch (error) {
+    console.error('Error deleting selected products:', error);
+    alert('Xóa các sản phẩm thất bại!');
+  }
+}

@@ -80,6 +80,7 @@
             <!-- Nút Thêm Sản phẩm và Chọn Nhà Cung Cấp -->
             <div class="d-flex justify-content-between align-items-center mb-4">
               <button id="add-product-btn" class="btn btn-primary">Thêm Sản phẩm</button>
+              <button class="btn btn-danger btn-sm" onclick="deleteSelectedProducts()">Xóa</button>
               <div class="form-group">
                 <h4>Chọn Nhà Cung Cấp</h4>
                 <select id="supplier-select" class="form-select">
@@ -99,6 +100,7 @@
                     <th>Ảnh</th>
                     <th>Hãng</th>
                     <th>Giá</th>
+                    <th></th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>
@@ -823,5 +825,6 @@
     <script src="FormProduct/Delete.js"></script>
     <link rel="stylesheet" href="FormProduct/Add.css">
     <link rel="stylesheet" href="FormProduct/Edit.css">
+    <script src="assets/js/LogOut/Logout.js"></script>
   </body>
 </html>

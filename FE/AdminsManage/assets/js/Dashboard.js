@@ -12,7 +12,7 @@ async function loadDashboardData() {
       data.totalNewCustomerInCurrentMonth;
     document.getElementById(
       "total-amount-in-current-month"
-    ).innerText = `${data.totalAmountInCurrentMonth} $`;
+    ).innerText = `${data.totalAmountInCurrentMonth.toLocaleString()} VND`;
 
     // Dữ liệu cho biểu đồ khách hàng mới
     const newCustomerLabels = data.newCustomerPerMonthMap.map(
@@ -87,7 +87,7 @@ async function loadDashboardData() {
         labels: revenueLabels,
         datasets: [
           {
-            label: "Doanh thu ($)",
+            label: "Doanh thu (VND)",
             data: revenueData,
             borderColor: "rgba(54, 162, 235, 1)", // Màu đường cho doanh thu
             fill: false, // Không tô màu dưới đường
@@ -105,7 +105,7 @@ async function loadDashboardData() {
           tooltip: {
             callbacks: {
               label: function (tooltipItem) {
-                return `${tooltipItem.raw} $`; // Hiển thị doanh thu
+                return `${tooltipItem.raw.toLocaleString()} VND`; // Hiển thị doanh thu
               },
             },
           },
@@ -120,7 +120,7 @@ async function loadDashboardData() {
           y: {
             title: {
               display: true,
-              text: "Doanh thu ($)",
+              text: "Doanh thu (VND)",
             },
             beginAtZero: true,
           },
@@ -186,23 +186,25 @@ async function loadDashboardData() {
       },
     });
 
-    // Cập nhật danh sách top sản phẩm bán trong tháng
-    const topProductsList = document.getElementById("top-products-list");
-    topProductsList.innerHTML = "";
+    const TopProductsList = document.getElementById("top-products-list");
+TopProductsList.innerHTML = "";
 
-    // Lọc và chỉ hiển thị các sản phẩm có số lượng bán từ 20 trở lên
-    data.topPurchasedProductInMonth.forEach((product) => {
-      if (product.quantityOrdered >= 1) {
-        const li = document.createElement("li");
-        li.classList.add("list-group-item");
-        li.innerHTML = `
-      <div><strong>${product.productName}</strong> (${product.brand} - ${product.model})</div>
-      <div>Số lượng bán: ${product.quantityOrdered}</div>
-      <div>Doanh thu: ${product.lineTotal} $</div>
-    `;
-        topProductsList.appendChild(li);
-      }
-    });
+// Duyệt qua danh sách sản phẩm từ API
+data.topPurchasedProductInMonth.forEach((product) => {
+  // Tạo một phần tử danh sách
+  const li = document.createElement("li");
+  li.classList.add("list-group-item");
+
+  // Thêm nội dung gồm tên sản phẩm, ảnh và giá
+  li.innerHTML = `
+    <div><strong>${product.productName}</strong></div>
+    <div><img src="${product.imageUrl}" alt="${product.productName}" style="width: 100px; height: auto;"></div>
+    <div>Giá: ${product.price.toLocaleString()} VND</div>
+  `;
+
+  // Thêm vào danh sách
+  TopProductsList.appendChild(li);
+});
 
     // Cập nhật danh sách top khách hàng trong tháng
 const topCustomersList = document.getElementById("top-customers-list");
@@ -217,7 +219,7 @@ data.topCustomerInMonth.forEach((customer) => {
     <div>Email: ${customer.email}</div>
     <div>Số điện thoại: ${customer.phoneNumber}</div>
     <div>Địa chỉ: ${customer.streetAddress}, ${customer.ward}, ${customer.district}, ${customer.city}, ${customer.address}</div>
-    <div>Tổng chi tiêu: ${customer.totalAmount} $</div>
+    <div>Tổng chi tiêu: ${customer.totalAmount.toLocaleString()} VND</div>
   `;
   topCustomersList.appendChild(li);
 });
@@ -225,6 +227,7 @@ data.topCustomerInMonth.forEach((customer) => {
     console.error("Lỗi khi tải dữ liệu từ API:", error);
   }
 }
+
 
 document.addEventListener("DOMContentLoaded", loadDashboardData);
 

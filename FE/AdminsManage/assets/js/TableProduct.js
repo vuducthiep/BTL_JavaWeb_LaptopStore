@@ -32,25 +32,28 @@ async function fetchProductData() {
 
 function displayProductList(products) {
   const productHTML = products.map((product, index) => {
-    console.log('Product ID:', product.id); 
+    console.log('Product ID:', product.productId); 
     return `
       <tr>
         <td>${index + 1}</td>
         <td>${product.productName}</td>
-        <td><img src="${product.imageUrl}" alt="${product.productName}" /></td>
+        <td><img src="${product.imageUrl}" alt="${product.productName}" style="width: 50px; height: auto;" /></td>
         <td>${product.productBrand}</td>
-        <td>${product.price.toLocaleString()} USD</td>
+        <td>${product.price.toLocaleString()} VND</td>
         <td>
-          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Xem chi tiết</button>
+          <input type="checkbox" class="product-checkbox" value="${product.productId}">
+        </td>
+        <td>
           <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Sửa</button>
-          <button class="btn btn-danger btn-sm" onclick="deleteProduct('${product.productId}')">Xóa</button>
         </td>
       </tr>
     `;
   }).join('');
-  
+
+  const productListDiv = document.getElementById('product-list');
   productListDiv.innerHTML = productHTML;
 }
+
 
 
 function editProduct(productId) {
@@ -71,7 +74,7 @@ function displayTop10Products(products) {
           <th>#</th>
           <th>Tên sản phẩm</th>
           <th>Ảnh</th>
-          <th>Số lượng bán</th>
+          <th>Giá</th>
         </tr>
       </thead>
       <tbody>
@@ -80,7 +83,7 @@ function displayTop10Products(products) {
             <td>${index + 1}</td>
             <td>${product.productName}</td>
             <td><img src="${product.imageUrl}" alt="${product.productName}" /></td>
-            <td>${product.quantityOrdered}</td>
+            <td>${product.price.toLocaleString()} VND</td>
           </tr>
         `).join('')}
       </tbody>
