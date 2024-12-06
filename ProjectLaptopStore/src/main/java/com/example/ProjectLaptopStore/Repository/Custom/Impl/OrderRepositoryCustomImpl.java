@@ -51,6 +51,8 @@ public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {
                 "LEFT JOIN Products p ON od.ProductID = p.ProductID \n" +
                 "LEFT JOIN Users u ON c.UserID = u.UserID \n" +
                 "LEFT JOIN ShippingAddresses sp ON c.CustomerID = sp.CustomerID\n" +
+                "WHERE MONTH(o.OrderDate) = MONTH(CURDATE())  AND YEAR(o.OrderDate) = YEAR(CURDATE())     and o.OrderStatus = 'Confirmed'  \n" +
+                "AND o.AddressID = sp.AddressID\n" +
                 "ORDER BY o.OrderDate DESC;";
 
         Query nativeQuery = entityManager.createNativeQuery(query);
