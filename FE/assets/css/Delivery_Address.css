@@ -116,7 +116,25 @@ ul.breadcrumb {
 
 .box-manage-order .box-content-item p {
     margin-right: 25%;
+    
 }
 
-
 /* End khối quản lý đơn hàng của tôi */
+
+/* box wrapper-address */
+.wrapper-address {
+    width: auto;
+}
+
+.wrapper-address .fa-solid {
+    width: 120%;
+    height: 120%;
+}
+
+.wrapper-address .sdt-nguoi-nhan,.dia-chi-nguoi-nhan {
+    color: deepskyblue;
+    font-weight: bolder;
+    font-size: larger;
+    margin-left: 2%;
+}
+/* End box wrapper-address */
