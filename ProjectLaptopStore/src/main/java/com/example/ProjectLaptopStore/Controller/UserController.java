@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.relational.core.sql.In;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -70,7 +71,7 @@ public class UserController {
     }
     //API tìm bằng checkbox
     @GetMapping(value = "/user/home/")
-    public List<ProductDetailDTO> listProductSearchCheckbox(@RequestParam Map<String, Object> searchMap){
+    public List<ProductDetailDTO> listProductSearchCheckbox(@RequestParam MultiValueMap<String, Object> searchMap){
         return productService.getProductByCheckbox(searchMap);
     }
     //API lấy thông tin sản phẩm chi tiết

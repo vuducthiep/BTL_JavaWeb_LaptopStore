@@ -9,17 +9,18 @@ import java.util.Map;
 @Component
 public class Product_SearchBuilderConverter {
     public ProductSearchBuilder toProductSearchBuilder(Map<String, Object> params){
-        ProductSearchBuilder productSearchBuilder = new ProductSearchBuilder.Builder()
-                .setProductName(MapUtil.getObject(params,"productName", String.class))
-                .setBrand(MapUtil.getObject(params,"brand", String.class))
-                .setModel(MapUtil.getObject(params,"model", String.class))
-                .setPrice(MapUtil.getObject(params,"price",Float.class))
-                .setStockQuantity(MapUtil.getObject(params,"stockQuantity",Integer.class))
-                .setDescription(MapUtil.getObject(params,"description",String.class))
-                .setReleaseDate(MapUtil.getObject(params,"releaseDate", Date.class))
-                .setWarrantyPeriod(MapUtil.getObject(params,"warrantyPeriod", Integer.class))
-                .setImageURL(MapUtil.getObject(params,"imageURL", String.class))
-                .build();
-        return productSearchBuilder;
+//        ProductSearchBuilder productSearchBuilder = new ProductSearchBuilder.Builder()
+//                .setProductName(MapUtil.getObject(params,"productName", String.class))
+//                .setBrand(MapUtil.getObject(params,"brand", String.class))
+//                .setModel(MapUtil.getObject(params,"model", String.class))
+//                .setPrice(MapUtil.getObject(params,"price",Float.class))
+//                .setStockQuantity(MapUtil.getObject(params,"stockQuantity",Integer.class))
+//                .setDescription(MapUtil.getObject(params,"description",String.class))
+//                .setReleaseDate(MapUtil.getObject(params,"releaseDate", Date.class))
+//                .setWarrantyPeriod(MapUtil.getObject(params,"warrantyPeriod", Integer.class))
+//                .setImageURL(MapUtil.getObject(params,"imageURL", String.class))
+//                .build();
+//        return productSearchBuilder;
+        return null;
     }
 }

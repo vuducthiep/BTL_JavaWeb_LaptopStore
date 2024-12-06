@@ -27,16 +27,6 @@ async function fetchUserInfo() {
     return;
   }
 
-  // apirequestInfor = "http://localhost:8080/user/myInfor" 
-
-  // try {
-  //   fetch(apirequestInfor , {
-  //     method: 'POST',
-  //     body : 
-  //   })
-  //     .then(response => response.json())
-  //     .then(data => {
-
   try {
     // Thêm tham số id-user vào URL
     const userId = tokenRequest['id-user'];
@@ -65,12 +55,6 @@ async function fetchUserInfo() {
   } catch (error) {
     console.error("Error fetching user information: ", error);
   }
-
-  // Đọc dữ liệu JSON từ phản hồi
-  // const userInfo = data;
-
-
-
 
 }
 

@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Service;
 import com.example.ProjectLaptopStore.DTO.*;
 import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
+import org.springframework.util.MultiValueMap;
 
 import java.util.List;
 import java.util.Map;
@@ -19,5 +20,5 @@ public interface ProductService {
     List<ProductDetailDTO> getProductById(List<Integer>  ids);
     Admin_ProductDetailResponseDTO adminProductDetail(List<Integer>  idProducts);
     Map<Integer,String> getBrandForCheckbox();
-    List<ProductDetailDTO> getProductByCheckbox(Map<String,Object> params);
+    List<ProductDetailDTO> getProductByCheckbox(MultiValueMap<String,Object> params);
 }
