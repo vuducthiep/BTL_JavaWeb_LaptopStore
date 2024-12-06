@@ -400,7 +400,10 @@ textarea {
 }
 
 .quantity-btn:hover {
-  background-color: #45a049; /* Darker green on hover */
+  transform: scale(1.1); /* Phóng to nhẹ khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng đổ bóng */
+  color: #fff; /* Đổi màu chữ khi hover */
+  border-color: #000000; /* Đổi màu viền khi hover */
 }
 
 .quantity-input {
@@ -573,8 +576,6 @@ label {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Tạo hiệu ứng đổ bóng */
   
 }
-
-
 /* Giới hạn chiều rộng cụ thể cho từng cột (tuỳ chỉnh theo nhu cầu) */
 td:nth-child(3) { /* Cột chứa tên sản phẩm */
   width: 40%; /* Cố định chiều rộng cột tên */
@@ -586,8 +587,6 @@ td:nth-child(3) { /* Cột chứa tên sản phẩm */
   align-items: center; /* Canh giữa theo chiều dọc */
   gap: 5px; /* Khoảng cách giữa hình và tên */
 }
-
-
 /* Dòng chữ */
 .product-info span {
   display: block;
