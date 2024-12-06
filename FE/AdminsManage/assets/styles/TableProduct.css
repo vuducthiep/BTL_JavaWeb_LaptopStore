@@ -192,3 +192,37 @@
   font-size: 14px;
   color: #666;
 }
+
+
+/* Ảnh sản phẩm */
+/* Định dạng hình ảnh trong bảng sản phẩm */
+table img {
+  max-width: 100px; /* Giới hạn chiều rộng tối đa */
+  height: auto; /* Giữ tỷ lệ gốc của hình ảnh */
+  display: block; /* Xóa khoảng cách thừa */
+  margin: 0 auto; /* Canh giữa hình ảnh */
+  border-radius: 5px; /* Bo góc cho hình ảnh */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Thêm hiệu ứng đổ bóng */
+}
+
+/* Định dạng bảng */
+table {
+  width: 100%; /* Chiều rộng toàn phần */
+  border-collapse: collapse; /* Loại bỏ đường kẻ thừa */
+  margin-top: 20px; /* Khoảng cách trên */
+}
+
+table th, table td {
+  padding: 10px; /* Khoảng cách nội dung */
+  text-align: center; /* Căn giữa nội dung */
+  border: 1px solid #ddd; /* Viền nhẹ */
+}
+
+table thead {
+  background-color: #f4f4f4; /* Màu nền tiêu đề */
+  font-weight: bold; /* In đậm tiêu đề */
+}
+
+table tbody tr:hover {
+  background-color: #f9f9f9; /* Đổi màu nền khi hover */
+}

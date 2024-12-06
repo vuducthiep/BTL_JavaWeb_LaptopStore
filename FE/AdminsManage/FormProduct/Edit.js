@@ -9,7 +9,7 @@ function editProduct(productId) {
   })
     .then((response) => response.json())
     .then((data) => {
-      const productDetail=data.productDetail;
+      const productDetail=data.productDetail[0];
       // Điền thông tin vào các trường trong form sửa
       idProduct= productDetail.productId;
       idProductDes= productDetail.productDescriptionId;

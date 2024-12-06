@@ -1,12 +1,12 @@
-// API URL để lấy dữ liệu sản phẩm
+
 const productApiUrl = 'http://localhost:8080/admin/product/';
 
-// Lấy các phần tử DOM cần thiết
+
 const productListDiv = document.getElementById('product-list');
 const top10ProductsList = document.getElementById('top-10-products-list');
 const monthlyNewProductsChart = document.getElementById('monthly-new-products-chart');
 
-// Hàm để lấy dữ liệu từ API
+
 async function fetchProductData() {
   try {
     const response = await fetch(productApiUrl);
@@ -18,9 +18,9 @@ async function fetchProductData() {
 
     // Lấy dữ liệu JSON từ phản hồi
     const data = await response.json();
-    console.log('Fetched Product Data:', data); // Kiểm tra dữ liệu API
+    console.log('Fetched Product Data:', data); 
 
-    // Gọi các hàm hiển thị dữ liệu
+    
     displayProductList(data.listProductDetail);
     displayTop10Products(data.listTopProductSell);
     displayMonthlyProductChart(data.quantityProductForChart);
@@ -29,17 +29,19 @@ async function fetchProductData() {
   }
 }
 
-// Hàm hiển thị danh sách sản phẩm
+
 function displayProductList(products) {
   const productHTML = products.map((product, index) => {
-    console.log('Product ID:', product.id); // Kiểm tra ID sản phẩm
+    console.log('Product ID:', product.id); 
     return `
       <tr>
         <td>${index + 1}</td>
         <td>${product.productName}</td>
+        <td><img src="${product.imageUrl}" alt="${product.productName}" /></td>
         <td>${product.productBrand}</td>
         <td>${product.price.toLocaleString()} USD</td>
         <td>
+          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Xem chi tiết</button>
           <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Sửa</button>
           <button class="btn btn-danger btn-sm" onclick="deleteProduct('${product.productId}')">Xóa</button>
         </td>
@@ -50,24 +52,25 @@ function displayProductList(products) {
   productListDiv.innerHTML = productHTML;
 }
 
-// Hàm để sửa sản phẩm (nơi bạn xử lý chỉnh sửa sản phẩm)
+
 function editProduct(productId) {
-  console.log('Edit Product ID:', productId); // Kiểm tra ID khi nhấn "Sửa"
-  // Tiến hành xử lý chỉnh sửa sản phẩm ở đây với productId
+  console.log('Edit Product ID:', productId); 
+ 
 }
 
 // Hàm hiển thị top 10 sản phẩm bán chạy nhất
 function displayTop10Products(products) {
-  // Lấy danh sách top 10 sản phẩm dựa trên số lượng bán
+  
   const top10 = products.sort((a, b) => b.quantityOrdered - a.quantityOrdered).slice(0, 10);
 
-  // Tạo HTML cho bảng
+  
   const top10HTML = `
     <table class="table table-striped">
       <thead>
         <tr>
           <th>#</th>
           <th>Tên sản phẩm</th>
+          <th>Ảnh</th>
           <th>Số lượng bán</th>
         </tr>
       </thead>
@@ -76,6 +79,7 @@ function displayTop10Products(products) {
           <tr>
             <td>${index + 1}</td>
             <td>${product.productName}</td>
+            <td><img src="${product.imageUrl}" alt="${product.productName}" /></td>
             <td>${product.quantityOrdered}</td>
           </tr>
         `).join('')}
