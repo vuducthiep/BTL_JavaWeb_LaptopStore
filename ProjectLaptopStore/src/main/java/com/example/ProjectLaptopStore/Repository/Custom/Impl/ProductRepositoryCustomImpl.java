@@ -43,9 +43,11 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
     //hàm lấy list sản phẩm theo số lượng được đặt hàng
     @Override
     public List<ProductDetailDTO> findAllProductsWithTotalQuantityOrdered() {
-        String addCount = " , COUNT(od.ProductID) AS totalProduct ";
-        String addJoin = " JOIN OrderDetails od ON od.ProductID = p.ProductID ";
+        String addCount = " , COUNT(DISTINCT od.ProductID) AS totalProduct, SUM(od.Quantity) AS totalQuantitySold  ";
+        String addJoin = " JOIN OrderDetails od ON od.ProductID = p.ProductID Join Orders o on o.OrderID = od.OrderID ";
         StringBuilder query = setQuery(addCount,addJoin);
+        query.append(" and MONTH(o.OrderDate) = MONTH(CURDATE())  AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
+                "    and o.OrderStatus = 'Confirmed' ");
         query.append(setQueryGroupBy());
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
@@ -461,7 +463,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                 "    pd.webcam, pd.os, pd.version, pd.security, pd.keyboardType, pd.numericKeypad, pd.keyboardLight, pd.touchPad, \n" +
                 "    pd.batteryType, pd.batteryCapacity, pd.powerSupply, pd.accessoriesInTheBox, pd.size, pd.productWeight, \n" +
                 "    pd.material, pd.pn, pd.origin, pd.warrantyPeriodMonths, pd.storageInstructions, pd.userManual, pd.color\n" +
-                " Order by totalProduct desc " +
+                " Order by totalProduct DESC,  totalQuantitySold DESC " +
                 " LIMIT 10 ;");
         return query;
     }
