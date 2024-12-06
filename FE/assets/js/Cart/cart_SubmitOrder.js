@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" VND", "").replace(".", ""));
+        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" VND", "").replace(".", ","));
         if (isNaN(totalAmount) || totalAmount <= 0) {
             alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
             return;
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (checkbox && checkbox.checked) {
                 const productID = row.dataset.productId;
                 const quantity = parseInt(row.querySelector(".quantity-input").value, 10);
-                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
+                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ","));
                 if (productID && price > 0 && quantity > 0) {
                     products.push({ productID, quantity, price });
                 } else {
