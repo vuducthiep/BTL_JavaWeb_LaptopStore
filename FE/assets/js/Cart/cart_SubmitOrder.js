@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error("Lỗi khi gửi API:", error);
-            alert("Đã gửi thành công");
+            alert("Lỗi khi gửi api");
         }
     });
 });
