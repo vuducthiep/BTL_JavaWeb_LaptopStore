@@ -157,6 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const row = document.createElement('tr');
             row.classList.add('product-row'); // Thêm class 'product-row'
             row.dataset.cartDetailID = product.cartDetailID; // Lưu ID sản phẩm vào dataset
+            row.dataset.productId=product.productId;
             row.innerHTML = `
         <td><input type="checkbox" class="product-checkbox"></td>
         <td>${index + 1}</td>

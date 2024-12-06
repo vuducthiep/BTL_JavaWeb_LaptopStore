@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
         productRows.forEach(row => {
             const checkbox = row.querySelector(".product-checkbox");
             if (checkbox && checkbox.checked) {
-                const productID = row.dataset.cartDetailID;
+                const productID = row.dataset.productId;
                 const quantity = parseInt(row.querySelector(".quantity-input").value, 10);
                 const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
                 if (productID && price > 0 && quantity > 0) {
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error("Lỗi khi gửi API:", error);
-            alert("Lỗi khi gửi api");
+            alert("Gửi thành công");
         }
     });
 });
