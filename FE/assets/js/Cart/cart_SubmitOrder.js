@@ -64,13 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
             customerID: idCustomer,
             orderDate: new Date().toISOString().split("T")[0],
             totalAmount: totalAmount,
-            shippingFee: 35000,
+            shippingFee: 0,
             orderStatus: "Pending",
             estimatedDeliveryDate: new Date().toISOString().split("T")[0],
             actualDeliveryDate: new Date().toISOString().split("T")[0],
             paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2,
             addressID: selectedAddress.value,
-            orderDetails: products,
+            orderDetails: products, // ở dòng 64
         };
 
         try {
