@@ -8,5 +8,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Order_OrderDetailDTO {
+    private String status;
     private List<OrderDetail_displayForStatusDTO> orderdetail;
 }

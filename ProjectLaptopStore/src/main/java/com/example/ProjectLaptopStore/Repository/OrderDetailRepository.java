@@ -31,7 +31,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,I
 //            "WHERE c.CustomerID = :customerID ",nativeQuery = true)
 //    List<Object[]> getOrderDetail(@Param("customerID")int customerID);
 
-    @Query(value = "SELECT p.ImageURL, p.ProductName, o.Quantity, o.LineTotal " +
+    @Query(value = "SELECT p.ImageURL, p.ProductName, o.Quantity, o.LineTotal,od.OrderStatus " +
             "FROM orderdetails o " +
             "JOIN products p ON p.ProductID = o.ProductID " +
             "JOIN orders od ON od.OrderID = o.OrderID " +
@@ -39,7 +39,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity,I
     List<Object[]> getOrderDetail(@Param("orderID")int orderID);
 
     // hien thi theo status
-    @Query(value = "SELECT p.ImageURL, p.ProductName, o.Quantity, o.LineTotal " +
+    @Query(value = "SELECT p.ImageURL, p.ProductName, o.Quantity, o.LineTotal,od.OrderStatus  " +
             "FROM orderdetails o " +
             "JOIN products p ON p.ProductID = o.ProductID " +
             "JOIN orders od ON od.OrderID = o.OrderID  " +

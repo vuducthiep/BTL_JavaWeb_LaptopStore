@@ -14,6 +14,4 @@ public class OrderDetail_displayForStatusDTO {
     private String productName;
     private int quantity;
     private BigDecimal lineTotal;
-
-
 }

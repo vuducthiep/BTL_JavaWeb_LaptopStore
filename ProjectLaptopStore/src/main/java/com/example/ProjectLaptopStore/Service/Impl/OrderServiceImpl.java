@@ -194,6 +194,7 @@ public class OrderServiceImpl implements OrderService {
         // danh sach id cua order
         List<Integer> ids = orderRepository.findOrderIDByCustomerID(id);
         List<Order_OrderDetailDTO> result = new ArrayList<>();
+        String status ="";
         for (Integer i : ids) {
             List<Object[]> od = orderDetailRepository.getOrderDetail(i);
             List<OrderDetail_displayForStatusDTO> orderDetail = new ArrayList<>();
@@ -205,9 +206,12 @@ public class OrderServiceImpl implements OrderService {
                         .lineTotal((BigDecimal) o[3])
                         .build();
                 orderDetail.add(dto2);
+                status = (String) o[4];
+
             }
             Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
             dto.setOrderdetail(orderDetail);
+            dto.setStatus(status);
             if(dto.getOrderdetail().size() != 0){
                 result.add(dto);
             }
@@ -219,6 +223,7 @@ public class OrderServiceImpl implements OrderService {
     public List<Order_OrderDetailDTO> ListOrderDetailByStatus(int customerID, String status) {
         List<Integer> ids = orderRepository.findOrderIDByCustomerID(customerID);
         List<Order_OrderDetailDTO> result = new ArrayList<>();
+        String s = "";
         for (Integer i : ids) {
             List<Object[]> od = orderDetailRepository.SearchOrderDetailByStatus(i,status);
             List<OrderDetail_displayForStatusDTO> orderDetail = new ArrayList<>();
@@ -230,9 +235,11 @@ public class OrderServiceImpl implements OrderService {
                         .lineTotal((BigDecimal) o[3])
                         .build();
                 orderDetail.add(dto2);
+                s = (String) o[4];
             }
             Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
             dto.setOrderdetail(orderDetail);
+            dto.setStatus(s);
             if(dto.getOrderdetail().size() != 0){
                 result.add(dto);
             }
