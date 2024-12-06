@@ -48,7 +48,6 @@ function displayCustomerList(customers) {
         <td>${index + 1}</td>
         <td>${customer.fullName}</td>
         <td>${customer.email}</td>
-        <td>${customer.city}</td>
         <td>
           <!-- Nút Sửa -->
           <button class="btn btn-primary btn-sm" onclick="editCustomer(${customer.customerID})">Sửa</button>
@@ -167,7 +166,7 @@ customerForm.addEventListener('submit', async function (event) {
     passWord: document.getElementById('passWord').value,
     phoneNumber: document.getElementById('phoneNumber').value,
     registrationDate: document.getElementById('registrationDate').value,
-    address: document.getElementById('address').value,
+    address: null,
     city: document.getElementById('city').value,
     district: document.getElementById('district').value,
     ward: document.getElementById('ward').value,
@@ -224,7 +223,6 @@ function editCustomer(customerID) {
       document.getElementById('editPassword').value = data.passWord;
       document.getElementById('editPhoneNumber').value = data.phoneNumber;
       document.getElementById('editRegistrationDate').value = data.registrationDate;
-      document.getElementById('editAddress').value = data.address;
       document.getElementById('editCity').value = data.city;
       document.getElementById('editDistrict').value = data.district;
       document.getElementById('editWard').value = data.ward;
@@ -255,7 +253,7 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
       passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
       phoneNumber: document.getElementById('editPhoneNumber').value,  // Cập nhật giá trị
       registrationDate:document.getElementById('editRegistrationDate').value ,  // Cập nhật giá trị
-      address: document.getElementById('editAddress').value,  // Cập nhật giá trị
+      address: null,  // Cập nhật giá trị
       city: document.getElementById('editCity').value,  // Cập nhật giá trị
       district: document.getElementById('editDistrict').value,  // Cập nhật giá trị
       ward: document.getElementById('editWard').value,  // Cập nhật giá trị
