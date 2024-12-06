@@ -109,7 +109,7 @@ function togglePromotion(productID, isChecked) {
   if (selectedPromotionID) {
     const url = isChecked
       ? `http://localhost:8080/admin/promotion-product/add-promotion/${productID}/${selectedPromotionID}`
-      : `http://localhost:8080/admin/promotion-product/remove-promotion/${productID}/${selectedPromotionID}`;
+      : `http://localhost:8080/admin/promotion-.product/remove-promotion/${productID}/${selectedPromotionID}`;
 
     fetch(url, {
       method: isChecked ? 'POST' : 'DELETE',
