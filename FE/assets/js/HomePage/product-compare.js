@@ -20,12 +20,12 @@ if (product1ID && product2ID) {
             // Cập nhật thông tin sản phẩm 1
             document.getElementById('product1__image').src = product1.imageUrl;
             document.getElementById('product1__productName').textContent = product1.productName;
-            document.getElementById('product1__price').textContent = `$${product1.price}`;
+            document.getElementById('product1__price').textContent = `${product1.price.toLocaleString()} VND`;
 
             // Cập nhật thông tin sản phẩm 2
             document.getElementById('product2__image').src = product2.imageUrl;
             document.getElementById('product2__productName').textContent = product2.productName;
-            document.getElementById('product2__price').textContent = `$${product2.price}`;
+            document.getElementById('product2__price').textContent = `${product2.price.toLocaleString()} VND`;
 
              // Gắn ID sản phẩm vào nút "Thêm vào giỏ hàng"
              const addToCartButton1 = document.getElementById('add-to-cart-product1');
@@ -45,18 +45,8 @@ if (product1ID && product2ID) {
 // Hàm cập nhật thông tin sản phẩm
 function updateProductComparison(product1, product2) {
   // Cập nhật tên sản phẩm trong phần content-compare
-  document.getElementById('header__product1').textContent = product1.productName; // Sử dụng tên thực tế
-  document.getElementById('header__product2').textContent = product2.productName; // Sử dụng tên thực tế
-
-  // Cập nhật thông tin sản phẩm 1
-  document.getElementById('product1__image').src = product1.imageUrl;
-  document.getElementById('product1__productName').textContent = product1.productName; // Tên sản phẩm 1
-  document.getElementById('product1__price').textContent = `$${product1.price}`;
-
-  // Cập nhật thông tin sản phẩm 2
-  document.getElementById('product2__image').src = product2.imageUrl;
-  document.getElementById('product2__productName').textContent = product2.productName; // Tên sản phẩm 2
-  document.getElementById('product2__price').textContent = `$${product2.price}`;
+  document.getElementById('header__product1').textContent = product1.productName; 
+  document.getElementById('header__product2').textContent = product2.productName; 
 
   // Cập nhật thông số kỹ thuật vào bảng
   document.getElementById('product1__cpuTech').textContent = product1.cpuTechnology || 'N/A';
