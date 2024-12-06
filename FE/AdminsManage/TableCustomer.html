@@ -140,10 +140,7 @@
                               <label for="registrationDate" class="form-label">Ngày Đăng Ký</label>
                               <input type="datetime-local" class="form-control" id="registrationDate" required>
                             </div>
-                            <div class="mb-3">
-                              <label for="address" class="form-label">Địa chỉ</label>
-                              <input type="text" class="form-control" id="address" required>
-                            </div>
+                          
                             <div class="mb-3">
                               <label for="city" class="form-label">Thành phố</label>
                               <input type="text" class="form-control" id="city" required>
@@ -176,7 +173,6 @@
               <th>STT</th>
               <th>Tên Khách Hàng</th>
               <th>Email</th>
-              <th>Địa chỉ</th>
             </tr>
           </thead>
           <tbody id="customer-list">
@@ -195,6 +191,7 @@
           <input type="hidden" id="editUserID" />
           <input type="hidden" id="editCustomerID" />
           <input type="hidden" id="editAddressID" />
+          <input type="hidden" id="editAddress" />
 
           <div class="mb-3">
             <input type="hidden" class="form-control" id="editTotalAmount" required />
@@ -219,10 +216,7 @@
 
           <input type="date" id="editRegistrationDate" style="display: none;" />
 
-          <div class="mb-3">
-            <label for="editAddress" class="form-label">Địa chỉ</label>
-            <input type="text" class="form-control" id="editAddress" required />
-          </div>
+         
           <div class="mb-3">
             <label for="editCity" class="form-label">Thành phố</label>
             <input type="text" class="form-control" id="editCity" required />
