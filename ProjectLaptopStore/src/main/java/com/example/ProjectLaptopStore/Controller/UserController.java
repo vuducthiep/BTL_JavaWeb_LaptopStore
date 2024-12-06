@@ -127,7 +127,7 @@ public class UserController {
         return ResponseEntity.ok("Shipping address added successfully");
     }
 
-    // API cap nhat thon tin dia chi nhan hang
+    // API cap nhat thong tin dia chi nhan hang
     @PutMapping(value = "/user/update-shipping-address")
     public ResponseEntity<?> updateShippingAddress(@RequestBody ShippingAddressesDTO dto){
         shippingAddressesService.updateShippingAddresses(dto);

@@ -63,7 +63,7 @@ function renderOrders(orders, filter = "all") {
             const obj = order.orderdetail[0];
 
             // Cộng dồn vào tổng tiền
-            totalAmount += obj.lineTotal * obj.quantity;
+            totalAmount += obj.lineTotal ;
 
             return `
                 <li class="order-item" data-category="${order.status}">

@@ -114,15 +114,15 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         customerEntity.setRegistrationDate(customerNew.getRegistrationDate());
         customerEntity.setStatus(Customer_Enum.active);
 
-        shippingAddressEntity.setCustomer(customerEntity);
-        shippingAddressEntity.setAddress(customerNew.getAddress());
-        shippingAddressEntity.setCity(customerNew.getCity());
-        shippingAddressEntity.setDistrict(customerNew.getDistrict());
-        shippingAddressEntity.setWard(customerNew.getWard());
-        shippingAddressEntity.setStreetAddress(customerNew.getStreetAddress());
+//        shippingAddressEntity.setCustomer(customerEntity);
+//        shippingAddressEntity.setAddress(customerNew.getAddress());
+//        shippingAddressEntity.setCity(customerNew.getCity());
+//        shippingAddressEntity.setDistrict(customerNew.getDistrict());
+//        shippingAddressEntity.setWard(customerNew.getWard());
+//        shippingAddressEntity.setStreetAddress(customerNew.getStreetAddress());
         entityManager.persist(userEntity);
         entityManager.persist(customerEntity);
-        entityManager.persist(shippingAddressEntity);
+//        entityManager.persist(shippingAddressEntity);
     }
 
     @Override
@@ -138,15 +138,15 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
 //        customerEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
         customerEntity.setStatus(Customer_Enum.active);
 
-        shippingAddressEntity.setCustomer(customerEntity);
-        shippingAddressEntity.setAddress(customerUpdate.getAddress());
-        shippingAddressEntity.setCity(customerUpdate.getCity());
-        shippingAddressEntity.setDistrict(customerUpdate.getDistrict());
-        shippingAddressEntity.setWard(customerUpdate.getWard());
-        shippingAddressEntity.setStreetAddress(customerUpdate.getStreetAddress());
+//        shippingAddressEntity.setCustomer(customerEntity);
+//        shippingAddressEntity.setAddress(customerUpdate.getAddress());
+//        shippingAddressEntity.setCity(customerUpdate.getCity());
+//        shippingAddressEntity.setDistrict(customerUpdate.getDistrict());
+//        shippingAddressEntity.setWard(customerUpdate.getWard());
+//        shippingAddressEntity.setStreetAddress(customerUpdate.getStreetAddress());
         entityManager.merge(userEntity);
         entityManager.merge(customerEntity);
-        entityManager.merge(shippingAddressEntity);
+//        entityManager.merge(shippingAddressEntity);
         entityManager.flush();
     }
 
@@ -222,6 +222,11 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
                         "WHERE  \n" +
                         addQuery+
                         "  c.Status = 'active' \n" +
+                        " AND sa.AddressID = (\n" +
+                        "    SELECT MIN(sa2.AddressID) \n" +
+                        "    FROM ShippingAddresses sa2 \n" +
+                        "    WHERE sa2.CustomerID = sa.CustomerID\n" +
+                        " ) "+
                         "GROUP BY \n" +
                         "    u.UserID, c.CustomerID, sa.AddressID, u.FullName, u.Email, u.Password, \n" +
                         "    u.PhoneNumber, u.RegistrationDate, sa.Address, sa.City, sa.District, \n" +

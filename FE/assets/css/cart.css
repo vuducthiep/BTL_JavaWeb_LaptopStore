@@ -99,10 +99,7 @@
   z-index: 1000;
 }
 
-/* Hiển thị menu khi người dùng trỏ chuột vào .user-account */
-.user-account:hover .box-user {
-  display: block;
-}
+
 
 /* Đảm bảo menu không bị chồng lên các phần tử khác */
 .user-account {

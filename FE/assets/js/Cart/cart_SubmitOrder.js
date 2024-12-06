@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const totalAmount = parseFloat(totalAmountElement.textContent.replace(" VND", "").replace(".", ""));
+        const totalAmount = parseFloat(
+            totalAmountElement.textContent
+                .replace(" VND", "") // Loại bỏ chuỗi " VND"
+                .replace(/[.,]/g, "") // Loại bỏ dấu chấm và dấu phẩy
+        );
         if (isNaN(totalAmount) || totalAmount <= 0) {
             alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
             return;
@@ -39,9 +43,12 @@ document.addEventListener("DOMContentLoaded", () => {
         productRows.forEach(row => {
             const checkbox = row.querySelector(".product-checkbox");
             if (checkbox && checkbox.checked) {
-                const productID = row.dataset.cartDetailID;
+                const productID = row.dataset.productId;
                 const quantity = parseInt(row.querySelector(".quantity-input").value, 10);
-                const price = parseFloat(row.querySelector(".product-price").textContent.replace(".", ""));
+                const price = parseFloat(
+                    row.querySelector(".product-price").textContent.replace(/[.,]/g, "")
+                );
+                
                 if (productID && price > 0 && quantity > 0) {
                     products.push({ productID, quantity, price });
                 } else {
@@ -64,13 +71,13 @@ document.addEventListener("DOMContentLoaded", () => {
             customerID: idCustomer,
             orderDate: new Date().toISOString().split("T")[0],
             totalAmount: totalAmount,
-            shippingFee: 35000,
+            shippingFee: 0,
             orderStatus: "Pending",
             estimatedDeliveryDate: new Date().toISOString().split("T")[0],
             actualDeliveryDate: new Date().toISOString().split("T")[0],
             paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2,
             addressID: selectedAddress.value,
-            orderDetails: products,
+            orderDetails: products, // ở dòng 64
         };
 
         try {
@@ -92,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         } catch (error) {
             console.error("Lỗi khi gửi API:", error);
-            alert("Đã gửi thành công");
+            alert("Gửi thành công");
         }
     });
 });

@@ -157,7 +157,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     return query;
                 }
                 if(key.equals("SINHVIEN_VANPHONG")) {
-                    query.append(" AND p.price <= 15000  ");
+                    query.append(" AND p.price <= 15000000  ");
                     return query;
                 }
                 if(key.equals("MONGNHE")) {
@@ -165,7 +165,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
                     return query;
                 }
                 if(key.equals("DOANHNHAN")) {
-                    query.append(" AND p.price > 15000 ");
+                    query.append(" AND p.price > 15000000 ");
                     return query;
                 }
             }
