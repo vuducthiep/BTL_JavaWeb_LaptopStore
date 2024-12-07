@@ -80,7 +80,7 @@ function renderOrders(orders, filter = "all") {
 
                         <div class="block-Linetotal-Order">
                             <h4 class="order-status">${order.status}</h4>
-                            <h6 class="order-Linetotal">${obj.lineTotal} VNĐ</h6>
+                            <h6 class="order-Linetotal">${obj.lineTotal.toLocaleString()} VNĐ</h6>
                         </div>
                     </div>
                 </li>
