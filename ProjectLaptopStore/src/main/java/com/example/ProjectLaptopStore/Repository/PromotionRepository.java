@@ -39,4 +39,11 @@ public interface PromotionRepository extends JpaRepository<PromotionEntity,Integ
     @Query(value = "SELECT * FROM promotions p WHERE p.PromotionID = :promotionID", nativeQuery = true)
     PromotionEntity getPromotionByID(@Param("promotionID")int promotionID);
 
+
+    @Query(value = "SELECT p.PromotionID, p.PromotionName, p.DiscountPercentage, p.PromotionDetails" +
+            " FROM promotions p " +
+            "JOIN promotionproduct pp ON pp.PromotionID = p.PromotionID " +
+            "JOIN products pd ON pd.ProductID = pp.ProductID " +
+            "WHERE pd.ProductID =  :productID",nativeQuery = true)
+    List<PromotionEntity> getPromotionByProductID(@Param("productID")int productID);
 }

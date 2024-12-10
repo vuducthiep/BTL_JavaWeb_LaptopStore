@@ -247,5 +247,15 @@ public class OrderServiceImpl implements OrderService {
         return  result;
     }
 
-
+    @Override
+    public void cancelOrder(int orderID) {
+        OrdersEntity order = orderRepository.findById(orderID).orElse(null);
+        if(order == null){
+            throw new RuntimeException("You must select a order or your order is null");
+        }
+        else{
+            order.setOrderStatus(OrderStatus_Enum.Canceled);
+            entityManager.merge(order);
+        }
+    }
 }

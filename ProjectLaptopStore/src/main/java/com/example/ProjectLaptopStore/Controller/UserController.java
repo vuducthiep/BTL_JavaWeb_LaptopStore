@@ -58,6 +58,8 @@ public class UserController {
     @Autowired
     CartDetailService cartDetailService;
 
+    @Autowired
+    private PromotionService promotionService;
     //API lấy thông tin cho homepage
     @GetMapping(value = "/user/home")
     public User_HomeResponseDTO getHomePage(){
@@ -172,5 +174,17 @@ public class UserController {
         return ResponseEntity.ok("Product added successfully");
     }
 
+    // API lay khuyen mai len cho san pham
+    @GetMapping(value = "/user/promotion-product/{id}")
+    public ResponseEntity<?> getPromotionProduct(@PathVariable(value = "id")int id){
+        List<Promotions_DisplayPromotionsDTO> rs = promotionService.getPromotionByProductID(id);
+        return ResponseEntity.ok(rs);
+    }
 
+    //API huy don hang
+    @PutMapping(value = "/user/cancel-order/{orderID}")
+    ResponseEntity<?> cacelOrder(@PathVariable(value = "orderID")int orderID){
+        orderService.cancelOrder(orderID);
+        return ResponseEntity.ok("Order canceled successfully");
+    }
 }
