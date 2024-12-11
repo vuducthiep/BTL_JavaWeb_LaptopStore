@@ -162,3 +162,18 @@ ul.breadcrumb {
     margin-top: 2%;
 }
 /* End ảnh product */
+
+/* Button Hủy đơn hàng */
+.red-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .red-button:hover {
+    background-color: darkred; /* Thay đổi màu khi hover */
+  }
+/* End button Hủy đơn hàng */
