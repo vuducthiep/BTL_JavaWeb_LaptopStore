@@ -352,6 +352,7 @@ textarea {
 }
 
 .thanhToan .total-amount, 
+.thanhToan .discount-amount,
 .thanhToan .total-price {
   color: #e63946; /* Màu chữ cho số */
   font-weight: bold;
@@ -589,4 +590,73 @@ td:nth-child(3) { /* Cột chứa tên sản phẩm */
   display: block;
   white-space: normal; /* Cho phép nội dung xuống dòng */
   overflow: hidden;
+}
+
+.thanhToan_selectPromotion {
+  display: flex;
+  justify-content: space-between; /* Để phân chia khoảng cách giữa các phần tử trong container */
+}
+
+.comboBoxPromotion {
+  margin-left: auto; /* Đẩy phần tử này sang bên phải */
+}
+
+
+/* Thêm một lớp CSS để căn chỉnh comboBoxPromotion sang bên phải */
+/* Căn chỉnh comboBoxPromotion sang bên phải */
+.comboBoxPromotion {
+  justify-content: flex-end; /* Căn phần tử con ra phía bên phải */
+  margin-top: 10px; /* Khoảng cách giữa các phần tử */
+}
+
+/* Tùy chỉnh cho combobox */
+.promotion-select {
+  font-size: 16px; /* Đặt kích thước chữ cho các mục trong combobox */
+  padding: 12px 30px 12px 15px; /* Thêm padding cho combobox để dễ sử dụng hơn */
+  border-radius: 8px; /* Đảm bảo các góc bo tròn */
+  border: 3px solid #6a0481; /* Đặt viền màu hồng nổi bật cho combobox */
+  background-color: #ffffff; /* Nền trắng sáng cho combobox */
+  color: #333; /* Màu chữ tối cho dễ đọc */
+  font-family: 'Arial', sans-serif; /* Sử dụng phông chữ dễ đọc */
+  font-weight: 500; /* Chữ đậm hơn một chút để dễ nhận diện */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Thêm bóng mờ cho combobox */
+  transition: all 0.3s ease; /* Thêm hiệu ứng chuyển động khi thay đổi trạng thái */
+  position: relative; /* Cần thiết để căn chỉnh biểu tượng */
+}
+
+/* Thêm biểu tượng mũi tên */
+
+/* Khi combobox được focus */
+.promotion-select:focus {
+  border-color: #ff5722; /* Đổi màu viền khi combobox được chọn */
+  background-color: #fce4ec; /* Màu nền nhẹ khi focus */
+  box-shadow: 0 4px 15px rgba(159, 183, 23, 0.5); /* Bóng mạnh hơn khi focus */
+  outline: none; /* Loại bỏ viền mặc định của trình duyệt */
+}
+
+/* Hiệu ứng hover cho các mục trong dropdown */
+.promotion-select option:hover {
+  background-color: #ffeb3b; /* Màu nền sáng vàng khi hover */
+  color: #fff; /* Màu chữ trắng khi hover */
+  transform: translateY(-5px); /* Nâng lên khi hover */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Tạo bóng lớn hơn khi hover */
+  transition: all 0.2s ease; /* Thêm hiệu ứng chuyển động cho hover */
+}
+
+/* Màu nền khi chọn mục trong dropdown */
+.promotion-select option:active {
+  background-color: #ff9800; /* Màu nền sáng cam khi chọn */
+  color: #fff; /* Chữ trắng khi chọn */
+}
+
+/* Hiệu ứng khi hover trên combobox */
+.promotion-select:hover {
+  border-color: #4caf50; /* Đổi màu viền khi hover trên combobox */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Thêm bóng mạnh khi hover */
+}
+
+/* Hiệu ứng khi hover biểu tượng */
+.dropdown-icon:hover {
+  transform: translateY(-50%) scale(1.1); /* Phóng to biểu tượng khi hover */
+  color: #ff5722; /* Đổi màu biểu tượng khi hover */
 }
