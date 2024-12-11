@@ -2,13 +2,17 @@ package com.example.ProjectLaptopStore.Service.Impl;
 
 
 import com.example.ProjectLaptopStore.DTO.CartDetailDTO;
+import com.example.ProjectLaptopStore.DTO.Promotions_DisplayPromotionsDTO;
 import com.example.ProjectLaptopStore.Entity.CartDetailsEntity;
 import com.example.ProjectLaptopStore.Entity.CartEntity;
 import com.example.ProjectLaptopStore.Entity.ProductsEntity;
+import com.example.ProjectLaptopStore.Entity.PromotionEntity;
 import com.example.ProjectLaptopStore.Repository.CartDetailRepository;
 import com.example.ProjectLaptopStore.Repository.CartRepository;
 import com.example.ProjectLaptopStore.Repository.ProductRepository;
+import com.example.ProjectLaptopStore.Repository.PromotionRepository;
 import com.example.ProjectLaptopStore.Service.CartDetailService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -27,7 +32,10 @@ public class CartDetailServiceImpl implements CartDetailService {
     private ProductRepository productRepository;
     @Autowired
     private CartRepository cartRepository;
-
+    @Autowired
+    private PromotionRepository promotionRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
     // lay ra danh sach cartdetail ra gio hang
     @Override
@@ -35,6 +43,12 @@ public class CartDetailServiceImpl implements CartDetailService {
         List<Object[]> objects = cartDetailRepository.getListCartDetail(cartID);
         List<CartDetailDTO> rs = new ArrayList<>();
         for (Object[] o : objects) {
+            List<PromotionEntity> promotion = promotionRepository.getPromotionByProductID((int) o[1]);
+            List<Promotions_DisplayPromotionsDTO> pros = new ArrayList<>();
+            for(PromotionEntity e : promotion){
+                Promotions_DisplayPromotionsDTO pro = modelMapper.map(e, Promotions_DisplayPromotionsDTO.class);
+                pros.add(pro);
+            }
             CartDetailDTO dto = CartDetailDTO.builder()
                     .cartDetailID((int)o[0])
                     .productId((int) o[1])
@@ -43,6 +57,7 @@ public class CartDetailServiceImpl implements CartDetailService {
                     .price((BigDecimal) o[4])
                     .quantity((int) o[5])
                     .lineTotal((BigDecimal) o[6])
+                    .promotion(pros)
                     .build();
             rs.add(dto);
         }

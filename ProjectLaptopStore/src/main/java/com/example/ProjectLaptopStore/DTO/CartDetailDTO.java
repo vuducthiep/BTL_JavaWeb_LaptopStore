@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,4 +18,5 @@ public class CartDetailDTO {
     private BigDecimal price;
     private int quantity;
     private BigDecimal lineTotal;
+    private List<Promotions_DisplayPromotionsDTO> promotion;
 }
