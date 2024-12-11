@@ -212,6 +212,7 @@ public class OrderServiceImpl implements OrderService {
             Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
             dto.setOrderdetail(orderDetail);
             dto.setStatus(status);
+            dto.setOrderID(i);
             if(dto.getOrderdetail().size() != 0){
                 result.add(dto);
             }
@@ -240,6 +241,7 @@ public class OrderServiceImpl implements OrderService {
             Order_OrderDetailDTO dto = new Order_OrderDetailDTO();
             dto.setOrderdetail(orderDetail);
             dto.setStatus(s);
+            dto.setOrderID(i);
             if(dto.getOrderdetail().size() != 0){
                 result.add(dto);
             }

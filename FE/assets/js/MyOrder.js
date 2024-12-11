@@ -60,27 +60,33 @@ function renderOrders(orders, filter = "all") {
     var htmls = orders
         .filter(order => filter === "all" || order.status === filter) // Lọc theo trạng thái
         .map(order => {
-            const obj = order.orderdetail[0];
-
+            const orderdetail = order.orderdetail[0];
+            console.log("orderdetail  " , orderdetail)
+            console.log("order : " , order ) 
             // Cộng dồn vào tổng tiền
-            totalAmount += obj.lineTotal ;
+            totalAmount += orderdetail.lineTotal ;
 
             return `
                 <li class="order-item" data-category="${order.status}">
                     <div class="Cell-Order d-flex justify-content-between align-items-center">
                         <div class="block-image-name-quantity-Order align-items-center">
                             <div class="order-image">
-                                <img src="${obj.imageURL}" alt="Ảnh product ${obj.productName}">
+                                <img src="${orderdetail.imageURL}" alt="Ảnh product ${orderdetail.productName}">
                             </div> 
                             <div class="order-infor">
-                                <h6 class="order-product-name">${obj.productName}</h6>
-                                <h6 class="order-quantity">Số lượng: ${obj.quantity}</h6>
+                                <h6 class="order-product-name">${orderdetail.productName}</h6>
+                                <h6 class="order-quantity">Số lượng: ${orderdetail.quantity}</h6>
                             </div>
                         </div>
 
-                        <div class="block-Linetotal-Order">
-                            <h4 class="order-status">${order.status}</h4>
-                            <h6 class="order-Linetotal">${obj.lineTotal.toLocaleString()} VNĐ</h6>
+                        <div class="block-Linetotal-Order d-flex flex-row">
+                            <div>
+                                <button onclick="CancelOrder('${orderdetail.productName}')" class="red-button">Hủy đơn</button>
+                            </div>
+                            <div>
+                                <h4 class="order-status">${order.status}</h4>
+                                <h6 class="order-Linetotal">${orderdetail.lineTotal.toLocaleString()} VNĐ</h6>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -91,6 +97,22 @@ function renderOrders(orders, filter = "all") {
     listOrderBlock.innerHTML = htmls.join("");
     // Gắn tổng tiền vào DOM
     totalAmountBlock.textContent = totalAmount.toLocaleString() + " VNĐ";
+}
+
+// Sự kiện hủy đơn hàng
+function CancelOrder(orderDetailID) {
+    console.log("Nút hủy đơn cho đơn có tên : " , orderDetailID )
+    fetch(`http://localhost:8080/user/cancel-order/{orderDetailID}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${tokenRequest}`, // Gửi token trong header
+        },
+    })
+    .then(response => response.json())
+    .then(function(response){
+        renderOrders(response)
+    })
 }
 
 function GetOrders(callback) {
@@ -202,6 +224,8 @@ function GetCanceledOrder() {
         renderOrders(response)
     })
 }
+
+
 
 
 

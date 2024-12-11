@@ -139,7 +139,7 @@ public class UserController {
     @DeleteMapping(value = "/user/remove-shipping-address")
     public ResponseEntity<?> removeShippingAddress(@RequestParam(value = "addressID")int addressID){
         shippingAddressesService.deleteShippingAddresses(addressID);
-        return ResponseEntity.ok("Shipping a ddress removed successfully");
+        return ResponseEntity.ok("Shipping address removed successfully");
     }
 
 
