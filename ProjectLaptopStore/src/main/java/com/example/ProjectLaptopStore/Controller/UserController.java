@@ -100,20 +100,19 @@ public class UserController {
         userService.updateUser(dto);
         return ResponseEntity.ok("User updated successfully");
     }
-
+    //API lấy thông tin cho danh sách đơn hàng
     @GetMapping(value = "/user/my-orders")
     public List<Order_OrderDetailDTO> getOrder(@RequestParam(name = "customerID")int customerID){
         List<Order_OrderDetailDTO> rs = orderService.ListOrderDetail(customerID);
         return rs;
     }
-
+    //API lấy thông tin đơn hàng dựa vào trạng thái
     @GetMapping(value = "/user/my-orders/")
     public List<Order_OrderDetailDTO> getOrderByStatus(@RequestParam(name = "customerID")int customerID,
                                                @RequestParam(name = "status")String status){
         List<Order_OrderDetailDTO> rs = orderService.ListOrderDetailByStatus(customerID,status);
         return rs;
     }
-
 
     // API lay danh sach Shipping address
     @GetMapping(value = "/user/shipping-address")
@@ -140,8 +139,9 @@ public class UserController {
     @DeleteMapping(value = "/user/remove-shipping-address")
     public ResponseEntity<?> removeShippingAddress(@RequestParam(value = "addressID")int addressID){
         shippingAddressesService.deleteShippingAddresses(addressID);
-        return ResponseEntity.ok("Shipping address removed successfully");
+        return ResponseEntity.ok("Shipping a ddress removed successfully");
     }
+
 
     // API lay ra cartdetail
     @GetMapping(value = "/user/mycart/cart-detail")
