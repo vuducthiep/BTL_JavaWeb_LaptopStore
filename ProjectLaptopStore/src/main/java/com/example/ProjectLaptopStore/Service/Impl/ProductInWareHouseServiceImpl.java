@@ -19,8 +19,8 @@ public class ProductInWareHouseServiceImpl implements ProductInWareHouseService 
     @Autowired
     private ProductInWareHouseConverter productInWareHouseConverter;
     @Override
-    public ProductsInWarehouse_DTO getProductInWarehouse(Integer idProduct) {
-        ProductInWarehouseEntity productInWarehouseEntity = productsInWarehouseRepository.findById(idProduct).get();
+    public ProductsInWarehouse_DTO getProductInWarehouse(Integer idProduct,Integer warehouseID) {
+        ProductInWarehouseEntity productInWarehouseEntity = productsInWarehouseRepository.findByProduct_ProductIDAndWarehouse_warehouseID(idProduct,warehouseID);
         return productInWareHouseConverter.toProductInWareHouse(productInWarehouseEntity);
     }
 

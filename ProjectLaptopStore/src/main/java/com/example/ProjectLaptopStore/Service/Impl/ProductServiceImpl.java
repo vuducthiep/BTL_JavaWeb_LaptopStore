@@ -155,5 +155,10 @@ public class ProductServiceImpl implements ProductService {
         return listProduct;
     }
 
+    @Override
+    public List<Product_GetReceiptDTO> findAllProducts() {
+        return productRepository.listProductForReceipt();
+    }
+
 
 }

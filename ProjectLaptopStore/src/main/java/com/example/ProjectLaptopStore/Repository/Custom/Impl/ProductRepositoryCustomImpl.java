@@ -3,6 +3,7 @@ package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 import com.example.ProjectLaptopStore.Convert.ContentConverter;
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_GetReceiptDTO;
 import com.example.ProjectLaptopStore.DTO.Product_ProductSearchCheckBoxDTO;
 import com.example.ProjectLaptopStore.Entity.ContentEntity;
 import com.example.ProjectLaptopStore.Entity.Enum.ProDescription_FindByUserDemand_Enum;
@@ -141,6 +142,24 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
             listProductDetailDTO.add(dto);
         }
         return listProductDetailDTO;
+    }
+
+    @Override
+    public List<Product_GetReceiptDTO> listProductForReceipt() {
+        String query = "select p.productId , p.productName ,p.imageUrl from Products p JOIN Suppliers s on s.SupplierID = p.SupplierID " +
+                " WHERE s.Status = 'active' ";
+        Query nativeQuery = entityManager.createNativeQuery(query);
+        List<Object[]> resultQuery = nativeQuery.getResultList();
+        List<Product_GetReceiptDTO> listProductGetReceiptDTO = new ArrayList<>();
+        for (Object[] rowOfResult : resultQuery) {
+            Product_GetReceiptDTO dto = new Product_GetReceiptDTO(
+                    (Integer) rowOfResult[0],
+                    (String) rowOfResult[1],
+                    (String) rowOfResult[2]
+            );
+            listProductGetReceiptDTO.add(dto);
+        }
+        return listProductGetReceiptDTO;
     }
 
     public StringBuilder checkKey(Object key,Integer keyTransfered){

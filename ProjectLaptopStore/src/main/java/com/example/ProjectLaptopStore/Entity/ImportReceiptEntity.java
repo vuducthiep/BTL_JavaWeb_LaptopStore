@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ImportReceiptEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer ImportReceiptID;
     @Column(name = "ImportDate",nullable = false)
-    private Date importDate;
+    private LocalDate importDate;
     @Column(name = "Importer")
     private String importer;
     @ManyToOne

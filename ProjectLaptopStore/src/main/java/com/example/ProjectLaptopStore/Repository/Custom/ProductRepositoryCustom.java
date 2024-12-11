@@ -2,6 +2,7 @@ package com.example.ProjectLaptopStore.Repository.Custom;
 
 import com.example.ProjectLaptopStore.DTO.ProductDetailDTO;
 import com.example.ProjectLaptopStore.DTO.Product_FindTopPurchasedProductsDTO;
+import com.example.ProjectLaptopStore.DTO.Product_GetReceiptDTO;
 import com.example.ProjectLaptopStore.DTO.Product_ProductSearchCheckBoxDTO;
 import com.example.ProjectLaptopStore.Entity.ContentEntity;
 import com.example.ProjectLaptopStore.Entity.ProductDescriptionEntity;
@@ -18,4 +19,5 @@ public interface ProductRepositoryCustom {
     List<ProductDetailDTO> getOneProductDetail(List<Integer>  id);
     List<ProductDetailDTO> getProductDetailByCheckbox(Product_ProductSearchCheckBoxDTO productSearchCheckBoxDTO);
 //    Page<Product_DisplayForHomePageDTO> findAllProductsByPage(int pageNo, int pageSize);
+    List<Product_GetReceiptDTO> listProductForReceipt();
 }

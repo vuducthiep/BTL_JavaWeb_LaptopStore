@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.util.Date;
 @Getter
 @Setter
-public class ImportExport_ReceiptDTO {
+public class ImportExport_ReceiptDisplayDTO {
     private String productName;
     private String brand;
     private String model;
@@ -15,7 +15,7 @@ public class ImportExport_ReceiptDTO {
     private String nameIm_Export;
     private Integer quantity;
 
-    public ImportExport_ReceiptDTO(String productName, String brand, String model, Float price, Date date, String nameIm_Export, Integer quantity) {
+    public ImportExport_ReceiptDisplayDTO(String productName, String brand, String model, Float price, Date date, String nameIm_Export, Integer quantity) {
         this.productName = productName;
         this.brand = brand;
         this.model = model;

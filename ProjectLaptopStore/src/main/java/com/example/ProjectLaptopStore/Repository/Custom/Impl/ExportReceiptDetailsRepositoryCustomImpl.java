@@ -1,6 +1,6 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
-import com.example.ProjectLaptopStore.DTO.ImportExport_ReceiptDTO;
+import com.example.ProjectLaptopStore.DTO.ImportExport_ReceiptDisplayDTO;
 import com.example.ProjectLaptopStore.Repository.Custom.ExportReceiptDetailsRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,7 +17,7 @@ public class ExportReceiptDetailsRepositoryCustomImpl implements ExportReceiptDe
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<ImportExport_ReceiptDTO> listExportReceipt(Integer warehouseID) {
+    public List<ImportExport_ReceiptDisplayDTO> listExportReceipt(Integer warehouseID) {
         String query = "SELECT " +
                 "p.ProductName AS productName, " +
                 "p.Brand as brand, " +
@@ -35,9 +35,9 @@ public class ExportReceiptDetailsRepositoryCustomImpl implements ExportReceiptDe
         Query nativeQuery = entityManager.createNativeQuery(query);
         nativeQuery.setParameter("idwarehouse", warehouseID);
         List<Object[]> result = nativeQuery.getResultList();
-        List<ImportExport_ReceiptDTO> listImportReceipt = new ArrayList<>();
+        List<ImportExport_ReceiptDisplayDTO> listImportReceipt = new ArrayList<>();
         for(Object[] rowOfResult : result) {
-            ImportExport_ReceiptDTO item = new ImportExport_ReceiptDTO(
+            ImportExport_ReceiptDisplayDTO item = new ImportExport_ReceiptDisplayDTO(
                     (String) rowOfResult[0],
                     (String) rowOfResult[1],
                     (String) rowOfResult[2],
