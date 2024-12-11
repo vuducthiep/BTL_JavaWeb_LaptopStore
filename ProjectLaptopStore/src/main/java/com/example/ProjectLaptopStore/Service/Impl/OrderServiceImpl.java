@@ -152,8 +152,8 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(c);
         order.setOrderDate(new Date());
         order.setTotalAmount(dto.getTotalAmount());
-        order.setShippingFee(new BigDecimal(35000));
-        order.setOrderStatus(OrderStatus_Enum.Confirmed);
+        order.setShippingFee(dto.getShippingFee());
+        order.setOrderStatus(OrderStatus_Enum.Pending);
         order.setEstimatedDeliveryDate(dto.getEstimatedDeliveryDate());
         order.setActualDeliveryDate(dto.getActualDeliveryDate());
         order.setPayMentMethod(pm);
