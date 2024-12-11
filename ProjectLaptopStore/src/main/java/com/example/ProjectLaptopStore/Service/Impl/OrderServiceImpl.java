@@ -152,8 +152,8 @@ public class OrderServiceImpl implements OrderService {
         order.setCustomer(c);
         order.setOrderDate(new Date());
         order.setTotalAmount(dto.getTotalAmount());
-        order.setShippingFee(new BigDecimal(35000));
-        order.setOrderStatus(OrderStatus_Enum.Confirmed);
+        order.setShippingFee(dto.getShippingFee());
+        order.setOrderStatus(OrderStatus_Enum.Pending);
         order.setEstimatedDeliveryDate(dto.getEstimatedDeliveryDate());
         order.setActualDeliveryDate(dto.getActualDeliveryDate());
         order.setPayMentMethod(pm);
@@ -247,5 +247,15 @@ public class OrderServiceImpl implements OrderService {
         return  result;
     }
 
-
+    @Override
+    public void cancelOrder(int orderID) {
+        OrdersEntity order = orderRepository.findById(orderID).orElse(null);
+        if(order == null){
+            throw new RuntimeException("You must select a order or your order is null");
+        }
+        else{
+            order.setOrderStatus(OrderStatus_Enum.Canceled);
+            entityManager.merge(order);
+        }
+    }
 }

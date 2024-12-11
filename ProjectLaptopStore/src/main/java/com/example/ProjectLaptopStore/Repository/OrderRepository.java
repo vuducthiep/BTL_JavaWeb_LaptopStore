@@ -42,9 +42,13 @@ public interface OrderRepository extends JpaRepository<OrdersEntity, Integer> , 
     @Query(value = "SELECT * FROM Orders o WHERE o.customerID = :customerID",nativeQuery = true)
     List<OrdersEntity> findByCustomerID(@Param("customerID") int customerID);
 
+
     @Query(value = "SELECT * FROM Orders o WHERE o.OrderID = :orderID",nativeQuery = true)
     OrdersEntity findByOrderID(@Param("orderID") int orderID);
 
+    // lay danh sach id order
     @Query(value = "SELECT o.OrderID FROM Orders o WHERE o.CustomerID = :customerID",nativeQuery = true)
     List<Integer> findOrderIDByCustomerID(@Param("customerID") int customerID);
+
+
 }

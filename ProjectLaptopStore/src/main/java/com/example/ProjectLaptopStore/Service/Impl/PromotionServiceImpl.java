@@ -163,4 +163,15 @@ public class PromotionServiceImpl implements PromotionService {
         }
         return rs;
     }
+
+    @Override
+    public List<Promotions_DisplayPromotionsDTO> getPromotionByProductID(int productID) {
+        List<PromotionEntity> entities = promotionRepository.getPromotionByProductID(productID);
+        List<Promotions_DisplayPromotionsDTO> rs = new ArrayList<>();
+        for(PromotionEntity o:entities){
+            Promotions_DisplayPromotionsDTO dto = modelMapper.map(o,Promotions_DisplayPromotionsDTO.class);
+            rs.add(dto);
+        }
+        return rs;
+    }
 }

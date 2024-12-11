@@ -24,4 +24,6 @@ public interface OrderService {
     //hien thi don hang theo status
     List<Order_OrderDetailDTO> ListOrderDetailByStatus(int customerID, String status);
 
+    // huy don hang
+    void cancelOrder(int orderID);
 }

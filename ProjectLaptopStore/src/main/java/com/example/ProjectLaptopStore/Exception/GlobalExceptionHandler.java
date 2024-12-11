@@ -81,7 +81,12 @@ public class GlobalExceptionHandler {
     }
     @ExceptionHandler(PhoneNumberAlreadyExistsException.class)
     public ResponseEntity<String> handlePhoneNumberAlreadyExistsException(PhoneNumberAlreadyExistsException ex) {
-        return new ResponseEntity<>("PhoneNumberAlreadyExistsException error: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<String> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
     // Thêm các xử lý ngoại lệ khác nếu cần
 
