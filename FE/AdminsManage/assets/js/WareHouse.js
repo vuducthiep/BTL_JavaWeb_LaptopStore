@@ -6,8 +6,8 @@ function loadProductDetails(productID) {
         console.log('Không có ID sản phẩm');
         return;
     }
-
-    const productApiUrl = `http://localhost:8080/admin/warehouse/update-product/${productID}`;
+    const warehouseid =parseInt(getWarehouseIDFromURL())
+    const productApiUrl = `http://localhost:8080/admin/warehouse/update-product/${productID}/${warehouseid}`;
 
     fetch(productApiUrl)
         .then(response => {
@@ -18,7 +18,8 @@ function loadProductDetails(productID) {
         })
         .then(data => {
             console.log('Dữ liệu sản phẩm:', data);
-            currentproductInWareHouseId=data.productInWareHouseId.value;
+            currentproductInWareHouseId=data.productInWareHouseId;
+            console.log('id của productInWarehouse là :',currentproductInWareHouseId)
             // Cập nhật các trường trong form chỉnh sửa
             updateFormFields(data);
 
@@ -71,7 +72,7 @@ function saveProductChanges() {
         console.log('Không có warehouseID trong URL');
         return;
     }
-
+    console.log("id productInWareHouse",currentproductInWareHouseId)
     // Lấy dữ liệu từ form
     const updatedProduct = {
         productId: currentProductID, // Sử dụng currentProductID cho productId
@@ -87,7 +88,8 @@ function saveProductChanges() {
         minStockLevel: parseInt(document.getElementById('editProductMinStockLevel').value),
         maxStockLevel: parseInt(document.getElementById('editProductMaxStockLevel').value),
         quantity: parseInt(document.getElementById('editProductQuantity').value),
-        productInWareHouseId: currentProductID// Sử dụng warehouseID lấy từ URL
+        productInWareHouseId: currentproductInWareHouseId,
+        wareHouseId:warehouseID
     };
 
     // Gửi yêu cầu PUT
