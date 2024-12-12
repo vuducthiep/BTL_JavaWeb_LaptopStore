@@ -1,6 +1,6 @@
 
 const importForm = document.getElementById('importForm');
-const selectedProductInput = document.getElementById('selectedProduct');
+const selectedProductInput = document.getElementById('importSelectedProduct');
 
 const importReceiptUrl = 'http://localhost:8080/admin/warehouse/import-receipt';
 
@@ -10,12 +10,12 @@ importForm.addEventListener('submit', function (event) {
   const adminId = 3; 
   const productId = selectedProductInput.getAttribute('data-idProduct');
   const warehouseId = urlParams.get('warehouseID');
-  const productBatchCode = document.getElementById('productBatchCode').value;
-  const dimension = document.getElementById('dimension').value;
-  const volume = parseFloat(document.getElementById('volume').value);
-  const minStock = parseInt(document.getElementById('minStock').value);
-  const maxStock = parseInt(document.getElementById('maxStock').value);
-  const quantity = parseInt(document.getElementById('quantity').value);
+  const productBatchCode = document.getElementById('importBatchCode').value;
+  const dimension = document.getElementById('importdimension').value;
+  const volume = parseFloat(document.getElementById('importvolume').value);
+  const minStock = parseInt(document.getElementById('importminStock').value);
+  const maxStock = parseInt(document.getElementById('importmaxStock').value);
+  const quantity = parseInt(document.getElementById('importQuantity').value);
 
   
   if (!adminId || !productId || !warehouseId || !productBatchCode || !dimension || isNaN(volume) || isNaN(minStock) || isNaN(maxStock) || isNaN(quantity)) {
