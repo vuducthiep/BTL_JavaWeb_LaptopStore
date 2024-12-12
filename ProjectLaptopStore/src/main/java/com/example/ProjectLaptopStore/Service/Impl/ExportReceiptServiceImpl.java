@@ -35,10 +35,10 @@ public class ExportReceiptServiceImpl implements ExportReceiptService {
         if(productInWareHouse.getQuantity() < exportReceiptDTO.getQuantity()) {
             throw new InsufficientProductQuantityException("Requested quantity exceeds available stock");
         }
-        if(productInWareHouse.getQuantity() > exportReceiptDTO.getQuantity()){
+        else if(productInWareHouse.getQuantity() > exportReceiptDTO.getQuantity()){
             exportReceiptsRepository.addExportReceipt(adminEntity,exportReceiptDTO,productInWareHouse,1);
         }
-        if(productInWareHouse.getQuantity() == exportReceiptDTO.getQuantity()){
+        else if(productInWareHouse.getQuantity() == exportReceiptDTO.getQuantity()){
             exportReceiptsRepository.addExportReceipt(adminEntity,exportReceiptDTO,productInWareHouse,2);
 
         }
