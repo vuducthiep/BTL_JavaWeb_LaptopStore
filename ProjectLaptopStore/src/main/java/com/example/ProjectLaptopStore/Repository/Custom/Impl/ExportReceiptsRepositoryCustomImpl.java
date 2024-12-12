@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.NoSuchElementException;
 
 @Transactional
 @Repository
@@ -34,20 +35,14 @@ public class ExportReceiptsRepositoryCustomImpl implements ExportReceiptsReposit
         entityManager.persist(exportReceiptEntity);
         entityManager.persist(exportReceipDetailEntity);
         //khong xuat het hang
-        if(task == 1){
+        if (task == 1) {
             productInWarehouseEntity.setQuantity(productInWarehouseEntity.getQuantity() - exportReceiptDTO.getQuantity());
             entityManager.merge(productInWarehouseEntity);
             entityManager.flush();
-        }
-        //xuat het sach hang
-        if(task == 2){
-            //phai chuyen qua trang thai managed
-            if (!entityManager.contains(productInWarehouseEntity)) {
-                productInWarehouseEntity = entityManager.merge(productInWarehouseEntity);
-            }
+        } else if (task == 2) {
+            //xoa het
             entityManager.remove(productInWarehouseEntity);
             entityManager.flush();
-
         }
     }
 }

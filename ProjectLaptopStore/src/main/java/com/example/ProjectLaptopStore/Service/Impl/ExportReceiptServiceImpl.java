@@ -38,8 +38,9 @@ public class ExportReceiptServiceImpl implements ExportReceiptService {
         if(productInWareHouse.getQuantity() > exportReceiptDTO.getQuantity()){
             exportReceiptsRepository.addExportReceipt(adminEntity,exportReceiptDTO,productInWareHouse,1);
         }
-        if(productInWareHouse.getQuantity() ==  exportReceiptDTO.getQuantity()){
+        if(productInWareHouse.getQuantity() == exportReceiptDTO.getQuantity()){
             exportReceiptsRepository.addExportReceipt(adminEntity,exportReceiptDTO,productInWareHouse,2);
+
         }
     }
 }

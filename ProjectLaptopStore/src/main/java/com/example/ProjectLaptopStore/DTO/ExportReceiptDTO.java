@@ -11,6 +11,6 @@ public class ExportReceiptDTO {
     private Integer adminId;
     private Integer productId;
     private Integer warehouseId;
-    private Integer quantity;
+    private int quantity;
 
 }
