@@ -102,8 +102,8 @@ public class AdminServiceImpl implements AdminService {
             Integer totalQuantity = productsInWarehouseRepository.getTotalQuantity(warehouseID);
             Integer minStock = productsInWarehouseRepository.countProductsMinStockLevel(warehouseID);
             Integer maxStock = productsInWarehouseRepository.countProductsMaxStockLevel(warehouseID);
-            List<ImportExport_ReceiptDTO> listExportReceipt = exportReceiptDetailsRepository.listExportReceipt(warehouseID);
-            List<ImportExport_ReceiptDTO> listImportReceipt = importReceiptDetailsRepository.listImportReceipt(warehouseID);
+            List<ImportExport_ReceiptDisplayDTO> listExportReceipt = exportReceiptDetailsRepository.listExportReceipt(warehouseID);
+            List<ImportExport_ReceiptDisplayDTO> listImportReceipt = importReceiptDetailsRepository.listImportReceipt(warehouseID);
             List<ProductsInWarehouse_DTO> listProductsInWarehouse = productsInWarehouseRepository.listProductsInWarehouse(warehouseID);
             adminReceiptResponseDTO.setWarehouseList(listWarehouse);
             adminReceiptResponseDTO.setWarehouseInfo(wareHouse);

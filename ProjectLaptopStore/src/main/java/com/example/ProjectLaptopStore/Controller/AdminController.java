@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Controller;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Entity.SuppliersEntity;
 import com.example.ProjectLaptopStore.Entity.WareHouseEntity;
 import com.example.ProjectLaptopStore.Response.*;
@@ -30,10 +31,12 @@ public class AdminController {
     private ProductService productService;
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    private ImportReceiptService importReceiptService;
     @Autowired
     private AdminService adminService;
-
+    @Autowired
+    private ExportReceiptService exportReceiptService;
     @Autowired
     private SuppliersService suppliersService;
     @Autowired
@@ -65,9 +68,10 @@ public class AdminController {
     }
 
     //API lấy thông tin của sản phẩm được chọn để sửa ở màn kho hàng
-    @GetMapping(value = "/warehouse/update-product/{productID}")
-    public ProductsInWarehouse_DTO getProductsInWarehouse(@PathVariable(name = "productID") Integer productID){
-        return productInWarehouseService.getProductInWarehouse(productID);
+    @GetMapping(value = "/warehouse/update-product/{productID}/{warehouseID}")
+    public ProductsInWarehouse_DTO getProductsInWarehouse(@PathVariable(name = "productID") Integer productID,
+                                                          @PathVariable(name = "warehouseID") Integer warehouseID){
+        return productInWarehouseService.getProductInWarehouse(productID,warehouseID);
     }
     //API cập nhật thông tin của sản phẩm trong kho
     //productID không cần dùng
@@ -98,6 +102,25 @@ public class AdminController {
         wareHouseService.deleteWareHouse(id);
     }
 
+    //API lấy tất cả sản phẩm để thêm phiếu nhập
+    @GetMapping(value = "/warehouse/allproduct")
+    public List<Product_GetReceiptDTO> findAllProducts(){
+        return productService.findAllProducts();
+    }
+
+    //API thêm phiếu nhập
+    @PostMapping(value = "/warehouse/import-receipt")
+    public ResponseEntity<?> addImportReceipt(@RequestBody ImportReceiptDTO importReceiptDTO){
+        importReceiptService.importReceipt(importReceiptDTO);
+        return ResponseEntity.ok("success");
+    }
+
+    //API thêm phiếu xuất
+    @PostMapping(value = "/warehouse/export-receipt")
+    public ResponseEntity<?> addExportReceipt(@RequestBody ExportReceiptDTO exportReceiptDTO){
+        exportReceiptService.addExportReceipt(exportReceiptDTO);
+        return ResponseEntity.ok("success");
+    }
 
     //API lay thong tin cac khuyen mai
     @GetMapping(value = "/promotion")

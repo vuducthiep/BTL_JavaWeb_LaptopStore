@@ -23,8 +23,9 @@ public class ProductsInWarehouse_DTO {
     private Integer maxStockLevel;
     private Integer quantity;
     private Integer productInWareHouseId;
+    private Integer wareHouseId;
 
-    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Float price, Date releaseDate, Integer warrantyPeriod, String productBatchCode, String dimension, BigDecimal volume, Integer minStockLevel, Integer maxStockLevel, Integer quantity, Integer productInWareHouseId) {
+    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Float price, Date releaseDate, Integer warrantyPeriod, String productBatchCode, String dimension, BigDecimal volume, Integer minStockLevel, Integer maxStockLevel, Integer quantity, Integer productInWareHouseId, Integer wareHouseId) {
         this.productId = productId;
         this.productName = productName;
         this.brand = brand;
@@ -39,6 +40,7 @@ public class ProductsInWarehouse_DTO {
         this.maxStockLevel = maxStockLevel;
         this.quantity = quantity;
         this.productInWareHouseId = productInWareHouseId;
+        this.wareHouseId = wareHouseId;
     }
 
     public ProductsInWarehouse_DTO() {

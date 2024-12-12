@@ -1,6 +1,8 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
-import com.example.ProjectLaptopStore.DTO.ImportExport_ReceiptDTO;
+import com.example.ProjectLaptopStore.DTO.ImportExport_ReceiptDisplayDTO;
+import com.example.ProjectLaptopStore.DTO.ImportReceiptDTO;
+import com.example.ProjectLaptopStore.Entity.*;
 import com.example.ProjectLaptopStore.Repository.Custom.ImportReceiptDetailsRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -8,6 +10,7 @@ import jakarta.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,7 +20,7 @@ public class ImportReceiptDetailsRepositoryCustomImpl implements ImportReceiptDe
     @PersistenceContext
     private EntityManager entityManager;
     @Override
-    public List<ImportExport_ReceiptDTO> listImportReceipt(Integer warehouseID) {
+    public List<ImportExport_ReceiptDisplayDTO> listImportReceipt(Integer warehouseID) {
         String query = "SELECT " +
                 "p.ProductName AS productName, " +
                 "p.Brand AS brand, " +
@@ -34,9 +37,9 @@ public class ImportReceiptDetailsRepositoryCustomImpl implements ImportReceiptDe
         Query nativeQuery = entityManager.createNativeQuery(query);
         nativeQuery.setParameter("warehouseID", warehouseID);
         List<Object[]> result = nativeQuery.getResultList();
-        List<ImportExport_ReceiptDTO> listImportReceipt = new ArrayList<>();
+        List<ImportExport_ReceiptDisplayDTO> listImportReceipt = new ArrayList<>();
         for(Object[] rowOfResult : result) {
-            ImportExport_ReceiptDTO item = new ImportExport_ReceiptDTO(
+            ImportExport_ReceiptDisplayDTO item = new ImportExport_ReceiptDisplayDTO(
                     (String) rowOfResult[0],
                     (String) rowOfResult[1],
                     (String) rowOfResult[2],
@@ -49,4 +52,6 @@ public class ImportReceiptDetailsRepositoryCustomImpl implements ImportReceiptDe
         }
         return listImportReceipt;
     }
+
+
 }

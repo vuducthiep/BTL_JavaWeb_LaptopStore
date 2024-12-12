@@ -40,7 +40,10 @@
             <a class="nav-link text-white" href="Promotion.html" id="PromotionLink">Promotion</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#" id="profileLink">Profile</a>
+            <a class="nav-link text-white" href="ProfileAdmin.html" id="profileLink">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="AboutUs.html" id="profileLink">About Us</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="#" id="log-out">Đăng xuất</a>
@@ -124,18 +127,25 @@
           </div>
           <div class="col-md-4">
             <div class="card mb-4">
-              <div class="card-header">Phiếu xuất kho</div>
+              <div class="card-header d-flex justify-content-between align-items-center">
+                Phiếu xuất kho
+                <button class="btn btn-danger btn-sm" id="btnExportProduct">Xuất sản phẩm</button>
+              </div>
               <ul class="list-group list-group-flush" id="exportList">
                 <!-- Phiếu xuất kho -->
               </ul>
             </div>
             <div class="card">
-              <div class="card-header">Phiếu nhập kho</div>
+              <div class="card-header d-flex justify-content-between align-items-center">
+                Phiếu nhập kho
+                <button class="btn btn-success btn-sm" id="btnImportProduct">Nhập sản phẩm</button>
+              </div>
               <ul class="list-group list-group-flush" id="importList">
                 <!-- Phiếu nhập kho -->
               </ul>
             </div>
           </div>
+          
         </div>
       </div>
 
@@ -273,9 +283,88 @@
 </div>
 
 
+<!-- Form Nhập sản phẩm -->
+<div id="importFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeImportModal">&times;</span>
+    <h4>Nhập sản phẩm</h4>
+    <form id="importForm">
+      <label for="importSelectedProduct">Sản phẩm:</label>
+      <input type="text" id="importSelectedProduct" name="importSelectedProduct" data-idProduct="" readonly required>
+      <button type="button" id="importProductDropdownButton">Chọn sản phẩm</button>
 
-    
+      <div id="importProductSelectModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeImportProductModal">&times;</span>
+          <h4>Chọn sản phẩm</h4>
+          <ul id="importProductListSelect">
+            <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
+          </ul>
+        </div>
+      </div>
+
+      <label for="importBatchCode">Mã lô:</label>
+      <input type="text" id="importBatchCode" name="importBatchCode" required>
+      <label for="importdimension">Kích thước:</label>
+      <input type="text" id="importdimension" name="importdimension" required>
+
+      <label for="importvolume">Thể tích:</label>
+      <input type="number" id="importvolume" name="importvolume" required>
+
+      <label for="importminStock">Tồn kho tối thiểu:</label>
+      <input type="number" id="importminStock" name="importminStock" required>
+
+      <label for="importmaxStock">Tồn kho tối đa:</label>
+      <input type="number" id="importmaxStock" name="importmaxStock" required>
+      <label for="importQuantity">Số lượng:</label>
+      <input type="number" id="importQuantity" name="importQuantity" required>
+      <button type="submit" class="btn btn-primary">Thêm phiếu nhập</button>
+    </form>
+  </div>
+</div>
+
+<!-- Form Xuất sản phẩm -->
+<div id="exportFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" id="closeExportModal">&times;</span>
+    <h4>Xuất sản phẩm</h4>
+    <form id="exportForm">
+      <label for="exportSelectedProduct">Sản phẩm:</label>
+      <input type="text" id="exportSelectedProduct" name="exportSelectedProduct" data-idProduct="" readonly required>
+      <button type="button" id="exportProductDropdownButton">Chọn sản phẩm</button>
+
+      <div id="exportProductSelectModal" class="modal">
+        <div class="modal-content">
+          <span class="close" id="closeExportProductModal">&times;</span>
+          <h4>Chọn sản phẩm</h4>
+          <ul id="exportProductListSelect">
+            <!-- Danh sách sản phẩm sẽ được hiển thị ở đây -->
+          </ul>
+        </div>
+      </div>
+
+      <label for="exportQuantity">Số lượng:</label>
+      <input type="number" id="exportQuantity" name="exportQuantity" required>
+      <button type="submit" class="btn btn-primary">Thêm phiếu xuất</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+    <!-- form phiếu nhập  -->
     <script src="assets/js/WareHouse.js"></script>
     <script src="assets/js/LogOut/Logout.js"></script>
+    <script src="assets/js/FormImPortReceipts.js"></script>
+    <script src="assets/js/addImPortReceipts.js"></script>
+    <link rel="stylesheet" href="assets/styles/addImPortReceipts.css">
+    <link rel="stylesheet" href="assets/styles/addExPortReceipts.css">
+    <script src="assets/js/addExPortReceipt.js"></script>
+    <script src="assets/js/FormExPortReceipt.js"></script>
+
+
+
   </body>
 </html>

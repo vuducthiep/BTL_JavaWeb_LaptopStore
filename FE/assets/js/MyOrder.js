@@ -81,7 +81,12 @@ function renderOrders(orders, filter = "all") {
 
                         <div class="block-Linetotal-Order d-flex flex-row">
                             <div>
-                                <button onclick="CancelOrder('${orderdetail.productName}')" class="red-button">Hủy đơn</button>
+                                <button 
+                                    onclick="CancelOrder('${order.orderID}', '${order.status}')" 
+                                    class="red-button" 
+                                    style="display: ${order.status === 'Canceled' ? 'none' : 'inline-block'};">
+                                    Hủy đơn
+                                </button>
                             </div>
                             <div>
                                 <h4 class="order-status">${order.status}</h4>
@@ -100,19 +105,37 @@ function renderOrders(orders, filter = "all") {
 }
 
 // Sự kiện hủy đơn hàng
-function CancelOrder(orderDetailID) {
-    console.log("Nút hủy đơn cho đơn có tên : " , orderDetailID )
-    fetch(`http://localhost:8080/user/cancel-order/{orderDetailID}`, {
+function CancelOrder(orderID, orderStatus) {
+    if (orderStatus === 'Canceled') {
+        console.log("Đơn hàng này đã hủy rồi, không thể hủy lại.");
+        return; // Không thực hiện hủy đơn nữa nếu trạng thái là "Canceled"
+    }
+
+    orderID = parseInt(orderID);
+    console.log("Hủy đơn hàng có status:", orderStatus);
+    console.log("Nút hủy đơn cho đơn có ID:", orderID);
+    console.log(typeof orderID);
+
+    fetch(`http://localhost:8080/user/cancel-order/${orderID}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${tokenRequest}`, // Gửi token trong header
         },
     })
-    .then(response => response.json())
-    .then(function(response){
-        renderOrders(response)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Failed to cancel order");
+        }
+        window.location.reload(); // Tải lại trang sau khi hủy đơn thành công
+        return response;
     })
+    .then(function(response){
+        renderOrders(response); // Cập nhật lại giao diện đơn hàng
+    })
+    .catch(function(err){
+        console.log(err);
+    });
 }
 
 function GetOrders(callback) {
@@ -127,13 +150,6 @@ function GetOrders(callback) {
     .then(response => response.json())
     .then(callback);
 }
-
-
-function start() {
-    GetOrders(renderOrders); // Gọi hàm renderOrders khi có dữ liệu
-}
-
-start(); // Bắt đầu
 
 // Hàm lấy tất cả đơn hàng
 function GetAllOrder() {
@@ -224,6 +240,14 @@ function GetCanceledOrder() {
         renderOrders(response)
     })
 }
+
+function start() {
+    GetOrders(renderOrders); // Gọi hàm renderOrders khi có dữ liệu
+}
+
+start(); // Bắt đầu
+
+
 
 
 

@@ -36,7 +36,8 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
                 "pi.MinStockLevel AS min,\n" +
                 "pi.MaxStockLevel AS max,\n" +
                 "pi.Quantity AS quantity,\n" +
-                "pi.ProductsInWarehouseID  as productInWareHouseID\n"+
+                "pi.ProductsInWarehouseID  as productInWareHouseID,\n"+
+                "pi.WarehouseID as warehouseID \n"+
                 "FROM ProductsInWarehouse pi\n" +
                 "JOIN Products p ON pi.ProductID = p.ProductID\n" +
                 "WHERE pi.WarehouseID = :idWarehouse"; // Sử dụng tham số idWarehouse trong WHERE clause
@@ -60,7 +61,8 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
                     (Integer) rowOfResult[10],
                     (Integer) rowOfResult[11],
                     (Integer) rowOfResult[12],
-                    (Integer) rowOfResult[13]
+                    (Integer) rowOfResult[13],
+                    (Integer) rowOfResult[14]
             );
             listProductInWareHouse.add(item);
         }

@@ -63,9 +63,6 @@ ul.breadcrumb {
 /* End khối tóm tắt thông tin khách hàng */
 
 /* Khối điều hướng màn hình */
-/* .box-main {
-
-} */
 
 .box-item {
     border-radius: 4%;
@@ -76,10 +73,6 @@ ul.breadcrumb {
     padding: 5% 0;
     font-size: larger;
 }
-
-/* .box-item i {
-
-} */
 
 .box-item a {
     text-decoration: none;

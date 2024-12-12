@@ -58,33 +58,44 @@ const initialize = async () => {
     }
   };
 
-  // Hàm hiển thị sản phẩm thông thường
-  const displayRegularProducts = (products) => {
+ // Hàm hiển thị sản phẩm thông thường
+const displayRegularProducts = (products) => {
+  if (products.length === 0) {
+    regularList.innerHTML = `
+      <div class="empty-message">
+        <img src="empty-box.png" alt="Không có sản phẩm" class="empty-image">
+        <p>Hiện không có sản phẩm nào để hiển thị.</p>
+       
+      </div>
+    `;
+  } else {
     regularList.innerHTML = products
       .map(product => createProductHTML(product, false)) // Tạo HTML cho mỗi sản phẩm
       .join('');
-  };
+  }
+};
 
-  // Hàm tạo HTML cho sản phẩm
-  const createProductHTML = (product, isFeatured) => `
-    <div class="${isFeatured ? 'featured-item' : 'product-item'}">
-      <a class="product-link" href="product-details.html?id=${product.productId}">
-        <div class="product-image">
-          <img src="${product.imageUrl}" alt="${product.productName}">
-        </div>
-        <div class="product-info">
-          <h3 class="product-title">${product.productName}</h3>
-          <p class="product-price">Giá: ${(product.price).toLocaleString('vi-VN')} VND</p>
-        </div>
-      </a>
-      <button class="compare-btn" onclick="addToCompare(${product.productId})">
-        <div class="icon-circle">
-          <i class="fas fa-plus"></i>
-        </div>
-        So sánh
-      </button>
-    </div>
-  `;
+// Hàm tạo HTML cho sản phẩm
+const createProductHTML = (product, isFeatured) => `
+  <div class="${isFeatured ? 'featured-item' : 'product-item'}">
+    <a class="product-link" href="product-details.html?id=${product.productId}">
+      <div class="product-image">
+        <img src="${product.imageUrl}" alt="${product.productName}">
+      </div>
+      <div class="product-info">
+        <h3 class="product-title">${product.productName}</h3>
+        <p class="product-price">Giá: ${(product.price).toLocaleString('vi-VN')} VND</p>
+      </div>
+    </a>
+    <button class="compare-btn" onclick="addToCompare(${product.productId})">
+      <div class="icon-circle">
+        <i class="fas fa-plus"></i>
+      </div>
+      So sánh
+    </button>
+  </div>
+`;
+
 
   // Hàm tải sản phẩm ban đầu
   const loadInitialProducts = () => {
@@ -94,18 +105,6 @@ const initialize = async () => {
     toggleLoadMoreButton();
   };
 
-  // Hàm tải thêm sản phẩm
-  // Hàm tải thêm sản phẩm
-const loadMoreProducts = () => {
-  const productsToLoad = filteredProducts.length > 0 ? filteredProducts : allProducts; // Kiểm tra nếu có bộ lọc, nếu không thì dùng allProducts
-  const newProducts = productsToLoad.slice(productOffset, productOffset + productsPerPage);
-  
-  displayedProducts = [...displayedProducts, ...newProducts];
-  productOffset += productsPerPage;
-
-  sortAndDisplayProducts(); // Áp dụng sắp xếp trước khi hiển thị
-  toggleLoadMoreButton();
-};
 
 
   // Hàm sắp xếp và hiển thị sản phẩm
@@ -124,14 +123,32 @@ const loadMoreProducts = () => {
 
     displayRegularProducts(sortedProducts);
   };
-
-  // Hiển thị hoặc ẩn nút "Load More"
+  let isFiltering = false;
   const toggleLoadMoreButton = () => {
-    // Kiểm tra nếu đã có lọc (filteredProducts không rỗng), nếu có thì sử dụng filteredProducts, ngược lại sử dụng allProducts
-    const productsToCheck = filteredProducts.length > 0 ? filteredProducts : allProducts;
     
+    if (isFiltering&filteredProducts.length === 0) {
+        loadMoreBtn.style.display = 'none';
+        console.log("No products to display after filtering.");
+        return; 
+    }
+  
+    // Nếu danh sách không rỗng, kiểm tra số lượng sản phẩm hiển thị
+    const productsToCheck = filteredProducts.length > 0 ? filteredProducts : allProducts;
     loadMoreBtn.style.display = productOffset >= productsToCheck.length ? 'none' : 'block';
-  };
+};
+
+    // Hàm tải thêm sản phẩm
+const loadMoreProducts = () => {
+  const productsToLoad = filteredProducts.length > 0 ? filteredProducts : allProducts; // Kiểm tra nếu có bộ lọc, nếu không thì dùng allProducts
+  const newProducts = productsToLoad.slice(productOffset, productOffset + productsPerPage);
+  
+  displayedProducts = [...displayedProducts, ...newProducts];
+  productOffset += productsPerPage;
+
+  sortAndDisplayProducts(); // Áp dụng sắp xếp trước khi hiển thị
+  toggleLoadMoreButton();
+};
+
   
 
   // Gắn sự kiện cho nút "Load More"
@@ -182,10 +199,9 @@ const loadMoreProducts = () => {
   // Xử lý sự kiện submit form lọc
   document.getElementById('filter-form').addEventListener('submit', function (event) {
     event.preventDefault();
-
     const updatedApiUrl = buildApiUrl();
     console.log('Updated API URL:', updatedApiUrl);
-
+    isFiltering=true;
     fetch(updatedApiUrl)
       .then(response => response.json())
       .then(data => {

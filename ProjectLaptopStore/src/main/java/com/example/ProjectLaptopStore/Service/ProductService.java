@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Service;
 
 import com.example.ProjectLaptopStore.DTO.*;
+import com.example.ProjectLaptopStore.Entity.ProductsEntity;
 import com.example.ProjectLaptopStore.Response.Admin_ProductDetailResponseDTO;
 import com.example.ProjectLaptopStore.Response.Admin_ProductResponseDTO;
 import org.springframework.util.MultiValueMap;
@@ -21,4 +22,5 @@ public interface ProductService {
     Admin_ProductDetailResponseDTO adminProductDetail(List<Integer>  idProducts);
     Map<Integer,String> getBrandForCheckbox();
     List<ProductDetailDTO> getProductByCheckbox(MultiValueMap<String,Object> params);
+    List<Product_GetReceiptDTO> findAllProducts();
 }

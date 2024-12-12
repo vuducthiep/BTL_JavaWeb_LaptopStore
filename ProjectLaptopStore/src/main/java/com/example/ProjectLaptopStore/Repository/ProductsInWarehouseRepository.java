@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ProductsInWarehouseRepository extends JpaRepository<ProductInWarehouseEntity,Integer>, ProductsInWarehouseRepositoryCustom {
     //hàm lấy tổng số lượng sản phẩm có trong kho
     @Query(value = "SELECT SUM(Quantity) as sumQuantity FROM ProductsInWarehouse pi " +
@@ -23,4 +25,8 @@ public interface ProductsInWarehouseRepository extends JpaRepository<ProductInWa
             "join Warehouses on Warehouses.WarehouseID = ProductsInWarehouse.WarehouseID " +
             "WHERE Quantity < MinStockLevel and  Warehouses.WarehouseID = :warehouseID", nativeQuery = true)
     Integer countProductsMinStockLevel(@Param("warehouseID") Integer warehouseID);
+    ProductInWarehouseEntity findByProduct_ProductIDAndWarehouse_warehouseID(Integer productID,Integer warehouseID);
+    List<ProductInWarehouseEntity> findAllByWarehouse_warehouseID(Integer warehouseID);
+    ProductInWarehouseEntity findByWarehouse_warehouseIDAndProduct_ProductID(Integer warehouseID,Integer productID);
+
 }

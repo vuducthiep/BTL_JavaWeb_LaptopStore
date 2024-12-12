@@ -279,11 +279,12 @@ body {
   flex-wrap: wrap; /* Cho phép các sản phẩm xuống hàng */
   gap: 20px; 
   padding: 20px 0; /* Khoảng cách trên và dưới */
+
 }
 
 /* Sản phẩm thường */
 .product-item {
-  flex: 0 0 calc(33.33% - 20px); /* Mỗi sản phẩm chiếm 1/3 chiều rộng của hàng */
+  flex: 0 0 calc(30% - 25px); /* Mỗi sản phẩm chiếm 1/3 chiều rộng của hàng */
   margin-bottom: 20px; /* Khoảng cách dưới mỗi sản phẩm */
 }
 
