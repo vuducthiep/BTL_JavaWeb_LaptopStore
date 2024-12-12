@@ -420,41 +420,9 @@ function updateTotalAmount(discountAmount) {
 
 
     // Update total price and amount
-    function updateTotal() {
-        let totalPrice = 0;
     
-        document.querySelectorAll('#product-list tr').forEach(row => {
-            const checkbox = row.querySelector('.product-checkbox');
-            const quantityInput = row.querySelector('.quantity-input');
-            const priceElement = row.querySelector('.product-price');
     
-            if (checkbox && checkbox.checked) {
-                const price = parseFloat(priceElement.dataset.price) || 0; // Giá từ `data-price`
-                const quantity = parseInt(quantityInput.value) || 0; // Số lượng
-                totalPrice += price * quantity;
-            }
-        });
     
-        // Chuyển `Khuyến Mãi` sang số
-        const discount = parseCurrency(discountAmount.textContent);
-    
-        // Tính toán
-        const finalTotal = totalPrice - discount;
-    
-        // Cập nhật giao diện
-        totalPriceElement.textContent = formatCurrency(totalPrice);
-        totalElement.textContent = formatCurrency(finalTotal);
-    }
-    
-    // Chuyển chuỗi tiền tệ thành số
-    function parseCurrency(currencyString) {
-        return parseFloat(currencyString.replace(/[^0-9,-]+/g, '').replace(',', '.'));
-    }
-    
-    // Định dạng số thành tiền tệ
-    function formatCurrency(value) {
-        return value.toLocaleString('vi-VN') + ' VND';
-    }
     function updateTotal() {
         let total = 0;
     
@@ -475,9 +443,11 @@ function updateTotalAmount(discountAmount) {
     
         // Tính toán
         const finalTotalPrice = total - discount;
-    
+        if(finalTotalPrice<0){
+            totalPriceElement.textContent = formatCurrency(0);
+        }
         // Cập nhật giao diện
-        totalPriceElement.textContent = formatCurrency(finalTotalPrice);
+        else totalPriceElement.textContent = formatCurrency(finalTotalPrice);
         totalElement.textContent = formatCurrency(total);
     }
     
