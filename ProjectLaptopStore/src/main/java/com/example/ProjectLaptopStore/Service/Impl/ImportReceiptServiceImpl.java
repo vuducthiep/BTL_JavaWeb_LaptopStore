@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class ImportReceiptServiceImpl implements ImportReceiptService {
@@ -27,9 +28,9 @@ public class ImportReceiptServiceImpl implements ImportReceiptService {
     private ProductsInWarehouseRepository productsInWarehouseRepository;
     @Override
     public void importReceipt(ImportReceiptDTO importReceiptDTO) {
-        WareHouseEntity wareHouseEntity = wareHouseRepository.findById(importReceiptDTO.getWarehouseId()).get();
-        AdminEntity adminEntity = adminRepository.findById(importReceiptDTO.getAdminId()).get();
-        ProductsEntity productsEntity = productRepository.findById(importReceiptDTO.getProductId()).get();
+        WareHouseEntity wareHouseEntity = wareHouseRepository.findById(importReceiptDTO.getWarehouseId()).orElseThrow(() -> new NoSuchElementException("Warehouse not found"));
+        AdminEntity adminEntity = adminRepository.findById(importReceiptDTO.getAdminId()).orElseThrow(() -> new NoSuchElementException("Admin not found"));
+        ProductsEntity productsEntity = productRepository.findById(importReceiptDTO.getProductId()).orElseThrow(() -> new NoSuchElementException("Product not found"));;
         ProductInWarehouseEntity productInWarehouseEntity =  new ProductInWarehouseEntity();
         List<ProductInWarehouseEntity> listProductInWareHouse = productsInWarehouseRepository.findAllByWarehouse_warehouseID(importReceiptDTO.getWarehouseId());
         boolean check = false;

@@ -27,4 +27,6 @@ public interface ProductsInWarehouseRepository extends JpaRepository<ProductInWa
     Integer countProductsMinStockLevel(@Param("warehouseID") Integer warehouseID);
     ProductInWarehouseEntity findByProduct_ProductIDAndWarehouse_warehouseID(Integer productID,Integer warehouseID);
     List<ProductInWarehouseEntity> findAllByWarehouse_warehouseID(Integer warehouseID);
+    ProductInWarehouseEntity findByWarehouse_warehouseIDAndProduct_ProductID(Integer warehouseID,Integer productID);
+
 }

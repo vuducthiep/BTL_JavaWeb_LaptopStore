@@ -35,7 +35,8 @@ public class AdminController {
     private ImportReceiptService importReceiptService;
     @Autowired
     private AdminService adminService;
-
+    @Autowired
+    private ExportReceiptService exportReceiptService;
     @Autowired
     private SuppliersService suppliersService;
     @Autowired
@@ -111,6 +112,13 @@ public class AdminController {
     @PostMapping(value = "/warehouse/import-receipt")
     public ResponseEntity<?> addImportReceipt(@RequestBody ImportReceiptDTO importReceiptDTO){
         importReceiptService.importReceipt(importReceiptDTO);
+        return ResponseEntity.ok("success");
+    }
+
+    //API thêm phiếu xuất
+    @PostMapping(value = "/warehouse/export-receipt")
+    public ResponseEntity<?> addExportReceipt(@RequestBody ExportReceiptDTO exportReceiptDTO){
+        exportReceiptService.addExportReceipt(exportReceiptDTO);
         return ResponseEntity.ok("success");
     }
 
