@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 @Repository
 @Transactional
@@ -50,11 +51,11 @@ public class EmployeesRepositoryCustomImpl implements EmployeesRepositoryCustom 
         userEntity.setPassword(employeeDTO.getPassword());
         userEntity.setPhoneNumber(employeeDTO.getPhoneNumber());
         userEntity.setUserType(User_Enum.employee);
-        LocalDate currentTime = LocalDate.now();
-        userEntity.setRegistrationDate(currentTime);
+        Date date = new Date();
+        userEntity.setRegistrationDate(date);
         employeeEntity.setUser(userEntity);
         employeeEntity.setName(employeeDTO.getName());
-        employeeEntity.setCreatedDate(currentTime);
+        employeeEntity.setCreatedDate(date);
         employeeEntity.setStatus(Status_Enum.active);
         entityManager.persist(userEntity);
         entityManager.persist(employeeEntity);

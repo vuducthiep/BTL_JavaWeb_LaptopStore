@@ -26,7 +26,7 @@ public class CartEntity implements Serializable {
     @Column(name = "Status")
     private CardStatus_Enum status = CardStatus_Enum.active;
     @Column(name = "CreatedDate", nullable = false)
-    private LocalDate createdDate;
+    private Date createdDate;
     @Column(name = "TotalPrice",precision = 10,scale = 2)
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "cart",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

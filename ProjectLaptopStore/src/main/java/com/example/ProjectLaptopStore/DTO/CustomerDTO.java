@@ -19,7 +19,7 @@ public class CustomerDTO {
     private String email;
     private String passWord;
     private String phoneNumber;
-    private LocalDate registrationDate;
+    private Date registrationDate;
     private String address;
     private String city;
     private String district;
@@ -29,7 +29,7 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(BigDecimal totalAmount, Integer userID, Integer customerID, Integer addressID, String fullName, String email, String passWord, String phoneNumber, LocalDate registrationDate, String address, String city, String district, String ward, String streetAddress) {
+    public CustomerDTO(BigDecimal totalAmount, Integer userID, Integer customerID, Integer addressID, String fullName, String email, String passWord, String phoneNumber, Date registrationDate, String address, String city, String district, String ward, String streetAddress) {
         this.totalAmount = totalAmount;
         this.userID = userID;
         this.customerID = customerID;
