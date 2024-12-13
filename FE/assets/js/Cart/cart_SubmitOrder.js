@@ -1,3 +1,31 @@
+let cartDetails = []; // Biến global để lưu trữ dữ liệu
+
+// Hàm tải dữ liệu từ API
+async function fetchCartDetails() {
+    const cartID = localStorage.getItem("id-cart");
+    if (!cartID) {
+        console.error("cartID không tồn tại trong localStorage.");
+        return;
+    }
+
+    try {
+        const response = await fetch(`http://localhost:8080/user/mycart/cart-detail?cartID=${cartID}`);
+        if (response.ok) {
+            cartDetails = await response.json();
+            console.log("Dữ liệu cartDetails:", cartDetails); // Kiểm tra dữ liệu
+        } else {
+            console.error("Không thể tải cartDetails:", response.statusText);
+        }
+    } catch (error) {
+        console.error("Lỗi khi gọi API:", error);
+    }
+}
+
+// Gọi hàm khi trang được tải
+document.addEventListener("DOMContentLoaded", async () => {
+    await fetchCartDetails();
+});
+
 document.addEventListener("DOMContentLoaded", () => {
     const submitButton = document.getElementById("btn-submit");
 
@@ -9,6 +37,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     submitButton.addEventListener("click", async (event) => {
         event.preventDefault();
+    const comboBox = document.getElementById('promotionComboBox');
+    const validPromotionIDs = [];
+    const productRows = document.querySelectorAll(".product-row");
+
+    productRows.forEach(row => {
+        const checkbox = row.querySelector(".product-checkbox");
+        if (checkbox && checkbox.checked && row.dataset.productId) {
+            const productId = parseInt(row.dataset.productId, 10);
+            if (!isNaN(productId)) {
+                const cartDetail = cartDetails.find(detail => detail.productId === productId);
+                if (cartDetail && Array.isArray(cartDetail.promotion)) {
+                    cartDetail.promotion.forEach(promo => {
+                        validPromotionIDs.push(promo.promotionID);
+                    });
+                } else {
+                    console.warn(`Không tìm thấy thông tin khuyến mãi cho sản phẩm ID=${productId}.`);
+                }
+            } else {
+                console.warn(`Mã sản phẩm không hợp lệ: ${row.dataset.productId}`);
+            }
+        }
+    });
+
+    // Kiểm tra mã giảm giá có hợp lệ với sản phẩm không
+    let validPromotion = false;
+    validPromotionIDs.forEach(id => {
+        if (parseInt(comboBox.value, 10) === id) { // Đảm bảo cả hai đều là kiểu số
+            validPromotion = true;
+        }
+    });
+
+    // Nếu không có mã giảm giá được chọn, xem như hợp lệ
+    if (comboBox.value === null || comboBox.value === "") {
+        validPromotion = true;
+    }
+
+    if (!validPromotion) {
+        alert("Vui lòng chọn mã giảm giá đúng với sản phẩm muốn thanh toán.");
+        return;
+    }
+        
+
+        
 
         const selectedAddress = document.querySelector('input[name="address"]:checked');
         if (!selectedAddress) {
@@ -39,7 +110,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         const products = [];
-        const productRows = document.querySelectorAll(".product-row");
         productRows.forEach(row => {
             const checkbox = row.querySelector(".product-checkbox");
             if (checkbox && checkbox.checked) {
