@@ -37,7 +37,7 @@ public class UserEntity implements Serializable {
     @Column(name = "UserType",nullable = false)
     private User_Enum userType;
     @Column(name = "RegistrationDate",nullable = false)
-    private LocalDate registrationDate;
+    private Date registrationDate;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<AdminEntity> adminEntities = new ArrayList<>();

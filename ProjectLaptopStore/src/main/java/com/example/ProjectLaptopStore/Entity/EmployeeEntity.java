@@ -21,7 +21,7 @@ public class EmployeeEntity implements Serializable {
     @Column(name = "Name",nullable = false)
     private String name;
     @Column(name = "CreatedDate",nullable = false)
-    private LocalDate createdDate;
+    private Date createdDate;
     @Column(name = "Status")
     @Enumerated(EnumType.STRING)
     private Status_Enum status = Status_Enum.active;

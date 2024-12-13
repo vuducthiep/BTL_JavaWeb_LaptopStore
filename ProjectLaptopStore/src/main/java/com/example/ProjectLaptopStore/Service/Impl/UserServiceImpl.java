@@ -120,7 +120,7 @@ public class UserServiceImpl implements UserService {
         //tao moi cart cho customer
         CartEntity cart = new CartEntity();
 
-        LocalDate date = LocalDate.now();
+        Date date = new Date();
 
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));

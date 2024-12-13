@@ -23,7 +23,7 @@ public class CustomerEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerID;
     @Column(name = "RegistrationDate",nullable = false)
-    private LocalDate registrationDate;
+    private Date registrationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
     private Customer_Enum status = Customer_Enum.active;
