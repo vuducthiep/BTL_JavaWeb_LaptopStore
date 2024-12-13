@@ -26,7 +26,7 @@ public class EmployeesRepositoryCustomImpl implements EmployeesRepositoryCustom 
         String query = "Select u.FullName , u.Email , u.Password , u.PhoneNumber, e.EmployeeID , e.Status " +
                 "from employees e " +
                 "join users u on u.UserID = e.UserID " +
-                "where e.Status ='active'";
+                "WHERE e.Status ='active' ";
         Query queryNative = entityManager.createNativeQuery(query);
         List<Object[]> resultQuery = queryNative.getResultList();
         List<EmployeeDTO> listEmployeeDTO = new ArrayList<>();
@@ -83,6 +83,30 @@ public class EmployeesRepositoryCustomImpl implements EmployeesRepositoryCustom 
     public void deleteEmployee(EmployeeEntity employeeEntity) {
         employeeEntity.setStatus(Status_Enum.inactive);
     }
+
+    @Override
+    public EmployeeDTO getEmployeeByID(Integer employeeID) {
+        String query = "Select u.FullName , u.Email , u.Password , u.PhoneNumber, e.EmployeeID , e.Status " +
+                "from employees e " +
+                "join users u on u.UserID = e.UserID " +
+                "where e.Status ='active' and e.EmployeeID = :employeeID";
+        Query queryNative = entityManager.createNativeQuery(query);
+        queryNative.setParameter("employeeID", employeeID);
+        List<Object[]> resultQuery = queryNative.getResultList();
+        EmployeeDTO EmployeeDTO = new EmployeeDTO();
+        for (Object[] rowOfResults : resultQuery) {
+            EmployeeDTO = new EmployeeDTO(
+                    (String) rowOfResults[0],
+                    (String) rowOfResults[1],
+                    (String) rowOfResults[2],
+                    (String) rowOfResults[3],
+                    (Integer) rowOfResults[4],
+                    (String) rowOfResults[5]
+            );
+        }
+        return EmployeeDTO;
+    }
+
 
 
 }

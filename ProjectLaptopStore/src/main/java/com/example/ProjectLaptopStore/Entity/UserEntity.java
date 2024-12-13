@@ -1,6 +1,7 @@
 package com.example.ProjectLaptopStore.Entity;
 
 import com.example.ProjectLaptopStore.Entity.Enum.User_Enum;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -40,9 +41,12 @@ public class UserEntity implements Serializable {
     private Date registrationDate;
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonManagedReference
+    @JsonIgnore
     private List<AdminEntity> adminEntities = new ArrayList<>();
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<CustomerEntity> customerEntities = new ArrayList<>();
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<EmployeeEntity> employeeEntities = new ArrayList<>();
 }

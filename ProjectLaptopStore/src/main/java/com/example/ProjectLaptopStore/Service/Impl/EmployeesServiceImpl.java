@@ -27,6 +27,12 @@ public class EmployeesServiceImpl implements EmployeesService {
     public void createEmployee(EmployeeDTO employeeDTO) {
         EmployeeEntity employeeEntity = new EmployeeEntity();
         UserEntity userEntity = new UserEntity();
+        List<UserEntity> userEntities = userRepository.findAll();
+        for(UserEntity user : userEntities){
+            if(user.getPhoneNumber().equals(employeeDTO.getPhoneNumber())){
+                throw new NoSuchElementException("Phone number already exists");
+            }
+        }
         employeesRepository.createEmployee(employeeDTO,employeeEntity,userEntity);
     }
 
@@ -43,4 +49,11 @@ public class EmployeesServiceImpl implements EmployeesService {
         EmployeeEntity employeeEntity = employeesRepository.findById(idEmployee).orElseThrow(() -> new NoSuchElementException("Employee Not Found"));
         employeesRepository.deleteEmployee(employeeEntity);
     }
+
+    @Override
+    public EmployeeDTO getEmployeeById(Integer idEmployee) {
+        return employeesRepository.getEmployeeByID(idEmployee);
+    }
+
+
 }

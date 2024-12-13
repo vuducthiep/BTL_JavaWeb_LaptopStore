@@ -11,4 +11,6 @@ public interface EmployeesRepositoryCustom {
     void createEmployee(EmployeeDTO employeeDTO, EmployeeEntity employeeEntity, UserEntity userEntity);
     void updateEmployee(EmployeeDTO employeeDTO, EmployeeEntity employeeEntity, UserEntity userEntity);
     void deleteEmployee(EmployeeEntity employeeEntity );
+    EmployeeDTO getEmployeeByID(Integer employeeID);
+
 }

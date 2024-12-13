@@ -17,4 +17,17 @@ public class EmployeeDTO {
     private String phoneNumber;
     private Integer employeeId;
     private String status;
+
+    public EmployeeDTO() {
+
+    }
+
+    public EmployeeDTO(String name, String email, String password, String phoneNumber, Integer employeeId, String status) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phoneNumber = phoneNumber;
+        this.employeeId = employeeId;
+        this.status = status;
+    }
 }

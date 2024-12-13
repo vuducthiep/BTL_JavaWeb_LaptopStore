@@ -274,14 +274,20 @@ public class AdminController {
 
     //API tạo mới nhan viên
     @PostMapping(value = "/employee/create")
-    public void createEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeDTO employeeDTO){
         employeesService.createEmployee(employeeDTO);
+        return  ResponseEntity.ok("success");
     }
-
+    //API lấy tt nhan vien cần sửa
+    @GetMapping(value = "/employee/update/{id}")
+    public EmployeeDTO getEmployeeById(@PathVariable(name = "id") Integer id){
+        return employeesService.getEmployeeById(id);
+    }
     //API sửa nhân viên
-    @PutMapping(value = "/employee/update")
-    public void updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+    @PutMapping(value = "/employee/update/{id}")
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO employeeDTO){
         employeesService.updateEmployee(employeeDTO);
+        return  ResponseEntity.ok("success");
     }
 
     //API xoa nhan vien
