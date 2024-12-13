@@ -268,3 +268,22 @@ img{
     font-weight: bold;
     color: #007bff; /* Màu xanh lam cho trạng thái đơn hàng */
 }
+
+/* Thêm thanh cuộn cho kho */
+#invoice-list-mini  {
+    max-height: 280px;  
+    overflow-y: auto;   
+    padding: 0;
+    margin: 0;
+  }
+  
+  #bill-list{
+    max-height: 600px;  
+    overflow-y: auto;   
+    padding: 0;
+    margin: 0;
+  } 
+  #invoice-list-mini li{
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
