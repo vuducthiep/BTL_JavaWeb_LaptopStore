@@ -6,9 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
+@Transactional
 public interface UserRepository extends JpaRepository<UserEntity,Integer> {
     //lay tat ca user
     List<UserEntity> findAll();
@@ -32,4 +33,11 @@ public interface UserRepository extends JpaRepository<UserEntity,Integer> {
 
     //tìm nhiều user vào mảng id
     List<UserEntity> findAllByUserIDIn(Long[] ids);
+
+    //tim user bang id employee
+    @Query(value = "SELECT u.UserID FROM users u " +
+            "JOIN Employees e ON e.UserID = u.UserID " +
+            "WHERE e.EmployeeID = :employeeId", nativeQuery = true)
+    Integer findUserIdByEmployeeId(@Param("employeeId") Integer employeeId);
+
 }

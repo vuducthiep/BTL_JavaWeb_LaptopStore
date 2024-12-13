@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,7 +26,7 @@ public class CartEntity implements Serializable {
     @Column(name = "Status")
     private CardStatus_Enum status = CardStatus_Enum.active;
     @Column(name = "CreatedDate", nullable = false)
-    private Date createdDate;
+    private LocalDate createdDate;
     @Column(name = "TotalPrice",precision = 10,scale = 2)
     private BigDecimal totalPrice;
     @OneToMany(mappedBy = "cart",fetch = FetchType.LAZY,cascade = CascadeType.ALL)

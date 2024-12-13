@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -247,7 +248,7 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
                         (String) rowOfResult[5],
                         (String) rowOfResult[6],
                         (String) rowOfResult[7],
-                        (Date) rowOfResult[8],
+                        (LocalDate) rowOfResult[8],
                         (String) rowOfResult[9],
                         (String) rowOfResult[10],
                         (String) rowOfResult[11],
@@ -266,7 +267,7 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
                         (String) rowOfResult[4],
                         (String) rowOfResult[5],
                         (String) rowOfResult[6],
-                        (Date) rowOfResult[7],
+                        (LocalDate) rowOfResult[7],
                         (String) rowOfResult[8],
                         (String) rowOfResult[9],
                         (String) rowOfResult[10],

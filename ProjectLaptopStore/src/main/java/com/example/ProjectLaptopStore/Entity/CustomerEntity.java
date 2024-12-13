@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class CustomerEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerID;
     @Column(name = "RegistrationDate",nullable = false)
-    private Date registrationDate;
+    private LocalDate registrationDate;
     @Enumerated(EnumType.STRING)
     @Column(name = "Status")
     private Customer_Enum status = Customer_Enum.active;

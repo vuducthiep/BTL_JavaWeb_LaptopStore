@@ -48,6 +48,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import com.example.ProjectLaptopStore.Util.JwtTokenUtil;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -118,7 +120,7 @@ public class UserServiceImpl implements UserService {
         //tao moi cart cho customer
         CartEntity cart = new CartEntity();
 
-        Date date = new Date();
+        LocalDate date = LocalDate.now();
 
         userEntity = modelMapper.map(user, UserEntity.class);
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));

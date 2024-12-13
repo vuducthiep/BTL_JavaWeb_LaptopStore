@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -18,7 +19,7 @@ public class CustomerDTO {
     private String email;
     private String passWord;
     private String phoneNumber;
-    private Date registrationDate;
+    private LocalDate registrationDate;
     private String address;
     private String city;
     private String district;
@@ -28,7 +29,7 @@ public class CustomerDTO {
     public CustomerDTO() {
     }
 
-    public CustomerDTO(BigDecimal totalAmount, Integer userID, Integer customerID, Integer addressID, String fullName, String email, String passWord, String phoneNumber, Date registrationDate, String address, String city, String district, String ward, String streetAddress) {
+    public CustomerDTO(BigDecimal totalAmount, Integer userID, Integer customerID, Integer addressID, String fullName, String email, String passWord, String phoneNumber, LocalDate registrationDate, String address, String city, String district, String ward, String streetAddress) {
         this.totalAmount = totalAmount;
         this.userID = userID;
         this.customerID = customerID;

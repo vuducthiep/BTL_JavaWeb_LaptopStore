@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -20,7 +21,7 @@ public class EmployeeEntity implements Serializable {
     @Column(name = "Name",nullable = false)
     private String name;
     @Column(name = "CreatedDate",nullable = false)
-    private Date createdDate;
+    private LocalDate createdDate;
     @Column(name = "Status")
     @Enumerated(EnumType.STRING)
     private Status_Enum status = Status_Enum.active;
