@@ -1,10 +1,7 @@
 package com.example.ProjectLaptopStore.Repository.Custom.Impl;
 
 import com.example.ProjectLaptopStore.DTO.ExportReceiptDTO;
-import com.example.ProjectLaptopStore.Entity.AdminEntity;
-import com.example.ProjectLaptopStore.Entity.ExportReceipDetailEntity;
-import com.example.ProjectLaptopStore.Entity.ExportReceiptEntity;
-import com.example.ProjectLaptopStore.Entity.ProductInWarehouseEntity;
+import com.example.ProjectLaptopStore.Entity.*;
 import com.example.ProjectLaptopStore.Repository.Custom.ExportReceiptsRepositoryCustom;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -21,7 +18,7 @@ public class ExportReceiptsRepositoryCustomImpl implements ExportReceiptsReposit
     private EntityManager entityManager;
 
     @Override
-    public void addExportReceipt(AdminEntity adminEntity, ExportReceiptDTO exportReceiptDTO, ProductInWarehouseEntity productInWarehouseEntity, Integer task) {
+    public void addExportReceipt(AdminEntity adminEntity, ExportReceiptDTO exportReceiptDTO, ProductInWarehouseEntity productInWarehouseEntity, ProductsEntity productsEntity, Integer task) {
         ExportReceiptEntity exportReceiptEntity = new ExportReceiptEntity();
         ExportReceipDetailEntity exportReceipDetailEntity = new ExportReceipDetailEntity();
         exportReceiptEntity.setAdmin(adminEntity);
@@ -32,8 +29,10 @@ public class ExportReceiptsRepositoryCustomImpl implements ExportReceiptsReposit
         exportReceipDetailEntity.setExportReceipt(exportReceiptEntity);
         exportReceipDetailEntity.setProduct(productInWarehouseEntity.getProduct());
         exportReceipDetailEntity.setQuantity(exportReceiptDTO.getQuantity());
+        productsEntity.setStockQuantity( productsEntity.getStockQuantity() + exportReceiptDTO.getQuantity());
         entityManager.persist(exportReceiptEntity);
         entityManager.persist(exportReceipDetailEntity);
+        entityManager.merge(productsEntity);
         //khong xuat het hang
         if (task == 1) {
             productInWarehouseEntity.setQuantity(productInWarehouseEntity.getQuantity() - exportReceiptDTO.getQuantity());
