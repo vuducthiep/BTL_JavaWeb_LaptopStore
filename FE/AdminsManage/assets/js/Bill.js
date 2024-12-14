@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelector(".totalAmountPayOffline").innerHTML = `${totalAmountPayOffline.toLocaleString()} VND`;
   
         const invoiceDetails = data.listInvoiceDetail;
-        
+        console.log(invoiceDetails)
        
         const invoiceListContainer = document.querySelector(".card-body .list-group");
   
