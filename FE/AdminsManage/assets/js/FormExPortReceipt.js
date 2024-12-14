@@ -81,7 +81,7 @@ function loadExportProductList() {
             products.forEach(product => {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = `
-                    <img src="${product.imageUrl || 'default-image.jpg'}" alt="${product.productName}" width="50" height="50">
+                    <img src="${product.productImage || 'default-image.jpg'}" alt="${product.productName}" width="50" height="50">
                     <span>${product.productName}</span>
                 `;
                 listItem.setAttribute('data-id', product.productId);

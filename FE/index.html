@@ -261,6 +261,7 @@
                       <div id="regular-products-list" class="row">
                           <!-- Các sản phẩm khác sẽ được thêm vào đây -->
                       </div>
+                      
                       <div style=" display: flex; justify-content: center">
                         <div class="text-center " style="width: 120px; ">
                             <button style="border-radius: 20px ;background-color: #f02d2d;" id="load-more-btn" class="btn btn-primary">Xem thêm</button>
@@ -272,7 +273,19 @@
       </div>
       
         
-        
+      <div id="floating-button">
+        <img id="advisor-icon" src="https://static.vecteezy.com/system/resources/previews/018/842/671/non_2x/realistic-phone-call-button-hotline-and-call-center-icon-customer-support-service-3d-rendering-free-png.png" alt="Tư vấn" />
+    </div>
+    
+    <div id="advisor-list" class="hidden">
+        <div class="advisor">
+            <p>Nhân viên 1: <span>Số điện thoại: 0123456789</span></p>
+        </div>
+        <div class="advisor">
+            <p>Nhân viên 2: <span>Số điện thoại: 0987654321</span></p>
+        </div>
+        <button id="close-advisor-list">Đóng</button>
+    </div>
         
       </section>
       
@@ -367,6 +380,9 @@
     <script src="assets/js/HomePage/findListProducts/find.js"></script>
     <script src="assets/js/HomePage/HomeManage/addFillterToForm.js"></script>
     <script src="assets/js/HomePage/HomeManage/addDemand.js"></script>
-    <link rel="stylesheet" href="">
+    
+    <script src="assets/js/HomePage/customerConsulting.js"></script>
+    <link rel="stylesheet" href="assets/css/customerConsulting.css">
+
   </body>
 </html>

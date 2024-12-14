@@ -40,6 +40,8 @@ import java.util.Map;
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired
+    private EmployeesService employeesService;
+    @Autowired
     private ProductDescriptionService productDescriptionService;
     @Autowired
     private SuppliersService suppliersService;
@@ -186,5 +188,10 @@ public class UserController {
     ResponseEntity<?> cacelOrder(@PathVariable(value = "orderID")int orderID){
         orderService.cancelOrder(orderID);
         return ResponseEntity.ok("Order canceled successfully");
+    }
+    //API lấy tất cả nhân viên
+    @GetMapping(value = "/user/employee")
+    public List<EmployeeDTO> getListEmployee(){
+        return employeesService.getAllEmployee();
     }
 }

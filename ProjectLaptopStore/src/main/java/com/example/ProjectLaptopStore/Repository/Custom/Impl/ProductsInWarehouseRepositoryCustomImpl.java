@@ -30,6 +30,7 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
                 "p.Price as price,\n" +
                 "p.ReleaseDate as releaseDate,\n" +
                 "p.WarrantyPeriod as warrantyPeriod,\n" +
+                "p.ImageURL as imageURL,\n" +
                 "pi.ProductionBatchCode as batchCode,\n" +
                 "pi.Dimensions as dimension,\n" +
                 "pi.Volume as volume,\n" +
@@ -57,12 +58,13 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
                     (Integer) rowOfResult[6],
                     (String) rowOfResult[7],
                     (String) rowOfResult[8],
-                    (BigDecimal) rowOfResult[9],
-                    (Integer) rowOfResult[10],
+                    (String) rowOfResult[9],
+                    (BigDecimal) rowOfResult[10],
                     (Integer) rowOfResult[11],
                     (Integer) rowOfResult[12],
                     (Integer) rowOfResult[13],
-                    (Integer) rowOfResult[14]
+                    (Integer) rowOfResult[14],
+                    (Integer) rowOfResult[15]
             );
             listProductInWareHouse.add(item);
         }
@@ -77,6 +79,7 @@ public class ProductsInWarehouseRepositoryCustomImpl implements ProductsInWareho
         productsEntity.setPrice(productsInWarehouse_Update.getPrice());
         productsEntity.setReleaseDate(productsInWarehouse_Update.getReleaseDate());
         productsEntity.setWarrantyPeriod(productsInWarehouse_Update.getWarrantyPeriod());
+        productsEntity.setImageURL(productsInWarehouse_Update.getProductImage());
         productInWarehouseEntity.setProduct(productsEntity);
         productInWarehouseEntity.setProductionBatchCode(productsInWarehouse_Update.getProductBatchCode());
         productInWarehouseEntity.setDimensions(productsInWarehouse_Update.getDimension());

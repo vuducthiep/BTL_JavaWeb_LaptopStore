@@ -36,7 +36,8 @@ public class ApplicationConfifAdmin {
                 user_admin.setEmail("admin@admin.com");
                 user_admin.setPhoneNumber("123456789");
                 user_admin.setFullName("admin");
-                user_admin.setRegistrationDate(new Date());
+                Date currentDate = new Date();
+                user_admin.setRegistrationDate(currentDate);
                 userRepository.save(user_admin);
                 admin.setCreatedDate(new Date());
                 admin.setUser(user_admin);

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -195,6 +196,37 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
         List<CustomerDTO> listCustomerDTO = new ArrayList<>();
         for(Object[] rowOfResult : resultQuery) {
             CustomerDTO dto = setConstructor(rowOfResult,2);
+            listCustomerDTO.add(dto);
+        }
+        return listCustomerDTO;
+    }
+
+    @Override
+    public List<Customer_GetListCusDTO> getListCustomerNoAdr() {
+        String query = "Select u.UserID ,\n" +
+                "c.CustomerID,\n" +
+                "u.FullName,\n" +
+                "u.Email ,\n" +
+                "u.Password ,\n" +
+                "u.PhoneNumber,\n" +
+                "u.RegistrationDate\n" +
+                "FROM Users u\n" +
+                "JOIN Customers c ON u.UserID = c.UserID\n" +
+                "WHERE  \n" +
+                "c.Status = 'active' \n";
+        Query nativeQuery = entityManager.createNativeQuery(query);
+        List<Object[]> resultQuery = nativeQuery.getResultList();
+        List<Customer_GetListCusDTO> listCustomerDTO = new ArrayList<>();
+        for(Object[] rowOfResult : resultQuery) {
+            Customer_GetListCusDTO dto = Customer_GetListCusDTO.builder()
+                    .userID((Integer) rowOfResult[0])
+                    .customerID((Integer) rowOfResult[1])
+                    .fullName((String) rowOfResult[2])
+                    .email((String) rowOfResult[3])
+                    .passWord((String) rowOfResult[4])
+                    .phoneNumber((String) rowOfResult[5])
+                    .registrationDate((Date) rowOfResult[6])
+                    .build();
             listCustomerDTO.add(dto);
         }
         return listCustomerDTO;

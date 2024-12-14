@@ -24,7 +24,8 @@ public class AdminController {
 //    private EntityManager entityManager;
     @Autowired
     private PromotionService promotionService;
-
+    @Autowired
+    private EmployeesService employeesService;
     @Autowired
     private WareHouseService wareHouseService;
     @Autowired
@@ -265,4 +266,34 @@ public class AdminController {
         suppliersService.deleteSupplier(ids);
     }
 
+    //API lấy tất cả nhân viên
+    @GetMapping(value = "/employee/")
+    public List<EmployeeDTO> getListEmployee(){
+        return employeesService.getAllEmployee();
+    }
+
+    //API tạo mới nhan viên
+    @PostMapping(value = "/employee/create")
+    public ResponseEntity<?> createEmployee(@RequestBody EmployeeDTO employeeDTO){
+        employeesService.createEmployee(employeeDTO);
+        return  ResponseEntity.ok("success");
+    }
+    //API lấy tt nhan vien cần sửa
+    @GetMapping(value = "/employee/update/{id}")
+    public EmployeeDTO getEmployeeById(@PathVariable(name = "id") Integer id){
+        return employeesService.getEmployeeById(id);
+    }
+    //API sửa nhân viên
+    @PutMapping(value = "/employee/update/{id}")
+    public ResponseEntity<?> updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+        employeesService.updateEmployee(employeeDTO);
+        return  ResponseEntity.ok("success");
+    }
+
+    //API xoa nhan vien
+    @DeleteMapping(value = "/employee/delete/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable(name = "id") Integer id){
+        employeesService.deleteEmployee(id);
+        return  ResponseEntity.ok("success");
+    }
 }

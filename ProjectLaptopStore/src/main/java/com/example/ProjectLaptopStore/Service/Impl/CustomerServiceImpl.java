@@ -71,7 +71,7 @@ public class CustomerServiceImpl implements CustomerService {
         try {
             List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth = customerRepository.listNewCustomerPerMonth();
             List<CustomerDTO> listTopCustomerInMonth = customerRepository.listTopCustomerInMonth();
-            List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
+            List<Customer_GetListCusDTO> listCustomer = customerRepository.getListCustomerNoAdr();
             result.setCountNewCustomerPerMonth(listCountNewCustomerPerMonth);
             result.setFindTopCustomerInMonth(listTopCustomerInMonth);
             result.setListCustomer(listCustomer);

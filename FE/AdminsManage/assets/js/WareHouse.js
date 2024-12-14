@@ -201,7 +201,7 @@ function loadWarehouseData(warehouseID) {
                 data.listProductsInWarehouse.forEach(product => {
                     productListHtml += `
                         <li>
-                           
+                            <img src="${product.productImage || 'default-image.jpg'}" alt="${product.productName}" width="50" height="50">
                             <span>${product.productName}</span> - 
                             <span>Số lượng: ${product.quantity}</span>
                             <button class="btn btn-warning btn-sm" id="edit-button-${product.productId}" data-product-id="${product.productId}">Sửa</button>
