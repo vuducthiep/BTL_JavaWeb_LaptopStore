@@ -115,3 +115,20 @@ body {
     }
   }
   
+ /* Nút Trang chủ */
+.home-link {
+  position: absolute; /* Đặt nút ở vị trí cố định */
+  top: 20px; /* Cách từ trên xuống 20px */
+  left: 20px; /* Cách từ trái sang 20px */
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.home-link a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.home-link a:hover {
+  text-decoration: underline;
+}

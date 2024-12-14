@@ -18,9 +18,11 @@
     <link rel="stylesheet" href="assets/css/product-details.css" />
   </head>
   <body>
-    <header class="mb-3" style="background-color: #cb1c22" >
-      <div class="container">
+    <header class="" style="background-color:#cb1c22">
+      <div class="container ">
         <div class="row header-custom">
+
+          <!-- Button Logo -->
           <div class="col-2">
             <a class="logo" href="">
               <img
@@ -29,23 +31,28 @@
               />
             </a>
           </div>
+
+                    <!-- Button thanh tìm kiếm -->
           <div class="col-5">
-            <div class="seach-form">
-              <form id="frm-seach" name="seach" action="product-list.html" method="GET">
+            <div class="search-form">
+              <form id="frm-search" name="search" action="product-list.html" method="GET" >
                 <input
                   type="text"
                   placeholder="Bạn muốn tìm sản phẩm gì"
                   name="q"
                   id="stext"
                   autocomplete="off"
-                  style="width: 90%"
+                  style="width: 90%;height:45px;";
                 />
-                <button type="submit" id="sbutton" style="width: 9%">
+                <button type="submit" id="sbutton" style="width: 9%; height: 45px;">
                   <i class="fas fa-search"></i>
                 </button>
               </form>
             </div>
           </div>
+
+
+          <!-- Button infor User -->
           <div class="col-2">
             <div class="user-account" id="userAccount" tabindex="0">
               <i
@@ -53,14 +60,14 @@
                 style="width: 50px; height: 50px; font-size: 40px"
               ></i>
               <ul class="box-user" id="userMenu" style="display: none">
-                <li><a href="#" id="loginLink">Đăng nhập</a></li>
+                <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
                 <li>
-                  <a href="#" id="userInfo" style="display: none"
-                    >Thông tin cá nhân</a
-                  >
+                  <a href="My_Information/inforUserDetail_Main.html" id="userInfo" style="display: none"
+                    >Thông tin cá nhân
+                  </a>
                 </li>
                 <li>
-                  <a href="#" id="orders" style="display: none">Đơn hàng</a>
+                  <a href="My_Information/My_Order.html" id="orders" style="display: none">Đơn hàng</a>
                 </li>
                 <li>
                   <a href="#" id="logout" style="display: none">Đăng xuất</a>
@@ -69,6 +76,7 @@
             </div>
           </div>
 
+          <!-- Button liên hệ -->
           <div class="col">
             <div class="box-hotline">
               <p class="hotline-text">
@@ -79,6 +87,7 @@
             </div>
           </div>
 
+          <!-- Button giỏ hàng -->
           <div class="col">
             <div class="cart">
               <a href="cart.html" id="cartLink">
