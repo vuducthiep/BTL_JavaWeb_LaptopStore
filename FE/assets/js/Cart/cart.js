@@ -107,10 +107,10 @@ document.getElementById('promotionComboBox').addEventListener('change', function
         const price = parseFloat(selectedOption.dataset.price) || 0; // Lấy giá sản phẩm từ data attribute
 
         // Tính toán giá trị khuyến mãi
-        const discountAmount = (discountPercentage * price) / 100;
+        const discountAmount = Math.round((discountPercentage * price) / 100 * 100) / 100; //giảm sai số
 
         // Cập nhật giá trị khuyến mãi
-        discountElement.textContent = `${discountAmount.toLocaleString()} VND`;
+        discountElement.textContent = `${discountAmount.toLocaleString('vi-VN')} VND`;
 
         // Cập nhật tổng thanh toán
         updateTotalAmount(discountAmount);
@@ -129,9 +129,10 @@ function updateTotalAmount(discountAmount) {
     if (totalPayable < 0) {
         totalPayable = 0;
     }
+    const totalPayableFinal=totalPayable;
 
     // Cập nhật tổng thanh toán
-    document.getElementById('tien-phai-thanh-toan').textContent = `${totalPayable.toLocaleString()} VND`;
+    document.getElementById('tien-phai-thanh-toan').textContent = `${totalPayableFinal.toLocaleString('vi-VN')} VND`;
 }
 
 
@@ -214,51 +215,6 @@ function updateTotalAmount(discountAmount) {
             tbody.appendChild(row);
         });
     }
-    
-
-    
-    // lay dia chi tu api
-    // async function loadPaymentMethods() {
-    //     try {
-    //       const response = await fetch("https://9e093a2f-9308-4497-881c-6b5250aec5c8.mock.pstmn.io/payment-method"); // Gọi API
-    //       if (!response.ok) {
-    //         throw new Error("Không thể lấy dữ liệu từ API");
-    //       }
-    //       const data = await response.json(); // Chuyển đổi JSON
-    //       const paymentMethods = data.paymentMethods; // Lấy danh sách phương thức thanh toán
-    
-    //       // Lấy phần tử tbody
-    //       const tableBody = document.getElementById("paymentMethodsTable");
-    //       tableBody.innerHTML = ""; // Xóa nội dung cũ (nếu có)
-    
-    //       // Duyệt qua danh sách phương thức thanh toán và thêm vào bảng
-    //       paymentMethods.forEach(method => {
-    //         // Tạo một dòng mới
-    //         const row = document.createElement("tr");
-    
-    //         // Cột radio button
-    //         const radioCell = document.createElement("td");
-    //         radioCell.innerHTML = `<input id="pay_${method.id}_input" name="pay_method" value="${method.id}" type="radio">`;
-    
-    //         // Cột tên phương thức
-    //         const labelCell = document.createElement("td");
-    //         labelCell.innerHTML = `<label for="pay_${method.id}_input">${method.name}</label>`;
-    
-    //         // Gắn cột vào hàng
-    //         row.appendChild(radioCell);
-    //         row.appendChild(labelCell);
-    
-    //         // Gắn hàng vào bảng
-    //         tableBody.appendChild(row);
-    //       });
-    //     } catch (error) {
-    //       console.error("Lỗi khi tải phương thức thanh toán:", error);
-    //     }
-    //   }
-    //   // Gọi hàm để tải dữ liệu
-    //   loadPaymentMethods();
-
-
 
     async function fetchProducts() {
         const apiUrl = `http://localhost:8080/user/mycart/cart-detail?cartID=${idCart}`;        
@@ -293,13 +249,13 @@ function updateTotalAmount(discountAmount) {
                 <span>${product.productName}</span>
             </div>
         </td>
-        <td class="product-price" data-price="${product.price}">${product.price.toLocaleString()} VND</td>
+        <td class="product-price" data-price="${product.price}">${product.price.toLocaleString('vi-VN')} VND</td>
         <td>
             <button class="quantity-btn decrease">-</button>
             <input type="number" value="${product.quantity}" min="1" class="quantity-input">
             <button class="quantity-btn increase">+</button>
         </td>
-        <td class="item-total">${product.lineTotal.toLocaleString()} VND</td>
+        <td class="item-total">${product.lineTotal.toLocaleString('vi-VN')} VND</td>
         <td>
             <button class="remove-btn" data-id="${product.cartDetailID}"> Xóa </button>
         </td>
@@ -415,14 +371,10 @@ function updateTotalAmount(discountAmount) {
         const rowTotalElement = row.querySelector('.item-total');
 
         const rowTotal = price * quantity;
-        rowTotalElement.textContent = rowTotal.toLocaleString() + ' VNĐ';
+        rowTotalElement.textContent = rowTotal.toLocaleString('vi-VN') + ' VNĐ';
     }
 
-
     // Update total price and amount
-    
-    
-    
     function updateTotal() {
         let total = 0;
     
@@ -460,9 +412,6 @@ function updateTotalAmount(discountAmount) {
     function formatCurrency(value) {
         return value.toLocaleString('vi-VN') + ' VND';
     }
-        
-    
-    
 
     // Select all checkboxes
     selectAllCB.addEventListener('change', function () {
