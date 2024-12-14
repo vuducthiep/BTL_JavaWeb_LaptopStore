@@ -16,6 +16,7 @@ public class ProductsInWarehouse_DTO {
     private Float price;
     private Date releaseDate;
     private Integer warrantyPeriod;
+    private String productImage;
     private String productBatchCode;
     private String dimension;
     private BigDecimal volume;
@@ -25,7 +26,10 @@ public class ProductsInWarehouse_DTO {
     private Integer productInWareHouseId;
     private Integer wareHouseId;
 
-    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Float price, Date releaseDate, Integer warrantyPeriod, String productBatchCode, String dimension, BigDecimal volume, Integer minStockLevel, Integer maxStockLevel, Integer quantity, Integer productInWareHouseId, Integer wareHouseId) {
+    public ProductsInWarehouse_DTO() {
+    }
+
+    public ProductsInWarehouse_DTO(Integer productId, String productName, String brand, String model, Float price, Date releaseDate, Integer warrantyPeriod, String productImage, String productBatchCode, String dimension, BigDecimal volume, Integer minStockLevel, Integer maxStockLevel, Integer quantity, Integer productInWareHouseId, Integer wareHouseId) {
         this.productId = productId;
         this.productName = productName;
         this.brand = brand;
@@ -33,6 +37,7 @@ public class ProductsInWarehouse_DTO {
         this.price = price;
         this.releaseDate = releaseDate;
         this.warrantyPeriod = warrantyPeriod;
+        this.productImage = productImage;
         this.productBatchCode = productBatchCode;
         this.dimension = dimension;
         this.volume = volume;
@@ -41,8 +46,5 @@ public class ProductsInWarehouse_DTO {
         this.quantity = quantity;
         this.productInWareHouseId = productInWareHouseId;
         this.wareHouseId = wareHouseId;
-    }
-
-    public ProductsInWarehouse_DTO() {
     }
 }
