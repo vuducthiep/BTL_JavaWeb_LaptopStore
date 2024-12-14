@@ -17,5 +17,6 @@ public interface CustomerRepositoryCustom {
     void updateCustomer(CustomerDTO customerUpdate, ShippingAddressEntity shippingAddressEntity, CustomerEntity customerEntity, UserEntity userEntity);
     List<CustomerDTO> listTopCustomerInMonth();
     List<CustomerDTO> getListCustomer();
+    List<Customer_GetListCusDTO> getListCustomerNoAdr();
 }
 
