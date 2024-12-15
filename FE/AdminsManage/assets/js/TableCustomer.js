@@ -94,7 +94,7 @@ function displayTop10Customers(customers) {
       <tr>
         <td>${index + 1}</td>  <!-- STT -->
         <td>${customer.fullName}</td>
-        <td>${customer.totalAmount}</td>
+        <td>${customer.totalAmount.toLocaleString('vi-VN') + ' VNĐ'}</td>
       </tr>
     `;
   });
