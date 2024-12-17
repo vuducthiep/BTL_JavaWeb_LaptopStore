@@ -260,32 +260,30 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
 
   // Gửi yêu cầu PUT để cập nhật dữ liệu khách hàng
   fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedCustomerData)  // Gửi dữ liệu đã thay đổi
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Failed to update customer');
-      }
-      return response.json();
-  })
-  .then(data => {
-    
-      fetchCustomerData();  // Cập nhật lại danh sách khách hàng
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedCustomerData) // Dữ liệu gửi đi
+})
+.then(response => {
+  return response.text(); // Thay vì response.json()
+})
+.then(data => {
+  console.log('Server Response:', data); // Log dữ liệu từ server
+  if (data === "success") {
       const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-      editModal.hide();  // Đóng modal
-      location.reload();
-
-  })
-  .catch(error => {
-      console.error('Error updating customer:', error);
+      editModal.hide(); // Đóng modal
       alert('Cập nhật thành công!');
-      location.reload();
-
-  });
+      location.reload(); // Reload trang
+  } else {
+      throw new Error('Update failed! Unexpected server response.');
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+  alert('Có lỗi xảy ra trong quá trình cập nhật!');
+});
 });
 
 }
