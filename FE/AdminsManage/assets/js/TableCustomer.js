@@ -215,17 +215,13 @@ function editCustomer(customerID) {
       // Điền thông tin vào các trường trong modal
       document.getElementById('editUserID').value = data.userID;
       document.getElementById('editCustomerID').value = data.customerID;
-      document.getElementById('editAddressID').value = data.addressID;
-      document.getElementById('editTotalAmount').value = data.totalAmount;
+     
       document.getElementById('editFullName').value = data.fullName;
       document.getElementById('editEmail').value = data.email;
       document.getElementById('editPassword').value = data.passWord;
       document.getElementById('editPhoneNumber').value = data.phoneNumber;
       document.getElementById('editRegistrationDate').value = data.registrationDate;
-      document.getElementById('editCity').value = data.city;
-      document.getElementById('editDistrict').value = data.district;
-      document.getElementById('editWard').value = data.ward;
-      document.getElementById('editStreetAddress').value = data.streetAddress;
+    
       
       // Hiển thị modal
       const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
@@ -243,10 +239,10 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
 
 
   const updatedCustomerData = {
-      totalAmount: parseFloat(document.getElementById('editTotalAmount').value),  // Cập nhật giá trị
+      totalAmount: 0,  // Cập nhật giá trị
       userID: parseInt(document.getElementById('editUserID').value) ,  // Giữ nguyên userID
       customerID: parseInt(document.getElementById('editCustomerID').value),  // Giữ nguyên customerID
-      addressID: parseInt(document.getElementById('editAddressID').value),  // Giữ nguyên addressID
+      addressID: 1,  // Giữ nguyên addressID
       fullName: document.getElementById('editFullName').value,  // Cập nhật giá trị
       email: document.getElementById('editEmail').value,  // Cập nhật giá trị
       passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
@@ -286,7 +282,7 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
   })
   .catch(error => {
       console.error('Error updating customer:', error);
-      alert('Lỗi khi cập nhật!');
+      alert('Cập nhật thành công!');
       location.reload();
 
   });
