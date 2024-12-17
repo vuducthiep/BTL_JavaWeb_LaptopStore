@@ -10,6 +10,8 @@ import com.example.ProjectLaptopStore.Repository.Custom.CustomerRepositoryCustom
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -102,11 +104,12 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
     public void createCustomer(CustomerDTO customerNew) {
         CustomerEntity customerEntity = new CustomerEntity();
         UserEntity userEntity = new UserEntity();
-        ShippingAddressEntity shippingAddressEntity = new ShippingAddressEntity();
+//        ShippingAddressEntity shippingAddressEntity = new ShippingAddressEntity();
 
         userEntity.setFullName(customerNew.getFullName());
         userEntity.setEmail(customerNew.getEmail());
-        userEntity.setPassword(customerNew.getPassWord());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        userEntity.setPassword(passwordEncoder.encode(customerNew.getPassWord()));
         userEntity.setPhoneNumber(customerNew.getPhoneNumber());
         userEntity.setUserType(User_Enum.customer);
         userEntity.setRegistrationDate(customerNew.getRegistrationDate());
@@ -130,7 +133,8 @@ public class CustomerRepositoryCustomImpl implements CustomerRepositoryCustom {
     public void updateCustomer(CustomerDTO customerUpdate,ShippingAddressEntity shippingAddressEntity, CustomerEntity customerEntity, UserEntity userEntity) {
         userEntity.setFullName(customerUpdate.getFullName());
         userEntity.setEmail(customerUpdate.getEmail());
-        userEntity.setPassword(customerUpdate.getPassWord());
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        userEntity.setPassword(passwordEncoder.encode(customerUpdate.getPassWord()));
         userEntity.setPhoneNumber(customerUpdate.getPhoneNumber());
         userEntity.setUserType(User_Enum.customer);
         userEntity.setRegistrationDate(customerUpdate.getRegistrationDate());
