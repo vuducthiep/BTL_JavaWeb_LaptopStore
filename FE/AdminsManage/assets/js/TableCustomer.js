@@ -157,7 +157,7 @@ customerForm.addEventListener('submit', async function (event) {
 
   // Lấy dữ liệu từ form
   const newCustomer = {
-    totalAmount: parseFloat(document.getElementById('totalAmount').value),
+    totalAmount: 0,
     userID: parseInt(document.getElementById('userID').value),
     customerID: parseInt(document.getElementById('customerID').value),
     addressID: parseInt(document.getElementById('addressID').value),
@@ -165,12 +165,12 @@ customerForm.addEventListener('submit', async function (event) {
     email: document.getElementById('email').value,
     passWord: document.getElementById('passWord').value,
     phoneNumber: document.getElementById('phoneNumber').value,
-    registrationDate: document.getElementById('registrationDate').value,
+    registrationDate: new Date().toISOString(),
     address: null,
-    city: document.getElementById('city').value,
-    district: document.getElementById('district').value,
-    ward: document.getElementById('ward').value,
-    streetAddress: document.getElementById('streetAddress').value
+    city: null,
+    district: null,
+    ward: null,
+    streetAddress: null
   };
 
   try {
@@ -251,7 +251,7 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
       email: document.getElementById('editEmail').value,  // Cập nhật giá trị
       passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
       phoneNumber: document.getElementById('editPhoneNumber').value,  // Cập nhật giá trị
-      registrationDate:document.getElementById('editRegistrationDate').value ,  // Cập nhật giá trị
+      registrationDate:new Date().toISOString() ,  // Cập nhật giá trị
       address: null,  
       city: null,  // Cập nhật giá trị
       district: null,  // Cập nhật giá trị
@@ -286,7 +286,7 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
   })
   .catch(error => {
       console.error('Error updating customer:', error);
-      alert('Thông tin khách hàng đã được cập nhật!');
+      alert('Lỗi khi cập nhật!');
       location.reload();
 
   });
