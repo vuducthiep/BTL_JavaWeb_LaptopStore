@@ -203,7 +203,6 @@ customerForm.addEventListener('submit', async function (event) {
 });
 
 // Hàm gọi API để lấy thông tin khách hàng
-// Hàm gọi API để lấy thông tin khách hàng
 function editCustomer(customerID) {
   fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
       method: 'GET', // Lấy dữ liệu từ API
@@ -253,11 +252,11 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
       passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
       phoneNumber: document.getElementById('editPhoneNumber').value,  // Cập nhật giá trị
       registrationDate:document.getElementById('editRegistrationDate').value ,  // Cập nhật giá trị
-      address: null,  // Cập nhật giá trị
-      city: document.getElementById('editCity').value,  // Cập nhật giá trị
-      district: document.getElementById('editDistrict').value,  // Cập nhật giá trị
-      ward: document.getElementById('editWard').value,  // Cập nhật giá trị
-      streetAddress: document.getElementById('editStreetAddress').value  // Cập nhật giá trị
+      address: null,  
+      city: null,  // Cập nhật giá trị
+      district: null,  // Cập nhật giá trị
+      ward: null,  // Cập nhật giá trị
+      streetAddress: null  // Cập nhật giá trị
   };
 
   // Log the data being sent to check the object

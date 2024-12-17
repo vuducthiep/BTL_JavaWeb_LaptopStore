@@ -223,22 +223,14 @@
             <input type="date" id="editRegistrationDate" style="display: none;" />
 
           
-            <div class="mb-3">
-              <label for="editCity" class="form-label">Thành phố</label>
-              <input type="text" class="form-control" id="editCity" required />
-            </div>
-            <div class="mb-3">
-              <label for="editDistrict" class="form-label">Quận/Huyện</label>
-              <input type="text" class="form-control" id="editDistrict" required />
-            </div>
-            <div class="mb-3">
-              <label for="editWard" class="form-label">Phường/Xã</label>
-              <input type="text" class="form-control" id="editWard" required />
-            </div>
-            <div class="mb-3">
-              <label for="editStreetAddress" class="form-label">Số Nhà và Đường</label>
-              <input type="text" class="form-control" id="editStreetAddress" required />
-            </div>
+            <input type="hidden" id="editCity" />
+
+            <input type="hidden" id="editDistrict" />
+            
+            <input type="hidden" id="editWard" />
+
+            <input type="hidden" id="editStreetAddress" />
+            
             <button type="submit" class="btn btn-primary">Lưu</button>
           </form>
         </div>
