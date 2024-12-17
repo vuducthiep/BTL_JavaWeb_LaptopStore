@@ -77,8 +77,9 @@ public class AdminController {
     //API cập nhật thông tin của sản phẩm trong kho
     //productID không cần dùng
     @PutMapping(value = "/warehouse/update-product/{productID}")
-    public void warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
+    public ResponseEntity<?> warehouseUpdate(@RequestBody ProductsInWarehouse_DTO productsInWarehouseUpdate){
         productInWarehouseService.productInWareHouseUpdate(productsInWarehouseUpdate);
+        return ResponseEntity.ok("success");
     }
     //API lấy thông tin nhà kho để sửa
     @GetMapping(value = "/warehouse/update/{id}")
@@ -87,20 +88,23 @@ public class AdminController {
     }
     //API câp nhật thông tin nhà kho
     @PutMapping(value = "/warehouse/update/{id}")
-    public void updateWarehouse(@RequestBody WareHouseEntity wareHouseNew){
+    public ResponseEntity<?> updateWarehouse(@RequestBody WareHouseEntity wareHouseNew){
         wareHouseService.updateWareHouse(wareHouseNew);
+        return ResponseEntity.ok("success");
     }
 
     //API tạo nhà kho mới
     @PostMapping(value = "/warehouse/create")
-    public void createWarehouse(@RequestBody WareHouseEntity wareHouseNew){
+    public ResponseEntity<?> createWarehouse(@RequestBody WareHouseEntity wareHouseNew){
         wareHouseService.createWareHouse(wareHouseNew);
+        return ResponseEntity.ok("success");
     }
 
     //API xóa nhà kho
     @DeleteMapping(value = "/warehouse/{id}")
-    public void deleteWarehouse(@PathVariable(name = "id") Integer id){
+    public ResponseEntity<?> deleteWarehouse(@PathVariable(name = "id") Integer id){
         wareHouseService.deleteWareHouse(id);
+        return ResponseEntity.ok("success");
     }
 
     //API lấy tất cả sản phẩm để thêm phiếu nhập
@@ -185,14 +189,16 @@ public class AdminController {
 
     //API xóa khách hàng
     @DeleteMapping(value = "/customer/{ids}")
-    public void customerDelete(@PathVariable(name = "ids") Long[] ids){
+    public ResponseEntity<?> customerDelete(@PathVariable(name = "ids") Long[] ids){
         customerService.deleteCustomerAtService(ids);
+        return ResponseEntity.ok("success");
     }
 
     //API thêm khách hàng
     @PostMapping(value = "/customer/create-customer/")
-    public void customerCreate(@RequestBody CustomerDTO customerNew){
+    public ResponseEntity<?> customerCreate(@RequestBody CustomerDTO customerNew){
         customerService.createCustomerAtService(customerNew);
+        return ResponseEntity.ok("success");
     }
 
     //API lấy thông tin chi tiết cho form sửa thông tin khách
@@ -203,8 +209,9 @@ public class AdminController {
 
     //API sửa khách hàng
     @PutMapping(value = "/customer/update/{id}")
-    public void customerUpdate(@RequestBody CustomerDTO customerUpdate){
+    public ResponseEntity<?> customerUpdate(@RequestBody CustomerDTO customerUpdate){
         customerService.updateCustomerAtService(customerUpdate);
+        return ResponseEntity.ok("success");
     }
 
     //API lấy thông tin sản phẩm
@@ -221,18 +228,21 @@ public class AdminController {
     
     //API tạo sản phẩm
     @PostMapping("/product/create")
-    public void createProduct(@RequestBody ProductDetailDTO createProductDTO){
+    public ResponseEntity<?> createProduct(@RequestBody ProductDetailDTO createProductDTO){
         productService.createNewProduct(createProductDTO);
+        return ResponseEntity.ok("success");
     }
     //API cập nhật  sản phẩm
     @PutMapping(value = "/product/update/{id}")
-    public void updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
+    public ResponseEntity<?> updateProduct(@RequestBody ProductDetailDTO updateProductDTO){
         productService.updateProduct(updateProductDTO);
+        return ResponseEntity.ok("success");
     }
     //API xóa sản phẩm bằng id
     @DeleteMapping(value = "/product/{ids}")
-    public void deleteProduct(@PathVariable Long[] ids){
+    public ResponseEntity<?> deleteProduct(@PathVariable Long[] ids){
         productService.deleteProduct(ids);
+        return ResponseEntity.ok("success");
     }
 
 
@@ -250,20 +260,23 @@ public class AdminController {
 
     //API tạo nhà cung cấp
     @PostMapping(value = "/supplier/create")
-    public void createSupplier(@RequestBody SupplierDTO supplierNew){
+    public ResponseEntity<?> createSupplier(@RequestBody SupplierDTO supplierNew){
         suppliersService.createSupplier(supplierNew);
+        return ResponseEntity.ok("success");
     }
 
     //API cập nhật nhà cung cấp
     @PutMapping(value = "/supplier/update/{id}")
-    public void updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
+    public ResponseEntity<?> updateSupplier(@RequestBody SupplierDTO supplierUpdateDTO){
         suppliersService.updateSupplier(supplierUpdateDTO);
+        return ResponseEntity.ok("success");
     }
 
     //API xóa nhà cung cấp
     @DeleteMapping("/supplier/{ids}")
-    public void deleteSupplier(@PathVariable Long[] ids){
+    public ResponseEntity<?> deleteSupplier(@PathVariable Long[] ids){
         suppliersService.deleteSupplier(ids);
+        return ResponseEntity.ok("success");
     }
 
     //API lấy tất cả nhân viên
