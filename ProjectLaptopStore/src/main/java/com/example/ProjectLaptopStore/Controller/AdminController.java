@@ -197,7 +197,7 @@ public class AdminController {
 
     //API lấy thông tin chi tiết cho form sửa thông tin khách
     @GetMapping(value = "/customer/update/{id}")
-    public CustomerDTO getCustomerById(@PathVariable(name = "id") Integer id){
+    public Customer_GetListCusDTO getCustomerById(@PathVariable(name = "id") Integer id){
         return customerService.getCustomerByID(id);
     }
 

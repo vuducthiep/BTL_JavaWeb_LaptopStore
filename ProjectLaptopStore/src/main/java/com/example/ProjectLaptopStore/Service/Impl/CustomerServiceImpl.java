@@ -119,11 +119,11 @@ public class CustomerServiceImpl implements CustomerService {
 //    }
 
     @Override
-    public CustomerDTO getCustomerByID(Integer id) {
-        List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
-        for(CustomerDTO customerDTO : listCustomer){
-            if(customerDTO.getCustomerID().equals(id)){
-                return customerDTO;
+    public Customer_GetListCusDTO getCustomerByID(Integer id) {
+        List<Customer_GetListCusDTO> listCustomer = customerRepository.getListCustomerNoAdr();
+        for(Customer_GetListCusDTO customer : listCustomer){
+            if(customer.getCustomerID().equals(id)){
+                return customer;
             }
         }
         return null;
