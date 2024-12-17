@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>So sánh sản phẩm</title>
+    <link rel="icon" href="assets/picture/logolmain.png" type="image/x-icon">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -16,83 +17,90 @@
     <link rel="stylesheet" href="assets/css/product-compare.css">
 </head>
 <body>
-    <!-- header -->
-    <header class="" style="background-color:#cb1c22">
-        <div class="container ">
-          <div class="row header-custom">
-            <div class="col-2">
-              <a class="logo" href="">
-                <img
-                  src="assets/picture/logolmain.png"
-                  alt="Logo trang web"
-                />
-              </a>
-            </div>
-            <div class="col-5">
-              <div class="seach-form">
-                <form id="frm-seach" name="seach" action="product-list.html" method="GET">
-                  <input
-                    type="text"
-                    placeholder="Bạn muốn tìm sản phẩm gì"
-                    name="q"
-                    id="stext"
-                    autocomplete="off"
-                    style="width: 90%"
-                  />
-                  <button type="submit" id="sbutton" style="width: 9%">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </form>
-              </div>
-            </div>
-            <div class="col-2">
-              <div class="user-account" id="userAccount" tabindex="0">
-                <i
-                  class="fa-solid fa-user"
-                  style="width: 50px; height: 50px; font-size: 40px"
-                ></i>
-                <ul class="box-user" id="userMenu" style="display: none">
-                  <li><a href="#" id="loginLink">Đăng nhập</a></li>
-                  <li>
-                    <a href="#" id="userInfo" style="display: none"
-                      >Thông tin cá nhân</a
-                    >
-                  </li>
-                  <li>
-                    <a href="#" id="orders" style="display: none">Đơn hàng</a>
-                  </li>
-                  <li>
-                    <a href="#" id="logout" style="display: none">Đăng xuất</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-  
-            <div class="col">
-              <div class="box-hotline">
-                <p class="hotline-text">
-                  <i class="fa-solid fa-phone"></i>
-                  <span style="color: rgb(0, 0, 0)">HOTLINE</span>
-                </p>
-                <p class="phone-number">0987589660</p>
-              </div>
-            </div>
-  
-            <div class="col">
-              <div class="cart">
-                <a href="cart.html" id="cartLink">
-                  <!-- Thay '/cart' bằng đường dẫn giỏ hàng của bạn -->
-                  <i
-                    class="fa-solid fa-cart-shopping"
-                    style="font-size: 43px"
-                  ></i>
-                </a>
-              </div>
-            </div>
+  <header class="" style="background-color:#cb1c22">
+    <div class="container ">
+      <div class="row header-custom">
+
+        <!-- Button Logo -->
+        <div class="col-2">
+          <a class="logo" href="">
+            <img
+              src="assets/picture/logolmain.png"
+              alt="Logo trang web"
+            />
+          </a>
+        </div>
+
+                  <!-- Button thanh tìm kiếm -->
+        <div class="col-5">
+          <div class="search-form">
+            <form id="frm-search" name="search" action="product-list.html" method="GET" >
+              <input
+                type="text"
+                placeholder="Bạn muốn tìm sản phẩm gì"
+                name="q"
+                id="stext"
+                autocomplete="off"
+                style="width: 90%;height:45px;";
+              />
+              <button type="submit" id="sbutton" style="width: 9%; height: 45px;">
+                <i class="fas fa-search"></i>
+              </button>
+            </form>
           </div>
         </div>
-      </header>
-      <!-- header -->
+
+
+        <!-- Button infor User -->
+        <div class="col-2">
+          <div class="user-account" id="userAccount" tabindex="0">
+            <i
+              class="fa-solid fa-user"
+              style="width: 50px; height: 50px; font-size: 40px"
+            ></i>
+            <ul class="box-user" id="userMenu" style="display: none">
+              <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
+              <li>
+                <a href="My_Information/inforUserDetail_Main.html" id="userInfo" style="display: none"
+                  >Thông tin cá nhân
+                </a>
+              </li>
+              <li>
+                <a href="My_Information/My_Order.html" id="orders" style="display: none">Đơn hàng</a>
+              </li>
+              <li>
+                <a href="#" id="logout" style="display: none">Đăng xuất</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Button liên hệ -->
+        <div class="col">
+          <div class="box-hotline">
+            <p class="hotline-text">
+              <i class="fa-solid fa-phone"></i>
+              <span style="color: rgb(0, 0, 0)">HOTLINE</span>
+            </p>
+            <p class="phone-number">0987589660</p>
+          </div>
+        </div>
+
+        <!-- Button giỏ hàng -->
+        <div class="col">
+          <div class="cart">
+            <a href="cart.html" id="cartLink">
+              <!-- Thay '/cart' bằng đường dẫn giỏ hàng của bạn -->
+              <i
+                class="fa-solid fa-cart-shopping"
+                style="font-size: 43px"
+              ></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
       
       <main>
         <div>

@@ -1,17 +1,35 @@
-// Lấy giá trị của tham số 'brand' từ URL
-const urlParams = new URLSearchParams(window.location.search);
-const brand = urlParams.get('brand');
+// Biến toàn cục để lưu trạng thái slide hiện tại
+let currentSlide = 0;
 
-// Nếu có tham số 'brand', tìm kiếm banner theo tên và hiển thị
-if (brand) {
-  const brandBanner = document.getElementById(`Laptop-${capitalizeFirstLetter(brand)}`);
-  
-  if (brandBanner) {
-    brandBanner.style.display = 'block';  // Hiển thị banner của thương hiệu
-  }
+// Lấy danh sách tất cả các ảnh
+const slides = document.querySelectorAll('.img-fluid-item1 img');
+
+// Hiển thị slide ban đầu
+showSlide(currentSlide);
+
+// Hàm hiển thị slide
+function showSlide(index) {
+  // Ẩn tất cả các slide
+  slides.forEach((slide) => {
+    slide.classList.remove('active');
+  });
+
+  // Hiển thị slide hiện tại
+  slides[index].classList.add('active');
 }
 
-// Hàm để viết hoa ký tự đầu tiên của chuỗi (dùng để chuẩn hóa tên thương hiệu)
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
+// Hàm chuyển đổi slide
+function changeSlide(direction) {
+  // Tính toán chỉ số slide tiếp theo
+  currentSlide += direction;
+
+  // Kiểm tra nếu vượt quá số lượng slide
+  if (currentSlide >= slides.length) {
+    currentSlide = 0; // Quay về slide đầu tiên
+  } else if (currentSlide < 0) {
+    currentSlide = slides.length - 1; // Quay về slide cuối cùng
+  }
+
+  // Hiển thị slide mới
+  showSlide(currentSlide);
 }

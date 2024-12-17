@@ -9,42 +9,6 @@
     font-family: Arial, sans-serif;
   }
 
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px; /* Thêm padding để nội dung không bị chèn vào cạnh */
-  }
-  
-  /* Header */
-  .header-custom {
-    display: flex;
-    width: 100%;
-    align-items: center;
-    flex-wrap: wrap; /* Để cho các phần tử có thể xuống dòng khi không đủ không gian */
-  }
-  
-  /* Logo */
-  .logo img {
-    width: 100%;
-    max-width: 150px;
-    height: auto;
-  }
-  
-  /* Form tìm kiếm */
-  .seach-form {
-    flex-grow: 5;
-    max-width: 500px;
-    margin-left: 20px;
-    flex-basis: 100%; /* Thay đổi để chiếm toàn bộ chiều rộng trên màn hình nhỏ */
-  }
-  
-  #stext {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px 0 0 4px;
-    font-size: 16px;
-  }
   .quantity-btn{
     width: 17px;
   }
@@ -64,47 +28,7 @@
   #sbutton:hover {
     background-color: #0056b3;
   }
-  
 
-  
-  /* Tài khoản người dùng */
-  .user-account {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .user-account i {
-    color: #333;
-    transition: color 0.3s ease;
-  }
-  
-  .user-account i:hover {
-    color: #007bff; /* Đổi màu biểu tượng khi hover */
-  }
-  
-/* Ẩn menu mặc định */
-.box-user {
-  display: none;
-  position: absolute;
-  top: 100%; /* Menu hiển thị bên dưới user-account */
-  left: 0;
-  background-color: #fff; /* Màu nền của menu */
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Tạo hiệu ứng bóng cho menu */
-  padding: 10px 0;
-  border-radius: 4px;
-  width: 200px; /* Điều chỉnh kích thước menu */
-  z-index: 1000;
-}
-
-
-
-/* Đảm bảo menu không bị chồng lên các phần tử khác */
-.user-account {
-  position: relative;
-}
 
 
 

@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Danh sách sản phẩm</title>
+    <link rel="icon" href="assets/picture/logolmain.png" type="image/x-icon">
 
     <link
       rel="stylesheet"
@@ -17,10 +18,10 @@
     />
 
     <!-- Link CSS -->
-    <link rel="stylesheet" href="assets/css/home.css" />
+    <link rel="stylesheet" href="assets/css/product_list.css" />
   </head>
   <body>
-    <header class="" style="background-color:#cb1c22;">
+    <header class="" style="background-color:#cb1c22">
       <div class="container ">
         <div class="row header-custom">
 
@@ -34,24 +35,25 @@
             </a>
           </div>
 
-          <!-- Button thanh tìm kiếm -->
+                    <!-- Button thanh tìm kiếm -->
           <div class="col-5">
-            <div class="seach-form">
-              <form id="frm-seach" name="seach" action="product-list.html" method="GET">
+            <div class="search-form">
+              <form id="frm-search" name="search" action="product-list.html" method="GET" >
                 <input
                   type="text"
                   placeholder="Bạn muốn tìm sản phẩm gì"
                   name="q"
                   id="stext"
                   autocomplete="off"
-                  style="width: 90%"
+                  style="width: 90%;height:45px;";
                 />
-                <button type="submit" id="sbutton" style="width: 9%">
+                <button type="submit" id="sbutton" style="width: 9%; height: 45px;">
                   <i class="fas fa-search"></i>
                 </button>
               </form>
             </div>
           </div>
+
 
           <!-- Button infor User -->
           <div class="col-2">
@@ -63,12 +65,12 @@
               <ul class="box-user" id="userMenu" style="display: none">
                 <li><a href="login.html" id="loginLink">Đăng nhập</a></li>
                 <li>
-                  <a href="#" id="userInfo" style="display: none"
+                  <a href="My_Information/inforUserDetail_Main.html" id="userInfo" style="display: none"
                     >Thông tin cá nhân
                   </a>
                 </li>
                 <li>
-                  <a href="#" id="orders" style="display: none">Đơn hàng</a>
+                  <a href="My_Information/My_Order.html" id="orders" style="display: none">Đơn hàng</a>
                 </li>
                 <li>
                   <a href="#" id="logout" style="display: none">Đăng xuất</a>
@@ -111,23 +113,32 @@
           <span >Laptop</span>
         </div>
         <h2 class="text-center">Danh sách sản phẩm tìm kiếm</h2>
-        <div class="container mt-5">
-          <div class="Banner">
-            <img id="Laptop-Gaming" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_f49ec311b6.png" alt="Laptop Gaming">
-            <img id="Laptop-VanPhong" src="https://cdn.tgdd.vn/News/1561630/laptopvanphongdangmua-1280x720.jpg" alt="Laptop Văn Phòng">
-            <img id="Laptop-MongNhe" src="https://phuongtin.vn/wp-content/uploads/2024/02/BANNER-LAPTOP-MONG-NHE-1400x482.jpg" alt="Laptop Mỏng Nhẹ">
-            <img id="Laptop-DoanhNhan" src="https://onlylap.vn/wp-content/uploads/2024/07/laptop-doanh-nhan-cover-web.webp" alt="Laptop Doanh Nhân">
-
-            <img id="Laptop-Acer" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_b7e9d6a5b4.png" alt="Laptop Acer">
-            <img id="Laptop-HP" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_fc902f2bd7.png" alt="Laptop HP">
-            <img id="Laptop-Asus" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_8666bcbf22.png" alt="Laptop Asus">
-            <img id="Laptop-Lenovo" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_147f411ad3.png" alt="Laptop Lenovo">
-            <img id="Laptop-MSI" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_5845698af8.png" alt="Laptop MSI">
-            <img id="Laptop-Dell" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_73d9aab89a.png" alt="Laptop Dell">
-            <img id="Laptop-Apple" src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_fa2aec504a.png" alt="Laptop Apple">
-            <img id="Laptop-Gigabyte" src="https://cdn.ankhang.vn/media/banner/22_Nova405ae5989c219003c9cb9f7344c72b6.jpg" alt="Laptop Gigabyte">
+        <div class="container-large">
+          <div class="row banner-custom">
+            <div class="col-9 img-fluid-item1">
+              <img
+                src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_f49ec311b6.png"
+                alt=""
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/1440x242_354d6a14aa.jpg"
+                alt=""
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_1440x242_16d56b30fc.png"
+                alt=""
+              />
+              <img
+                src="https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/H1_862abb115e.png"
+                alt=""
+              />
+              <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+              <a class="next" onclick="changeSlide(1)">&#10095;</a>
+            </div>
           </div>
         </div>
+        
+        
         
         <div id="searchResults"></div>
           
@@ -362,7 +373,7 @@
     <script src="assets/js/HomePage/findListProducts/ProductList.js"></script>
     <script src="assets/js/HomePage/findListProducts/BannerFind.js"></script>
     
-    <link rel="stylesheet" href="assets/js/HomePage/findListProducts/ProductList.css">
+    <link rel="stylesheet" href="assets/js/HomePage/findListProducts/Banner.css">
     <script src="assets/js/HomePage/HomeManage/addFillterToForm.js"></script>
     <script src="assets/js/HomePage/findListProducts/find.js"></script>
   </body>
