@@ -18,5 +18,6 @@ public interface CustomerRepositoryCustom {
     List<CustomerDTO> listTopCustomerInMonth();
     List<CustomerDTO> getListCustomer();
     List<Customer_GetListCusDTO> getListCustomerNoAdr();
+
 }
 

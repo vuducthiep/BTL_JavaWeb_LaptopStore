@@ -15,5 +15,5 @@ public interface CustomerService {
     Integer getNewCustomerCurrentMonth();
     List<CustomerDTO> getListCustomers();
     Admin_CustomerResponseDTO adminCustomer();
-    CustomerDTO getCustomerByID(Integer id);
+    Customer_GetListCusDTO getCustomerByID(Integer id);
 }

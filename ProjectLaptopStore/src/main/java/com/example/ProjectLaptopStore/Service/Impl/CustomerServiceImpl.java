@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @Transactional
@@ -31,18 +32,36 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public List<Customer_CountNewCustomerPerMonthDTO> listCountNewCustomerPerMonth() {
         List<Customer_CountNewCustomerPerMonthDTO> result = customerRepository.listNewCustomerPerMonth();
+        if(result == null || result.isEmpty()){
+            throw new NoSuchElementException("No data found or system error");
+        }
         return result;
     }
 
     @Override
     public void deleteCustomerAtService(Long[] ids) {
         List<CustomerEntity> listCustomerDeleteById = customerRepository.findAllByCustomerIDIn(ids);
-        customerRepository.deleteCustomer(listCustomerDeleteById);
+        if(listCustomerDeleteById.isEmpty()){
+            throw new NoSuchElementException("No such customer");
+        }else {
+            customerRepository.deleteCustomer(listCustomerDeleteById);
+        }
     }
 
     @Override
     public void createCustomerAtService(CustomerDTO customerNew) {
-        customerRepository.createCustomer(customerNew);
+        List<UserEntity> listUser = userRepository.findAll();
+        if(listUser.isEmpty() || listUser.size() == 0){
+            throw new NoSuchElementException("List user is empty");
+        }
+        for(UserEntity user : listUser){
+            if(user.getEmail().equals(customerNew.getEmail())){
+                throw new NoSuchElementException("Email is already in use");
+            }else{
+                customerRepository.createCustomer(customerNew);
+                break;
+            }
+        }
     }
 
     @Override
@@ -52,7 +71,6 @@ public class CustomerServiceImpl implements CustomerService {
         ShippingAddressEntity shippingAddressEntity = shippingAddressesRepository.findById(customerUpdate.getAddressID()).get();
         customerRepository.updateCustomer(customerUpdate,shippingAddressEntity,customerEntity,userEntity);
     }
-
 
     @Override
     public Integer getNewCustomerCurrentMonth() {
@@ -101,11 +119,11 @@ public class CustomerServiceImpl implements CustomerService {
 //    }
 
     @Override
-    public CustomerDTO getCustomerByID(Integer id) {
-        List<CustomerDTO> listCustomer = customerRepository.getListCustomer();
-        for(CustomerDTO customerDTO : listCustomer){
-            if(customerDTO.getCustomerID().equals(id)){
-                return customerDTO;
+    public Customer_GetListCusDTO getCustomerByID(Integer id) {
+        List<Customer_GetListCusDTO> listCustomer = customerRepository.getListCustomerNoAdr();
+        for(Customer_GetListCusDTO customer : listCustomer){
+            if(customer.getCustomerID().equals(id)){
+                return customer;
             }
         }
         return null;

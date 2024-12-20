@@ -157,7 +157,7 @@ customerForm.addEventListener('submit', async function (event) {
 
   // Lấy dữ liệu từ form
   const newCustomer = {
-    totalAmount: parseFloat(document.getElementById('totalAmount').value),
+    totalAmount: 0,
     userID: parseInt(document.getElementById('userID').value),
     customerID: parseInt(document.getElementById('customerID').value),
     addressID: parseInt(document.getElementById('addressID').value),
@@ -165,12 +165,12 @@ customerForm.addEventListener('submit', async function (event) {
     email: document.getElementById('email').value,
     passWord: document.getElementById('passWord').value,
     phoneNumber: document.getElementById('phoneNumber').value,
-    registrationDate: document.getElementById('registrationDate').value,
+    registrationDate: new Date().toISOString(),
     address: null,
-    city: document.getElementById('city').value,
-    district: document.getElementById('district').value,
-    ward: document.getElementById('ward').value,
-    streetAddress: document.getElementById('streetAddress').value
+    city: null,
+    district: null,
+    ward: null,
+    streetAddress: null
   };
 
   try {
@@ -203,7 +203,6 @@ customerForm.addEventListener('submit', async function (event) {
 });
 
 // Hàm gọi API để lấy thông tin khách hàng
-// Hàm gọi API để lấy thông tin khách hàng
 function editCustomer(customerID) {
   fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
       method: 'GET', // Lấy dữ liệu từ API
@@ -216,17 +215,13 @@ function editCustomer(customerID) {
       // Điền thông tin vào các trường trong modal
       document.getElementById('editUserID').value = data.userID;
       document.getElementById('editCustomerID').value = data.customerID;
-      document.getElementById('editAddressID').value = data.addressID;
-      document.getElementById('editTotalAmount').value = data.totalAmount;
+     
       document.getElementById('editFullName').value = data.fullName;
       document.getElementById('editEmail').value = data.email;
       document.getElementById('editPassword').value = data.passWord;
       document.getElementById('editPhoneNumber').value = data.phoneNumber;
       document.getElementById('editRegistrationDate').value = data.registrationDate;
-      document.getElementById('editCity').value = data.city;
-      document.getElementById('editDistrict').value = data.district;
-      document.getElementById('editWard').value = data.ward;
-      document.getElementById('editStreetAddress').value = data.streetAddress;
+    
       
       // Hiển thị modal
       const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
@@ -244,20 +239,20 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
 
 
   const updatedCustomerData = {
-      totalAmount: parseFloat(document.getElementById('editTotalAmount').value),  // Cập nhật giá trị
+      totalAmount: 0,  // Cập nhật giá trị
       userID: parseInt(document.getElementById('editUserID').value) ,  // Giữ nguyên userID
       customerID: parseInt(document.getElementById('editCustomerID').value),  // Giữ nguyên customerID
-      addressID: parseInt(document.getElementById('editAddressID').value),  // Giữ nguyên addressID
+      addressID: 1,  // Giữ nguyên addressID
       fullName: document.getElementById('editFullName').value,  // Cập nhật giá trị
       email: document.getElementById('editEmail').value,  // Cập nhật giá trị
       passWord: document.getElementById('editPassword').value,  // Cập nhật giá trị
       phoneNumber: document.getElementById('editPhoneNumber').value,  // Cập nhật giá trị
-      registrationDate:document.getElementById('editRegistrationDate').value ,  // Cập nhật giá trị
-      address: null,  // Cập nhật giá trị
-      city: document.getElementById('editCity').value,  // Cập nhật giá trị
-      district: document.getElementById('editDistrict').value,  // Cập nhật giá trị
-      ward: document.getElementById('editWard').value,  // Cập nhật giá trị
-      streetAddress: document.getElementById('editStreetAddress').value  // Cập nhật giá trị
+      registrationDate:new Date().toISOString() ,  // Cập nhật giá trị
+      address: null,  
+      city: null,  // Cập nhật giá trị
+      district: null,  // Cập nhật giá trị
+      ward: null,  // Cập nhật giá trị
+      streetAddress: null  // Cập nhật giá trị
   };
 
   // Log the data being sent to check the object
@@ -265,32 +260,30 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
 
   // Gửi yêu cầu PUT để cập nhật dữ liệu khách hàng
   fetch(`http://localhost:8080/admin/customer/update/${customerID}`, {
-      method: 'PUT',
-      headers: {
-          'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedCustomerData)  // Gửi dữ liệu đã thay đổi
-  })
-  .then(response => {
-      if (!response.ok) {
-          throw new Error('Failed to update customer');
-      }
-      return response.json();
-  })
-  .then(data => {
-    
-      fetchCustomerData();  // Cập nhật lại danh sách khách hàng
+    method: 'PUT',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedCustomerData) // Dữ liệu gửi đi
+})
+.then(response => {
+  return response.text(); // Thay vì response.json()
+})
+.then(data => {
+  console.log('Server Response:', data); // Log dữ liệu từ server
+  if (data === "success") {
       const editModal = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-      editModal.hide();  // Đóng modal
-      location.reload();
-
-  })
-  .catch(error => {
-      console.error('Error updating customer:', error);
-      alert('Thông tin khách hàng đã được cập nhật!');
-      location.reload();
-
-  });
+      editModal.hide(); // Đóng modal
+      alert('Cập nhật thành công!');
+      location.reload(); // Reload trang
+  } else {
+      throw new Error('Update failed! Unexpected server response.');
+  }
+})
+.catch(error => {
+  console.error('Error:', error);
+  alert('Có lỗi xảy ra trong quá trình cập nhật!');
+});
 });
 
 }
