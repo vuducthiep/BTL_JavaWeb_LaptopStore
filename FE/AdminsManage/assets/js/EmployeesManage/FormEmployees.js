@@ -22,16 +22,21 @@ function renderEmployeeTable(employees) {
     const row = document.createElement("tr");
 
     row.innerHTML = `
-      <td>${index + 1}</td>
-      <td>${employee.name}</td>
-      <td>${employee.email}</td>
-      <td>${employee.phoneNumber}</td>
-      <td>${employee.status === "active" ? "Active" : "Inactive"}</td>
-      <td>
-        <button class="btn btn-primary btn-sm edit-btn" data-id="${employee.employeeId}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">Sửa</button>
-        <button class="btn btn-danger btn-sm delete-btn" data-delete-id="${employee.employeeId}">Xóa</button>
-      </td>
-    `;
+  <td>${index + 1}</td>
+  <td>${employee.name}</td>
+  <td>${employee.email}</td>
+  <td>${employee.phoneNumber}</td>
+  <td>${employee.status === "active" ? "Active" : "Inactive"}</td>
+  <td>
+    <button class="btn btn-primary btn-sm edit-btn" data-id="${employee.employeeId}" data-bs-toggle="modal" data-bs-target="#editEmployeeModal">
+      <i class="fas fa-edit"></i>
+    </button>
+    <button class="btn btn-danger btn-sm delete-btn" data-delete-id="${employee.employeeId}">
+      <i class="fas fa-trash-alt"></i>
+    </button>
+  </td>
+`;
+
 
     const editButton = row.querySelector(".edit-btn");
     editButton.addEventListener("click", () => {

@@ -22,7 +22,7 @@ async function login(event) {
 
     // Kiểm tra trạng thái đăng nhập
     if (data.status) {
-      alert("Đăng nhập thành công!"); 
+      
 
       console.log("Token nhận được từ server:", data.token);
 
