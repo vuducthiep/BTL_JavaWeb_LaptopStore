@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
-//@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+
 @RestController
 public class UserController {
     private static final Logger log = LoggerFactory.getLogger(UserController.class);

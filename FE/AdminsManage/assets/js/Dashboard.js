@@ -10,240 +10,225 @@ async function loadDashboardData() {
       data.totalCustomerInCurrentMonth;
     document.getElementById("total-new-customer-in-current-month").innerText =
       data.totalNewCustomerInCurrentMonth;
-    document.getElementById(
-      "total-amount-in-current-month"
-    ).innerText = `${data.totalAmountInCurrentMonth.toLocaleString()} VND`;
+    document.getElementById("total-amount-in-current-month").innerText =
+      `${data.totalAmountInCurrentMonth.toLocaleString()} VND`;
 
-    // Dữ liệu cho biểu đồ khách hàng mới
-    const newCustomerLabels = data.newCustomerPerMonthMap.map(
-      (item) => ` ${item.month}`
-    );
-    const newCustomerData = data.newCustomerPerMonthMap.map(
-      (item) => item.customerCount
-    );
+    // === BIỂU ĐỒ KHÁCH HÀNG MỚI ===
+    const newCustomerLabels = data.newCustomerPerMonthMap.map(item => `Tháng ${item.month}`);
+    const newCustomerData = data.newCustomerPerMonthMap.map(item => item.customerCount);
+    // Font config
+    Chart.defaults.font.family = "Inter";
+    Chart.defaults.font.size = 14;
+    
 
-    const ctx1 = document
-      .getElementById("new-customers-chart")
-      .getContext("2d");
-    new Chart(ctx1, {
-      type: "line", // Chọn kiểu biểu đồ đường đi
-      data: {
-        labels: newCustomerLabels, // Tháng
-        datasets: [
-          {
-            label: "Khách hàng mới",
-            data: newCustomerData, // Số lượng khách hàng mới
-            borderColor: "rgba(75, 192, 192, 1)", // Màu đường
-            fill: false, // Không tô màu dưới đường
-            tension: 0.1, // Làm mượt đường nối giữa các điểm
-            borderWidth: 2, // Độ dày đường
-          },
-        ],
+// === BIỂU ĐỒ KHÁCH HÀNG MỚI ===
+const ctx1 = document.getElementById("new-customers-chart").getContext("2d");
+new Chart(ctx1, {
+  type: "line",
+  data: {
+    labels: data.newCustomerPerMonthMap.map(item => `Tháng ${item.month}`),
+    datasets: [
+      {
+        label: "Khách hàng mới",
+        data: data.newCustomerPerMonthMap.map(item => item.customerCount),
+        borderColor: "#36A2EB",
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
+        pointBackgroundColor: "#007BFF",
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return `${tooltipItem.raw} khách hàng`; // Hiển thị số khách hàng
-              },
-            },
-          },
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Tháng",
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: "Số lượng khách hàng",
-            },
-            beginAtZero: true,
-          },
+    ],
+  },
+  options: {
+    responsive: true,
+    animation: {
+      duration: 1000,
+      easing: "easeOutBounce",
+    },
+    plugins: {
+      legend: { position: "top" },
+      title: {
+        display: true,
+        text: "Khách hàng mới theo tháng",
+        font: { size: 18, weight: "bold" },
+        padding: { top: 10, bottom: 20 },
+      },
+      tooltip: {
+        backgroundColor: "#ffffff",
+        titleColor: "#333",
+        bodyColor: "#333",
+        borderColor: "#ccc",
+        borderWidth: 1,
+        callbacks: {
+          label: (item) => `${item.raw} khách hàng`,
         },
       },
-    });
-
-    // Dữ liệu cho biểu đồ doanh thu (biểu đồ đường thay vì cột)
-    const revenueLabels = data.totalAmountPerMonthMap.map(
-      (item) => ` ${item.month}`
-    );
-    const revenueData = data.totalAmountPerMonthMap.map(
-      (item) => item.totalAmount
-    );
-
-    const ctx2 = document.getElementById("revenue-chart").getContext("2d");
-    new Chart(ctx2, {
-      type: "line", // Đổi thành biểu đồ đường
-      data: {
-        labels: revenueLabels,
-        datasets: [
-          {
-            label: "Doanh thu (VND)",
-            data: revenueData,
-            borderColor: "rgba(54, 162, 235, 1)", // Màu đường cho doanh thu
-            fill: false, // Không tô màu dưới đường
-            tension: 0.1, // Làm mượt đường nối
-            borderWidth: 2,
-          },
-        ],
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "Tháng", font: { size: 14 } },
+        ticks: { color: "#333" },
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return `${tooltipItem.raw.toLocaleString()} VND`; // Hiển thị doanh thu
-              },
-            },
-          },
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Tháng",
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: "Doanh thu (VND)",
-            },
-            beginAtZero: true,
-          },
-        },
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: "Số lượng", font: { size: 14 } },
+        ticks: { color: "#333" },
       },
-    });
+    },
+  },
+});
 
-    // Dữ liệu cho biểu đồ sản phẩm bán (biểu đồ đường thay vì pie)
-    const productsSoldLabels = data.totalQuantitySellProductPerMonthMap.map(
-      (item) => ` ${item.month}`
-    );
-    const productsSoldData = data.totalQuantitySellProductPerMonthMap.map(
-      (item) => item.totalSold
-    );
-
-    const ctx3 = document
-      .getElementById("products-sold-chart")
-      .getContext("2d");
-    new Chart(ctx3, {
-      type: "line", 
-      data: {
-        labels: productsSoldLabels,
-        datasets: [
-          {
-            label: "Sản phẩm bán",
-            data: productsSoldData,
-            borderColor: "#FF5733", // Màu đường cho sản phẩm bán
-            fill: false, // Không tô màu dưới đường
-            tension: 0.1, // Làm mượt đường nối
-            borderWidth: 2,
-          },
-        ],
+// === BIỂU ĐỒ DOANH THU ===
+const ctx2 = document.getElementById("revenue-chart").getContext("2d");
+new Chart(ctx2, {
+  type: "line",
+  data: {
+    labels: data.totalAmountPerMonthMap.map(item => `Tháng ${item.month}`),
+    datasets: [
+      {
+        label: "Doanh thu (VND)",
+        data: data.totalAmountPerMonthMap.map(item => item.totalAmount),
+        borderColor: "#FF6384",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        pointBackgroundColor: "#FF4D6D",
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
       },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: {
-            position: "top",
-          },
-          tooltip: {
-            callbacks: {
-              label: function (tooltipItem) {
-                return `${tooltipItem.raw} sản phẩm`; // Hiển thị số sản phẩm
-              },
-            },
-          },
-        },
-        scales: {
-          x: {
-            title: {
-              display: true,
-              text: "Tháng",
-            },
-          },
-          y: {
-            title: {
-              display: true,
-              text: "Số lượng sản phẩm",
-            },
-            beginAtZero: true,
-          },
+    ],
+  },
+  options: {
+    responsive: true,
+    animation: {
+      duration: 1000,
+      easing: "easeOutBounce",
+    },
+    plugins: {
+      legend: { position: "top" },
+      title: {
+        display: true,
+        text: "Doanh thu theo tháng",
+        font: { size: 18, weight: "bold" },
+        padding: { top: 10, bottom: 20 },
+      },
+      tooltip: {
+        backgroundColor: "#ffffff",
+        titleColor: "#333",
+        bodyColor: "#333",
+        borderColor: "#ccc",
+        borderWidth: 1,
+        callbacks: {
+          label: (item) => `${item.raw.toLocaleString()} VND`,
         },
       },
-    });
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "Tháng", font: { size: 14 } },
+        ticks: { color: "#333" },
+      },
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: "", font: { size: 14 } },
+        ticks: { color: "#333" },
+      },
+    },
+  },
+});
 
+// === BIỂU ĐỒ SẢN PHẨM BÁN ===
+const ctx3 = document.getElementById("products-sold-chart").getContext("2d");
+new Chart(ctx3, {
+  type: "line",
+  data: {
+    labels: data.totalQuantitySellProductPerMonthMap.map(item => `Tháng ${item.month}`),
+    datasets: [
+      {
+        label: "Sản phẩm bán",
+        data: data.totalQuantitySellProductPerMonthMap.map(item => item.totalSold),
+        borderColor: "#9966FF",
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
+        pointBackgroundColor: "#7E57C2",
+        fill: true,
+        tension: 0.4,
+        borderWidth: 2,
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    animation: {
+      duration: 1000,
+      easing: "easeOutBounce",
+    },
+    plugins: {
+      legend: { position: "top" },
+      title: {
+        display: true,
+        text: "Số lượng sản phẩm bán theo tháng",
+        font: { size: 18, weight: "bold" },
+        padding: { top: 10, bottom: 20 },
+      },
+      tooltip: {
+        backgroundColor: "#ffffff",
+        titleColor: "#333",
+        bodyColor: "#333",
+        borderColor: "#ccc",
+        borderWidth: 1,
+        callbacks: {
+          label: (item) => `${item.raw} sản phẩm`,
+        },
+      },
+    },
+    scales: {
+      x: {
+        title: { display: true, text: "Tháng", font: { size: 14 } },
+        ticks: { color: "#333" },
+      },
+      y: {
+        beginAtZero: true,
+        title: { display: true, text: "Số lượng sản phẩm", font: { size: 14 } },
+        ticks: { color: "#333" },
+      },
+    },
+  },
+});
+
+
+    // Danh sách sản phẩm bán chạy
     const TopProductsList = document.getElementById("top-products-list");
-TopProductsList.innerHTML = "";
+    TopProductsList.innerHTML = "";
+    data.topPurchasedProductInMonth.forEach((product) => {
+      const li = document.createElement("li");
+      li.classList.add("list-group-item");
+      li.innerHTML = `
+        <div><strong>${product.productName}</strong></div>
+        <div><img src="${product.imageUrl}" alt="${product.productName}" style="width: 100px; height: auto;"></div>
+        <div>Giá: ${product.price.toLocaleString()} VND</div>
+      `;
+      TopProductsList.appendChild(li);
+    });
 
-// Duyệt qua danh sách sản phẩm từ API
-data.topPurchasedProductInMonth.forEach((product) => {
-  // Tạo một phần tử danh sách
-  const li = document.createElement("li");
-  li.classList.add("list-group-item");
+    // Danh sách khách hàng tốt nhất
+    const topCustomersList = document.getElementById("top-customers-list");
+    topCustomersList.innerHTML = "";
+    data.topCustomerInMonth.forEach((customer) => {
+      const li = document.createElement("li");
+      li.classList.add("list-group-item");
+      li.innerHTML = `
+        <div><strong>${customer.fullName}</strong></div>
+        <div>Email: ${customer.email}</div>
+        <div>Số điện thoại: ${customer.phoneNumber}</div>
+        <div>Địa chỉ: ${customer.streetAddress}, ${customer.ward}, ${customer.district}, ${customer.city}, ${customer.address}</div>
+        <div>Tổng chi tiêu: ${customer.totalAmount.toLocaleString()} VND</div>
+      `;
+      topCustomersList.appendChild(li);
+    });
 
-  // Thêm nội dung gồm tên sản phẩm, ảnh và giá
-  li.innerHTML = `
-    <div><strong>${product.productName}</strong></div>
-    <div><img src="${product.imageUrl}" alt="${product.productName}" style="width: 100px; height: auto;"></div>
-    <div>Giá: ${product.price.toLocaleString()} VND</div>
-  `;
-
-  // Thêm vào danh sách
-  TopProductsList.appendChild(li);
-});
-
-    // Cập nhật danh sách top khách hàng trong tháng
-const topCustomersList = document.getElementById("top-customers-list");
-topCustomersList.innerHTML = "";
-
-// Lọc và hiển thị thông tin top khách hàng từ API
-data.topCustomerInMonth.forEach((customer) => {
-  const li = document.createElement("li");
-  li.classList.add("list-group-item");
-  li.innerHTML = `
-    <div><strong>${customer.fullName}</strong></div>
-    <div>Email: ${customer.email}</div>
-    <div>Số điện thoại: ${customer.phoneNumber}</div>
-    <div>Địa chỉ: ${customer.streetAddress}, ${customer.ward}, ${customer.district}, ${customer.city}, ${customer.address}</div>
-    <div>Tổng chi tiêu: ${customer.totalAmount.toLocaleString()} VND</div>
-  `;
-  topCustomersList.appendChild(li);
-});
   } catch (error) {
     console.error("Lỗi khi tải dữ liệu từ API:", error);
   }
 }
 
-
 document.addEventListener("DOMContentLoaded", loadDashboardData);
-
-//   sidebar
-
-const sidebar = document.getElementById('sidebar');
-const wrapper = document.getElementById('wrapper');
-const menuToggle = document.getElementById('menu-toggle');
-
-// nút sidebar
-menuToggle.addEventListener('click', function() {
-  sidebar.classList.toggle('collapsed');
-  // màn di động
-  if (window.innerWidth <= 768) {
-    wrapper.classList.toggle('collapsed');
-  }
-});
-
-//  sidebar
