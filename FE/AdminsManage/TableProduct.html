@@ -8,6 +8,7 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="assets/styles/TableProduct.css">
   </head>
@@ -85,8 +86,16 @@
           <div class="col-md-7" >
             <!-- Nút Thêm Sản phẩm và Chọn Nhà Cung Cấp -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-              <button id="add-product-btn" class="btn btn-primary">Thêm Sản phẩm</button>
-              <button class="btn btn-danger btn-sm" onclick="deleteSelectedProducts()">Xóa</button>
+              <!-- Nút Thêm Sản phẩm (icon dấu cộng) -->
+<button id="add-product-btn" class="btn btn-primary btn-sm" title="Thêm Sản phẩm">
+  <i class="fas fa-plus"></i>
+</button>
+
+<!-- Nút Xóa (icon thùng rác) -->
+<button class="btn btn-danger btn-sm" onclick="deleteSelectedProducts()" title="Xóa đã chọn">
+  <i class="fas fa-trash-alt"></i>
+</button>
+
               <div class="form-group">
                 <h4>Chọn Nhà Cung Cấp</h4>
                 <select id="supplier-select" class="form-select">
@@ -107,7 +116,7 @@
                     <th>Hãng</th>
                     <th>Tồn kho</th>
                     <th>Giá</th>
-                    <th></th>
+                    <th>Xóa</th>
                     <th>Thao tác</th>
                   </tr>
                 </thead>

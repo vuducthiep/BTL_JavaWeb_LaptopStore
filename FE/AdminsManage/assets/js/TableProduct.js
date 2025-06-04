@@ -45,7 +45,10 @@ function displayProductList(products) {
           <input type="checkbox" class="product-checkbox" value="${product.productId}">
         </td>
         <td>
-          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">Sửa</button>
+          <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">
+  <i class="fas fa-edit"></i>
+</button>
+
         </td>
       </tr>
     `;

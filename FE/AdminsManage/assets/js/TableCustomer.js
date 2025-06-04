@@ -44,17 +44,22 @@ function displayCustomerList(customers) {
   let customerHTML = '';
   customers.forEach((customer, index) => {
     customerHTML += `
-      <tr>
-        <td>${index + 1}</td>
-        <td>${customer.fullName}</td>
-        <td>${customer.email}</td>
-        <td>
-          <!-- Nút Sửa -->
-          <button class="btn btn-primary btn-sm" onclick="editCustomer(${customer.customerID})">Sửa</button>
-          <!-- Nút Xóa -->
-          <button class="btn btn-danger btn-sm" onclick="deleteCustomer(${customer.customerID})">Xóa</button>
-        </td>
-      </tr>
+      <tr> 
+<td>${index + 1}</td> 
+<td>${customer.fullName}</td> 
+<td>${customer.email}</td> 
+<td> 
+<!-- Nút Sửa --> 
+<button class="btn btn-sm text-primary" onclick="editCustomer(${customer.customerID})" title="Sửa"> 
+<i class="fas fa-edit"></i> 
+</button> 
+<!-- Nút Xóa --> 
+<button class="btn btn-sm text-danger" onclick="deleteCustomer(${customer.customerID})" title="Xóa"> 
+<i class="fas fa-trash-alt"></i> 
+</button> 
+</td> 
+</tr> 
+
     `;
   });
   customerListDiv.innerHTML = customerHTML;
