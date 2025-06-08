@@ -1,4 +1,5 @@
 let cartDetails = []; // Biến global để lưu trữ dữ liệu
+let orderDataCache = null; // Lưu dữ liệu đơn hàng tạm thời
 
 // Hàm tải dữ liệu từ API
 async function fetchCartDetails() {
@@ -132,11 +133,6 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        const confirmSubmit = confirm("Bạn có chắc chắn muốn gửi đơn hàng không?");
-        if (!confirmSubmit) {
-            return;
-        }
-
         const orderData = {
             customerID: idCustomer,
             orderDate: new Date().toISOString().split("T")[0],
@@ -147,29 +143,60 @@ document.addEventListener("DOMContentLoaded", () => {
             actualDeliveryDate: new Date().toISOString().split("T")[0],
             paymentMethodID: selectedPaymentMethod.value === "card" ? 1 : 2,
             addressID: selectedAddress.value,
-            orderDetails: products, // ở dòng 64
+            orderDetails: products,
         };
 
-        try {
-            const response = await fetch("http://localhost:8080/user/mycart/create-order", {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(orderData),
-            });
+        if (selectedPaymentMethod.value === "card") {
+            orderDataCache = orderData; // Lưu lại để gửi sau
 
-            if (response.ok) {
-                const result = await response.json();
-                alert(result.message || "Đơn hàng đã được gửi thành công!");
-            } else {
-                const error = await response.json();
-                console.error("Lỗi từ API:", error);
-                alert(error.message || "Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại!");
-            }
-        } catch (error) {
-            console.error("Lỗi khi gửi API:", error);
-            alert("Gửi thành công");
+            // Sinh link QR động
+            const qrImg = document.getElementById('qrImage');
+            const qrAmount = totalAmount; // Đã là số, không cần format lại
+            const qrUrl = `https://img.vietqr.io/image/MB-000083680548-compact.png?amount=${qrAmount}&addInfo=Thanh%20toan%20don%20hang%20laptop`;
+            qrImg.src = qrUrl;
+
+            const qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
+            qrModal.show();
+            return; // Không gửi đơn hàng ngay
         }
+
+        const confirmSubmit = confirm("Bạn có chắc chắn muốn gửi đơn hàng không?");
+        if (!confirmSubmit) return;
+        await submitOrder(orderData);
+    });
+
+    // Xử lý nút xác nhận đã chuyển khoản trong modal
+    document.getElementById('confirmTransferBtn').addEventListener('click', async function () {
+        if (!orderDataCache) return;
+        const qrModal = bootstrap.Modal.getInstance(document.getElementById('qrModal'));
+        qrModal.hide();
+        const confirmSubmit = confirm("Bạn đã chuyển khoản thành công và muốn gửi đơn hàng?");
+        if (!confirmSubmit) return;
+        await submitOrder(orderDataCache);
+        orderDataCache = null;
     });
 });
+
+async function submitOrder(orderData) {
+    try {
+        const response = await fetch("http://localhost:8080/user/mycart/create-order", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(orderData),
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            alert(result.message || "Đơn hàng đã được gửi thành công!");
+            // Có thể reload lại trang hoặc chuyển hướng nếu muốn
+        } else {
+            const error = await response.json();
+            alert(error.message || "Có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại!");
+        }
+    } catch (error) {
+        console.error("Lỗi khi gửi API:", error);
+        alert("Không thể gửi đơn hàng. Vui lòng kiểm tra kết nối hoặc thử lại sau.");
+    }
+}

@@ -52,6 +52,7 @@ function displayProducts(products) {
         </div>
         So sánh
       </button>
+      
     `;
     productList.appendChild(productItem);
   });

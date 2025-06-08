@@ -207,6 +207,25 @@
         </div>
     </div>
 
+    <!-- Modal QR Code -->
+<div class="modal fade" id="qrModal" tabindex="-1" aria-labelledby="qrModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title" id="qrModalLabel">Quét mã QR để thanh toán</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+      </div>
+      <div class="modal-body">
+        <img id="qrImage" src="" alt="QR Code" style="width: 300px; max-width: 100%;">
+        <p class="mt-2">Vui lòng chuyển khoản và nhấn "Xác nhận đã chuyển khoản" để hoàn tất đơn hàng.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="confirmTransferBtn" class="btn btn-success">Xác nhận đã chuyển khoản</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <style>
         /* header */
 /* Logo */

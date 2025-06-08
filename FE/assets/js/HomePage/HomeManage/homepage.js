@@ -107,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       So sánh
     </button>
+    
   </div>
 `;
 

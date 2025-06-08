@@ -163,7 +163,8 @@ public class UserController {
     @PutMapping(value = "/user/mycart/create-order")
     public ResponseEntity<?> createOrder(@RequestBody OrderDTO dto){
         orderService.createOrder(dto);
-        return ResponseEntity.ok("Order created successfully");
+        // Trả về JSON object thay vì chuỗi
+        return ResponseEntity.ok(Map.of("message", "Order created successfully"));
     }
 
     //API thêm sản phẩm vào giỏ hàng
