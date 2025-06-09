@@ -121,16 +121,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Hàm sắp xếp và hiển thị sản phẩm
   const sortAndDisplayProducts = () => {
-    let sortedProducts = [...displayedProducts]; // Sắp xếp bản sao của mảng displayedProducts
+    // Lấy danh sách sản phẩm thực tế đang hiển thị (theo offset)
+    let productsToSort =
+      filteredProducts.length > 0
+        ? filteredProducts.slice(0, productOffset)
+        : allProducts.slice(0, productOffset);
+
+    let sortedProducts = [...productsToSort];
     switch (currentSortOption) {
       case "price-asc":
-        sortedProducts.sort((a, b) => a.price - b.price); // Sắp xếp theo giá tăng dần
+        sortedProducts.sort((a, b) => a.price - b.price);
         break;
       case "price-desc":
-        sortedProducts.sort((a, b) => b.price - a.price); // Sắp xếp theo giá giảm dần
+        sortedProducts.sort((a, b) => b.price - a.price);
         break;
       default:
-        break; // Giữ nguyên thứ tự ban đầu nếu không có sắp xếp
+        break;
     }
 
     displayRegularProducts(sortedProducts);
@@ -173,6 +179,12 @@ document.addEventListener("DOMContentLoaded", () => {
   sortOptions.addEventListener("change", (event) => {
     currentSortOption = event.target.value; // Cập nhật lựa chọn sắp xếp hiện tại
     sortAndDisplayProducts(); // Áp dụng sắp xếp mới ngay lập tức
+  });
+
+  // Gắn sự kiện cho select "Sắp xếp theo"
+  document.getElementById("sort-options").addEventListener("change", function (e) {
+    currentSortOption = e.target.value;
+    sortAndDisplayProducts();
   });
 
   // Khởi chạy

@@ -21,73 +21,70 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function displayProductDetails(product) {
     document.getElementById('product-name').textContent = product.productName;
-    document.getElementById('product-name-breadcrumb').textContent = product.productName; // Hiển thị tên trong breadcrumb
+    // document.getElementById('product-name-breadcrumb').textContent = product.productName; // Hiển thị tên trong breadcrumb
     document.getElementById('product-image').src = product.imageUrl;
     document.getElementById('product-status').textContent = "Tình Trạng: Còn hàng"; // Sửa lại id ở đây
     document.getElementById('product-price').textContent = `Giá: ${(product.price).toLocaleString('vi-VN')} VND`;
   }
 
 function displayProductDescriptions(productDescription) {
+    // Thông số nổi bật
     const tableBody = document.querySelector('#highlight-specs tbody');
-    tableBody.innerHTML = '';
+    tableBody.innerHTML = `
+        <tr>
+          <td>Công nghệ CPU</td>
+          <td>${productDescription.cpuCompany}</td>
+        </tr>
+        <tr>
+          <td>Dung lượng RAM</td>
+          <td>${productDescription.ramCapacity} GB</td>
+        </tr>
+        <tr>
+          <td>Card đồ họa</td>
+          <td>${productDescription.vgaFullName}</td>
+        </tr>
+        <tr>
+          <td>Kích thước màn hình</td>
+          <td>${productDescription.screenSize} inch</td>
+        </tr>
+    `;
 
-  // Thêm các thông số vào bảng
-  tableBody.innerHTML += `
-    <tr>
-      <td>Công nghệ CPU</td>
-      <td>${productDescription.cpuCompany}</td>
-    </tr>
-    <tr>
-      <td>Dung lượng RAM</td>
-      <td>${productDescription.ramCapacity} GB</td>
-    </tr>
-    <tr>
-      <td>Card đồ họa</td>
-      <td>${productDescription.vgaFullName}</td>
-    </tr>
-    <tr>
-      <td>Kích thước màn hình</td>
-      <td>${productDescription.screenSize} inch</td>
-    </tr>
-  `;
-    const specsTable = document.getElementById('all-specs');
-            specsTable.innerHTML = ''; // Xóa nội dung cũ
-
-            // Tạo các hàng trong bảng với thông tin sản phẩm
-            specsTable.innerHTML += `
-                <tr class="section-title" data-toggle="cpu">
-                    <td colspan="2" style="font-weight: bold; cursor: pointer;">
-                        Bộ xử lý <span class="arrow" data-direction="down">▼</span>
-                    </td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Hãng CPU</td>
-                    <td>${productDescription.cpuCompany}</td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Công nghệ CPU</td>
-                    <td>${productDescription.cpuTechnology}</td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Loại CPU</td>
-                    <td>${productDescription.cpuType}</td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Tốc độ CPU (tối thiểu)</td>
-                    <td>${productDescription.minimumCPUspeed} GHz</td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Tốc độ CPU (tối đa)</td>
-                    <td>${productDescription.maximunSpeed} GHz</td>
-                </tr>
-                <tr class="cpu hidden">
-                    <td>Nhân CPU</td>
-                    <td>${productDescription.multiplier} GHz</td>
-                </tr>
-                 <tr class="cpu hidden">
-                    <td>Bộ nhớ đệm</td>
-                    <td>${productDescription.processorCache} GHz</td>
-                </tr>
+    // Thông số chi tiết
+    const allSpecsBody = document.querySelector('#all-specs tbody');
+    allSpecsBody.innerHTML = `
+        <tr class="section-title" data-toggle="cpu">
+            <td colspan="2" style="font-weight: bold; cursor: pointer;">
+                Bộ xử lý <span class="arrow" data-direction="down">▼</span>
+            </td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Hãng CPU</td>
+            <td>${productDescription.cpuCompany}</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Công nghệ CPU</td>
+            <td>${productDescription.cpuTechnology}</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Loại CPU</td>
+            <td>${productDescription.cpuType}</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Tốc độ CPU (tối thiểu)</td>
+            <td>${productDescription.minimumCPUspeed} GHz</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Tốc độ CPU (tối đa)</td>
+            <td>${productDescription.maximunSpeed} GHz</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Nhân CPU</td>
+            <td>${productDescription.multiplier}</td>
+        </tr>
+        <tr class="cpu hidden">
+            <td>Bộ nhớ đệm</td>
+            <td>${productDescription.processorCache}</td>
+        </tr>
 
 
 
@@ -450,6 +447,6 @@ function displayProductDescriptions(productDescription) {
               }
           }
       });
-        
+
 
 

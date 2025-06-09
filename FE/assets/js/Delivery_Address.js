@@ -83,11 +83,18 @@ function GetShippingAddress() {
                 </div>
 
                 <div class="box2">
-                  <div class="box-chuc-nang d-flex align-items-center">
-                    <button class="btn btn-success" style="width: 100px; height: 40px;" onclick="openEditModal(${place.addressID}, '${place.address}', '${place.city}', '${place.district}', '${place.ward}', '${place.streetAddress}')">Sửa</button>
-                    <button class="btn btn-warning" style="width: 100px; height: 40px;" onclick="XoaDiaChiNhanHang(${place.addressID})">Xóa</button>
-                  </div>
-                </div>
+  <div class="box-chuc-nang d-flex align-items-center gap-2">
+    <button class="btn btn-success" style="width: 100px; height: 40px;"
+      onclick="openEditModal(${place.addressID}, '${place.address}', '${place.city}', '${place.district}', '${place.ward}', '${place.streetAddress}')">
+      <i class="fas fa-edit"></i> Sửa
+    </button>
+    <button class="btn btn-warning" style="width: 100px; height: 40px;"
+      onclick="XoaDiaChiNhanHang(${place.addressID})">
+      <i class="fas fa-trash-alt"></i> Xóa
+    </button>
+  </div>
+</div>
+
               </div>
             </li>
           `;

@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TableSupplier</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-papNM8ZZGz/N5jQnhNzDdZLZydRbRZ4p2oVvVXDqLMBu+N0RQF3zGbk9mJl4Zl6zW+llzPPWQfms4S9s0YfGJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,8 +20,11 @@
       <!-- Sidebar Menu -->
       <div class="bg-dark text-white" id="sidebar">
         <div class="sidebar-header p-4">
-          <h4>Dashboard</h4>
-        </div>
+  <h4 style="font-family: 'Poppins', sans-serif;">
+    <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+  </h4>
+</div>
+
         <ul class="nav flex-column p-2">
   <li class="nav-item">
     <a class="nav-link text-white" href="Dashboard.html" id="dashboardLink">
@@ -91,10 +96,22 @@
     <div class="row mt-5">
       <div class="col-md-12 ">
         <h3 style="text-align: center;">Danh Sách Nhà Cung Cấp</h3>
-        <button id="open-modal">Thêm Nhà Cung Cấp</button>
-        <button id="delete-mode-btn" class="btn btn-warning" style="padding: 10px 10px;">Xóa nhà cung cấp</button>
-        <button id="delete-selected-btn" class="btn btn-danger" style="display: none;">Xóa các nhà cung cấp đã chọn</button>
-        <button id="toggle-edit-mode" class="btn btn-primary " style="padding: 10px 10px;">Sửa nhà cung cấp</button>
+
+<button id="open-modal" class="btn btn-success">
+  <i class="fas fa-plus-circle"></i> Thêm Nhà Cung Cấp
+</button>
+
+<button id="delete-mode-btn" class="btn btn-warning" style="padding: 10px 10px;">
+  <i class="fas fa-trash-alt"></i> Xóa nhà cung cấp
+</button>
+
+<button id="delete-selected-btn" class="btn btn-danger" style="display: none;">
+  <i class="fas fa-trash"></i> Xóa các nhà cung cấp đã chọn
+</button>
+
+<button id="toggle-edit-mode" class="btn btn-primary" style="padding: 10px 10px;">
+  <i class="fas fa-edit"></i> Sửa nhà cung cấp
+</button>
 
         <!-- Nút mở modal sửa nhà cung cấp -->
         <!-- <button id="edit-supplier-btn" class="btn btn-primary">Sửa nhà cung cấp</button> -->

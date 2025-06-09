@@ -152,7 +152,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Sinh link QR động
             const qrImg = document.getElementById('qrImage');
             const qrAmount = totalAmount; // Đã là số, không cần format lại
-            const qrUrl = `https://img.vietqr.io/image/MB-000083680548-compact.png?amount=${qrAmount}&addInfo=Thanh%20toan%20don%20hang%20laptop`;
+            const qrUrl = `https://img.vietqr.io/image/MB-0000836840548-compact.png?amount=${qrAmount}&addInfo=Thanh%20toan%20don%20hang%20laptop`;
             qrImg.src = qrUrl;
 
             const qrModal = new bootstrap.Modal(document.getElementById('qrModal'));

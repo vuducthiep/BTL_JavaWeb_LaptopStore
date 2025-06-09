@@ -210,7 +210,7 @@ document
 
       // Hàm tải ảnh lên imgBB
       async function uploadImageToImgBB(file) {
-          const apiKey = '34aba8863dffdda79f5a5ffbba4955a0'; // Thay bằng API Key của bạn
+          const apiKey = '34aba8863dffdda79f5a5ffbba4955a0'; // api key
 
           const formData = new FormData();
           formData.append('image', file);
