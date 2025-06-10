@@ -48,7 +48,7 @@ public class ProductRepositoryCustomImpl implements ProductRepositoryCustom {
         String addJoin = " JOIN OrderDetails od ON od.ProductID = p.ProductID Join Orders o on o.OrderID = od.OrderID ";
         StringBuilder query = setQuery(addCount,addJoin);
         query.append(" and MONTH(o.OrderDate) = MONTH(CURDATE())  AND YEAR(o.OrderDate) = YEAR(CURDATE()) " +
-                "    and o.OrderStatus = 'Confirmed' ");
+                "    and o.OrderStatus = 'Pending' ");
         query.append(setQueryGroupBy());
         Query nativeQuery = entityManager.createNativeQuery(query.toString());
         List<Object[]> resultQuery = nativeQuery.getResultList();
