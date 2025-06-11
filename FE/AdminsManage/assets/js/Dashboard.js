@@ -1,3 +1,11 @@
+// Helper tạo gradient cho chart
+function createGradient(ctx, color1, color2) {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+  gradient.addColorStop(0, color1);
+  gradient.addColorStop(1, color2);
+  return gradient;
+}
+
 async function loadDashboardData() {
   try {
     const response = await fetch("http://localhost:8080/admin/dashboard/");
@@ -14,186 +22,185 @@ async function loadDashboardData() {
       `${data.totalAmountInCurrentMonth.toLocaleString()} VND`;
 
     // === BIỂU ĐỒ KHÁCH HÀNG MỚI ===
-    const newCustomerLabels = data.newCustomerPerMonthMap.map(item => `Tháng ${item.month}`);
-    const newCustomerData = data.newCustomerPerMonthMap.map(item => item.customerCount);
-    // Font config
-    Chart.defaults.font.family = "Inter";
-    Chart.defaults.font.size = 14;
-    
-
-// === BIỂU ĐỒ KHÁCH HÀNG MỚI ===
-const ctx1 = document.getElementById("new-customers-chart").getContext("2d");
-new Chart(ctx1, {
-  type: "line",
-  data: {
-    labels: data.newCustomerPerMonthMap.map(item => `Tháng ${item.month}`),
-    datasets: [
-      {
-        label: "Khách hàng mới",
-        data: data.newCustomerPerMonthMap.map(item => item.customerCount),
-        borderColor: "#36A2EB",
-        backgroundColor: "rgba(54, 162, 235, 0.2)",
-        pointBackgroundColor: "#007BFF",
-        fill: true,
-        tension: 0.4,
-        borderWidth: 2,
+    const ctx1 = document.getElementById("new-customers-chart").getContext("2d");
+    const gradient1 = createGradient(ctx1, "#36A2EB", "#B2EBF2");
+    new Chart(ctx1, {
+      type: "line",
+      data: {
+        labels: data.newCustomerPerMonthMap.map(item => `Tháng ${item.month}`),
+        datasets: [
+          {
+            label: "Khách hàng mới",
+            data: data.newCustomerPerMonthMap.map(item => item.customerCount),
+            borderColor: "#1976D2",
+            backgroundColor: gradient1,
+            pointBackgroundColor: "#1976D2",
+            fill: true,
+            tension: 0.4,
+            borderWidth: 3,
+            pointRadius: 6,
+            pointHoverRadius: 9,
+            pointBorderWidth: 2,
+            pointStyle: "circle",
+            shadowOffsetX: 2,
+            shadowOffsetY: 2,
+            shadowBlur: 10,
+            shadowColor: "#1976D2",
+          },
+        ],
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    animation: {
-      duration: 1000,
-      easing: "easeOutBounce",
-    },
-    plugins: {
-      legend: { position: "top" },
-      title: {
-        display: true,
-        text: "Khách hàng mới theo tháng",
-        font: { size: 18, weight: "bold" },
-        padding: { top: 10, bottom: 20 },
-      },
-      tooltip: {
-        backgroundColor: "#ffffff",
-        titleColor: "#333",
-        bodyColor: "#333",
-        borderColor: "#ccc",
-        borderWidth: 1,
-        callbacks: {
-          label: (item) => `${item.raw} khách hàng`,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Khách hàng mới theo tháng",
+            font: { size: 20, weight: "bold" },
+            color: "#1976D2"
+          },
+          tooltip: {
+            backgroundColor: "#fff",
+            titleColor: "#1976D2",
+            bodyColor: "#333",
+            borderColor: "#1976D2",
+            borderWidth: 1,
+            callbacks: {
+              label: (item) => `${item.raw} khách hàng`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#E3F2FD" },
+            ticks: { color: "#1976D2" },
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#E3F2FD" },
+            ticks: { color: "#1976D2" },
+          },
         },
       },
-    },
-    scales: {
-      x: {
-        title: { display: true, text: "Tháng", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-      y: {
-        beginAtZero: true,
-        title: { display: true, text: "Số lượng", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-    },
-  },
-});
+    });
 
-// === BIỂU ĐỒ DOANH THU ===
-const ctx2 = document.getElementById("revenue-chart").getContext("2d");
-new Chart(ctx2, {
-  type: "line",
-  data: {
-    labels: data.totalAmountPerMonthMap.map(item => `Tháng ${item.month}`),
-    datasets: [
-      {
-        label: "Doanh thu (VND)",
-        data: data.totalAmountPerMonthMap.map(item => item.totalAmount),
-        borderColor: "#FF6384",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        pointBackgroundColor: "#FF4D6D",
-        fill: true,
-        tension: 0.4,
-        borderWidth: 2,
+    // === BIỂU ĐỒ DOANH THU ===
+    const ctx2 = document.getElementById("revenue-chart").getContext("2d");
+    const gradient2 = createGradient(ctx2, "#FF6384", "#FFD1DC");
+    new Chart(ctx2, {
+      type: "bar",
+      data: {
+        labels: data.totalAmountPerMonthMap.map(item => `Tháng ${item.month}`),
+        datasets: [
+          {
+            label: "Doanh thu (VND)",
+            data: data.totalAmountPerMonthMap.map(item => item.totalAmount),
+            backgroundColor: gradient2,
+            borderColor: "#FF6384",
+            borderWidth: 2,
+            borderRadius: 12,
+            barPercentage: 0.6,
+            categoryPercentage: 0.7,
+            hoverBackgroundColor: "#FF6384",
+          },
+        ],
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    animation: {
-      duration: 1000,
-      easing: "easeOutBounce",
-    },
-    plugins: {
-      legend: { position: "top" },
-      title: {
-        display: true,
-        text: "Doanh thu theo tháng",
-        font: { size: 18, weight: "bold" },
-        padding: { top: 10, bottom: 20 },
-      },
-      tooltip: {
-        backgroundColor: "#ffffff",
-        titleColor: "#333",
-        bodyColor: "#333",
-        borderColor: "#ccc",
-        borderWidth: 1,
-        callbacks: {
-          label: (item) => `${item.raw.toLocaleString()} VND`,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Doanh thu theo tháng",
+            font: { size: 20, weight: "bold" },
+            color: "#FF6384"
+          },
+          tooltip: {
+            backgroundColor: "#fff",
+            titleColor: "#FF6384",
+            bodyColor: "#333",
+            borderColor: "#FF6384",
+            borderWidth: 1,
+            callbacks: {
+              label: (item) => `${item.raw.toLocaleString()} VND`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#FFE4EC" },
+            ticks: { color: "#FF6384" },
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#FFE4EC" },
+            ticks: { color: "#FF6384" },
+          },
         },
       },
-    },
-    scales: {
-      x: {
-        title: { display: true, text: "Tháng", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-      y: {
-        beginAtZero: true,
-        title: { display: true, text: "", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-    },
-  },
-});
+    });
 
-// === BIỂU ĐỒ SẢN PHẨM BÁN ===
-const ctx3 = document.getElementById("products-sold-chart").getContext("2d");
-new Chart(ctx3, {
-  type: "line",
-  data: {
-    labels: data.totalQuantitySellProductPerMonthMap.map(item => `Tháng ${item.month}`),
-    datasets: [
-      {
-        label: "Sản phẩm bán",
-        data: data.totalQuantitySellProductPerMonthMap.map(item => item.totalSold),
-        borderColor: "#9966FF",
-        backgroundColor: "rgba(153, 102, 255, 0.2)",
-        pointBackgroundColor: "#7E57C2",
-        fill: true,
-        tension: 0.4,
-        borderWidth: 2,
+    // === BIỂU ĐỒ SẢN PHẨM BÁN ===
+    const ctx3 = document.getElementById("products-sold-chart").getContext("2d");
+    const gradient3 = createGradient(ctx3, "#7E57C2", "#E1BEE7");
+    new Chart(ctx3, {
+      type: "bar",
+      data: {
+        labels: data.totalQuantitySellProductPerMonthMap.map(item => `Tháng ${item.month}`),
+        datasets: [
+          {
+            label: "Sản phẩm bán",
+            data: data.totalQuantitySellProductPerMonthMap.map(item => item.totalSold),
+            backgroundColor: gradient3,
+            borderColor: "#7E57C2",
+            borderWidth: 2,
+            borderRadius: 12,
+            barPercentage: 0.6,
+            categoryPercentage: 0.7,
+            hoverBackgroundColor: "#7E57C2",
+          },
+        ],
       },
-    ],
-  },
-  options: {
-    responsive: true,
-    animation: {
-      duration: 1000,
-      easing: "easeOutBounce",
-    },
-    plugins: {
-      legend: { position: "top" },
-      title: {
-        display: true,
-        text: "Số lượng sản phẩm bán theo tháng",
-        font: { size: 18, weight: "bold" },
-        padding: { top: 10, bottom: 20 },
-      },
-      tooltip: {
-        backgroundColor: "#ffffff",
-        titleColor: "#333",
-        bodyColor: "#333",
-        borderColor: "#ccc",
-        borderWidth: 1,
-        callbacks: {
-          label: (item) => `${item.raw} sản phẩm`,
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: "Số lượng sản phẩm bán theo tháng",
+            font: { size: 20, weight: "bold" },
+            color: "#7E57C2"
+          },
+          tooltip: {
+            backgroundColor: "#fff",
+            titleColor: "#7E57C2",
+            bodyColor: "#333",
+            borderColor: "#7E57C2",
+            borderWidth: 1,
+            callbacks: {
+              label: (item) => `${item.raw} sản phẩm`,
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#F3E5F5" },
+            ticks: { color: "#7E57C2" },
+          },
+          y: {
+            beginAtZero: true,
+            title: { display: true, text: "", font: { size: 16 } },
+            grid: { color: "#F3E5F5" },
+            ticks: { color: "#7E57C2" },
+          },
         },
       },
-    },
-    scales: {
-      x: {
-        title: { display: true, text: "Tháng", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-      y: {
-        beginAtZero: true,
-        title: { display: true, text: "Số lượng sản phẩm", font: { size: 14 } },
-        ticks: { color: "#333" },
-      },
-    },
-  },
-});
+    });
 
 
     // Danh sách sản phẩm bán chạy

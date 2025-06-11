@@ -39,31 +39,46 @@ async function fetchCustomerData() {
   }
 }
 
-// Hàm hiển thị danh sách khách hàng
+let allCustomers = []; // Lưu toàn bộ khách hàng để tìm kiếm
+
+// Hàm hiển thị danh sách khách hàng (cập nhật để dùng biến allCustomers)
 function displayCustomerList(customers) {
+  allCustomers = customers; // Lưu lại danh sách gốc để tìm kiếm
+  renderCustomerList(customers);
+}
+
+// Hàm render danh sách khách hàng (dùng cho cả tìm kiếm)
+function renderCustomerList(customers) {
   let customerHTML = '';
   customers.forEach((customer, index) => {
     customerHTML += `
       <tr> 
-<td>${index + 1}</td> 
-<td>${customer.fullName}</td> 
-<td>${customer.email}</td> 
-<td> 
-<!-- Nút Sửa --> 
-<button class="btn btn-sm text-primary" onclick="editCustomer(${customer.customerID})" title="Sửa"> 
-<i class="fas fa-edit"></i> 
-</button> 
-<!-- Nút Xóa --> 
-<button class="btn btn-sm text-danger" onclick="deleteCustomer(${customer.customerID})" title="Xóa"> 
-<i class="fas fa-trash-alt"></i> 
-</button> 
-</td> 
-</tr> 
-
+        <td>${index + 1}</td> 
+        <td>${customer.fullName}</td> 
+        <td>${customer.email}</td> 
+        <td>
+          <button class="btn btn-sm text-primary" onclick="editCustomer(${customer.customerID})" title="Sửa">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-sm text-danger" onclick="deleteCustomer(${customer.customerID})" title="Xóa">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </td>
+      </tr>
     `;
   });
   customerListDiv.innerHTML = customerHTML;
 }
+
+// Sự kiện tìm kiếm khách hàng theo tên hoặc số điện thoại
+document.getElementById('search-customer-input').addEventListener('input', function () {
+  const keyword = this.value.trim().toLowerCase();
+  const filtered = allCustomers.filter(c =>
+    c.fullName.toLowerCase().includes(keyword) ||
+    (c.phoneNumber && c.phoneNumber.toLowerCase().includes(keyword))
+  );
+  renderCustomerList(filtered);
+});
 
 // Hàm xóa khách hàng
 async function deleteCustomer(customerId) {
@@ -292,3 +307,33 @@ document.getElementById('editCustomerForm').addEventListener('submit', function(
 });
 
 }
+
+// Xuất Excel
+document.getElementById('export-excel-btn').addEventListener('click', async function () {
+  try {
+    // Lấy lại dữ liệu khách hàng từ API (hoặc dùng biến đã có nếu muốn)
+    const response = await fetch(apiUrl);
+    const data = await response.json();
+    const customers = data.listCustomer;
+
+    // Chuyển dữ liệu sang định dạng cho SheetJS (BỎ cột Tổng Chi Tiêu)
+    const excelData = customers.map((customer, idx) => ({
+      "STT": idx + 1,
+      "Tên Khách Hàng": customer.fullName,
+      "Email": customer.email,
+      "Số Điện Thoại": customer.phoneNumber || "",
+      "Ngày Đăng Ký": customer.registrationDate ? customer.registrationDate.split('T')[0] : ""
+    }));
+
+    // Tạo worksheet và workbook
+    const ws = XLSX.utils.json_to_sheet(excelData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "DanhSachKhachHang");
+
+    // Xuất file
+    XLSX.writeFile(wb, "DanhSachKhachHang.xlsx");
+  } catch (error) {
+    alert("Có lỗi khi xuất Excel!");
+    console.error(error);
+  }
+});

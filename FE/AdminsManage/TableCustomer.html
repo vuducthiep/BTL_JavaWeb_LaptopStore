@@ -107,8 +107,10 @@
       <div class="col-md-5">
         <h4 class="custom-header">Top 10 Khách Hàng Chi Tiêu Nhiều Nhất</h4>
 
+ 
         <!-- Bảng hiển thị top 10 khách hàng -->
     <table id="top10CustomersTable" class="table table-striped">
+
       <thead>
         <tr>
           <th>STT</th>
@@ -123,8 +125,15 @@
       </div>
   
       <div class="col-md-7">
-        <h4 class="custom-header">Danh Sách Khách Hàng</h4>
-        <button class="btn btn-primary" id="add-customer-btn">+ Thêm Khách Hàng</button>
+  <h4 class="custom-header">Danh Sách Khách Hàng</h4>
+  <div class="d-flex mb-2 align-items-center">
+    <button class="btn btn-primary me-2" id="add-customer-btn">+ Thêm Khách Hàng</button>
+    <button class="btn btn-success me-3" id="export-excel-btn">
+      <i class="fas fa-file-excel"></i> Xuất Excel
+    </button>
+    <!-- Thanh tìm kiếm -->
+    <input type="text" id="search-customer-input" class="form-control" placeholder="Tìm theo tên hoặc SĐT..." style="max-width: 300px;">
+  </div>
                   <!-- Modal Thêm Khách Hàng -->
                   <div class="modal fade" id="addCustomerModal" tabindex="-1" aria-labelledby="addCustomerModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -261,9 +270,24 @@
     </style>
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="assets/js/TableCustomer.js"></script>
     <script src="assets/js/LogOut/Logout.js"></script>
+    <script>
+      const top10 = data.findTopCustomerInMonth
+  .sort((a, b) => b.totalAmount - a.totalAmount)
+  .slice(0, 10);
+
+const excelData = top10.map((customer, idx) => ({
+  "STT": idx + 1,
+  "Tên Khách Hàng": customer.fullName,
+  "Email": customer.email,
+  "Số Điện Thoại": customer.phoneNumber || "",
+  "Tổng Chi Tiêu": (customer.totalAmount !== undefined && customer.totalAmount !== null)
+    ? customer.totalAmount.toLocaleString('vi-VN')
+    : "0"
+}));
+    </script>
 
 
   </body>

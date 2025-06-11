@@ -157,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const qrModal = new bootstrap.Modal(document.getElementById('qrModal'));
             qrModal.show();
-            return; // Không gửi đơn hàng ngay
+            return; 
         }
 
         const confirmSubmit = confirm("Bạn có chắc chắn muốn gửi đơn hàng không?");
