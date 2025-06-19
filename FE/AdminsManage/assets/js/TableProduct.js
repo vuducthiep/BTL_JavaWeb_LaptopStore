@@ -1,4 +1,3 @@
-
 const productApiUrl = 'http://localhost:8080/admin/product/';
 
 
@@ -30,9 +29,15 @@ async function fetchProductData() {
 }
 
 
+let allProducts = []; // Lưu toàn bộ sản phẩm để tìm kiếm
+
 function displayProductList(products) {
+  allProducts = products; // Lưu lại danh sách gốc để tìm kiếm
+  renderProductList(products);
+}
+
+function renderProductList(products) {
   const productHTML = products.map((product, index) => {
-    console.log('Product ID:', product.productId); 
     return `
       <tr>
         <td>${index + 1}</td>
@@ -46,15 +51,12 @@ function displayProductList(products) {
         </td>
         <td>
           <button class="btn btn-primary btn-sm" onclick="editProduct('${product.productId}')">
-  <i class="fas fa-edit"></i>
-</button>
-
+            <i class="fas fa-edit"></i>
+          </button>
         </td>
       </tr>
     `;
   }).join('');
-
-  const productListDiv = document.getElementById('product-list');
   productListDiv.innerHTML = productHTML;
 }
 
@@ -138,3 +140,33 @@ function displayMonthlyProductChart(monthlyData) {
 
 // Gọi hàm fetchProductData khi trang được tải
 fetchProductData();
+
+// Sự kiện tìm kiếm sản phẩm theo tên
+document.getElementById('search-product-input').addEventListener('input', function () {
+  const keyword = this.value.trim().toLowerCase();
+  const filtered = allProducts.filter(p =>
+    p.productName && p.productName.toLowerCase().includes(keyword)
+  );
+  renderProductList(filtered);
+});
+
+// Nút xuất Excel
+document.getElementById('export-product-excel-btn').addEventListener('click', function () {
+  // Sử dụng danh sách đang hiển thị (sau khi lọc)
+  const rows = document.querySelectorAll('#product-list tr');
+  const excelData = Array.from(rows).map((row, idx) => {
+    const cells = row.querySelectorAll('td');
+    return {
+      "STT": cells[0]?.innerText || (idx + 1),
+      "Tên Sản phẩm": cells[1]?.innerText || "",
+      "Hãng": cells[3]?.innerText || "",
+      "Tồn kho": cells[4]?.innerText || "",
+      "Giá": cells[5]?.innerText || ""
+    };
+  });
+
+  const ws = XLSX.utils.json_to_sheet(excelData);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "DanhSachSanPham");
+  XLSX.writeFile(wb, "DanhSachSanPham.xlsx");
+});

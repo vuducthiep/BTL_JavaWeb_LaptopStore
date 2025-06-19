@@ -124,19 +124,25 @@
 
           <!-- Danh sách sản phẩm và các nút Thêm và Combobox Nhà Cung Cấp -->
           <div class="col-md-7" >
-            <!-- Nút Thêm Sản phẩm và Chọn Nhà Cung Cấp -->
-            <div class="d-flex justify-content-between align-items-center mb-4">
-              <!-- Nút Thêm Sản phẩm (icon dấu cộng) -->
-<button id="add-product-btn" class="btn btn-primary btn-sm" title="Thêm Sản phẩm">
-  <i class="fas fa-plus"></i>
-</button>
-
-<!-- Nút Xóa (icon thùng rác) -->
-<button class="btn btn-danger btn-sm" onclick="deleteSelectedProducts()" title="Xóa đã chọn">
-  <i class="fas fa-trash-alt"></i>
-</button>
-
-              <div class="form-group">
+            <!-- Nút Thêm Sản phẩm, Xóa, Xuất Excel, Tìm kiếm, Chọn Nhà Cung Cấp -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+              <div class="d-flex align-items-center mb-2 mb-md-0">
+                <!-- Nút Thêm Sản phẩm (icon dấu cộng) -->
+                <button id="add-product-btn" class="btn btn-primary btn-sm me-2" title="Thêm Sản phẩm">
+                  <i class="fas fa-plus"></i>
+                </button>
+                <!-- Nút Xóa (icon thùng rác) -->
+                <button class="btn btn-danger btn-sm me-2" onclick="deleteSelectedProducts()" title="Xóa đã chọn">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+                <!-- Nút Xuất Excel -->
+                <button class="btn btn-success btn-sm me-2" id="export-product-excel-btn" title="Xuất Excel">
+                  <i class="fas fa-file-excel"></i> Xuất Excel
+                </button>
+                <!-- Thanh tìm kiếm sản phẩm -->
+                <input type="text" id="search-product-input" class="form-control" placeholder="Tìm theo tên sản phẩm..." style="max-width: 250px;">
+              </div>
+              <div class="form-group mb-0">
                 <h4>Chọn Nhà Cung Cấp</h4>
                 <select id="supplier-select" class="form-select">
                   <option value="">Chọn Nhà Cung Cấp</option>
@@ -872,6 +878,8 @@
     <!-- Form xem chi tiết -->
 
 
+    <!-- Thêm thư viện XLSX trước các file js của bạn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/TableProduct.js"></script>
     <script src="FormProduct/Add.js"></script>
@@ -881,7 +889,6 @@
     <link rel="stylesheet" href="FormProduct/Add.css">
     <link rel="stylesheet" href="FormProduct/Edit.css">
     <script src="assets/js/LogOut/Logout.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
   </body>
